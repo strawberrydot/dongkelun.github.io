@@ -182,9 +182,9 @@
 <p>或下载zip再解压</p>
 <h3 id="7-2-编译"><a href="#7-2-编译" class="headerlink" title="7.2 编译"></a>7.2 编译</h3><p>进入到sbteclipse目录下，输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbt compile</span><br></pre></td></tr></table></figure></p>
 <h3 id="7-3-添加全局配置文件"><a href="#7-3-添加全局配置文件" class="headerlink" title="7.3 添加全局配置文件"></a>7.3 添加全局配置文件</h3><p>新建：~/.sbt/1.0/plugins/plugins.sbt（网上好多说是：~/.sbt/0.13/plugins/plugins.sbt，但我两个电脑都不行）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">addSbtPlugin(&quot;com.typesafe.sbteclipse&quot; % &quot;sbteclipse-plugin&quot; % &quot;5.2.4&quot;)</span><br></pre></td></tr></table></figure></p>
-<h3 id="7-4-进入到之前创建的项目ScalaDemo目录下"><a href="#7-4-进入到之前创建的项目ScalaDemo目录下" class="headerlink" title="7.4 进入到之前创建的项目ScalaDemo目录下"></a>7.4 进入到之前创建的项目ScalaDemo目录下</h3><p>添加sbt配置文件build.sbt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">name := &quot;ScalaDemo&quot;</span><br><span class="line"> </span><br><span class="line">version := &quot;1.0&quot;</span><br><span class="line"> </span><br><span class="line">scalaVersion := &quot;2.11.8&quot;</span><br><span class="line"> </span><br><span class="line">javacOptions ++= Seq(&quot;-source&quot;, &quot;1.8&quot;, &quot;-target&quot;, &quot;1.8&quot;)</span><br><span class="line"></span><br><span class="line">libraryDependencies ++= Seq(</span><br><span class="line">&quot;mysql&quot; % &quot;mysql-connector-java&quot; % &quot;5.1.40&quot;</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-4-进入到之前创建的项目ScalaDemo目录下"><a href="#7-4-进入到之前创建的项目ScalaDemo目录下" class="headerlink" title="7.4 进入到之前创建的项目ScalaDemo目录下"></a>7.4 进入到之前创建的项目ScalaDemo目录下</h3><p>添加sbt配置文件build.sbt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">name := &quot;ScalaDemo&quot;</span><br><span class="line"> </span><br><span class="line">version := &quot;1.0&quot;</span><br><span class="line"> </span><br><span class="line">scalaVersion := &quot;2.11.8&quot;</span><br><span class="line"> </span><br><span class="line">javacOptions ++= Seq(&quot;-source&quot;, &quot;1.8&quot;, &quot;-target&quot;, &quot;1.8&quot;)</span><br><span class="line"></span><br><span class="line">libraryDependencies ++= Seq(</span><br><span class="line">&quot;org.apache.spark&quot; %% &quot;spark-core&quot; % &quot;2.2.1&quot;</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
 <p>输入 sbt 然后输入eclipse 等待相关的依赖下载完，就可以在eclipse 看到依赖的jar了</p>
-<p><img src="http://wx3.sinaimg.cn/large/e44344dcly1fpf4iuj9xgj20w305fq2x.jpg" alt=""></p>
+<p><img src="http://wx3.sinaimg.cn/large/e44344dcly1fphuy6qappj212d0ifaai.jpg" alt=""></p>
 
       
 
@@ -729,23 +729,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,6 +738,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
             
             <div class="clearfix"></div>
