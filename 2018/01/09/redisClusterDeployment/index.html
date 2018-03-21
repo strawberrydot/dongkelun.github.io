@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Redis Cluster 安装配置 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="服务器CentOSCentos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致我用的是6个服务器，一个服务器一个端口，便于配置文件的修改 首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)1wget http://download.redis.io/releases/redis-3.0.4.tar.gz 分别上传到每个服务器1scp -r redis-3.0">
+  <meta name="description" content="服务器CentOSCentos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致我用的是6个服务器，一个服务器一个端口，便于配置文件的修改 首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)1wget http://download.redis.io/releases/redis-3.0.4.tar.gz">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis Cluster 安装配置">
 <meta property="og:url" content="http://yoursite.com/2018/01/09/redisClusterDeployment/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="服务器CentOSCentos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致我用的是6个服务器，一个服务器一个端口，便于配置文件的修改 首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)1wget http://download.redis.io/releases/redis-3.0.4.tar.gz 分别上传到每个服务器1scp -r redis-3.0">
+<meta property="og:description" content="服务器CentOSCentos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致我用的是6个服务器，一个服务器一个端口，便于配置文件的修改 首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)1wget http://download.redis.io/releases/redis-3.0.4.tar.gz">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-02-08T01:10:33.676Z">
+<meta property="og:updated_time" content="2018-03-21T07:38:45.858Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis Cluster 安装配置">
-<meta name="twitter:description" content="服务器CentOSCentos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致我用的是6个服务器，一个服务器一个端口，便于配置文件的修改 首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)1wget http://download.redis.io/releases/redis-3.0.4.tar.gz 分别上传到每个服务器1scp -r redis-3.0">
+<meta name="twitter:description" content="服务器CentOSCentos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致我用的是6个服务器，一个服务器一个端口，便于配置文件的修改 首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)1wget http://download.redis.io/releases/redis-3.0.4.tar.gz">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -159,6 +159,7 @@
       
         <h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><p>CentOS<br>Centos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致<br>我用的是6个服务器，一个服务器一个端口，便于配置文件的修改</p>
 <h3 id="首先下载redis3-到本地-需要3以后的版本，我下载的最新的版本-3-0-4"><a href="#首先下载redis3-到本地-需要3以后的版本，我下载的最新的版本-3-0-4" class="headerlink" title="首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)"></a>首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-3.0.4.tar.gz</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="分别上传到每个服务器"><a href="#分别上传到每个服务器" class="headerlink" title="分别上传到每个服务器"></a>分别上传到每个服务器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r redis-3.0.4.tar.gz redis@redis1:~/</span><br></pre></td></tr></table></figure>
 <h3 id="分别在每个服务器上安装-gcc-tcl-ruby-rubygems-gem-redis"><a href="#分别在每个服务器上安装-gcc-tcl-ruby-rubygems-gem-redis" class="headerlink" title="分别在每个服务器上安装 gcc tcl ruby rubygems gem_redis"></a>分别在每个服务器上安装 gcc tcl ruby rubygems gem_redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y install gcc</span><br><span class="line">sudo yum -y install tcl</span><br><span class="line">sudo yum -y install ruby rubygems</span><br><span class="line">sudo gem install redis --version 3.0.4</span><br></pre></td></tr></table></figure>
 <p>(gem_redis如果装不上，可多试几次，若是ubuntu，换源，换成taobao,建议服务器用centOS)</p>
@@ -449,11 +450,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
             
             <div class="clearfix"></div>
