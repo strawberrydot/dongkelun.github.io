@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>ibatis 事务 java | 伦少的博客</title>
+  <title>Spark Sql 连接mysql | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java 代码1234567891011121314151617SqlMapClient client = getSqlMapClient();try &amp;#123;      client.startTransaction();      client.getCurrentConnection().setAutoCommit(false);      client.delete(&quot;order.de">
-<meta name="keywords" content="ibatis,java">
+  <meta name="description" content="1、基本概念和用法（摘自spark官方文档中文版）Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Pyth">
+<meta name="keywords" content="spark,scala">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ibatis 事务 java">
-<meta property="og:url" content="http://yoursite.com/2018/01/22/ibatisTransaction/index.html">
+<meta property="og:title" content="Spark Sql 连接mysql">
+<meta property="og:url" content="http://yoursite.com/2018/03/21/sparkMysql/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="java 代码1234567891011121314151617SqlMapClient client = getSqlMapClient();try &amp;#123;      client.startTransaction();      client.getCurrentConnection().setAutoCommit(false);      client.delete(&quot;order.de">
+<meta property="og:description" content="1、基本概念和用法（摘自spark官方文档中文版）Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Pyth">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-02-08T01:10:09.839Z">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/e44344dcly1fpkgwr1awkj21670nswgz.jpg">
+<meta property="og:updated_time" content="2018-03-21T07:26:16.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ibatis 事务 java">
-<meta name="twitter:description" content="java 代码1234567891011121314151617SqlMapClient client = getSqlMapClient();try &amp;#123;      client.startTransaction();      client.getCurrentConnection().setAutoCommit(false);      client.delete(&quot;order.de">
+<meta name="twitter:title" content="Spark Sql 连接mysql">
+<meta name="twitter:description" content="1、基本概念和用法（摘自spark官方文档中文版）Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Pyth">
+<meta name="twitter:image" content="http://wx4.sinaimg.cn/mw690/e44344dcly1fpkgwr1awkj21670nswgz.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -137,27 +139,63 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ibatisTransaction" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sparkMysql" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      ibatis 事务 java
+      Spark Sql 连接mysql
     </h1>
   
 
         
-        <a href="/2018/01/22/ibatisTransaction/" class="archive-article-date">
-  	<time datetime="2018-01-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-22</time>
+        <a href="/2018/03/21/sparkMysql/" class="archive-article-date">
+  	<time datetime="2018-03-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="java-代码"><a href="#java-代码" class="headerlink" title="java 代码"></a>java 代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">SqlMapClient client = getSqlMapClient();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">      client.startTransaction();</span><br><span class="line">      client.getCurrentConnection().setAutoCommit(<span class="keyword">false</span>);</span><br><span class="line">      client.delete(<span class="string">"order.delete"</span>);</span><br><span class="line">      client.insert(<span class="string">"order.insertResult"</span>);</span><br><span class="line">           </span><br><span class="line">      <span class="comment">//测试异常</span></span><br><span class="line">      System.out.println(<span class="number">1</span>/<span class="number">0</span>);</span><br><span class="line">      client.getCurrentConnection().commit();</span><br><span class="line">      client.commitTransaction();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">           </span><br><span class="line">  &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">   	  client.endTransaction();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="1、基本概念和用法（摘自spark官方文档中文版）"><a href="#1、基本概念和用法（摘自spark官方文档中文版）" class="headerlink" title="1、基本概念和用法（摘自spark官方文档中文版）"></a>1、基本概念和用法（摘自spark官方文档中文版）</h2><p>Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Python 操作。（注意，这与允许其它应用使用 Spark SQL 执行查询操作的 Spark SQL JDBC 服务器是不同的）。</p>
+<p>使用 JDBC 访问特定数据库时，需要在 spark classpath 上添加对应的 JDBC 驱动配置。例如，为了从 Spark Shell 连接 postgres，你需要运行如下命令 :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/spark-shell --driver-class-path postgresql-9.4.1207.jar --jars postgresql-9.4.1207.jar</span><br></pre></td></tr></table></figure></p>
+<p>通过调用数据源API，远程数据库的表可以被加载为DataFrame 或Spark SQL临时表。支持的参数有 : </p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td style="text-align:center">要连接的 JDBC URL。</td>
+</tr>
+<tr>
+<td>dbtable</td>
+<td style="text-align:center">要读取的 JDBC 表。 注意，一个 SQL 查询的 From 分语句中的任何有效表都能被使用。例如，既可以是完整表名，也可以是括号括起来的子查询语句。 </td>
+</tr>
+<tr>
+<td>driver</td>
+<td style="text-align:center">用于连接 URL 的 JDBC 驱动的类名。</td>
+</tr>
+<tr>
+<td>partitionColumn, lowerBound, upperBound, numPartitions</td>
+<td style="text-align:center">这几个选项，若有一个被配置，则必须全部配置。它们描述了当从多个 worker 中并行的读取表时，如何对它分区。partitionColumn 必须时所查询表的一个数值字段。注意，lowerBound 和 upperBound 都只是用于决定分区跨度的，而不是过滤表中的行。因此，表中的所有行将被分区并返回。</td>
+</tr>
+<tr>
+<td>fetchSize</td>
+<td style="text-align:center">JDBC fetch size，决定每次读取多少行数据。 默认将它设为较小值（如，Oracle上设为 10）有助于 JDBC 驱动上的性能优化。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2、scala代码实现连接mysql"><a href="#2、scala代码实现连接mysql" class="headerlink" title="2、scala代码实现连接mysql"></a>2、scala代码实现连接mysql</h2><h3 id="2-1-代码"><a href="#2-1-代码" class="headerlink" title="2.1 代码"></a>2.1 代码</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.sql</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">JdbcDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"JdbcDemo"</span>).master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line">    <span class="keyword">val</span> jdbcDF = spark.read</span><br><span class="line">      .format(<span class="string">"jdbc"</span>)</span><br><span class="line">      .option(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://192.168.44.128:3306/hive"</span>)</span><br><span class="line">      .option(<span class="string">"dbtable"</span>, <span class="string">"DBS"</span>)</span><br><span class="line">      .option(<span class="string">"user"</span>, <span class="string">"root"</span>)</span><br><span class="line">      .option(<span class="string">"password"</span>, <span class="string">"Root-123456"</span>)</span><br><span class="line">      .load()</span><br><span class="line">      </span><br><span class="line">      jdbcDF.show()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2结果"><a href="#2-2结果" class="headerlink" title="2.2结果"></a>2.2结果</h3><p>结果如图：</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/e44344dcly1fpkgwr1awkj21670nswgz.jpg" alt=""></p>
+
       
 
       
@@ -201,11 +239,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ibatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
         		</li>
       		
 		</ul>
@@ -261,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/01/22/ibatisTransaction/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/03/21/sparkMysql/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -275,18 +313,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/01/23/sparkBasicConcept/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          spark基本概念（便于自己随时查阅--摘自Spark快速大数据分析）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/01/17/networkIsUnreachable/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">network is unreachable centos无法连接外网</div>
+    <a href="/2018/03/15/winSparkConf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">win10 spark+scala+eclipse+sbt 安装配置</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -316,7 +345,7 @@
   
 
   
-  <div id="SOHUCS" sid="ibatisTransaction" ></div> 
+  <div id="SOHUCS" sid="sparkMysql" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
