@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>centos7 hive 单机模式安装配置 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考下面文章:Centos 7.2 安装 My">
+  <meta name="description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1 安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考:Centos 7.2 安装 Mysql">
 <meta name="keywords" content="centos,hive">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos7 hive 单机模式安装配置">
 <meta property="og:url" content="http://yoursite.com/2018/03/24/hiveConf/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考下面文章:Centos 7.2 安装 My">
+<meta property="og:description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1 安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考:Centos 7.2 安装 Mysql">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpoejy2vccj20m3047aa6.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpoejygnraj20z206xwf5.jpg">
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fpoemkx2yxj20yu0dkdh6.jpg">
-<meta property="og:updated_time" content="2018-03-24T17:09:08.546Z">
+<meta property="og:updated_time" content="2018-03-25T13:47:12.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 hive 单机模式安装配置">
-<meta name="twitter:description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考下面文章:Centos 7.2 安装 My">
+<meta name="twitter:description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1 安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考:Centos 7.2 安装 Mysql">
 <meta name="twitter:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpoejy2vccj20m3047aa6.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
@@ -172,8 +172,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。</p>
-<h2 id="1、前提"><a href="#1、前提" class="headerlink" title="1、前提"></a>1、前提</h2><h3 id="1-1安装配置jdk1-8"><a href="#1-1安装配置jdk1-8" class="headerlink" title="1.1安装配置jdk1.8"></a>1.1安装配置jdk1.8</h3><h3 id="1-2-安装hadoop2-x"><a href="#1-2-安装hadoop2-x" class="headerlink" title="1.2 安装hadoop2.x"></a>1.2 安装hadoop2.x</h3><p>hadoop单机模式安装见：<a href="http://dongkelun.com/2018/03/23/hadoopConf/" target="_blank" rel="noopener">centos7 hadoop 单机模式安装配置</a></p>
-<h3 id="1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。"><a href="#1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。" class="headerlink" title="1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。"></a>1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。</h3><p>mysql数据库安装过程请参考下面文章:<br><a href="https://blog.csdn.net/lochy/article/details/51721319" target="_blank" rel="noopener">Centos 7.2 安装 Mysql 5.7.13</a></p>
+<h2 id="1、前提"><a href="#1、前提" class="headerlink" title="1、前提"></a>1、前提</h2><h3 id="1-1-安装配置jdk1-8"><a href="#1-1-安装配置jdk1-8" class="headerlink" title="1.1 安装配置jdk1.8"></a>1.1 安装配置jdk1.8</h3><h3 id="1-2-安装hadoop2-x"><a href="#1-2-安装hadoop2-x" class="headerlink" title="1.2 安装hadoop2.x"></a>1.2 安装hadoop2.x</h3><p>hadoop单机模式安装见：<a href="http://dongkelun.com/2018/03/23/hadoopConf/" target="_blank" rel="noopener">centos7 hadoop 单机模式安装配置</a></p>
+<h3 id="1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。"><a href="#1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。" class="headerlink" title="1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。"></a>1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。</h3><p>mysql数据库安装过程请参考:<a href="https://blog.csdn.net/lochy/article/details/51721319" target="_blank" rel="noopener">Centos 7.2 安装 Mysql 5.7.13</a></p>
 <h2 id="2、下载hive"><a href="#2、下载hive" class="headerlink" title="2、下载hive"></a>2、下载hive</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hive/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hive/</a>，我下载的是apache-hive-2.3.2-bin.tar.gz。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.bit.edu.cn/apache/hive/hive-2.3.2/apache-hive-2.3.2-bin.tar.gz</span><br><span class="line">或者下载到本地，通过工具上传到虚拟机中</span><br></pre></td></tr></table></figure></p>
 <h2 id="3、解压到-opt目录下（目录根据自己习惯）"><a href="#3、解压到-opt目录下（目录根据自己习惯）" class="headerlink" title="3、解压到/opt目录下（目录根据自己习惯）"></a>3、解压到/opt目录下（目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-hive-2.3.2-bin.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -189,7 +189,7 @@
 <h2 id="7、初始化数据库"><a href="#7、初始化数据库" class="headerlink" title="7、初始化数据库"></a>7、初始化数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schematool -initSchema -dbType mysql</span><br></pre></td></tr></table></figure>
 <h2 id="8、启动hive"><a href="#8、启动hive" class="headerlink" title="8、启动hive"></a>8、启动hive</h2><p>启动hive之前先启动hadoop,不然会报Connection refused异常，在命令行jps看一下hadoop是否启动成功然后启动hive<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive</span><br></pre></td></tr></table></figure></p>
 <p>然后简单的测试:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure></p>
-<p>出现如下图所示及代表配置成功！<br><img src="http://wx2.sinaimg.cn/large/e44344dcly1fpoejygnraj20z206xwf5.jpg" alt=""></p>
+<p>出现如下图所示即代表配置成功！<br><img src="http://wx2.sinaimg.cn/large/e44344dcly1fpoejygnraj20z206xwf5.jpg" alt=""></p>
 <h2 id="9、简单的hive语句测试"><a href="#9、简单的hive语句测试" class="headerlink" title="9、简单的hive语句测试"></a>9、简单的hive语句测试</h2><p>建表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS test (id INT,name STRING)ROW FORMAT DELIMITED FIELDS TERMINATED BY &quot; &quot; LINES TERMINATED BY &quot;\n&quot;;</span><br></pre></td></tr></table></figure></p>
 <p>插入数据</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into <span class="built_in">test</span> values(1,<span class="string">'张三'</span>);</span><br></pre></td></tr></table></figure>
@@ -313,6 +313,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/03/25/sparkHive/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          spark连接hive（spark-shell和eclipse两种方式）
+        
+      </div>
+    </a>
   
   
     <a href="/2018/03/23/hadoopConf/" id="article-nav-older" class="article-nav-link-wrap">
@@ -485,15 +494,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,7 +562,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://dongkelun.com" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="http://cwiki.apachecn.org/pages/viewpage.action?pageId=2883613" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>spark中文官方文档</a>
             </li>
           
             <li class="search-li">
