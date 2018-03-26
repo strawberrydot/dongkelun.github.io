@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>spark连接hive（spark-shell和eclipse两种方式） | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、在服务器（虚拟机）spark-shell连接hive1.1 将hive-site.xml拷贝到sprk/conf里1cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/ 1.2 将mysql驱动拷贝到spark/jar里1cp /opt/apache-hive-2.3.2-bi">
+  <meta name="description" content="1、在服务器（虚拟机）spark-shell连接hive1.1 将hive-site.xml拷贝到spark/conf里1cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/ 1.2 将mysql驱动拷贝到spark/jar里1cp /opt/apache-hive-2.3.2-b">
 <meta name="keywords" content="hive,spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spark连接hive（spark-shell和eclipse两种方式）">
 <meta property="og:url" content="http://yoursite.com/2018/03/25/sparkHive/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="1、在服务器（虚拟机）spark-shell连接hive1.1 将hive-site.xml拷贝到sprk/conf里1cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/ 1.2 将mysql驱动拷贝到spark/jar里1cp /opt/apache-hive-2.3.2-bi">
+<meta property="og:description" content="1、在服务器（虚拟机）spark-shell连接hive1.1 将hive-site.xml拷贝到spark/conf里1cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/ 1.2 将mysql驱动拷贝到spark/jar里1cp /opt/apache-hive-2.3.2-b">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fppeb3vf40j20ul0drdgo.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/e44344dcly1fppeb4oknzj216f0iitbo.jpg">
@@ -22,10 +22,10 @@
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/e44344dcly1fppeb5rn46j21190p1whd.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fppeb6c7x3j21200oo776.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fppeb6ve59j218o0n043y.jpg">
-<meta property="og:updated_time" content="2018-03-25T13:52:16.243Z">
+<meta property="og:updated_time" content="2018-03-26T01:47:49.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark连接hive（spark-shell和eclipse两种方式）">
-<meta name="twitter:description" content="1、在服务器（虚拟机）spark-shell连接hive1.1 将hive-site.xml拷贝到sprk/conf里1cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/ 1.2 将mysql驱动拷贝到spark/jar里1cp /opt/apache-hive-2.3.2-bi">
+<meta name="twitter:description" content="1、在服务器（虚拟机）spark-shell连接hive1.1 将hive-site.xml拷贝到spark/conf里1cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/ 1.2 将mysql驱动拷贝到spark/jar里1cp /opt/apache-hive-2.3.2-b">
 <meta name="twitter:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fppeb3vf40j20ul0drdgo.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
@@ -174,7 +174,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1、在服务器（虚拟机）spark-shell连接hive"><a href="#1、在服务器（虚拟机）spark-shell连接hive" class="headerlink" title="1、在服务器（虚拟机）spark-shell连接hive"></a>1、在服务器（虚拟机）spark-shell连接hive</h2><h3 id="1-1-将hive-site-xml拷贝到sprk-conf里"><a href="#1-1-将hive-site-xml拷贝到sprk-conf里" class="headerlink" title="1.1 将hive-site.xml拷贝到sprk/conf里"></a>1.1 将hive-site.xml拷贝到sprk/conf里</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/</span><br></pre></td></tr></table></figure>
+        <h2 id="1、在服务器（虚拟机）spark-shell连接hive"><a href="#1、在服务器（虚拟机）spark-shell连接hive" class="headerlink" title="1、在服务器（虚拟机）spark-shell连接hive"></a>1、在服务器（虚拟机）spark-shell连接hive</h2><h3 id="1-1-将hive-site-xml拷贝到spark-conf里"><a href="#1-1-将hive-site-xml拷贝到spark-conf里" class="headerlink" title="1.1 将hive-site.xml拷贝到spark/conf里"></a>1.1 将hive-site.xml拷贝到spark/conf里</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/</span><br></pre></td></tr></table></figure>
 <h3 id="1-2-将mysql驱动拷贝到spark-jar里"><a href="#1-2-将mysql驱动拷贝到spark-jar里" class="headerlink" title="1.2 将mysql驱动拷贝到spark/jar里"></a>1.2 将mysql驱动拷贝到spark/jar里</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/apache-hive-2.3.2-bin/bin/mysql-connector-java-5.1.46-bin.jar /opt/spark-2.2.1-bin-hadoop2.7/jars/</span><br></pre></td></tr></table></figure>
 <h3 id="1-3-启动spark-shell-输入代码测试"><a href="#1-3-启动spark-shell-输入代码测试" class="headerlink" title="1.3 启动spark-shell,输入代码测试"></a>1.3 启动spark-shell,输入代码测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spark-shell</span><br><span class="line">import org.apache.spark.sql.hive.HiveContext</span><br><span class="line">val hiveContext = new HiveContext(sc)</span><br><span class="line">hiveContext.sql(<span class="string">"select * from test"</span>).show()</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -462,14 +462,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
@@ -478,7 +470,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,19 +478,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
             
             <div class="clearfix"></div>
