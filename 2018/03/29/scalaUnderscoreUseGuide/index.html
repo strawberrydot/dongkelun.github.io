@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="原文地址：https://my.oschina.net/joymufeng/blog/863823  &amp;emsp;&amp;emsp;作者：joymufeng下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。 1、用于替换Java的等价语法由于大部分的Java">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-03-29T14:00:17.661Z">
+<meta property="og:updated_time" content="2018-03-29T14:02:47.973Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="下划线使用指南">
 <meta name="twitter:description" content="原文地址：https://my.oschina.net/joymufeng/blog/863823  &amp;emsp;&amp;emsp;作者：joymufeng下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。 1、用于替换Java的等价语法由于大部分的Java">
@@ -193,6 +193,7 @@
         <p>原文地址：<a href="https://my.oschina.net/joymufeng/blog/863823" target="_blank" rel="noopener">https://my.oschina.net/joymufeng/blog/863823</a>  &emsp;&emsp;作者：<a href="https://my.oschina.net/joymufeng/home" target="_blank" rel="noopener">joymufeng</a><br>下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。</p>
 <h2 id="1、用于替换Java的等价语法"><a href="#1、用于替换Java的等价语法" class="headerlink" title="1、用于替换Java的等价语法"></a>1、用于替换Java的等价语法</h2><p>由于大部分的Java关键字在Scala中拥有了新的含义，所以一些基本的语法在Scala中稍有变化。</p>
 <h3 id="1-1-导入通配符"><a href="#1-1-导入通配符" class="headerlink" title="1.1 导入通配符"></a>1.1 导入通配符</h3><p>*在Scala中是合法的方法名，所以导入包时要使用_代替。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Scala</span></span><br><span class="line"><span class="keyword">import</span> java.util._</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h3 id="1-2-类成员默认值"><a href="#1-2-类成员默认值" class="headerlink" title="1.2 类成员默认值"></a>1.2 类成员默认值</h3><p>Java中类成员可以不赋初始值，编译器会自动帮你设置一个合适的初始值：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</span><br><span class="line">     <span class="comment">//String类型的默认值为null</span></span><br><span class="line">     <span class="type">String</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>而在Scala中必须要显式指定，如果你比较懒，可以用_让编译器自动帮你设置初始值：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</span><br><span class="line">    <span class="comment">//String类型的默认值为null</span></span><br><span class="line">    <span class="keyword">var</span> s: <span class="type">String</span> = _</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>该语法只适用于类成员，而不适用于局部变量。</p>
@@ -521,15 +522,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
