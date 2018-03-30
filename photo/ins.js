@@ -111,6 +111,9 @@
       }
     };
     var render = function render(res) {
+		
+	  var offsetWidth = document.body.offsetWidth;
+	  var width = 327.47/(1920-372)*(offsetWidth-372)		
       var ulTmpl = "";
       for (var j = 0, len2 = res.list.length; j < len2; j++) {
         var data = res.list[j].arr;
@@ -124,9 +127,9 @@
           var target = src + (type === 'video' ? '.mp4' : '.jpg');
           //src += '.jpg';
 
-          liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
+          liTmpl += '<figure class="thumb" style="width='+width+'px" height="'+width+'px" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
                 <a href="' + src + '" itemprop="contentUrl" data-size="640x640" data-type="' + type + '" data-target="' + target + '">\
-                  <img class="reward-img" data-type="' + type + '" data-src="' + minSrc + '" src="/img/empty.png" itemprop="thumbnail" onload="lzld(this)">\
+                  <img class="reward-img" style="width='+width+'px" height="'+width+'px" data-type="' + type + '" data-src="' + minSrc + '" src="/img/empty.png" itemprop="thumbnail" onload="lzld(this)">\
                 </a>\
                 <figcaption style="display:none" itemprop="caption description">' + data.text[i] + '</figcaption>\
             </figure>';
@@ -372,6 +375,7 @@
             w: parseInt(size[0], 10),
             h: parseInt(size[1], 10)
           };
+		  
 
           if (figureEl.children.length > 1) {
             item.title = figureEl.children[1].innerHTML;
@@ -553,6 +557,7 @@
             $video.setAttribute('src', item.target);
             $video.style.width = style.width;
             $video.style.height = style.height;
+			console.log(style.width);
             $video.style.position = 'absolute';
             $video.style.zIndex = 2;
             $tempVideo = $video;
