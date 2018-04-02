@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="1、先看一下map自带的合并操作的效果1234val map1 = Map(&quot;key1&quot; -&amp;gt; 1, &quot;key2&quot; -&amp;gt; 3, &quot;key3&quot; -&amp;gt; 5)val map2 = Map(&quot;key2&quot; -&amp;gt; 4, &quot;key3&quot; -&amp;gt; 6, &quot;key5&quot; -&amp;gt; 10)println(map1 + (&quot;key1&quot; -&amp;gt; 3))println(map1 ++ map2">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-04-02T07:38:22.575Z">
+<meta property="og:updated_time" content="2018-04-02T08:48:28.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scala 两个map合并，key相同时value相加">
 <meta name="twitter:description" content="1、先看一下map自带的合并操作的效果1234val map1 = Map(&quot;key1&quot; -&amp;gt; 1, &quot;key2&quot; -&amp;gt; 3, &quot;key3&quot; -&amp;gt; 5)val map2 = Map(&quot;key2&quot; -&amp;gt; 4, &quot;key3&quot; -&amp;gt; 6, &quot;key5&quot; -&amp;gt; 10)println(map1 + (&quot;key1&quot; -&amp;gt; 3))println(map1 ++ map2">
@@ -194,7 +194,7 @@
       
         <h2 id="1、先看一下map自带的合并操作的效果"><a href="#1、先看一下map自带的合并操作的效果" class="headerlink" title="1、先看一下map自带的合并操作的效果"></a>1、先看一下map自带的合并操作的效果</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map1 = <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">3</span>, <span class="string">"key3"</span> -&gt; <span class="number">5</span>)</span><br><span class="line"><span class="keyword">val</span> map2 = <span class="type">Map</span>(<span class="string">"key2"</span> -&gt; <span class="number">4</span>, <span class="string">"key3"</span> -&gt; <span class="number">6</span>, <span class="string">"key5"</span> -&gt; <span class="number">10</span>)</span><br><span class="line">println(map1 + (<span class="string">"key1"</span> -&gt; <span class="number">3</span>))</span><br><span class="line">println(map1 ++ map2)</span><br></pre></td></tr></table></figure>
 <p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map(key1 -&gt; 3, key2 -&gt; 3, key3 -&gt; 5)</span><br><span class="line">Map(key1 -&gt; 1, key2 -&gt; 4, key3 -&gt; 6, key5 -&gt; 10)</span><br></pre></td></tr></table></figure></p>
-<p>可以看到现有的方法在key相同，没有将value相加，而是操作符右边的值把左边的值覆盖掉了。<br><a id="more"></a></p>
+<p>可以看到现有的方法在key相同时，没有将value相加，而是操作符右边的值把左边的值覆盖掉了。<br><a id="more"></a></p>
 <h2 id="2、利用map函数"><a href="#2、利用map函数" class="headerlink" title="2、利用map函数"></a>2、利用map函数</h2><h3 id="2-1-为了便于理解先看如下代码"><a href="#2-1-为了便于理解先看如下代码" class="headerlink" title="2.1 为了便于理解先看如下代码"></a>2.1 为了便于理解先看如下代码</h3><p>代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map1 = <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">3</span>, <span class="string">"key3"</span> -&gt; <span class="number">5</span>)</span><br><span class="line">map1.map &#123; t =&gt; println(t._1, t._2) &#125;</span><br></pre></td></tr></table></figure></p>
 <p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(key1,1)</span><br><span class="line">(key2,3)</span><br><span class="line">(key3,5)</span><br></pre></td></tr></table></figure></p>
 <p>可以看出map函数会遍历集合中的每个元素<br>可以为其指定返回结果：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(map1.map &#123; t =&gt; <span class="number">2</span> &#125;)</span><br><span class="line">println(map1.map &#123; t =&gt; t._1 -&gt; t._2 &#125;)</span><br></pre></td></tr></table></figure></p>
@@ -531,11 +531,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
