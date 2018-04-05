@@ -18,13 +18,13 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fq263swsiaj20x506m0ta.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/e44344dcly1fq263te315j20ms034t8u.jpg">
-<meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fq263ujgluj21en0mrt9s.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fq263tw8s6j21aw0s4tb1.jpg">
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fpnoev27ouj217a0didgl.jpg">
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fq263v33xrj21gr0e540x.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/e44344dcly1fq263vg3qnj20g602a3yd.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fq263wn8q9j20ld01v744.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fq263w3pe3j20hr01tjr7.jpg">
-<meta property="og:updated_time" content="2018-04-05T15:37:40.599Z">
+<meta property="og:updated_time" content="2018-04-05T15:40:43.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 hadoop 集群安装配置">
 <meta name="twitter:description" content="前言：本文安装配置的hadoop为分布式的集群，单机配置见：centos7 hadoop 单机模式安装配置我用的三个centos7, 先将常用环境配置好（CentOS 初始环境配置），设置的ip分别为：192.168.44.138、192.168.44.139，192.168.44.140，分别对应别名master、slave1、slave2 1、首先安装配置jdk（我安装的1.8）2、给每个虚拟">
@@ -252,7 +252,7 @@
 <p>停止：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sbin/stop-dfs.sh</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://wx3.sinaimg.cn/large/e44344dcly1fq263te315j20ms034t8u.jpg" alt=""></p>
 <p>验证，浏览器输入：<a href="http://192.168.44.138:50070" target="_blank" rel="noopener">http://192.168.44.138:50070</a></p>
-<p><img src="http://wx4.sinaimg.cn/large/e44344dcly1fq263ujgluj21en0mrt9s.jpg" alt=""></p>
+<p><img src="http://wx1.sinaimg.cn/large/e44344dcly1fq263tw8s6j21aw0s4tb1.jpg" alt=""></p>
 <p>简单的验证hadoop命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir /<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>在浏览器查看，出现如下图所示，即为成功<br><img src="http://wx1.sinaimg.cn/large/e44344dcly1fpnoev27ouj217a0didgl.jpg" alt=""></p>
 <h3 id="7-2-yarn启动与停止"><a href="#7-2-yarn启动与停止" class="headerlink" title="7.2 yarn启动与停止"></a>7.2 yarn启动与停止</h3><p>启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop-2.7.5</span><br><span class="line">./sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></p>
@@ -567,10 +567,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -579,11 +575,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,6 +588,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
