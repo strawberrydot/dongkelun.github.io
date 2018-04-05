@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
+    
+    <lastmod>2018-04-05T14:55:43.658Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dongkelun.com/2018/03/23/hadoopConf/</loc>
+    
+    <lastmod>2018-04-05T13:50:13.955Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://dongkelun.com/2018/04/05/sshConf/</loc>
+    
+    <lastmod>2018-04-05T13:37:05.315Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://dongkelun.com/2018/04/05/centosInitialConf/</loc>
     
     <lastmod>2018-04-05T03:38:33.540Z</lastmod>
@@ -61,13 +82,6 @@
     <loc>http://dongkelun.com/2018/03/25/sparkHive/</loc>
     
     <lastmod>2018-03-26T01:47:49.867Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://dongkelun.com/2018/03/23/hadoopConf/</loc>
-    
-    <lastmod>2018-03-25T11:06:07.206Z</lastmod>
     
   </url>
   
