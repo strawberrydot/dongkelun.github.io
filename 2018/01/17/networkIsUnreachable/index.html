@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://dongkelun.com">
   <title>network is unreachable centos无法连接外网（或unknown host baidu.com） | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##前言在虚拟机上新装的系统可能ping不通外网出现如标题所示错误。 1、执行以下命令即可（临时添加网关）1sudo route add default gw 192.168.44.2">
+  <meta name="description" content="前言在虚拟机上新装的系统设置固定ip、重启系统之后，可能ping不通外网，出现如标题所示错误。 1、执行以下命令即可（临时添加网关）1sudo route add default gw 192.168.44.2">
 <meta name="keywords" content="centos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="network is unreachable centos无法连接外网（或unknown host baidu.com）">
 <meta property="og:url" content="http://dongkelun.com/2018/01/17/networkIsUnreachable/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="##前言在虚拟机上新装的系统可能ping不通外网出现如标题所示错误。 1、执行以下命令即可（临时添加网关）1sudo route add default gw 192.168.44.2">
+<meta property="og:description" content="前言在虚拟机上新装的系统设置固定ip、重启系统之后，可能ping不通外网，出现如标题所示错误。 1、执行以下命令即可（临时添加网关）1sudo route add default gw 192.168.44.2">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-04-05T03:35:26.765Z">
+<meta property="og:updated_time" content="2018-04-06T02:11:03.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="network is unreachable centos无法连接外网（或unknown host baidu.com）">
-<meta name="twitter:description" content="##前言在虚拟机上新装的系统可能ping不通外网出现如标题所示错误。 1、执行以下命令即可（临时添加网关）1sudo route add default gw 192.168.44.2">
+<meta name="twitter:description" content="前言在虚拟机上新装的系统设置固定ip、重启系统之后，可能ping不通外网，出现如标题所示错误。 1、执行以下命令即可（临时添加网关）1sudo route add default gw 192.168.44.2">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -208,7 +208,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##前言<br>在虚拟机上新装的系统可能ping不通外网出现如标题所示错误。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在虚拟机上新装的系统设置固定ip、重启系统之后，可能ping不通外网，出现如标题所示错误。</p>
 <h2 id="1、执行以下命令即可（临时添加网关）"><a href="#1、执行以下命令即可（临时添加网关）" class="headerlink" title="1、执行以下命令即可（临时添加网关）"></a>1、执行以下命令即可（临时添加网关）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo route add default gw 192.168.44.2</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="2、永久性修改网关"><a href="#2、永久性修改网关" class="headerlink" title="2、永久性修改网关"></a>2、永久性修改网关</h2><h3 id="2-1-修改配置文件"><a href="#2-1-修改配置文件" class="headerlink" title="2.1 修改配置文件"></a>2.1 修改配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/network</span><br></pre></td></tr></table></figure>
@@ -352,7 +352,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、执行以下命令即可（临时添加网关）"><span class="toc-number">1.</span> <span class="toc-text">1、执行以下命令即可（临时添加网关）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、永久性修改网关"><span class="toc-number">2.</span> <span class="toc-text">2、永久性修改网关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-修改配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-重启网卡"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 重启网卡</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、执行以下命令即可（临时添加网关）"><span class="toc-number">2.</span> <span class="toc-text">1、执行以下命令即可（临时添加网关）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、永久性修改网关"><span class="toc-number">3.</span> <span class="toc-text">2、永久性修改网关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-修改配置文件"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-重启网卡"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 重启网卡</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -516,15 +516,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">

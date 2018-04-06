@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
-    <lastmod>2018-04-05T15:42:13.766Z</lastmod>
+    <lastmod>2018-04-06T02:11:21.479Z</lastmod>
     <data>
         <display>
         <title>centos7 hadoop 集群安装配置</title>
@@ -23,8 +23,25 @@
 
     
   <url>
+    <loc>http://dongkelun.com/2018/01/17/networkIsUnreachable/</loc>
+    <lastmod>2018-04-06T02:11:03.032Z</lastmod>
+    <data>
+        <display>
+        <title>network is unreachable centos无法连接外网（或unknown host baidu.com）</title>
+        <pubTime>2018-01-16T16:00:00.000Z</pubTime>
+        
+        <tag>centos</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://dongkelun.com/2018/03/23/hadoopConf/</loc>
-    <lastmod>2018-04-05T13:50:13.955Z</lastmod>
+    <lastmod>2018-04-05T15:49:05.867Z</lastmod>
     <data>
         <display>
         <title>centos7 hadoop 单机模式安装配置</title>
@@ -43,7 +60,7 @@
     
   <url>
     <loc>http://dongkelun.com/2018/04/05/sshConf/</loc>
-    <lastmod>2018-04-05T13:37:05.315Z</lastmod>
+    <lastmod>2018-04-05T15:48:13.258Z</lastmod>
     <data>
         <display>
         <title>linux ssh 免密登录</title>
@@ -65,23 +82,6 @@
         <display>
         <title>CentOS 初始环境配置</title>
         <pubTime>2018-04-04T16:00:00.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://dongkelun.com/2018/01/17/networkIsUnreachable/</loc>
-    <lastmod>2018-04-05T03:35:26.765Z</lastmod>
-    <data>
-        <display>
-        <title>network is unreachable centos无法连接外网（或unknown host baidu.com）</title>
-        <pubTime>2018-01-16T16:00:00.000Z</pubTime>
         
         <tag>centos</tag>
          
