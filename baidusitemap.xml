@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://dongkelun.com/2018/01/16/vmwareSetFixIP/</loc>
+    <lastmod>2018-04-06T02:16:37.011Z</lastmod>
+    <data>
+        <display>
+        <title>vmware centos7 设置固定ip</title>
+        <pubTime>2018-01-15T16:00:00.000Z</pubTime>
+        
+        <tag>vmware</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
     <lastmod>2018-04-06T02:11:21.479Z</lastmod>
     <data>
@@ -40,6 +57,23 @@
 
     
   <url>
+    <loc>http://dongkelun.com/2018/04/05/sshConf/</loc>
+    <lastmod>2018-04-05T16:02:49.627Z</lastmod>
+    <data>
+        <display>
+        <title>linux ssh 免密登录</title>
+        <pubTime>2018-04-04T16:00:00.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://dongkelun.com/2018/03/23/hadoopConf/</loc>
     <lastmod>2018-04-05T15:49:05.867Z</lastmod>
     <data>
@@ -50,23 +84,6 @@
         <tag>centos</tag>
          
         <tag>hadoop</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://dongkelun.com/2018/04/05/sshConf/</loc>
-    <lastmod>2018-04-05T15:48:13.258Z</lastmod>
-    <data>
-        <display>
-        <title>linux ssh 免密登录</title>
-        <pubTime>2018-04-04T16:00:00.000Z</pubTime>
-        
-        <tag>linux</tag>
          
          
            
@@ -218,23 +235,6 @@
         <pubTime>2018-03-21T16:00:00.000Z</pubTime>
         
         <tag>mysql</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://dongkelun.com/2018/01/16/vmwareSetFixIP/</loc>
-    <lastmod>2018-03-21T07:41:16.972Z</lastmod>
-    <data>
-        <display>
-        <title>vmware centos7 设置固定ip</title>
-        <pubTime>2018-01-15T16:00:00.000Z</pubTime>
-        
-        <tag>vmware</tag>
          
          
            
