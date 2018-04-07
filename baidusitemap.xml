@@ -4,7 +4,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/03/25/sparkHive/</loc>
+    <loc>http://www.dongkelun.com/2018/03/25/sparkHive/</loc>
     <lastmod>2018-04-06T11:50:39.469Z</lastmod>
     <data>
         <display>
@@ -23,7 +23,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
+    <loc>http://www.dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
     <lastmod>2018-04-06T06:06:16.496Z</lastmod>
     <data>
         <display>
@@ -42,7 +42,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/01/16/vmwareSetFixIP/</loc>
+    <loc>http://www.dongkelun.com/2018/01/16/vmwareSetFixIP/</loc>
     <lastmod>2018-04-06T02:16:37.011Z</lastmod>
     <data>
         <display>
@@ -59,7 +59,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/01/17/networkIsUnreachable/</loc>
+    <loc>http://www.dongkelun.com/2018/01/17/networkIsUnreachable/</loc>
     <lastmod>2018-04-06T02:11:03.032Z</lastmod>
     <data>
         <display>
@@ -76,7 +76,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/04/05/sshConf/</loc>
+    <loc>http://www.dongkelun.com/2018/04/05/sshConf/</loc>
     <lastmod>2018-04-05T16:02:49.627Z</lastmod>
     <data>
         <display>
@@ -93,7 +93,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/03/23/hadoopConf/</loc>
+    <loc>http://www.dongkelun.com/2018/03/23/hadoopConf/</loc>
     <lastmod>2018-04-05T15:49:05.867Z</lastmod>
     <data>
         <display>
@@ -112,7 +112,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/04/05/centosInitialConf/</loc>
+    <loc>http://www.dongkelun.com/2018/04/05/centosInitialConf/</loc>
     <lastmod>2018-04-05T03:38:33.540Z</lastmod>
     <data>
         <display>
@@ -129,7 +129,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/04/01/scalaMapAdd/</loc>
+    <loc>http://www.dongkelun.com/2018/04/01/scalaMapAdd/</loc>
     <lastmod>2018-04-02T08:48:28.500Z</lastmod>
     <data>
         <display>
@@ -146,16 +146,16 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/03/29/scalaUnderscoreUseGuide/</loc>
+    <loc>http://www.dongkelun.com/2018/03/29/scalaUnderscoreUseGuide/</loc>
     <lastmod>2018-04-02T06:48:29.532Z</lastmod>
     <data>
         <display>
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>转载</tag>
-         
         <tag>scala</tag>
+         
+        <tag>转载</tag>
          
          
            
@@ -170,7 +170,7 @@
     
     
   <url>
-    <loc>http://dongkelun.com/2018/03/21/sparkMysql/</loc>
+    <loc>http://www.dongkelun.com/2018/03/21/sparkMysql/</loc>
     <lastmod>2018-03-27T08:38:43.882Z</lastmod>
     <data>
         <display>
@@ -189,7 +189,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/03/24/hiveConf/</loc>
+    <loc>http://www.dongkelun.com/2018/03/24/hiveConf/</loc>
     <lastmod>2018-03-26T03:44:59.570Z</lastmod>
     <data>
         <display>
@@ -208,7 +208,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/03/15/winSparkConf/</loc>
+    <loc>http://www.dongkelun.com/2018/03/15/winSparkConf/</loc>
     <lastmod>2018-03-23T15:27:55.776Z</lastmod>
     <data>
         <display>
@@ -227,7 +227,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/03/22/mysqlTimeZoneErr/</loc>
+    <loc>http://www.dongkelun.com/2018/03/22/mysqlTimeZoneErr/</loc>
     <lastmod>2018-03-22T14:54:39.960Z</lastmod>
     <data>
         <display>
@@ -244,7 +244,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/01/23/sparkBasicConcept/</loc>
+    <loc>http://www.dongkelun.com/2018/01/23/sparkBasicConcept/</loc>
     <lastmod>2018-03-21T07:38:59.117Z</lastmod>
     <data>
         <display>
@@ -261,7 +261,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/01/09/redisClusterDeployment/</loc>
+    <loc>http://www.dongkelun.com/2018/01/09/redisClusterDeployment/</loc>
     <lastmod>2018-03-21T07:38:45.858Z</lastmod>
     <data>
         <display>
@@ -278,7 +278,7 @@
 
     
   <url>
-    <loc>http://dongkelun.com/2018/01/22/ibatisTransaction/</loc>
+    <loc>http://www.dongkelun.com/2018/01/22/ibatisTransaction/</loc>
     <lastmod>2018-02-08T01:10:09.839Z</lastmod>
     <data>
         <display>
