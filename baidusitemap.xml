@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>http://dongkelun.com/2018/03/25/sparkHive/</loc>
+    <lastmod>2018-04-06T11:50:39.469Z</lastmod>
+    <data>
+        <display>
+        <title>spark连接hive（spark-shell和eclipse两种方式）</title>
+        <pubTime>2018-03-24T16:00:00.000Z</pubTime>
+        
+        <tag>hive</tag>
+         
+        <tag>spark</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
     <lastmod>2018-04-06T06:06:16.496Z</lastmod>
     <data>
@@ -134,9 +153,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>scala</tag>
-         
         <tag>转载</tag>
+         
+        <tag>scala</tag>
          
          
            
@@ -180,25 +199,6 @@
         <tag>centos</tag>
          
         <tag>hive</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://dongkelun.com/2018/03/25/sparkHive/</loc>
-    <lastmod>2018-03-26T01:47:49.867Z</lastmod>
-    <data>
-        <display>
-        <title>spark连接hive（spark-shell和eclipse两种方式）</title>
-        <pubTime>2018-03-24T16:00:00.000Z</pubTime>
-        
-        <tag>hive</tag>
-         
-        <tag>spark</tag>
          
          
            
