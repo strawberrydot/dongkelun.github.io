@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>http://www.dongkelun.com/2018/04/09/sparkMlLinearRegressionUsing/</loc>
+    <lastmod>2018-04-11T16:26:45.636Z</lastmod>
+    <data>
+        <display>
+        <title>spark ML算法之线性回归使用</title>
+        <pubTime>2018-04-08T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>ml</tag>
+         
+        <tag>算法</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.dongkelun.com/2018/04/11/sparkNewUV/</loc>
     <lastmod>2018-04-11T16:23:57.992Z</lastmod>
     <data>
@@ -16,27 +37,6 @@
         <tag>spark</tag>
          
         <tag>面试题</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.dongkelun.com/2018/04/09/sparkMlLinearRegressionUsing/</loc>
-    <lastmod>2018-04-11T15:50:44.115Z</lastmod>
-    <data>
-        <display>
-        <title>spark ML算法之线性回归使用</title>
-        <pubTime>2018-04-08T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>ml</tag>
-         
-        <tag>算法</tag>
          
          
            
