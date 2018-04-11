@@ -192,61 +192,10 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文源自一位群友的一道美团面试题，解题思路（基于倒排索引）和代码都是这位大佬（相对于尚处于小白阶段的我）写的，我只是在基于倒排索引的基础上帮忙想出了最后一步思路，感觉这个解题思路不错，值得记录一下。</p>
 <h2 id="1、原始数据"><a href="#1、原始数据" class="headerlink" title="1、原始数据"></a>1、原始数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2017-01-01	a</span><br><span class="line">2017-01-01	b</span><br><span class="line">2017-01-01	c</span><br><span class="line">2017-01-02	a</span><br><span class="line">2017-01-02	b</span><br><span class="line">2017-01-02	d</span><br><span class="line">2017-01-03	b</span><br><span class="line">2017-01-03	e</span><br><span class="line">2017-01-03	f</span><br></pre></td></tr></table></figure>
-<p>根据数据可以看出我们要求的结果为：<br>2017-01-01 新增三个用户（a,b,c）<br>2017-01-02 新增一个用户（d）<br>2017-01-03 新增两个用户（e，f）</p>
-<h2 id="2、解题思路"><a href="#2、解题思路" class="headerlink" title="2、解题思路"></a>2、解题思路</h2><h3 id="2-1-对原始数据进行倒排索引"><a href="#2-1-对原始数据进行倒排索引" class="headerlink" title="2.1 对原始数据进行倒排索引"></a>2.1 对原始数据进行倒排索引</h3><p>结果如下：</p>
-<table>
-<thead>
-<tr>
-<th>用户名</th>
-<th style="text-align:center">列一</th>
-<th style="text-align:center">列二</th>
-<th style="text-align:center">列三</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a</td>
-<td style="text-align:center">2017-01-01</td>
-<td style="text-align:center">2017-01-02</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>b</td>
-<td style="text-align:center">2017-01-01</td>
-<td style="text-align:center">2017-01-02</td>
-<td style="text-align:center">2017-01-03</td>
-</tr>
-<tr>
-<td>c</td>
-<td style="text-align:center">2017-01-01</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>d</td>
-<td style="text-align:center">2017-01-02</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>e</td>
-<td style="text-align:center">2017-01-03</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>f</td>
-<td style="text-align:center">2017-01-03</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-<h3 id="2-2-统计列一中每个日期出现的次数"><a href="#2-2-统计列一中每个日期出现的次数" class="headerlink" title="2.2 统计列一中每个日期出现的次数"></a>2.2 统计列一中每个日期出现的次数</h3><p>这样我们只看列一，统计每个日期在列一出现的次数，即为对应日期新增用户数。</p>
-<h2 id="3、代码"><a href="#3、代码" class="headerlink" title="3、代码"></a>3、代码</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.test</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">NewUVDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"NewUVDemo"</span>).master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line">    <span class="keyword">val</span> rdd1 = spark.sparkContext.parallelize(</span><br><span class="line">      <span class="type">Array</span>(</span><br><span class="line">        (<span class="string">"2017-01-01"</span>, <span class="string">"a"</span>), (<span class="string">"2017-01-01"</span>, <span class="string">"b"</span>), (<span class="string">"2017-01-01"</span>, <span class="string">"c"</span>),</span><br><span class="line">        (<span class="string">"2017-01-02"</span>, <span class="string">"a"</span>), (<span class="string">"2017-01-02"</span>, <span class="string">"b"</span>), (<span class="string">"2017-01-02"</span>, <span class="string">"d"</span>),</span><br><span class="line">        (<span class="string">"2017-01-03"</span>, <span class="string">"b"</span>), (<span class="string">"2017-01-03"</span>, <span class="string">"e"</span>), (<span class="string">"2017-01-03"</span>, <span class="string">"f"</span>)))</span><br><span class="line">    <span class="comment">//倒排</span></span><br><span class="line">    <span class="keyword">val</span> rdd2 = rdd1.map(kv =&gt; (kv._2, kv._1))</span><br><span class="line">    <span class="comment">//倒排后的key分组</span></span><br><span class="line">    <span class="keyword">val</span> rdd3 = rdd2.groupByKey()</span><br><span class="line">    <span class="comment">//按时间排序</span></span><br><span class="line">    <span class="keyword">val</span> rdd4 = rdd3.sortBy(_._2, <span class="literal">true</span>)</span><br><span class="line">    <span class="comment">//取第一列</span></span><br><span class="line">    <span class="keyword">val</span> rdd5 = rdd4.map(kv =&gt; &#123;</span><br><span class="line">      (kv._2.head, <span class="number">1</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    rdd5.countByKey().foreach(println)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(2017-01-03,2)</span><br><span class="line">(2017-01-02,1)</span><br><span class="line">(2017-01-01,3)</span><br></pre></td></tr></table></figure></p>
-<p>附图：<br><img src="http://wx3.sinaimg.cn/large/e44344dcly1fq96h89p5mj21260mfwgu.jpg" alt=""></p>
-
+<p>根据数据可以看出我们要求的结果为：<br>2017-01-01 新增三个用户（a,b,c）<br>2017-01-02 新增一个用户（d）<br>2017-01-03 新增两个用户（e，f）<br>
+        
+          <a class="article-more-a" href="/2018/04/11/sparkNewUV/#more">more >></a>
+        
       
 
       
@@ -398,19 +347,19 @@
 
 
   
-    <article id="post-centosInitialConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-hadoopClusterConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/05/centosInitialConf/">CentOS 初始环境配置</a>
+      <a class="article-title" href="/2018/04/05/hadoopClusterConf/">centos7 hadoop 集群安装配置</a>
     </h1>
   
 
         
-        <a href="/2018/04/05/centosInitialConf/" class="archive-article-date">
+        <a href="/2018/04/05/hadoopClusterConf/" class="archive-article-date">
   	<time datetime="2018-04-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
 </a>
         
@@ -419,11 +368,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是在大三实习的时候记录在印象笔记里的，当时学长给我的，现在稍加改动一下，记录在这里。<br>若刚装完系统ping不通外网，如baidu.com,请参考：<a href="http://dongkelun.com/2018/01/17/networkIsUnreachable/" target="_blank" rel="noopener">http://dongkelun.com/2018/01/17/networkIsUnreachable/</a></p>
-<h2 id="1、添加域名解析"><a href="#1、添加域名解析" class="headerlink" title="1、添加域名解析"></a>1、添加域名解析</h2><p>在/etc/resolv.conf添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nameserver 114.114.114.114</span><br><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 8.8.4.4</span><br></pre></td></tr></table></figure></p>
-<p>然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr +i /etc/resolv.conf</span><br></pre></td></tr></table></figure></p>
+        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>本文安装配置的hadoop为分布式的集群，单机配置见：<a href="http://dongkelun.com/2018/03/23/hadoopConf/" target="_blank" rel="noopener">centos7 hadoop 单机模式安装配置</a><br>我用的三个centos7, 先将常用环境配置好（<a href="http://dongkelun.com/2018/04/05/centosInitialConf/" target="_blank" rel="noopener">CentOS 初始环境配置</a>），设置的ip分别为：192.168.44.138、192.168.44.139，192.168.44.140，分别对应别名master、slave1、slave2</p>
+<h2 id="1、首先安装配置jdk（我安装的1-8）"><a href="#1、首先安装配置jdk（我安装的1-8）" class="headerlink" title="1、首先安装配置jdk（我安装的1.8）"></a>1、首先安装配置jdk（我安装的1.8）</h2><h2 id="2、给每个虚拟机的ip起个别名"><a href="#2、给每个虚拟机的ip起个别名" class="headerlink" title="2、给每个虚拟机的ip起个别名"></a>2、给每个虚拟机的ip起个别名</h2><p>在每个虚拟机上执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure></p>
+<p>在最下面添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.44.138 master</span><br><span class="line">192.168.44.139 slave1</span><br><span class="line">192.168.44.140 slave2</span><br></pre></td></tr></table></figure></p>
+<p>在每个虚拟机上ping一下，保证都能ping通<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ping master</span><br><span class="line">ping slave1</span><br><span class="line">ping slave2</span><br></pre></td></tr></table></figure></p>
+<h2 id="3、SSH免密码登录"><a href="#3、SSH免密码登录" class="headerlink" title="3、SSH免密码登录"></a>3、SSH免密码登录</h2><p>保证三台机器都可以免密互通，参考：<a href="http://dongkelun.com/2018/04/05/sshConf/" target="_blank" rel="noopener">linux ssh 免密登录</a></p>
+<h2 id="3、下载hadoop（每台机器）"><a href="#3、下载hadoop（每台机器）" class="headerlink" title="3、下载hadoop（每台机器）"></a>3、下载hadoop（每台机器）</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hadoop/common/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hadoop/common/</a>，我下载的是hadoop-2.7.5.tar.gz</p>
+<h2 id="4、解压到-opt目录下（每台机器、目录根据自己习惯）"><a href="#4、解压到-opt目录下（每台机器、目录根据自己习惯）" class="headerlink" title="4、解压到/opt目录下（每台机器、目录根据自己习惯）"></a>4、解压到/opt目录下（每台机器、目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.7.5.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
         
-          <a class="article-more-a" href="/2018/04/05/centosInitialConf/#more">more >></a>
+          <a class="article-more-a" href="/2018/04/05/hadoopClusterConf/#more">more >></a>
         
       
 
@@ -440,6 +393,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -449,7 +406,7 @@
 	  
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/05/centosInitialConf/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/05/hadoopClusterConf/">展开全文 >></a>
         </p>
       
 
@@ -560,19 +517,19 @@
 
 
   
-    <article id="post-hadoopClusterConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-centosInitialConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/05/hadoopClusterConf/">centos7 hadoop 集群安装配置</a>
+      <a class="article-title" href="/2018/04/05/centosInitialConf/">CentOS 初始环境配置</a>
     </h1>
   
 
         
-        <a href="/2018/04/05/hadoopClusterConf/" class="archive-article-date">
+        <a href="/2018/04/05/centosInitialConf/" class="archive-article-date">
   	<time datetime="2018-04-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
 </a>
         
@@ -581,15 +538,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>本文安装配置的hadoop为分布式的集群，单机配置见：<a href="http://dongkelun.com/2018/03/23/hadoopConf/" target="_blank" rel="noopener">centos7 hadoop 单机模式安装配置</a><br>我用的三个centos7, 先将常用环境配置好（<a href="http://dongkelun.com/2018/04/05/centosInitialConf/" target="_blank" rel="noopener">CentOS 初始环境配置</a>），设置的ip分别为：192.168.44.138、192.168.44.139，192.168.44.140，分别对应别名master、slave1、slave2</p>
-<h2 id="1、首先安装配置jdk（我安装的1-8）"><a href="#1、首先安装配置jdk（我安装的1-8）" class="headerlink" title="1、首先安装配置jdk（我安装的1.8）"></a>1、首先安装配置jdk（我安装的1.8）</h2><h2 id="2、给每个虚拟机的ip起个别名"><a href="#2、给每个虚拟机的ip起个别名" class="headerlink" title="2、给每个虚拟机的ip起个别名"></a>2、给每个虚拟机的ip起个别名</h2><p>在每个虚拟机上执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure></p>
-<p>在最下面添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.44.138 master</span><br><span class="line">192.168.44.139 slave1</span><br><span class="line">192.168.44.140 slave2</span><br></pre></td></tr></table></figure></p>
-<p>在每个虚拟机上ping一下，保证都能ping通<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ping master</span><br><span class="line">ping slave1</span><br><span class="line">ping slave2</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、SSH免密码登录"><a href="#3、SSH免密码登录" class="headerlink" title="3、SSH免密码登录"></a>3、SSH免密码登录</h2><p>保证三台机器都可以免密互通，参考：<a href="http://dongkelun.com/2018/04/05/sshConf/" target="_blank" rel="noopener">linux ssh 免密登录</a></p>
-<h2 id="3、下载hadoop（每台机器）"><a href="#3、下载hadoop（每台机器）" class="headerlink" title="3、下载hadoop（每台机器）"></a>3、下载hadoop（每台机器）</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hadoop/common/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hadoop/common/</a>，我下载的是hadoop-2.7.5.tar.gz</p>
-<h2 id="4、解压到-opt目录下（每台机器、目录根据自己习惯）"><a href="#4、解压到-opt目录下（每台机器、目录根据自己习惯）" class="headerlink" title="4、解压到/opt目录下（每台机器、目录根据自己习惯）"></a>4、解压到/opt目录下（每台机器、目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.7.5.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是在大三实习的时候记录在印象笔记里的，当时学长给我的，现在稍加改动一下，记录在这里。<br>若刚装完系统ping不通外网，如baidu.com,请参考：<a href="http://dongkelun.com/2018/01/17/networkIsUnreachable/" target="_blank" rel="noopener">http://dongkelun.com/2018/01/17/networkIsUnreachable/</a></p>
+<h2 id="1、添加域名解析"><a href="#1、添加域名解析" class="headerlink" title="1、添加域名解析"></a>1、添加域名解析</h2><p>在/etc/resolv.conf添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nameserver 114.114.114.114</span><br><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 8.8.4.4</span><br></pre></td></tr></table></figure></p>
+<p>然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr +i /etc/resolv.conf</span><br></pre></td></tr></table></figure></p>
         
-          <a class="article-more-a" href="/2018/04/05/hadoopClusterConf/#more">more >></a>
+          <a class="article-more-a" href="/2018/04/05/centosInitialConf/#more">more >></a>
         
       
 
@@ -606,10 +559,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -619,7 +568,7 @@
 	  
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/05/hadoopClusterConf/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/05/centosInitialConf/">展开全文 >></a>
         </p>
       
 
@@ -788,10 +737,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -800,15 +745,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -828,15 +777,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
