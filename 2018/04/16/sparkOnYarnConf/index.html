@@ -18,7 +18,7 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fqerons9kej20uk07bdg6.jpg">
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fqeroo8ic2j20w5073t95.jpg">
-<meta property="og:updated_time" content="2018-04-16T12:31:07.293Z">
+<meta property="og:updated_time" content="2018-04-16T12:35:30.455Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark on yarn 配置及异常解决">
 <meta name="twitter:description" content="前言YARN 是在Hadoop 2.0 中引入的集群管理器，它可以让多种数据处理框架运行在一个共享的资源池上，并且通常安装在与Hadoop 文件系统（简称HDFS）相同的物理节点上。在这样配置的YARN 集群上运行Spark 是很有意义的，它可以让Spark 在存储数据的物理节点上运行，以快速访问HDFS 中的数据。 1、配置1.1 配置HADOOP_CONF_DIR1vim /etc/profi">
@@ -227,7 +227,7 @@
 <p>发现，都是说要配置spark.yarn.jars，于是按照如下命令配置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir /hadoop</span><br><span class="line">hdfs dfs -mkdir /hadoop/spark_jars</span><br><span class="line">hdfs dfs -put /opt/spark-2.2.1-bin-hadoop2.7/jars/* /hadoop/spark_jars</span><br><span class="line"><span class="built_in">cd</span> /opt/spark-2.2.1-bin-hadoop2.7/conf/</span><br><span class="line">cp spark-defaults.conf.template spark-defaults.conf</span><br><span class="line">vim spark-defaults.conf</span><br></pre></td></tr></table></figure></p>
 <p>在最下面添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.yarn.jars hdfs://192.168.44.128:8888/hadoop/spark_jars/*</span><br></pre></td></tr></table></figure></p>
 <p>(注意后面的*不能去掉)<br>然后启动spark-shell,发现还是报相似错误（没了warn）</p>
-<h3 id="2-2-配置haddop的yarn-site-xml"><a href="#2-2-配置haddop的yarn-site-xml" class="headerlink" title="2.2 配置haddop的yarn-site.xml"></a>2.2 配置haddop的yarn-site.xml</h3><p>因为java8导致的问题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/hadoop-2.7.5/etc/hadoop/yarn-site.xml</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-配置hadoop的yarn-site-xml"><a href="#2-2-配置hadoop的yarn-site-xml" class="headerlink" title="2.2 配置hadoop的yarn-site.xml"></a>2.2 配置hadoop的yarn-site.xml</h3><p>因为java8导致的问题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/hadoop-2.7.5/etc/hadoop/yarn-site.xml</span><br></pre></td></tr></table></figure></p>
 <p>添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
 <p>再次启动spark-shell,成功！<br><img src="http://wx2.sinaimg.cn/large/e44344dcly1fqerons9kej20uk07bdg6.jpg" alt=""></p>
 <h2 id="3、意外之喜"><a href="#3、意外之喜" class="headerlink" title="3、意外之喜"></a>3、意外之喜</h2><p>由于要写博客记录，所以需要将错误还原，第一次只将spark.yarn.jars注释掉，启动spark-shell,发现是成功的，只是会有条warn而已，也就是说，这个错误的根本原因，是java8导致没有配置2.2中的yarn-site.xml！！<br><img src="http://wx1.sinaimg.cn/large/e44344dcly1fqeroo8ic2j20w5073t95.jpg" alt=""></p>
@@ -362,7 +362,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、配置"><span class="toc-number">2.</span> <span class="toc-text">1、配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-配置HADOOP-CONF-DIR"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 配置HADOOP_CONF_DIR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-命令行启动"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 命令行启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、错误解决"><span class="toc-number">3.</span> <span class="toc-text">2、错误解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加spark-yarn-jars"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 添加spark.yarn.jars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-配置haddop的yarn-site-xml"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 配置haddop的yarn-site.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、意外之喜"><span class="toc-number">4.</span> <span class="toc-text">3、意外之喜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、配置"><span class="toc-number">2.</span> <span class="toc-text">1、配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-配置HADOOP-CONF-DIR"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 配置HADOOP_CONF_DIR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-命令行启动"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 命令行启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、错误解决"><span class="toc-number">3.</span> <span class="toc-text">2、错误解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加spark-yarn-jars"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 添加spark.yarn.jars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-配置hadoop的yarn-site-xml"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 配置hadoop的yarn-site.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、意外之喜"><span class="toc-number">4.</span> <span class="toc-text">3、意外之喜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -538,6 +538,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
@@ -554,15 +562,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -570,11 +574,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
