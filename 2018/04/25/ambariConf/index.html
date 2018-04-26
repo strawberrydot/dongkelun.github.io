@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fqp20xhixnj21am0i5401.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fqpc4ytg3ij20vm08haag.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fqpc4zcqjuj21el0q4djf.jpg">
-<meta property="og:updated_time" content="2018-04-26T01:23:35.162Z">
+<meta property="og:updated_time" content="2018-04-26T01:26:13.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 ambari2.6.1.5+hdp2.6.4.0 安装部署">
 <meta name="twitter:description" content="前言本文是讲如何在centos7（64位） 安装ambari+hdp,如果在装有原生hadoop等集群的机器上安装，需要先将集群服务停掉，然后将不需要的环境变量注释掉即可，如果不注释掉，后面虽然可以安装成功，但是在启动某些服务的时候可能会有异常，比如最后提到的hive启动异常。本文适合系统： RedHat7、CentOS7、Oracle Linux7(都是64位)注意:centos7中文系统有bu">
@@ -297,7 +297,7 @@
 <h3 id="5-12-安装、启动、测试"><a href="#5-12-安装、启动、测试" class="headerlink" title="5.12 安装、启动、测试"></a>5.12 安装、启动、测试</h3><p>这里因为个人电脑配置较低，浏览器有点卡，进度条没有显示出来。<br><img src="http://wx3.sinaimg.cn/large/e44344dcly1fqp20wm48sj21ea0mcwgc.jpg" alt=""></p>
 <h3 id="5-13-安装完成"><a href="#5-13-安装完成" class="headerlink" title="5.13 安装完成"></a>5.13 安装完成</h3><p>若最后出现警告，可以装完重启所有服务，再检查看看有没有问题，一开始安装的的组件较多的话，出现警告的可能性会大一些，所以可以先装几个必要的组件，之后一个一个组件装。<br><img src="http://wx2.sinaimg.cn/large/e44344dcly1fqp20x14rbj21eu0na769.jpg" alt=""></p>
 <h3 id="5-14-概要"><a href="#5-14-概要" class="headerlink" title="5.14 概要"></a>5.14 概要</h3><p><img src="http://wx1.sinaimg.cn/large/e44344dcly1fqp20xhixnj21am0i5401.jpg" alt=""></p>
-<h3 id="5-15-hive启动异常"><a href="#5-15-hive启动异常" class="headerlink" title="5.15 hive启动异常"></a>5.15 hive启动异常</h3><p>这次安装重启之后发现hive组件启动不成功，我就把hive卸载然后重装，本来以为是开始是hive没安装成功，但是重装后hive还是启动不成功，看了一下日志，发现是之前手动安装的原生的hive的环境变量没有注释掉，注释掉，重启ambari之后，再启动所有服务，就成功了，所以如果在已经安装好的大数据集群上安装ambari，最好先把之前配的环境变量注释掉。</p>
+<h3 id="5-15-hive启动异常"><a href="#5-15-hive启动异常" class="headerlink" title="5.15 hive启动异常"></a>5.15 hive启动异常</h3><p>这次安装重启之后发现hive组件启动不成功，我就把hive卸载然后重装，本来以为是开始是hive没安装成功，但是重装后hive还是启动不成功，看了一下日志，发现是之前手动安装的原生的hive的环境变量没有注释掉，注释掉，重启ambari之后，再启动所有服务，就成功了（再在hive shell 里建表、插入数据、查询验证一下），所以如果在已经安装好的大数据集群上安装ambari，最好先把之前配的环境变量注释掉。</p>
 <h3 id="5-16-启动成功"><a href="#5-16-启动成功" class="headerlink" title="5.16 启动成功"></a>5.16 启动成功</h3><p><img src="http://wx4.sinaimg.cn/large/e44344dcly1fqpc4ytg3ij20vm08haag.jpg" alt=""><br><img src="http://wx4.sinaimg.cn/large/e44344dcly1fqpc4zcqjuj21el0q4djf.jpg" alt=""></p>
 
       
@@ -585,19 +585,19 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,11 +625,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
