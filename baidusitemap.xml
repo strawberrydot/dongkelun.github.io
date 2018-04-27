@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>http://www.dongkelun.com/2018/03/23/hadoopConf/</loc>
+    <lastmod>2018-04-27T03:37:47.886Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 hadoop 单机模式安装配置</title>
+        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
+        
+        <tag>centos</tag>
+         
+        <tag>hadoop</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.dongkelun.com/2018/04/25/ambariConf/</loc>
     <lastmod>2018-04-26T02:26:20.398Z</lastmod>
     <data>
@@ -164,25 +183,6 @@
         <pubTime>2018-04-04T16:00:00.000Z</pubTime>
         
         <tag>linux</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.dongkelun.com/2018/03/23/hadoopConf/</loc>
-    <lastmod>2018-04-05T15:49:05.867Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 hadoop 单机模式安装配置</title>
-        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-        <tag>hadoop</tag>
          
          
            
