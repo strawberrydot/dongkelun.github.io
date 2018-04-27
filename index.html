@@ -163,19 +163,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-dfChangeAllColDatatypes." class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-dfChangeAllColDatatypes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/27/dfChangeAllColDatatypes./">spark 将DataFrame所有的列类型改为double</a>
+      <a class="article-title" href="/2018/04/27/dfChangeAllColDatatypes/">spark 将DataFrame所有的列类型改为double</a>
     </h1>
   
 
         
-        <a href="/2018/04/27/dfChangeAllColDatatypes./" class="archive-article-date">
+        <a href="/2018/04/27/dfChangeAllColDatatypes/" class="archive-article-date">
   	<time datetime="2018-04-26T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
 </a>
         
@@ -188,7 +188,7 @@
 <h2 id="1、单列转化方法"><a href="#1、单列转化方法" class="headerlink" title="1、单列转化方法"></a>1、单列转化方法</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types._</span><br><span class="line"><span class="keyword">val</span> data = <span class="type">Array</span>((<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>), (<span class="string">"6"</span>, <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"10"</span>))</span><br><span class="line"><span class="keyword">val</span> df = spark.createDataFrame(data).toDF(<span class="string">"col1"</span>, <span class="string">"col2"</span>, <span class="string">"col3"</span>, <span class="string">"col4"</span>, <span class="string">"col5"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line">df.select(col(<span class="string">"col1"</span>).cast(<span class="type">DoubleType</span>)).show()</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+</span><br><span class="line">|col1|</span><br><span class="line">+----+</span><br><span class="line">| 1.0|</span><br><span class="line">| 6.0|</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
         
-          <a class="article-more-a" href="/2018/04/27/dfChangeAllColDatatypes./#more">more >></a>
+          <a class="article-more-a" href="/2018/04/27/dfChangeAllColDatatypes/#more">more >></a>
         
       
 
@@ -218,7 +218,7 @@
 	  
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/27/dfChangeAllColDatatypes./">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/27/dfChangeAllColDatatypes/">展开全文 >></a>
         </p>
       
 
@@ -741,6 +741,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -750,10 +754,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -769,7 +769,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -777,7 +777,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
