@@ -6,24 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.dongkelun.com">
-  <title>centos7 hive 单机模式安装配置 | 伦少的博客</title>
+  <title>伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1 安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考：Centos 7.2 安装 Mysql">
-<meta name="keywords" content="centos,hive">
-<meta property="og:type" content="article">
-<meta property="og:title" content="centos7 hive 单机模式安装配置">
-<meta property="og:url" content="http://www.dongkelun.com/2018/03/24/hiveConf/index.html">
+  <meta name="description" content="love ~ 婷宝 1412359494@qq.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="伦少的博客">
+<meta property="og:url" content="http://www.dongkelun.com/page/5/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1 安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考：Centos 7.2 安装 Mysql">
+<meta property="og:description" content="love ~ 婷宝 1412359494@qq.com">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpoejy2vccj20m3047aa6.jpg">
-<meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpoejygnraj20z206xwf5.jpg">
-<meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fpoemkx2yxj20yu0dkdh6.jpg">
-<meta property="og:updated_time" content="2018-03-26T03:44:59.570Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="centos7 hive 单机模式安装配置">
-<meta name="twitter:description" content="前言：由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。 1、前提1.1 安装配置jdk1.81.2 安装hadoop2.xhadoop单机模式安装见：centos7 hadoop 单机模式安装配置 1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。mysql数据库安装过程请参考：Centos 7.2 安装 Mysql">
-<meta name="twitter:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpoejy2vccj20m3047aa6.jpg">
+<meta name="twitter:title" content="伦少的博客">
+<meta name="twitter:description" content="love ~ 婷宝 1412359494@qq.com">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -167,192 +161,67 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hiveConf" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-redisClusterDeployment" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      centos7 hive 单机模式安装配置
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/09/redisClusterDeployment/">Redis Cluster 安装配置</a>
     </h1>
   
 
         
-        <a href="/2018/03/24/hiveConf/" class="archive-article-date">
-  	<time datetime="2018-03-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-24</time>
+        <a href="/2018/01/09/redisClusterDeployment/" class="archive-article-date">
+  	<time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-09</time>
 </a>
         
       </header>
 	    
-		  <div class="article-info article-info-post">
-			
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-			
-
-			<div class="clearfix"></div>
-		  </div>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。</p>
-<h2 id="1、前提"><a href="#1、前提" class="headerlink" title="1、前提"></a>1、前提</h2><h3 id="1-1-安装配置jdk1-8"><a href="#1-1-安装配置jdk1-8" class="headerlink" title="1.1 安装配置jdk1.8"></a>1.1 安装配置jdk1.8</h3><h3 id="1-2-安装hadoop2-x"><a href="#1-2-安装hadoop2-x" class="headerlink" title="1.2 安装hadoop2.x"></a>1.2 安装hadoop2.x</h3><p>hadoop单机模式安装见：<a href="http://dongkelun.com/2018/03/23/hadoopConf/" target="_blank" rel="noopener">centos7 hadoop 单机模式安装配置</a></p>
-<h3 id="1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。"><a href="#1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。" class="headerlink" title="1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。"></a>1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。</h3><p>mysql数据库安装过程请参考：<a href="https://blog.csdn.net/lochy/article/details/51721319" target="_blank" rel="noopener">Centos 7.2 安装 Mysql 5.7.13</a></p>
-<h2 id="2、下载hive"><a href="#2、下载hive" class="headerlink" title="2、下载hive"></a>2、下载hive</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hive/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hive/</a>，我下载的是apache-hive-2.3.2-bin.tar.gz。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.bit.edu.cn/apache/hive/hive-2.3.2/apache-hive-2.3.2-bin.tar.gz</span><br><span class="line">或者下载到本地，通过工具上传到虚拟机中</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、解压到-opt目录下（目录根据自己习惯）"><a href="#3、解压到-opt目录下（目录根据自己习惯）" class="headerlink" title="3、解压到/opt目录下（目录根据自己习惯）"></a>3、解压到/opt目录下（目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-hive-2.3.2-bin.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="4、配置hive环境变量"><a href="#4、配置hive环境变量" class="headerlink" title="4、配置hive环境变量"></a>4、配置hive环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HIVE_HOME=/opt/apache-hive-2.3.2-bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HIVE_HOME</span>/bin</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
-<h2 id="5、配置hive"><a href="#5、配置hive" class="headerlink" title="5、配置hive"></a>5、配置hive</h2><h3 id="5-1-配置hive-site-xml"><a href="#5-1-配置hive-site-xml" class="headerlink" title="5.1 配置hive-site.xml"></a>5.1 配置hive-site.xml</h3><p>其中ConnectionUserName和ConnectionPassword为mysql远程访问的用户名和密码，hive_metadata为mysql数据库，随自己习惯命名。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/apache-hive-2.3.2-bin/conf/</span><br><span class="line">vim hive-site.xml</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"no"</span>?&gt;</span><br><span class="line">&lt;?xml-stylesheet <span class="built_in">type</span>=<span class="string">"text/xsl"</span> href=<span class="string">"configuration.xsl"</span>?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">    &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;jdbc:mysql://192.168.44.128:3306/hive_metadata?&amp;amp;createDatabaseIfNotExist=<span class="literal">true</span>&amp;amp;characterEncoding=UTF-8&amp;amp;useSSL=<span class="literal">false</span>&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;Root-123456&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;datanucleus.schema.autoCreateAll&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="literal">true</span>&lt;/value&gt; &lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.metastore.schema.verification&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;<span class="literal">false</span>&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="5-2-配置hive-site-xml"><a href="#5-2-配置hive-site-xml" class="headerlink" title="5.2 配置hive-site.xml"></a>5.2 配置hive-site.xml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp hive-env.sh.template hive-env.sh</span><br><span class="line">vim hive-env.sh</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HADOOP_HOME=/opt/hadoop-2.7.5</span><br><span class="line">export HIVE_CONF_DIR=/opt/apache-hive-2.3.2-bin/conf</span><br></pre></td></tr></table></figure>
-<p>具体位置如图：<br><img src="http://wx2.sinaimg.cn/large/e44344dcly1fpoejy2vccj20m3047aa6.jpg" alt=""></p>
-<h2 id="6、加载mysql驱动（要与自己安装的mysql版本一致）"><a href="#6、加载mysql驱动（要与自己安装的mysql版本一致）" class="headerlink" title="6、加载mysql驱动（要与自己安装的mysql版本一致）"></a>6、加载mysql驱动（要与自己安装的mysql版本一致）</h2><p>下载地址：<a href="http://dev.mysql.com/downloads/connector/j/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/connector/j/ </a><br>我下载的是：mysql-connector-java-5.1.46.tar.gz，解压并将其中的mysql-connector-java-5.1.46-bin.jar放到hive/lib下<br>具体路径为：/opt/apache-hive-2.3.2-bin/lib</p>
-<h2 id="7、初始化数据库"><a href="#7、初始化数据库" class="headerlink" title="7、初始化数据库"></a>7、初始化数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schematool -initSchema -dbType mysql</span><br></pre></td></tr></table></figure>
-<h2 id="8、启动hive"><a href="#8、启动hive" class="headerlink" title="8、启动hive"></a>8、启动hive</h2><p>启动hive之前先启动hadoop,不然会报Connection refused异常，在命令行jps看一下hadoop是否启动成功然后启动hive<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive</span><br></pre></td></tr></table></figure></p>
-<p>然后简单的测试:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure></p>
-<p>出现如下图所示即代表配置成功！<br><img src="http://wx2.sinaimg.cn/large/e44344dcly1fpoejygnraj20z206xwf5.jpg" alt=""></p>
-<h2 id="9、简单的hive语句测试"><a href="#9、简单的hive语句测试" class="headerlink" title="9、简单的hive语句测试"></a>9、简单的hive语句测试</h2><p>建表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS test (id INT,name STRING)ROW FORMAT DELIMITED FIELDS TERMINATED BY &quot; &quot; LINES TERMINATED BY &quot;\n&quot;;</span><br></pre></td></tr></table></figure></p>
-<p>插入数据</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into <span class="built_in">test</span> values(1,<span class="string">'张三'</span>);</span><br></pre></td></tr></table></figure>
-<p>查询</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from <span class="built_in">test</span>;</span><br></pre></td></tr></table></figure>
-<p><img src="http://wx1.sinaimg.cn/large/e44344dcly1fpoemkx2yxj20yu0dkdh6.jpg" alt=""></p>
-
+        <h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><p>CentOS<br>Centos 服务器初始环境配置最好先配置好，服务器时间最好配置为一致<br>我用的是6个服务器，一个服务器一个端口，便于配置文件的修改</p>
+<h3 id="首先下载redis3-到本地-需要3以后的版本，我下载的最新的版本-3-0-4"><a href="#首先下载redis3-到本地-需要3以后的版本，我下载的最新的版本-3-0-4" class="headerlink" title="首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)"></a>首先下载redis3 到本地(需要3以后的版本，我下载的最新的版本:3.0.4)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-3.0.4.tar.gz</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2018/01/09/redisClusterDeployment/#more">more >></a>
+        
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢您的支持!<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
       
 	   
+		  
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+		  
+
+	  
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/09/redisClusterDeployment/">展开全文 >></a>
+        </p>
       
 
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/03/24/hiveConf/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/03/25/sparkHive/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          spark连接hive（spark-shell和eclipse两种方式）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/03/23/hadoopConf/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">centos7 hadoop 单机模式安装配置</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -367,42 +236,17 @@
         </div>
         
         
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言："><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、前提"><span class="toc-number"></span> <span class="toc-text">1、前提</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-安装配置jdk1-8"><span class="toc-number">1.</span> <span class="toc-text">1.1 安装配置jdk1.8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-安装hadoop2-x"><span class="toc-number">2.</span> <span class="toc-text">1.2 安装hadoop2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。"><span class="toc-number">3.</span> <span class="toc-text">1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、下载hive"><span class="toc-number"></span> <span class="toc-text">2、下载hive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、解压到-opt目录下（目录根据自己习惯）"><span class="toc-number"></span> <span class="toc-text">3、解压到/opt目录下（目录根据自己习惯）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、配置hive环境变量"><span class="toc-number"></span> <span class="toc-text">4、配置hive环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、配置hive"><span class="toc-number"></span> <span class="toc-text">5、配置hive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-配置hive-site-xml"><span class="toc-number">1.</span> <span class="toc-text">5.1 配置hive-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-配置hive-site-xml"><span class="toc-number">2.</span> <span class="toc-text">5.2 配置hive-site.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、加载mysql驱动（要与自己安装的mysql版本一致）"><span class="toc-number"></span> <span class="toc-text">6、加载mysql驱动（要与自己安装的mysql版本一致）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、初始化数据库"><span class="toc-number"></span> <span class="toc-text">7、初始化数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、启动hive"><span class="toc-number"></span> <span class="toc-text">8、启动hive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、简单的hive语句测试"><span class="toc-number"></span> <span class="toc-text">9、简单的hive语句测试</span></a>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
     </div>
 </aside>
 
 
 
-  
-  
-  
 
   
-  <div id="SOHUCS" sid="hiveConf" ></div> 
-<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
-<script type="text/javascript">
-    window.changyan.api.config({
-        appid: "cytwhjo1f",
-        conf: "a13e9cae0c98145055f273a6eae16c52"
-    });
-</script>
-</script>
   
-
-  
-
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    </nav>
   
 
 
@@ -438,8 +282,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
