@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://www.dongkelun.com">
   <title>centos7 hadoop 单机模式安装配置 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言：由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。 1、首先安装配置jdk（我安装的1.8）2、下载ha">
+  <meta name="description" content="前言由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。 1、首先安装配置jdk（我安装的1.8）2、下载had">
 <meta name="keywords" content="centos,hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos7 hadoop 单机模式安装配置">
 <meta property="og:url" content="http://www.dongkelun.com/2018/03/23/hadoopConf/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言：由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。 1、首先安装配置jdk（我安装的1.8）2、下载ha">
+<meta property="og:description" content="前言由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。 1、首先安装配置jdk（我安装的1.8）2、下载had">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpnngyi59gj20p502idfw.jpg">
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/e44344dcly1fpnoeul7usj21110lz75w.jpg">
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fpnoev27ouj217a0didgl.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fpnoewkmuaj21gw0dmwgw.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpnoevud3cj20d303ea9y.jpg">
-<meta property="og:updated_time" content="2018-04-27T16:51:33.250Z">
+<meta property="og:updated_time" content="2018-05-06T03:47:11.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 hadoop 单机模式安装配置">
-<meta name="twitter:description" content="前言：由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。 1、首先安装配置jdk（我安装的1.8）2、下载ha">
+<meta name="twitter:description" content="前言由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。 1、首先安装配置jdk（我安装的1.8）2、下载had">
 <meta name="twitter:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fpnngyi59gj20p502idfw.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
@@ -212,7 +212,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。</p>
 <h2 id="1、首先安装配置jdk（我安装的1-8）"><a href="#1、首先安装配置jdk（我安装的1-8）" class="headerlink" title="1、首先安装配置jdk（我安装的1.8）"></a>1、首先安装配置jdk（我安装的1.8）</h2><h2 id="2、下载hadoop"><a href="#2、下载hadoop" class="headerlink" title="2、下载hadoop"></a>2、下载hadoop</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hadoop/common/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hadoop/common/</a>，我下载的是hadoop-2.7.5.tar.gz<br>（由于我之前用的2.7.1是几年前下载保存在本地的，现在发现之前在配置spark那篇写的那个hadoop下载地址较慢，所以改成这个地址）</p>
 <h2 id="3、解压到-opt目录下（目录根据自己习惯）"><a href="#3、解压到-opt目录下（目录根据自己习惯）" class="headerlink" title="3、解压到/opt目录下（目录根据自己习惯）"></a>3、解压到/opt目录下（目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.7.5.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -398,7 +398,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言："><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、首先安装配置jdk（我安装的1-8）"><span class="toc-number"></span> <span class="toc-text">1、首先安装配置jdk（我安装的1.8）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、下载hadoop"><span class="toc-number"></span> <span class="toc-text">2、下载hadoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、解压到-opt目录下（目录根据自己习惯）"><span class="toc-number"></span> <span class="toc-text">3、解压到/opt目录下（目录根据自己习惯）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、配置hadoop环境变量"><span class="toc-number"></span> <span class="toc-text">4、配置hadoop环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、配置hadoop"><span class="toc-number"></span> <span class="toc-text">5、配置hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-配置hadoop-env-sh"><span class="toc-number">1.</span> <span class="toc-text">5.1 配置hadoop-env.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-配置core-site-xml-5-2和5-3中配置文件里的文件路径和端口随自己习惯配置"><span class="toc-number">2.</span> <span class="toc-text">5.2 配置core-site.xml (5.2和5.3中配置文件里的文件路径和端口随自己习惯配置)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-配置hdfs-site-xml"><span class="toc-number">3.</span> <span class="toc-text">5.3 配置hdfs-site.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、SSH免密码登录"><span class="toc-number"></span> <span class="toc-text">6、SSH免密码登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、启动与停止"><span class="toc-number"></span> <span class="toc-text">7、启动与停止</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、配置yarn"><span class="toc-number"></span> <span class="toc-text">8、配置yarn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-配置mapred-site-xml"><span class="toc-number">1.</span> <span class="toc-text">8.1 配置mapred-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-配置yarn-site-xml"><span class="toc-number">2.</span> <span class="toc-text">8.2 配置yarn-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-yarn启动与停止"><span class="toc-number">3.</span> <span class="toc-text">8.3 yarn启动与停止</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number"></span> <span class="toc-text">参考资料</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、首先安装配置jdk（我安装的1-8）"><span class="toc-number">2.</span> <span class="toc-text">1、首先安装配置jdk（我安装的1.8）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、下载hadoop"><span class="toc-number">3.</span> <span class="toc-text">2、下载hadoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、解压到-opt目录下（目录根据自己习惯）"><span class="toc-number">4.</span> <span class="toc-text">3、解压到/opt目录下（目录根据自己习惯）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、配置hadoop环境变量"><span class="toc-number">5.</span> <span class="toc-text">4、配置hadoop环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、配置hadoop"><span class="toc-number">6.</span> <span class="toc-text">5、配置hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-配置hadoop-env-sh"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 配置hadoop-env.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-配置core-site-xml-5-2和5-3中配置文件里的文件路径和端口随自己习惯配置"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 配置core-site.xml (5.2和5.3中配置文件里的文件路径和端口随自己习惯配置)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-配置hdfs-site-xml"><span class="toc-number">6.3.</span> <span class="toc-text">5.3 配置hdfs-site.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、SSH免密码登录"><span class="toc-number">7.</span> <span class="toc-text">6、SSH免密码登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、启动与停止"><span class="toc-number">8.</span> <span class="toc-text">7、启动与停止</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、配置yarn"><span class="toc-number">9.</span> <span class="toc-text">8、配置yarn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-配置mapred-site-xml"><span class="toc-number">9.1.</span> <span class="toc-text">8.1 配置mapred-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-配置yarn-site-xml"><span class="toc-number">9.2.</span> <span class="toc-text">8.2 配置yarn-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-yarn启动与停止"><span class="toc-number">9.3.</span> <span class="toc-text">8.3 yarn启动与停止</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -554,15 +554,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -631,6 +631,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
             
             <div class="clearfix"></div>

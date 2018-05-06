@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.dongkelun.com">
-  <title>伦少的博客</title>
+  <title>Tag: spark-submit | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="love ~ 婷宝 1412359494@qq.com">
 <meta property="og:type" content="website">
 <meta property="og:title" content="伦少的博客">
-<meta property="og:url" content="http://www.dongkelun.com/page/3/index.html">
+<meta property="og:url" content="http://www.dongkelun.com/tags/spark-submit/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="love ~ 婷宝 1412359494@qq.com">
 <meta property="og:locale" content="cn">
@@ -163,212 +163,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-scalaMapAdd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/01/scalaMapAdd/">scala 两个map合并，key相同时value相加</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/01/scalaMapAdd/" class="archive-article-date">
-  	<time datetime="2018-03-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
-</a>
-        
-      </header>
-	    
     
-    <div class="article-entry" itemprop="articleBody">
+    
       
-        <h2 id="1、先看一下map自带的合并操作的效果"><a href="#1、先看一下map自带的合并操作的效果" class="headerlink" title="1、先看一下map自带的合并操作的效果"></a>1、先看一下map自带的合并操作的效果</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map1 = <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">3</span>, <span class="string">"key3"</span> -&gt; <span class="number">5</span>)</span><br><span class="line"><span class="keyword">val</span> map2 = <span class="type">Map</span>(<span class="string">"key2"</span> -&gt; <span class="number">4</span>, <span class="string">"key3"</span> -&gt; <span class="number">6</span>, <span class="string">"key5"</span> -&gt; <span class="number">10</span>)</span><br><span class="line">println(map1 + (<span class="string">"key1"</span> -&gt; <span class="number">3</span>))</span><br><span class="line">println(map1 ++ map2)</span><br></pre></td></tr></table></figure>
-<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map(key1 -&gt; 3, key2 -&gt; 3, key3 -&gt; 5)</span><br><span class="line">Map(key1 -&gt; 1, key2 -&gt; 4, key3 -&gt; 6, key5 -&gt; 10)</span><br></pre></td></tr></table></figure></p>
-<p>可以看到现有的方法在key相同时，没有将value相加，而是操作符右边的值把左边的值覆盖掉了。<br>
-        
-          <a class="article-more-a" href="/2018/04/01/scalaMapAdd/#more">more >></a>
-        
       
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/01/scalaMapAdd/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-scalaUnderscoreUseGuide" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+        <div class="archives">
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/29/scalaUnderscoreUseGuide/">scala 下划线使用指南</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/29/scalaUnderscoreUseGuide/" class="archive-article-date">
-  	<time datetime="2018-03-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/05/06/sparkSubmitException/" class="archive-article-date">
+  	<time datetime="2018-05-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-06</time>
 </a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原文地址：<a href="https://my.oschina.net/joymufeng/blog/863823" target="_blank" rel="noopener">https://my.oschina.net/joymufeng/blog/863823</a>  &emsp;&emsp;作者：<a href="https://my.oschina.net/joymufeng/home" target="_blank" rel="noopener">joymufeng</a><br>下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。</p>
-<h2 id="1、用于替换Java的等价语法"><a href="#1、用于替换Java的等价语法" class="headerlink" title="1、用于替换Java的等价语法"></a>1、用于替换Java的等价语法</h2><p>由于大部分的Java关键字在Scala中拥有了新的含义，所以一些基本的语法在Scala中稍有变化。</p>
-<h3 id="1-1-导入通配符"><a href="#1-1-导入通配符" class="headerlink" title="1.1 导入通配符"></a>1.1 导入通配符</h3><p>*在Scala中是合法的方法名，所以导入包时要使用_代替。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Scala</span></span><br><span class="line"><span class="keyword">import</span> java.util._</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2018/03/29/scalaUnderscoreUseGuide/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/29/scalaUnderscoreUseGuide/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-sparkHive" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/25/sparkHive/">spark连接hive（spark-shell和eclipse两种方式）</a>
+      <a class="archive-article-title" href="/2018/05/06/sparkSubmitException/">spark-submit报错 No suitable driver</a>
     </h1>
   
 
-        
-        <a href="/2018/03/25/sparkHive/" class="archive-article-date">
-  	<time datetime="2018-03-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-25</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、在服务器（虚拟机）spark-shell连接hive"><a href="#1、在服务器（虚拟机）spark-shell连接hive" class="headerlink" title="1、在服务器（虚拟机）spark-shell连接hive"></a>1、在服务器（虚拟机）spark-shell连接hive</h2><h3 id="1-1-将hive-site-xml拷贝到spark-conf里"><a href="#1-1-将hive-site-xml拷贝到spark-conf里" class="headerlink" title="1.1 将hive-site.xml拷贝到spark/conf里"></a>1.1 将hive-site.xml拷贝到spark/conf里</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-将mysql驱动拷贝到spark-jar里"><a href="#1-2-将mysql驱动拷贝到spark-jar里" class="headerlink" title="1.2 将mysql驱动拷贝到spark/jar里"></a>1.2 将mysql驱动拷贝到spark/jar里</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/apache-hive-2.3.2-bin/bin/mysql-connector-java-5.1.46-bin.jar /opt/spark-2.2.1-bin-hadoop2.7/jars/</span><br></pre></td></tr></table></figure>
-<h3 id="1-3-启动spark-shell-输入代码测试"><a href="#1-3-启动spark-shell-输入代码测试" class="headerlink" title="1.3 启动spark-shell,输入代码测试"></a>1.3 启动spark-shell,输入代码测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spark-shell</span><br><span class="line">import org.apache.spark.sql.hive.HiveContext</span><br><span class="line">val hiveContext = new HiveContext(sc)</span><br><span class="line">hiveContext.sql(<span class="string">"select * from test"</span>).show()</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/03/25/sparkHive/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -378,229 +200,25 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">spark-submit</a>
         		</li>
       		
 		</ul>
 	</div>
 
-		  
+          
 
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/25/sparkHive/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-hiveConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/24/hiveConf/">centos7 hive 单机模式安装配置</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/24/hiveConf/" class="archive-article-date">
-  	<time datetime="2018-03-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-24</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。</p>
-<h2 id="1、前提"><a href="#1、前提" class="headerlink" title="1、前提"></a>1、前提</h2><h3 id="1-1-安装配置jdk1-8"><a href="#1-1-安装配置jdk1-8" class="headerlink" title="1.1 安装配置jdk1.8"></a>1.1 安装配置jdk1.8</h3><h3 id="1-2-安装hadoop2-x"><a href="#1-2-安装hadoop2-x" class="headerlink" title="1.2 安装hadoop2.x"></a>1.2 安装hadoop2.x</h3><p>hadoop单机模式安装见：<a href="http://dongkelun.com/2018/03/23/hadoopConf/" target="_blank" rel="noopener">centos7 hadoop 单机模式安装配置</a></p>
-<h3 id="1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。"><a href="#1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。" class="headerlink" title="1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。"></a>1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。</h3><p>mysql数据库安装过程请参考：<a href="https://blog.csdn.net/lochy/article/details/51721319" target="_blank" rel="noopener">Centos 7.2 安装 Mysql 5.7.13</a></p>
-<h2 id="2、下载hive"><a href="#2、下载hive" class="headerlink" title="2、下载hive"></a>2、下载hive</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hive/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hive/</a>，我下载的是apache-hive-2.3.2-bin.tar.gz。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.bit.edu.cn/apache/hive/hive-2.3.2/apache-hive-2.3.2-bin.tar.gz</span><br><span class="line">或者下载到本地，通过工具上传到虚拟机中</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、解压到-opt目录下（目录根据自己习惯）"><a href="#3、解压到-opt目录下（目录根据自己习惯）" class="headerlink" title="3、解压到/opt目录下（目录根据自己习惯）"></a>3、解压到/opt目录下（目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-hive-2.3.2-bin.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/03/24/hiveConf/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/24/hiveConf/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hadoopConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/23/hadoopConf/">centos7 hadoop 单机模式安装配置</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/23/hadoopConf/" class="archive-article-date">
-  	<time datetime="2018-03-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-23</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。</p>
-<h2 id="1、首先安装配置jdk（我安装的1-8）"><a href="#1、首先安装配置jdk（我安装的1-8）" class="headerlink" title="1、首先安装配置jdk（我安装的1.8）"></a>1、首先安装配置jdk（我安装的1.8）</h2><h2 id="2、下载hadoop"><a href="#2、下载hadoop" class="headerlink" title="2、下载hadoop"></a>2、下载hadoop</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hadoop/common/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hadoop/common/</a>，我下载的是hadoop-2.7.5.tar.gz<br>（由于我之前用的2.7.1是几年前下载保存在本地的，现在发现之前在配置spark那篇写的那个hadoop下载地址较慢，所以改成这个地址）</p>
-<h2 id="3、解压到-opt目录下（目录根据自己习惯）"><a href="#3、解压到-opt目录下（目录根据自己习惯）" class="headerlink" title="3、解压到/opt目录下（目录根据自己习惯）"></a>3、解压到/opt目录下（目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.7.5.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/03/23/hadoopConf/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/23/hadoopConf/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -635,10 +253,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

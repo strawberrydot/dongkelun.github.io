@@ -4,6 +4,44 @@
 
     
   <url>
+    <loc>http://www.dongkelun.com/2018/05/06/sparkSubmitException/</loc>
+    <lastmod>2018-05-06T06:32:57.545Z</lastmod>
+    <data>
+        <display>
+        <title>spark-submit报错 No suitable driver</title>
+        <pubTime>2018-05-05T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>spark-submit</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.dongkelun.com/2018/03/23/hadoopConf/</loc>
+    <lastmod>2018-05-06T03:47:11.399Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 hadoop 单机模式安装配置</title>
+        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
+        
+        <tag>centos</tag>
+         
+        <tag>hadoop</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.dongkelun.com/2018/05/05/oracleConf/</loc>
     <lastmod>2018-05-06T02:20:56.653Z</lastmod>
     <data>
@@ -308,25 +346,6 @@
         <tag>centos</tag>
          
         <tag>hive</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.dongkelun.com/2018/03/23/hadoopConf/</loc>
-    <lastmod>2018-04-27T16:51:33.250Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 hadoop 单机模式安装配置</title>
-        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-        <tag>hadoop</tag>
          
          
            

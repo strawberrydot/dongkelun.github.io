@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.dongkelun.com">
-  <title>伦少的博客</title>
+  <title>spark-submit报错 No suitable driver | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="love ~ 婷宝 1412359494@qq.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="伦少的博客">
-<meta property="og:url" content="http://www.dongkelun.com/page/3/index.html">
+  <meta name="description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
+<meta name="keywords" content="spark,spark-submit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spark-submit报错 No suitable driver">
+<meta property="og:url" content="http://www.dongkelun.com/2018/05/06/sparkSubmitException/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="love ~ 婷宝 1412359494@qq.com">
+<meta property="og:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
 <meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2018-05-06T06:32:57.545Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="伦少的博客">
-<meta name="twitter:description" content="love ~ 婷宝 1412359494@qq.com">
+<meta name="twitter:title" content="spark-submit报错 No suitable driver">
+<meta name="twitter:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -161,214 +163,26 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-scalaMapAdd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-sparkSubmitException" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/01/scalaMapAdd/">scala 两个map合并，key相同时value相加</a>
+    <h1 class="article-title" itemprop="name">
+      spark-submit报错 No suitable driver
     </h1>
   
 
         
-        <a href="/2018/04/01/scalaMapAdd/" class="archive-article-date">
-  	<time datetime="2018-03-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
+        <a href="/2018/05/06/sparkSubmitException/" class="archive-article-date">
+  	<time datetime="2018-05-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-06</time>
 </a>
         
       </header>
 	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、先看一下map自带的合并操作的效果"><a href="#1、先看一下map自带的合并操作的效果" class="headerlink" title="1、先看一下map自带的合并操作的效果"></a>1、先看一下map自带的合并操作的效果</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map1 = <span class="type">Map</span>(<span class="string">"key1"</span> -&gt; <span class="number">1</span>, <span class="string">"key2"</span> -&gt; <span class="number">3</span>, <span class="string">"key3"</span> -&gt; <span class="number">5</span>)</span><br><span class="line"><span class="keyword">val</span> map2 = <span class="type">Map</span>(<span class="string">"key2"</span> -&gt; <span class="number">4</span>, <span class="string">"key3"</span> -&gt; <span class="number">6</span>, <span class="string">"key5"</span> -&gt; <span class="number">10</span>)</span><br><span class="line">println(map1 + (<span class="string">"key1"</span> -&gt; <span class="number">3</span>))</span><br><span class="line">println(map1 ++ map2)</span><br></pre></td></tr></table></figure>
-<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map(key1 -&gt; 3, key2 -&gt; 3, key3 -&gt; 5)</span><br><span class="line">Map(key1 -&gt; 1, key2 -&gt; 4, key3 -&gt; 6, key5 -&gt; 10)</span><br></pre></td></tr></table></figure></p>
-<p>可以看到现有的方法在key相同时，没有将value相加，而是操作符右边的值把左边的值覆盖掉了。<br>
-        
-          <a class="article-more-a" href="/2018/04/01/scalaMapAdd/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/01/scalaMapAdd/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-scalaUnderscoreUseGuide" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/29/scalaUnderscoreUseGuide/">scala 下划线使用指南</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/29/scalaUnderscoreUseGuide/" class="archive-article-date">
-  	<time datetime="2018-03-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原文地址：<a href="https://my.oschina.net/joymufeng/blog/863823" target="_blank" rel="noopener">https://my.oschina.net/joymufeng/blog/863823</a>  &emsp;&emsp;作者：<a href="https://my.oschina.net/joymufeng/home" target="_blank" rel="noopener">joymufeng</a><br>下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。</p>
-<h2 id="1、用于替换Java的等价语法"><a href="#1、用于替换Java的等价语法" class="headerlink" title="1、用于替换Java的等价语法"></a>1、用于替换Java的等价语法</h2><p>由于大部分的Java关键字在Scala中拥有了新的含义，所以一些基本的语法在Scala中稍有变化。</p>
-<h3 id="1-1-导入通配符"><a href="#1-1-导入通配符" class="headerlink" title="1.1 导入通配符"></a>1.1 导入通配符</h3><p>*在Scala中是合法的方法名，所以导入包时要使用_代替。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Scala</span></span><br><span class="line"><span class="keyword">import</span> java.util._</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2018/03/29/scalaUnderscoreUseGuide/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/29/scalaUnderscoreUseGuide/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-sparkHive" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/25/sparkHive/">spark连接hive（spark-shell和eclipse两种方式）</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/25/sparkHive/" class="archive-article-date">
-  	<time datetime="2018-03-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-25</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、在服务器（虚拟机）spark-shell连接hive"><a href="#1、在服务器（虚拟机）spark-shell连接hive" class="headerlink" title="1、在服务器（虚拟机）spark-shell连接hive"></a>1、在服务器（虚拟机）spark-shell连接hive</h2><h3 id="1-1-将hive-site-xml拷贝到spark-conf里"><a href="#1-1-将hive-site-xml拷贝到spark-conf里" class="headerlink" title="1.1 将hive-site.xml拷贝到spark/conf里"></a>1.1 将hive-site.xml拷贝到spark/conf里</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/apache-hive-2.3.2-bin/conf/hive-site.xml /opt/spark-2.2.1-bin-hadoop2.7/conf/</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-将mysql驱动拷贝到spark-jar里"><a href="#1-2-将mysql驱动拷贝到spark-jar里" class="headerlink" title="1.2 将mysql驱动拷贝到spark/jar里"></a>1.2 将mysql驱动拷贝到spark/jar里</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /opt/apache-hive-2.3.2-bin/bin/mysql-connector-java-5.1.46-bin.jar /opt/spark-2.2.1-bin-hadoop2.7/jars/</span><br></pre></td></tr></table></figure>
-<h3 id="1-3-启动spark-shell-输入代码测试"><a href="#1-3-启动spark-shell-输入代码测试" class="headerlink" title="1.3 启动spark-shell,输入代码测试"></a>1.3 启动spark-shell,输入代码测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spark-shell</span><br><span class="line">import org.apache.spark.sql.hive.HiveContext</span><br><span class="line">val hiveContext = new HiveContext(sc)</span><br><span class="line">hiveContext.sql(<span class="string">"select * from test"</span>).show()</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/03/25/sparkHive/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
+		  <div class="article-info article-info-post">
+			
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -378,116 +192,164 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">spark-submit</a>
         		</li>
       		
 		</ul>
 	</div>
 
-		  
+			
 
-	  
-	 
+			<div class="clearfix"></div>
+		  </div>
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/25/sparkHive/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hiveConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/24/hiveConf/">centos7 hive 单机模式安装配置</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/24/hiveConf/" class="archive-article-date">
-  	<time datetime="2018-03-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-24</time>
-</a>
-        
-      </header>
-	    
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>由于只是在自己的虚拟机上进行学习，所以对hive只是进行最简单的配置，其他复杂的配置文件没有配置。</p>
-<h2 id="1、前提"><a href="#1、前提" class="headerlink" title="1、前提"></a>1、前提</h2><h3 id="1-1-安装配置jdk1-8"><a href="#1-1-安装配置jdk1-8" class="headerlink" title="1.1 安装配置jdk1.8"></a>1.1 安装配置jdk1.8</h3><h3 id="1-2-安装hadoop2-x"><a href="#1-2-安装hadoop2-x" class="headerlink" title="1.2 安装hadoop2.x"></a>1.2 安装hadoop2.x</h3><p>hadoop单机模式安装见：<a href="http://dongkelun.com/2018/03/23/hadoopConf/" target="_blank" rel="noopener">centos7 hadoop 单机模式安装配置</a></p>
-<h3 id="1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。"><a href="#1-3-安装mysql并配置myql允许远程访问，我的mysql版本5-7-18。" class="headerlink" title="1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。"></a>1.3 安装mysql并配置myql允许远程访问，我的mysql版本5.7.18。</h3><p>mysql数据库安装过程请参考：<a href="https://blog.csdn.net/lochy/article/details/51721319" target="_blank" rel="noopener">Centos 7.2 安装 Mysql 5.7.13</a></p>
-<h2 id="2、下载hive"><a href="#2、下载hive" class="headerlink" title="2、下载hive"></a>2、下载hive</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hive/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hive/</a>，我下载的是apache-hive-2.3.2-bin.tar.gz。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.bit.edu.cn/apache/hive/hive-2.3.2/apache-hive-2.3.2-bin.tar.gz</span><br><span class="line">或者下载到本地，通过工具上传到虚拟机中</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、解压到-opt目录下（目录根据自己习惯）"><a href="#3、解压到-opt目录下（目录根据自己习惯）" class="headerlink" title="3、解压到/opt目录下（目录根据自己习惯）"></a>3、解压到/opt目录下（目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-hive-2.3.2-bin.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/03/24/hiveConf/#more">more >></a>
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交时找不到oracle 驱动jar,折腾了半天才发现是代码问题。</p>
+<h2 id="1、猜测是否是确实oracle驱动"><a href="#1、猜测是否是确实oracle驱动" class="headerlink" title="1、猜测是否是确实oracle驱动"></a>1、猜测是否是确实oracle驱动</h2><p>由于在本地没有问题，所以不会想到是代码问题，根据提示想到的是spark-submit找不到oracle驱动，因为maven或sbt仓库里没有oracle驱动，在本地跑的时候，是将oracle驱动下载到本地，然后在eclipse设置build path就可以了。</p>
+<p>但是我在spark-submit 里已经通过–jars 加载oracle驱动了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo --jars ojdbc5-11.2.0.3.jar spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
+<p>开始以为自己用法不对，但是上网搜了一下，发现就是这么用的~<br>然后尝试用–driver-class-path、–driver-library-path等都没成功。<br><a id="more"></a></p>
+<h2 id="2、sbt-assembly打包"><a href="#2、sbt-assembly打包" class="headerlink" title="2、sbt-assembly打包"></a>2、sbt-assembly打包</h2><p>网上查的sbt-assembly打包可以将所有依赖的jar包包括你写的代码全部打包在一起，于是尝试了一下<br>首先在项目目录中project/plugins.sbt添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">addSbtPlugin(&quot;com.eed3si9n&quot; % &quot;sbt-assembly&quot; % &quot;0.14.5&quot;)</span><br><span class="line">resolvers += Resolver.url(&quot;bintray-sbt-plugins&quot;, url(&quot;http://dl.bintray.com/sbt/sbt-plugin-releases&quot;))(Resolver.ivyStylePatterns)</span><br></pre></td></tr></table></figure></p>
+<p>其中0.14.5为版本号，需要与自己sbt对应上，否则报错，可在<a href="http://dl.bintray.com/sbt/sbt-plugin-releases/com.eed3si9n/sbt-assembly/查看版本" target="_blank" rel="noopener">http://dl.bintray.com/sbt/sbt-plugin-releases/com.eed3si9n/sbt-assembly/查看版本</a><br>然后在项目对应目录下执行sbt,然后输入plugins，即可看到sbtassembly插件了，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ sbt</span><br><span class="line">[info] Loading settings from plugins.sbt ...</span><br><span class="line">[info] Loading global plugins from C:\Users\14123\.sbt\1.0\plugins</span><br><span class="line">[info] Loading settings from assembly.sbt,plugins.sbt ...</span><br><span class="line">[info] Loading project definition from D:\workspace\spark-scala\project</span><br><span class="line">[info] Loading settings from spark-scala.sbt ...</span><br><span class="line">[info] Set current project to spark-scala (in build file:/D:/workspace/spark-scala/)</span><br><span class="line">[info] sbt server started at local:sbt-server-8b6c904d40b181717b3f</span><br><span class="line">sbt:spark-scala&gt; plugins</span><br><span class="line">In file:/D:/workspace/spark-scala/</span><br><span class="line">        sbt.plugins.IvyPlugin: enabled in spark-scala</span><br><span class="line">        sbt.plugins.JvmPlugin: enabled in spark-scala</span><br><span class="line">        sbt.plugins.CorePlugin: enabled in spark-scala</span><br><span class="line">        sbt.plugins.JUnitXmlReportPlugin: enabled in spark-scala</span><br><span class="line">        sbt.plugins.Giter8TemplatePlugin: enabled in spark-scala</span><br><span class="line">        com.typesafe.sbteclipse.plugin.EclipsePlugin: enabled in spark-scala</span><br><span class="line">        sbtassembly.AssemblyPlugin: enabled in spark-scala</span><br><span class="line">sbt:spark-scala&gt;</span><br></pre></td></tr></table></figure></p>
+<p>但是这样执行sbt-assembly打包会报错，需要解决jar包冲突(deduplicate)问题<br>在项目的bulid.sbt里添加如下即可（只是其中一种解决策略，可根据自己项目实际情况自己设定）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">assemblyMergeStrategy in assembly := &#123;</span><br><span class="line">    case m if m.toLowerCase.endsWith(&quot;manifest.mf&quot;) =&gt; MergeStrategy.discard</span><br><span class="line">    case m if m.startsWith(&quot;META-INF&quot;) =&gt; MergeStrategy.discard</span><br><span class="line">    case PathList(&quot;javax&quot;, &quot;servlet&quot;, xs @ _*) =&gt; MergeStrategy.first</span><br><span class="line">    case PathList(&quot;org&quot;, &quot;apache&quot;, xs @ _*) =&gt; MergeStrategy.first</span><br><span class="line">    case PathList(&quot;org&quot;, &quot;jboss&quot;, xs @ _*) =&gt; MergeStrategy.first</span><br><span class="line">    case &quot;about.html&quot;  =&gt; MergeStrategy.rename</span><br><span class="line">    case &quot;reference.conf&quot; =&gt; MergeStrategy.concat</span><br><span class="line">    case _ =&gt; MergeStrategy.first</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line">其中不同旧版本和新版本sbt写法不一样，具体可上网看一下别人的博客或者在官网查看。</span><br><span class="line"></span><br><span class="line">这样就可以sbt-assembly进行打包了，发现这样打的jar包确实很大，用sbt package打的jar包大小1.48MB,sbt-assembly打的jar包大小194MB,将spark-scala-assembly-1.0.jar上传到服务器，然后执行submit,发现还是报同样的错，查看一下sbt-assembly日志，发现确实将oracle驱动加载上了...</span><br><span class="line">## 3、真正原因</span><br><span class="line">这样就猜想不是缺少oracle驱动，于是上网查了好多，偶然发现可能是代码问题，下面是我写的从oracle取数的部分代码</span><br><span class="line">```scala</span><br><span class="line">val allTablesDF = spark.read</span><br><span class="line">  .format(&quot;jdbc&quot;)</span><br><span class="line">  .option(&quot;url&quot;, &quot;jdbc:oracle:thin:@192.168.44.128:1521:orcl&quot;)</span><br><span class="line">  .option(&quot;dbtable&quot;, &quot;(select table_name,owner from all_tables where  owner  in(&apos;BIGDATA&apos;))a&quot;)</span><br><span class="line">  .option(&quot;user&quot;, &quot;bigdata&quot;)</span><br><span class="line">  .option(&quot;password&quot;, &quot;bigdata&quot;)</span><br><span class="line">  .load()</span><br></pre></td></tr></table></figure></p>
+<p>写法和我之前写的spark连接mysql的博客里的写法是一样的：<a href="http://dongkelun.com/2018/03/21/sparkMysql/" target="_blank" rel="noopener">Spark Sql 连接mysql</a><br>这样写在eclipse运行是没问题的，但是在spark-submit提交时是不行的，需要加上驱动信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.option(&quot;driver&quot;, &quot;oracle.jdbc.driver.OracleDriver&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>重新打包，再运行，发现果然没问题</p>
+<h2 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h2><h3 id="4-1"><a href="#4-1" class="headerlink" title="4.1"></a>4.1</h3><p>其实在用spark提交之前写的spark连接mysql的程序也会报统一的错(如果$SPARK_HOME/jars没有mysql驱动)，和oracle驱动不在sbt仓库里没关系。<br>但是之前在spark-shell里测试spark连接hive时已经将mysql驱动拷贝过去了，所以mysql没有报错</p>
+<h3 id="4-2"><a href="#4-2" class="headerlink" title="4.2"></a>4.2</h3><p>在代码里加上driver之后再提交如果没有oracle驱动会报不同的错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-3"><a href="#4-3" class="headerlink" title="4.3"></a>4.3</h3><p>通过–jars指定jar和sbt assembly打包都可以，看自己习惯，但通过–jars需要注意先后顺序<br>正确：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo --jars ojdbc5-11.2.0.3.jar spark-scala_2.11-1.0.jar </span><br><span class="line">spark-submit --jars ojdbc5-11.2.0.3.jar --class com.dkl.leanring.spark.sql.Oracle2HiveDemo  spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
+<p>错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo  spark-scala_2.11-1.0.jar --jars ojdbc5-11.2.0.3.jar</span><br><span class="line">spark-submit --jars ojdbc5-11.2.0.3.jar spark-scala_2.11-1.0.jar --class com.dkl.leanring.spark.sql.Oracle2HiveDemo </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>也就是通过sbt package和sbt assembly生成的项目jar包一定要放在最后面</p>
+<h3 id="4-4"><a href="#4-4" class="headerlink" title="4.4"></a>4.4</h3><p>通过–driver-class-path也可以实现加载额外的jar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo --driver-class-path lib/*  spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-5"><a href="#4-5" class="headerlink" title="4.5"></a>4.5</h3><p>将oracle驱动拷贝到$SPARK_HOME/jars,就可以不在代码里指定driver选项了，而且也不用通过–jars添加oracle驱动，一劳永逸.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp ojdbc5-11.2.0.3.jar <span class="variable">$SPARK_HOME</span>/jars</span><br><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo  spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
+<p>具体这样设置可根据实际情况和偏好习惯使用。</p>
+<h2 id="附完整代码（测试用）"><a href="#附完整代码（测试用）" class="headerlink" title="附完整代码（测试用）"></a>附完整代码（测试用）</h2><p>比较简单就不加注视了~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package com.dkl.leanring.spark.sql</span><br><span class="line"></span><br><span class="line">import org.apache.spark.sql.SparkSession</span><br><span class="line"></span><br><span class="line">object Oracle2HiveDemo &#123;</span><br><span class="line"></span><br><span class="line">  def main(args: Array[String]): Unit = &#123;</span><br><span class="line">    val spark = SparkSession</span><br><span class="line">      .builder()</span><br><span class="line">      .appName(&quot;Oracle2HiveDemo&quot;)</span><br><span class="line">      .master(&quot;local&quot;)</span><br><span class="line">      .enableHiveSupport()</span><br><span class="line">      .getOrCreate()</span><br><span class="line"></span><br><span class="line">    val allTablesDF = spark.read</span><br><span class="line">      .format(&quot;jdbc&quot;)</span><br><span class="line">      .option(&quot;url&quot;, &quot;jdbc:oracle:thin:@192.168.44.128:1521:orcl&quot;)</span><br><span class="line">      .option(&quot;dbtable&quot;, &quot;(select table_name,owner from all_tables where  owner  in(&apos;BIGDATA&apos;))a&quot;)</span><br><span class="line">      .option(&quot;user&quot;, &quot;bigdata&quot;)</span><br><span class="line">      .option(&quot;password&quot;, &quot;bigdata&quot;)</span><br><span class="line">      .option(&quot;driver&quot;, &quot;oracle.jdbc.driver.OracleDriver&quot;)</span><br><span class="line">      .load()</span><br><span class="line">    import spark.implicits._</span><br><span class="line">    import spark.sql</span><br><span class="line">    sql(&quot;use oracle_test&quot;)</span><br><span class="line">    allTablesDF.rdd.collect().foreach(row =&gt; &#123;</span><br><span class="line">      val tableName: String = row(0).toString()</span><br><span class="line">      val dataBase: String = row(1).toString()</span><br><span class="line"></span><br><span class="line">      println(dataBase + &quot;.&quot; + tableName)</span><br><span class="line">      val df = spark.read</span><br><span class="line">        .format(&quot;jdbc&quot;)</span><br><span class="line">        .option(&quot;url&quot;, &quot;jdbc:oracle:thin:@192.168.44.128:1521:orcl&quot;)</span><br><span class="line">        .option(&quot;dbtable&quot;, dataBase + &quot;.&quot; + tableName)</span><br><span class="line">        .option(&quot;user&quot;, &quot;bigdata&quot;)</span><br><span class="line">        .option(&quot;password&quot;, &quot;bigdata&quot;)</span><br><span class="line">        .option(&quot;driver&quot;, &quot;oracle.jdbc.driver.OracleDriver&quot;)</span><br><span class="line">        .load()</span><br><span class="line">      df.write.mode(&quot;overwrite&quot;).saveAsTable(tableName)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    spark.stop</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢您的支持!<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+	  
+		<div class="article-footer-copyright">
+
+ <p>本文由&nbsp;<b>董可伦</b>&nbsp;发表于&nbsp<a href="http://dongkelun.com">伦少的博客</a>&nbsp,采用<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">署名-非商业性使用-禁止演绎 3.0</a>进行许可。</p>
+ 
+ <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
+ 
+ <p>本文标题为: <a href="http://www.dongkelun.com/2018/05/06/sparkSubmitException/">spark-submit报错 No suitable driver</a> </p>
+ 
+ <p>本文链接为：<a href="http://www.dongkelun.com/2018/05/06/sparkSubmitException/">http://www.dongkelun.com/2018/05/06/sparkSubmitException/</a></p>
+ 
+ 
+ 
+
+</div>
 	  
     </div>
     <div class="article-info article-info-index">
       
 	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
 	 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/24/hiveConf/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/05/06/sparkSubmitException/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/05/oracleConf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">centos7 安装oracle11</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -502,104 +364,42 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hadoopConf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/23/hadoopConf/">centos7 hadoop 单机模式安装配置</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/23/hadoopConf/" class="archive-article-date">
-  	<time datetime="2018-03-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-23</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于现在要用spark,而学习spark会和hdfs和hive打交道，之前在公司服务器配的分布式集群，离开公司之后，自己就不能用了，后来用ambari搭的三台虚拟机的集群太卡了，所以就上网查了一下hadoop+hive的单机部署，以便自己能进行简单的学习，这里记录一下，本来想把hadoop和hive的放在一起写，由于太多，就分成两篇写了。</p>
-<h2 id="1、首先安装配置jdk（我安装的1-8）"><a href="#1、首先安装配置jdk（我安装的1-8）" class="headerlink" title="1、首先安装配置jdk（我安装的1.8）"></a>1、首先安装配置jdk（我安装的1.8）</h2><h2 id="2、下载hadoop"><a href="#2、下载hadoop" class="headerlink" title="2、下载hadoop"></a>2、下载hadoop</h2><p>下载地址：<a href="http://mirror.bit.edu.cn/apache/hadoop/common/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hadoop/common/</a>，我下载的是hadoop-2.7.5.tar.gz<br>（由于我之前用的2.7.1是几年前下载保存在本地的，现在发现之前在配置spark那篇写的那个hadoop下载地址较慢，所以改成这个地址）</p>
-<h2 id="3、解压到-opt目录下（目录根据自己习惯）"><a href="#3、解压到-opt目录下（目录根据自己习惯）" class="headerlink" title="3、解压到/opt目录下（目录根据自己习惯）"></a>3、解压到/opt目录下（目录根据自己习惯）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-2.7.5.tar.gz  -C /opt/</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/03/23/hadoopConf/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/23/hadoopConf/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、猜测是否是确实oracle驱动"><span class="toc-number">2.</span> <span class="toc-text">1、猜测是否是确实oracle驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、sbt-assembly打包"><span class="toc-number">3.</span> <span class="toc-text">2、sbt-assembly打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、总结"><span class="toc-number">4.</span> <span class="toc-text">4、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1"><span class="toc-number">4.1.</span> <span class="toc-text">4.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2"><span class="toc-number">4.2.</span> <span class="toc-text">4.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3"><span class="toc-number">4.3.</span> <span class="toc-text">4.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4"><span class="toc-number">4.4.</span> <span class="toc-text">4.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5"><span class="toc-number">4.5.</span> <span class="toc-text">4.5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附完整代码（测试用）"><span class="toc-number">5.</span> <span class="toc-text">附完整代码（测试用）</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+  <div id="SOHUCS" sid="sparkSubmitException" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cytwhjo1f",
+        conf: "a13e9cae0c98145055f273a6eae16c52"
+    });
+</script>
+</script>
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
-    </nav>
+
+  
+
   
 
 
@@ -635,8 +435,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
