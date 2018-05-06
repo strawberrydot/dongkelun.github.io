@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fr0kjkstktj20pa0a5aag.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fr0kjm2nfzj20k10bdgmb.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fr0kjmh4ygj20pb07nq34.jpg">
-<meta property="og:updated_time" content="2018-05-06T02:16:56.382Z">
+<meta property="og:updated_time" content="2018-05-06T02:20:56.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 安装oracle11">
 <meta name="twitter:description" content="前言由于需要学习配置oracle goldengate(ogg),奈何没有oracle环境，所以想自己装一个oracle，搜了一下相关文档，跟着安装了一下，发现oracle安装比mysql安装麻烦多了，而且出现了很多博客上没有提到的错误，所以特此记录一下~ 1、下载下载地址：http://www.oracle.com/technetwork/database/enterprise-edition/">
@@ -273,8 +273,8 @@
 <p>其中lkORCL 为自己设置oracle实例名的大写。<br>再执行fuser -u lkORCL没有任何输出即可<br>参考：<a href="https://blog.csdn.net/qq_27966627/article/details/51062822" target="_blank" rel="noopener">ORA-01507: database not mounted （转）</a></p>
 <p>这时再执行startup就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; startup</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area 1720328192 bytes</span><br><span class="line">Fixed Size		    2214056 bytes</span><br><span class="line">Variable Size		 1006634840 bytes</span><br><span class="line">Database Buffers	  704643072 bytes</span><br><span class="line">Redo Buffers		    6836224 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br><span class="line">SQL&gt; select * from v$version;</span><br><span class="line"></span><br><span class="line">BANNER</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production</span><br><span class="line">PL/SQL Release 11.2.0.1.0 - Production</span><br><span class="line">CORE	11.2.0.1.0	Production</span><br><span class="line">TNS for Linux: Version 11.2.0.1.0 - Production</span><br><span class="line">NLSRTL Version 11.2.0.1.0 - Production</span><br><span class="line"></span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure></p>
 <p>再执行其他查询语句测试一下即可</p>
-<h2 id="14、创建用户供远程连接"><a href="#14、创建用户供远程连接" class="headerlink" title="14、创建用户供远程连接"></a>14、创建用户供远程连接</h2><p>开放1521端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=1521/tcp --permanent</span><br><span class="line"></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user bigdata identified by bigdata;</span><br><span class="line"></span><br><span class="line">grant connect, resource to bigdata;</span><br></pre></td></tr></table></figure>
+<h2 id="14、创建用户供远程连接"><a href="#14、创建用户供远程连接" class="headerlink" title="14、创建用户供远程连接"></a>14、创建用户供远程连接</h2><p>开放1521端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=1521/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create user bigdata identified by bigdata;</span><br><span class="line">grant connect, resource to bigdata;</span><br></pre></td></tr></table></figure>
 <p>利用连接数据库的工具就可以远程连接oracle，如DBeaver,然后建表，插入几条记录，查询测试一下，具体方法不再赘述。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/Kenny1993/article/details/75038670" target="_blank" rel="noopener">CentOS 7静默（无图形化界面）安装Oracle 11g</a></p>
 
@@ -584,6 +584,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -596,11 +604,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,7 +616,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,23 +632,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,7 +644,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
             
             <div class="clearfix"></div>
