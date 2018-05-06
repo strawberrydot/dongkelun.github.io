@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-05-06T06:51:37.015Z">
+<meta property="og:updated_time" content="2018-05-06T10:48:30.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark-submit报错:Exception in thread &quot;main&quot; java.sql.SQLException:No suitable driver">
 <meta name="twitter:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
@@ -207,7 +207,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交时找不到oracle 驱动jar,折腾了半天才发现是代码问题。</p>
-<h2 id="1、猜测是否是确实oracle驱动"><a href="#1、猜测是否是确实oracle驱动" class="headerlink" title="1、猜测是否是确实oracle驱动"></a>1、猜测是否是确实oracle驱动</h2><p>由于在本地没有问题，所以不会想到是代码问题，根据提示想到的是spark-submit找不到oracle驱动，因为maven或sbt仓库里没有oracle驱动，在本地跑的时候，是将oracle驱动下载到本地，然后在eclipse设置build path就可以了。</p>
+<h2 id="1、猜测是否是缺失oracle驱动"><a href="#1、猜测是否是缺失oracle驱动" class="headerlink" title="1、猜测是否是缺失oracle驱动"></a>1、猜测是否是缺失oracle驱动</h2><p>由于在本地没有问题，所以不会想到是代码问题，根据提示想到的是spark-submit找不到oracle驱动，因为maven或sbt仓库里没有oracle驱动，在本地跑的时候，是将oracle驱动下载到本地，然后在eclipse设置build path就可以了。</p>
 <p>但是我在spark-submit 里已经通过–jars 加载oracle驱动了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo --jars ojdbc5-11.2.0.3.jar spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
 <p>开始以为自己用法不对，但是上网搜了一下，发现就是这么用的~<br>然后尝试用–driver-class-path、–driver-library-path等都没成功。<br><a id="more"></a></p>
 <h2 id="2、sbt-assembly打包"><a href="#2、sbt-assembly打包" class="headerlink" title="2、sbt-assembly打包"></a>2、sbt-assembly打包</h2><p>网上查的sbt-assembly打包可以将所有依赖的jar包包括你写的代码全部打包在一起，于是尝试了一下<br>首先在项目目录中project/plugins.sbt添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">addSbtPlugin(&quot;com.eed3si9n&quot; % &quot;sbt-assembly&quot; % &quot;0.14.5&quot;)</span><br><span class="line">resolvers += Resolver.url(&quot;bintray-sbt-plugins&quot;, url(&quot;http://dl.bintray.com/sbt/sbt-plugin-releases&quot;))(Resolver.ivyStylePatterns)</span><br></pre></td></tr></table></figure></p>
@@ -374,7 +374,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、猜测是否是确实oracle驱动"><span class="toc-number">2.</span> <span class="toc-text">1、猜测是否是确实oracle驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、sbt-assembly打包"><span class="toc-number">3.</span> <span class="toc-text">2、sbt-assembly打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、真正原因"><span class="toc-number">4.</span> <span class="toc-text">3、真正原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、总结"><span class="toc-number">5.</span> <span class="toc-text">4、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1"><span class="toc-number">5.1.</span> <span class="toc-text">4.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2"><span class="toc-number">5.2.</span> <span class="toc-text">4.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3"><span class="toc-number">5.3.</span> <span class="toc-text">4.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4"><span class="toc-number">5.4.</span> <span class="toc-text">4.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5"><span class="toc-number">5.5.</span> <span class="toc-text">4.5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附完整代码（测试用）"><span class="toc-number">6.</span> <span class="toc-text">附完整代码（测试用）</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、猜测是否是缺失oracle驱动"><span class="toc-number">2.</span> <span class="toc-text">1、猜测是否是缺失oracle驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、sbt-assembly打包"><span class="toc-number">3.</span> <span class="toc-text">2、sbt-assembly打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、真正原因"><span class="toc-number">4.</span> <span class="toc-text">3、真正原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、总结"><span class="toc-number">5.</span> <span class="toc-text">4、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1"><span class="toc-number">5.1.</span> <span class="toc-text">4.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2"><span class="toc-number">5.2.</span> <span class="toc-text">4.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3"><span class="toc-number">5.3.</span> <span class="toc-text">4.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4"><span class="toc-number">5.4.</span> <span class="toc-text">4.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5"><span class="toc-number">5.5.</span> <span class="toc-text">4.5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附完整代码（测试用）"><span class="toc-number">6.</span> <span class="toc-text">附完整代码（测试用）</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -542,15 +542,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -574,11 +574,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,11 +602,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
