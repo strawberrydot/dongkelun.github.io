@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.dongkelun.com/2018/05/05/oracleConf/</loc>
+    
+    <lastmod>2018-05-06T02:16:56.382Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.dongkelun.com/2018/04/27/dfChangeAllColDatatypes/</loc>
+    
+    <lastmod>2018-04-30T02:36:02.549Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.dongkelun.com/2018/03/15/winSparkConf/</loc>
     
     <lastmod>2018-04-27T16:53:22.179Z</lastmod>
@@ -131,13 +145,6 @@
     <loc>http://www.dongkelun.com/2018/04/25/ambariConf/</loc>
     
     <lastmod>2018-04-27T16:51:06.647Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.dongkelun.com/2018/04/27/dfChangeAllColDatatypes/</loc>
-    
-    <lastmod>2018-04-27T09:05:27.977Z</lastmod>
     
   </url>
   
