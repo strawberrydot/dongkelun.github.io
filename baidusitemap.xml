@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://www.dongkelun.com/2018/05/06/sparkSubmitException/</loc>
-    <lastmod>2018-05-06T06:42:57.284Z</lastmod>
+    <lastmod>2018-05-06T06:47:39.898Z</lastmod>
     <data>
         <display>
         <title>spark-submit报错:Exception in thread "main" java.sql.SQLException:No suitable driver</title>
@@ -220,9 +220,9 @@
         <title>spark连接hive（spark-shell和eclipse两种方式）</title>
         <pubTime>2018-03-24T16:00:00.000Z</pubTime>
         
-        <tag>spark</tag>
-         
         <tag>hive</tag>
+         
+        <tag>spark</tag>
          
          
            
