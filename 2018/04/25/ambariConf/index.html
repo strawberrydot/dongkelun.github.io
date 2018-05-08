@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fqp20xhixnj21am0i5401.jpg">
 <meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1fqpc4ytg3ij20vm08haag.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/large/e44344dcly1fqpujavdpmj21dy0plq6b.jpg">
-<meta property="og:updated_time" content="2018-05-08T01:27:56.993Z">
+<meta property="og:updated_time" content="2018-05-08T01:33:14.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署">
 <meta name="twitter:description" content="前言本文是讲如何在centos7（64位） 安装ambari+hdp,如果在装有原生hadoop等集群的机器上安装，需要先将集群服务停掉，然后将不需要的环境变量注释掉即可，如果不注释掉，后面虽然可以安装成功，但是在启动某些服务的时候可能会有异常，比如最后提到的hive启动异常。本文适合系统： RedHat7、CentOS7、Oracle Linux7(都是64位)注意:centos7中文系统有bu">
@@ -243,7 +243,7 @@
 <p>两步缺一不可，通过命令验证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hostname</span><br><span class="line">hostname -f</span><br></pre></td></tr></table></figure></p>
 <p>两个必须都为ambari.master.com才行</p>
 <h3 id="2-5-编辑网络配置文件"><a href="#2-5-编辑网络配置文件" class="headerlink" title="2.5 编辑网络配置文件"></a>2.5 编辑网络配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/network</span><br></pre></td></tr></table></figure>
-<p>修改HOSTNAME属性为FQDN<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=ambari.master.com</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+<p>修改HOSTNAME属性为FQDN<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=ambari.master.com</span><br></pre></td></tr></table></figure></p>
 <h3 id="2-6-禁用iptables"><a href="#2-6-禁用iptables" class="headerlink" title="2.6 禁用iptables"></a>2.6 禁用iptables</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br><span class="line">service firewalld stop</span><br></pre></td></tr></table></figure>
 <h3 id="2-7-禁用SELinux"><a href="#2-7-禁用SELinux" class="headerlink" title="2.7 禁用SELinux"></a>2.7 禁用SELinux</h3><p>2.7.1 临时禁用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0</span><br></pre></td></tr></table></figure></p>
 <p>2.7.2 永久禁用(重启机器)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysconfig/selinux</span><br></pre></td></tr></table></figure></p>
@@ -630,14 +630,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -646,7 +638,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,11 +654,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,11 +674,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -686,23 +686,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
             
             <div class="clearfix"></div>
