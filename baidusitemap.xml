@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>http://www.dongkelun.com/2018/04/25/ambariConf/</loc>
+    <lastmod>2018-05-08T01:27:56.993Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
+        <pubTime>2018-04-24T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>ambari</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.dongkelun.com/2018/05/06/sparkSubmitException/</loc>
     <lastmod>2018-05-06T10:48:30.056Z</lastmod>
     <data>
@@ -391,25 +410,6 @@
 
     
   <url>
-    <loc>http://www.dongkelun.com/2018/04/25/ambariConf/</loc>
-    <lastmod>2018-04-27T16:51:06.647Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 ambari2.6.1.5+hdp2.6.4.0 安装部署</title>
-        <pubTime>2018-04-24T16:00:00.000Z</pubTime>
-        
-        <tag>centos7</tag>
-         
-        <tag>ambari</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://www.dongkelun.com/2018/03/29/scalaUnderscoreUseGuide/</loc>
     <lastmod>2018-04-02T06:48:29.532Z</lastmod>
     <data>
@@ -417,9 +417,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>scala</tag>
-         
         <tag>转载</tag>
+         
+        <tag>scala</tag>
          
          
            
