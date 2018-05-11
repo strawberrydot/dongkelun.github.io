@@ -12,11 +12,11 @@
 <meta name="keywords" content="spark,DataFrame,Rdd">
 <meta property="og:type" content="article">
 <meta property="og:title" content="旧版spark（1.6版本） 将rdd动态转为dataframe">
-<meta property="og:url" content="http://www.dongkelun.com/2018/04/27/rdd2df/index.html">
+<meta property="og:url" content="http://www.dongkelun.com/2018/05/11/rdd2df/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言旧版本spark没有spark.read.option(“header”, “true”).csv，如果csv的列数很多的话只用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何通旧版spark读取多列txt文件转为df 1、数据如下data.txt12345col1,col2,col3,col4,col511,12,13,14,1521,22,23,24,2531">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-05-11T14:21:07.085Z">
+<meta property="og:updated_time" content="2018-05-11T14:22:42.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="旧版spark（1.6版本） 将rdd动态转为dataframe">
 <meta name="twitter:description" content="前言旧版本spark没有spark.read.option(“header”, “true”).csv，如果csv的列数很多的话只用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何通旧版spark读取多列txt文件转为df 1、数据如下data.txt12345col1,col2,col3,col4,col511,12,13,14,1521,22,23,24,2531">
@@ -175,8 +175,8 @@
   
 
         
-        <a href="/2018/04/27/rdd2df/" class="archive-article-date">
-  	<time datetime="2018-04-26T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
+        <a href="/2018/05/11/rdd2df/" class="archive-article-date">
+  	<time datetime="2018-05-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
 </a>
         
       </header>
@@ -258,9 +258,9 @@
  
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
  
- <p>本文标题为: <a href="http://www.dongkelun.com/2018/04/27/rdd2df/">旧版spark（1.6版本） 将rdd动态转为dataframe</a> </p>
+ <p>本文标题为: <a href="http://www.dongkelun.com/2018/05/11/rdd2df/">旧版spark（1.6版本） 将rdd动态转为dataframe</a> </p>
  
- <p>本文链接为：<a href="http://www.dongkelun.com/2018/04/27/rdd2df/">http://www.dongkelun.com/2018/04/27/rdd2df/</a></p>
+ <p>本文链接为：<a href="http://www.dongkelun.com/2018/05/11/rdd2df/">http://www.dongkelun.com/2018/05/11/rdd2df/</a></p>
  
  
  
@@ -320,7 +320,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/04/27/rdd2df/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/05/11/rdd2df/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -334,18 +334,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/05/oracleConf/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          centos7 安装oracle11
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/27/dfChangeAllColDatatypes/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spark 将DataFrame所有的列类型改为double</div>
+    <a href="/2018/05/06/sparkSubmitException/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spark-submit报错:Exception in thread &#34;main&#34; java.sql.SQLException:No suitable driver</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -539,15 +530,15 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,10 +554,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -575,15 +562,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,15 +606,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
             
             <div class="clearfix"></div>
