@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.dongkelun.com">
-  <title>scala 下划线使用指南 | 伦少的博客</title>
+  <title>旧版spark（1.6版本） 将rdd动态转为dataframe | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文地址：https://my.oschina.net/joymufeng/blog/863823  &amp;emsp;&amp;emsp;作者：joymufeng下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。 1、用于替换Java的等价语法由于大部分的Java">
-<meta name="keywords" content="scala,转载">
+  <meta name="description" content="前言旧版本spark没有spark.read.option(“header”, “true”).csv，如果csv的列数很多的话只用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何通旧版spark读取多列txt文件转为df 1、数据如下data.txt12345col1,col2,col3,col4,col511,12,13,14,1521,22,23,24,2531">
+<meta name="keywords" content="spark,DataFrame,Rdd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="scala 下划线使用指南">
-<meta property="og:url" content="http://www.dongkelun.com/2018/03/29/scalaUnderscoreUseGuide/index.html">
+<meta property="og:title" content="旧版spark（1.6版本） 将rdd动态转为dataframe">
+<meta property="og:url" content="http://www.dongkelun.com/2018/04/27/rdd2df/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="原文地址：https://my.oschina.net/joymufeng/blog/863823  &amp;emsp;&amp;emsp;作者：joymufeng下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。 1、用于替换Java的等价语法由于大部分的Java">
+<meta property="og:description" content="前言旧版本spark没有spark.read.option(“header”, “true”).csv，如果csv的列数很多的话只用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何通旧版spark读取多列txt文件转为df 1、数据如下data.txt12345col1,col2,col3,col4,col511,12,13,14,1521,22,23,24,2531">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-04-02T06:48:29.532Z">
+<meta property="og:updated_time" content="2018-05-11T14:21:07.085Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="scala 下划线使用指南">
-<meta name="twitter:description" content="原文地址：https://my.oschina.net/joymufeng/blog/863823  &amp;emsp;&amp;emsp;作者：joymufeng下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。 1、用于替换Java的等价语法由于大部分的Java">
+<meta name="twitter:title" content="旧版spark（1.6版本） 将rdd动态转为dataframe">
+<meta name="twitter:description" content="前言旧版本spark没有spark.read.option(“header”, “true”).csv，如果csv的列数很多的话只用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何通旧版spark读取多列txt文件转为df 1、数据如下data.txt12345col1,col2,col3,col4,col511,12,13,14,1521,22,23,24,2531">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -163,20 +163,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-scalaUnderscoreUseGuide" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-rdd2df" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      scala 下划线使用指南
+      旧版spark（1.6版本） 将rdd动态转为dataframe
     </h1>
   
 
         
-        <a href="/2018/03/29/scalaUnderscoreUseGuide/" class="archive-article-date">
-  	<time datetime="2018-03-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
+        <a href="/2018/04/27/rdd2df/" class="archive-article-date">
+  	<time datetime="2018-04-26T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
 </a>
         
       </header>
@@ -188,11 +188,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">转载</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DataFrame</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Rdd</a>
         		</li>
       		
 		</ul>
@@ -206,28 +210,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文地址：<a href="https://my.oschina.net/joymufeng/blog/863823" target="_blank" rel="noopener">https://my.oschina.net/joymufeng/blog/863823</a>  &emsp;&emsp;作者：<a href="https://my.oschina.net/joymufeng/home" target="_blank" rel="noopener">joymufeng</a><br>下划线这个符号几乎贯穿了任何一本Scala编程书籍，并且在不同的场景下具有不同的含义，绕晕了不少初学者。正因如此，下划线这个特殊符号无形中增加Scala的入门难度。本文希望帮助初学者踏平这个小山坡。</p>
-<h2 id="1、用于替换Java的等价语法"><a href="#1、用于替换Java的等价语法" class="headerlink" title="1、用于替换Java的等价语法"></a>1、用于替换Java的等价语法</h2><p>由于大部分的Java关键字在Scala中拥有了新的含义，所以一些基本的语法在Scala中稍有变化。</p>
-<h3 id="1-1-导入通配符"><a href="#1-1-导入通配符" class="headerlink" title="1.1 导入通配符"></a>1.1 导入通配符</h3><p>*在Scala中是合法的方法名，所以导入包时要使用_代替。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Scala</span></span><br><span class="line"><span class="keyword">import</span> java.util._</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<h3 id="1-2-类成员默认值"><a href="#1-2-类成员默认值" class="headerlink" title="1.2 类成员默认值"></a>1.2 类成员默认值</h3><p>Java中类成员可以不赋初始值，编译器会自动帮你设置一个合适的初始值：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</span><br><span class="line">     <span class="comment">//String类型的默认值为null</span></span><br><span class="line">     <span class="type">String</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>而在Scala中必须要显式指定，如果你比较懒，可以用_让编译器自动帮你设置初始值：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</span><br><span class="line">    <span class="comment">//String类型的默认值为null</span></span><br><span class="line">    <span class="keyword">var</span> s: <span class="type">String</span> = _</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该语法只适用于类成员，而不适用于局部变量。</p>
-<h3 id="1-3-可变参数"><a href="#1-3-可变参数" class="headerlink" title="1.3 可变参数"></a>1.3 可变参数</h3><p>Java声明可变参数如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArgs</span><span class="params">(String ... args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Object elem: args)&#123;</span><br><span class="line">        System.out.println(elem + <span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>调用方法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//传入两个参数</span></span><br><span class="line">printArgs(<span class="string">"a"</span>, <span class="string">"b"</span>);</span><br><span class="line"><span class="comment">//也可以传入一个数组</span></span><br><span class="line">printArgs(<span class="keyword">new</span> String[]&#123;<span class="string">"a"</span>, <span class="string">"b"</span>&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>在Java中可以直接将数组传给printArgs方法，但是在Scala中，你必须要明确的告诉编译器，你是想将集合作为一个独立的参数传进去，还是想将集合的元素传进去。如果是后者则要借助下划线：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printArgs(<span class="type">List</span>(<span class="string">"a"</span>, <span class="string">"b"</span>): _*)</span><br></pre></td></tr></table></figure></p>
-<h3 id="1-4-类型通配符"><a href="#1-4-类型通配符" class="headerlink" title="1.4 类型通配符"></a>1.4 类型通配符</h3><p>Java的泛型系统有一个通配符类型，例如List&lt;?&gt;，任意的List<t>类型都是List&lt;?&gt;的子类型，如果我们想编写一个可以打印所有List类型元素的方法，可以如下声明：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printList</span><span class="params">(List&lt;?&gt; list)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Object elem: list)&#123;</span><br><span class="line">        System.out.println(elem + <span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></t></p>
-<p>对应的Scala版本为：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printList</span></span>(list: <span class="type">List</span>[_]): <span class="type">Unit</span> =&#123;</span><br><span class="line">   list.foreach(elem =&gt; println(elem + <span class="string">" "</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="2、模式匹配"><a href="#2、模式匹配" class="headerlink" title="2、模式匹配"></a>2、模式匹配</h2><h3 id="2-1-默认匹配"><a href="#2-1-默认匹配" class="headerlink" title="2.1 默认匹配"></a>2.1 默认匹配</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">str <span class="keyword">match</span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"1"</span> =&gt; println(<span class="string">"match 1"</span>)</span><br><span class="line">    <span class="keyword">case</span> _   =&gt; println(<span class="string">"match default"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-2-匹配集合元素"><a href="#2-2-匹配集合元素" class="headerlink" title="2.2 匹配集合元素"></a>2.2 匹配集合元素</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匹配以0开头，长度为三的列表</span></span><br><span class="line">expr <span class="keyword">match</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">List</span>(<span class="number">0</span>, _, _) =&gt; println(<span class="string">"found it"</span>)</span><br><span class="line">  <span class="keyword">case</span> _ =&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//匹配以0开头，长度任意的列表</span></span><br><span class="line">expr <span class="keyword">match</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">List</span>(<span class="number">0</span>, _*) =&gt; println(<span class="string">"found it"</span>)</span><br><span class="line">  <span class="keyword">case</span> _ =&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//匹配元组元素</span></span><br><span class="line">expr <span class="keyword">match</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> (<span class="number">0</span>, _) =&gt; println(<span class="string">"found it"</span>)</span><br><span class="line">  <span class="keyword">case</span> _ =&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将首元素赋值给head变量</span></span><br><span class="line"><span class="keyword">val</span> <span class="type">List</span>(head, _*) = <span class="type">List</span>(<span class="string">"a"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="3、-Scala特有语法"><a href="#3、-Scala特有语法" class="headerlink" title="3、 Scala特有语法"></a>3、 Scala特有语法</h2><h3 id="类型通配符"><a href="#类型通配符" class="headerlink" title="类型通配符"></a>类型通配符</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void printList(<span class="type">List</span>&lt;?&gt; list)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">Object</span> elem: list)&#123;</span><br><span class="line">        <span class="type">System</span>.out.println(elem + <span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-1-访问Tuple元素"><a href="#3-1-访问Tuple元素" class="headerlink" title="3.1 访问Tuple元素"></a>3.1 访问Tuple元素</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> t = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">println(t._1, t._2, t._3)</span><br></pre></td></tr></table></figure>
-<h3 id="3-2-简写函数字面量（function-literal）"><a href="#3-2-简写函数字面量（function-literal）" class="headerlink" title="3.2 简写函数字面量（function literal）"></a>3.2 简写函数字面量（function literal）</h3><p>如果函数的参数在函数体内只出现一次，则可以使用下划线代替：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> f1 = (_: <span class="type">Int</span>) + (_: <span class="type">Int</span>)</span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="keyword">val</span> f2 = (x: <span class="type">Int</span>, y: <span class="type">Int</span>) =&gt; x + y</span><br><span class="line"></span><br><span class="line">list.foreach(println(_))</span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line">list.foreach(e =&gt; println(e))</span><br><span class="line"></span><br><span class="line">list.filter(_ &gt; <span class="number">0</span>)</span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line">list.filter(x =&gt; x &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-3-定义一元操作符"><a href="#3-3-定义一元操作符" class="headerlink" title="3.3 定义一元操作符"></a>3.3 定义一元操作符</h3><p>在Scala中，操作符其实就是方法，例如1 + 1等价于1.+(1)，利用下划线我们可以定义自己的左置操作符，例如Scala中的负数就是用左置操作符实现的<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">-2</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="number">2.</span>unary_-</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-4-定义赋值操作符"><a href="#3-4-定义赋值操作符" class="headerlink" title="3.4 定义赋值操作符"></a>3.4 定义赋值操作符</h3><p>我们通过下划线实现赋值操作符，从而可以精确地控制赋值过程：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span> </span>= &#123; <span class="string">"foo"</span> &#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name_=</span></span>(str: <span class="type">String</span>) &#123;</span><br><span class="line">    println(<span class="string">"set name "</span> + str)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">val</span> m = <span class="keyword">new</span> <span class="type">Foo</span>()</span><br><span class="line">m.name = <span class="string">"Foo"</span> <span class="comment">//等价于: m.name_=("Foo")</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="3-5-定义部分应用函数（partially-applied-function）"><a href="#3-5-定义部分应用函数（partially-applied-function）" class="headerlink" title="3.5 定义部分应用函数（partially applied function）"></a>3.5 定义部分应用函数（partially applied function）</h3><p>我们可以为某个函数只提供部分参数进行调用，返回的结果是一个新的函数，即部分应用函数。因为只提供了部分参数，所以部分应用函数也因此而得名。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>, c: <span class="type">Int</span>) = a + b + c</span><br><span class="line"><span class="keyword">val</span> b = sum(<span class="number">1</span>, _: <span class="type">Int</span>, <span class="number">3</span>)</span><br><span class="line">b: <span class="type">Int</span> =&gt; <span class="type">Int</span> = &lt;function1&gt;</span><br><span class="line">b(<span class="number">2</span>) <span class="comment">//6</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="3-6-将方法转换成函数"><a href="#3-6-将方法转换成函数" class="headerlink" title="3.6 将方法转换成函数"></a>3.6 将方法转换成函数</h3><p>Scala中方法和函数是两个不同的概念，方法无法作为参数进行传递，也无法赋值给变量，但是函数是可以的。在Scala中，利用下划线可以将方法转换成函数：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将println方法转换成函数，并赋值给p</span></span><br><span class="line"><span class="keyword">val</span> p = println _  </span><br><span class="line"><span class="comment">//p: (Any) =&gt; Unit</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="4、小结"><a href="#4、小结" class="headerlink" title="4、小结"></a>4、小结</h2><p>下划线在大部分的应用场景中是以语法糖的形式出现的，可以减少击键次数，并且代码显得更加简洁。但是对于不熟悉下划线的同学阅读起来稍显困难，希望通过本文能够帮你解决这个的困惑。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>旧版本spark没有spark.read.option(“header”, “true”).csv，如果csv的列数很多的话只用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何通旧版spark读取多列txt文件转为df</p>
+<h2 id="1、数据如下"><a href="#1、数据如下" class="headerlink" title="1、数据如下"></a>1、数据如下</h2><p>data.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">col1,col2,col3,col4,col5</span><br><span class="line">11,12,13,14,15</span><br><span class="line">21,22,23,24,25</span><br><span class="line">31,32,33,34,35</span><br><span class="line">41,42,43,44,45</span><br></pre></td></tr></table></figure></p>
+<p>其中列数可任意指定</p>
+<h2 id="2、代码"><a href="#2、代码" class="headerlink" title="2、代码"></a>2、代码</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.sql</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkConf</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkContext</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SQLContext</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types._</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">Row</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Rdd2Df</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"Rdd2Df"</span>).setMaster(<span class="string">"local"</span>)</span><br><span class="line">    <span class="keyword">val</span> sc = <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line">    <span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQLContext</span>(sc)</span><br><span class="line">    <span class="keyword">import</span> sqlContext.implicits._</span><br><span class="line">    <span class="keyword">val</span> data_path = <span class="string">"files/data.txt"</span></span><br><span class="line">    <span class="keyword">val</span> data = sc.textFile(data_path)</span><br><span class="line">    <span class="keyword">val</span> arr = data.collect()</span><br><span class="line">    <span class="comment">//arr1为除去第一行即列名的数据</span></span><br><span class="line">    <span class="keyword">val</span> arr1 = arr.slice(<span class="number">1</span>, arr.length)</span><br><span class="line">    <span class="keyword">val</span> rdd = sc.parallelize(arr1)</span><br><span class="line">    <span class="comment">//列名</span></span><br><span class="line">    <span class="keyword">val</span> schema = <span class="type">StructType</span>(arr(<span class="number">0</span>).split(<span class="string">","</span>).map(fieldName =&gt; <span class="type">StructField</span>(fieldName, <span class="type">StringType</span>, <span class="literal">true</span>)))</span><br><span class="line">    <span class="keyword">val</span> rowRDD = rdd.map(_.split(<span class="string">","</span>)).map(p =&gt; <span class="type">Row</span>(p: _*))</span><br><span class="line">    sqlContext.createDataFrame(rowRDD, schema).show()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3、结果"><a href="#3、结果" class="headerlink" title="3、结果"></a>3、结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+----+----+----+----+----+</span><br><span class="line">|col1|col2|col3|col4|col5|</span><br><span class="line">+----+----+----+----+----+</span><br><span class="line">|  11|  12|  13|  14|  15|</span><br><span class="line">|  21|  22|  23|  24|  25|</span><br><span class="line">|  31|  32|  33|  34|  35|</span><br><span class="line">|  41|  42|  43|  44|  45|</span><br><span class="line">+----+----+----+----+----+</span><br></pre></td></tr></table></figure>
+<p>根据结果看，符合逾期的效果！</p>
 
       
 
@@ -263,6 +251,21 @@
           </a>
         </div>
       
+	  
+		<div class="article-footer-copyright">
+
+ <p>本文由&nbsp;<b>董可伦</b>&nbsp;发表于&nbsp<a href="http://dongkelun.com">伦少的博客</a>&nbsp,采用<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">署名-非商业性使用-禁止演绎 3.0</a>进行许可。</p>
+ 
+ <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
+ 
+ <p>本文标题为: <a href="http://www.dongkelun.com/2018/04/27/rdd2df/">旧版spark（1.6版本） 将rdd动态转为dataframe</a> </p>
+ 
+ <p>本文链接为：<a href="http://www.dongkelun.com/2018/04/27/rdd2df/">http://www.dongkelun.com/2018/04/27/rdd2df/</a></p>
+ 
+ 
+ 
+
+</div>
 	  
     </div>
     <div class="article-info article-info-index">
@@ -317,7 +320,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/03/29/scalaUnderscoreUseGuide/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/04/27/rdd2df/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -331,18 +334,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/01/scalaMapAdd/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/05/05/oracleConf/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          scala 两个map合并，key相同时value相加
+          centos7 安装oracle11
         
       </div>
     </a>
   
   
-    <a href="/2018/03/25/sparkHive/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spark连接hive（spark-shell和eclipse两种方式）</div>
+    <a href="/2018/04/27/dfChangeAllColDatatypes/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spark 将DataFrame所有的列类型改为double</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -369,7 +372,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、用于替换Java的等价语法"><span class="toc-number">1.</span> <span class="toc-text">1、用于替换Java的等价语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-导入通配符"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 导入通配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-类成员默认值"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 类成员默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-可变参数"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 可变参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-类型通配符"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 类型通配符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、模式匹配"><span class="toc-number">2.</span> <span class="toc-text">2、模式匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-默认匹配"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 默认匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-匹配集合元素"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 匹配集合元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、-Scala特有语法"><span class="toc-number">3.</span> <span class="toc-text">3、 Scala特有语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型通配符"><span class="toc-number">3.1.</span> <span class="toc-text">类型通配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-访问Tuple元素"><span class="toc-number">3.2.</span> <span class="toc-text">3.1 访问Tuple元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-简写函数字面量（function-literal）"><span class="toc-number">3.3.</span> <span class="toc-text">3.2 简写函数字面量（function literal）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-定义一元操作符"><span class="toc-number">3.4.</span> <span class="toc-text">3.3 定义一元操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-定义赋值操作符"><span class="toc-number">3.5.</span> <span class="toc-text">3.4 定义赋值操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-定义部分应用函数（partially-applied-function）"><span class="toc-number">3.6.</span> <span class="toc-text">3.5 定义部分应用函数（partially applied function）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-将方法转换成函数"><span class="toc-number">3.7.</span> <span class="toc-text">3.6 将方法转换成函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、小结"><span class="toc-number">4.</span> <span class="toc-text">4、小结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、数据如下"><span class="toc-number">2.</span> <span class="toc-text">1、数据如下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、代码"><span class="toc-number">3.</span> <span class="toc-text">2、代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、结果"><span class="toc-number">4.</span> <span class="toc-text">3、结果</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -385,7 +388,7 @@
   
 
   
-  <div id="SOHUCS" sid="scalaUnderscoreUseGuide" ></div> 
+  <div id="SOHUCS" sid="rdd2df" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
