@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-05-11T07:59:24.215Z">
+<meta property="og:updated_time" content="2018-05-11T08:01:52.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark-submit报错:Exception in thread &quot;main&quot; java.sql.SQLException:No suitable driver">
 <meta name="twitter:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
@@ -220,7 +220,7 @@
 <p>重新打包，再运行，发现果然没问题</p>
 <h2 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h2><h3 id="4-1"><a href="#4-1" class="headerlink" title="4.1"></a>4.1</h3><p>其实在用spark提交之前写的spark连接mysql的程序也会报统一的错(如果$SPARK_HOME/jars没有mysql驱动)，和oracle驱动不在sbt仓库里没关系。<br>但是之前在spark-shell里测试spark连接hive时已经将mysql驱动拷贝过去了，所以mysql没有报错</p>
 <h3 id="4-2"><a href="#4-2" class="headerlink" title="4.2"></a>4.2</h3><p>在代码里加上driver之后再提交如果没有oracle驱动会报不同的错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver</span><br></pre></td></tr></table></figure></p>
-<h3 id="4-3"><a href="#4-3" class="headerlink" title="4.3"></a>4.3</h3><p>通过–jars指定jar和sbt assembly打包都可以，看自己习惯，但通过–jars需要注意先后顺序，如果是多个jar以都好隔开即可<br>正确：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo --jars ojdbc5-11.2.0.3.jar spark-scala_2.11-1.0.jar </span><br><span class="line">spark-submit --jars ojdbc5-11.2.0.3.jar --class com.dkl.leanring.spark.sql.Oracle2HiveDemo  spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-3"><a href="#4-3" class="headerlink" title="4.3"></a>4.3</h3><p>通过–jars指定jar和sbt assembly打包都可以，看自己习惯，但通过–jars需要注意先后顺序，如果是多个jar以逗号隔开即可<br>正确：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo --jars ojdbc5-11.2.0.3.jar spark-scala_2.11-1.0.jar </span><br><span class="line">spark-submit --jars ojdbc5-11.2.0.3.jar --class com.dkl.leanring.spark.sql.Oracle2HiveDemo  spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
 <p>错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo  spark-scala_2.11-1.0.jar --jars ojdbc5-11.2.0.3.jar</span><br><span class="line">spark-submit --jars ojdbc5-11.2.0.3.jar spark-scala_2.11-1.0.jar --class com.dkl.leanring.spark.sql.Oracle2HiveDemo </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 <p>也就是通过sbt package和sbt assembly生成的项目jar包一定要放在最后面</p>
 <h3 id="4-4"><a href="#4-4" class="headerlink" title="4.4"></a>4.4</h3><p>通过–driver-class-path也可以实现加载额外的jar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo --driver-class-path lib/*  spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
@@ -550,10 +550,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -562,11 +558,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,6 +571,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
