@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.dongkelun.com">
-  <title>Archives | 伦少的博客</title>
+  <title>spark ML之特征处理（1） | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="love ~ 婷宝 1412359494@qq.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="伦少的博客">
-<meta property="og:url" content="http://www.dongkelun.com/archives/index.html">
+  <meta name="description" content="前言最近在学习总结机器学习常用算法，在看spark机器学习决策树的官方示例时，发现用到了几个特征处理的类，之前没学习过，所以查了一下，感觉spark在特征处理方面的类还是挺多的，所以准备总结记录一下相关的用法，首先总结一下决策树中用到的几种。 1、VectorIndexer根据源码注释，VectorIndexer是用于在“向量”的数据集中索引分类特征列的类（Class for indexing c">
+<meta name="keywords" content="spark,ml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spark ML之特征处理（1）">
+<meta property="og:url" content="http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="love ~ 婷宝 1412359494@qq.com">
+<meta property="og:description" content="前言最近在学习总结机器学习常用算法，在看spark机器学习决策树的官方示例时，发现用到了几个特征处理的类，之前没学习过，所以查了一下，感觉spark在特征处理方面的类还是挺多的，所以准备总结记录一下相关的用法，首先总结一下决策树中用到的几种。 1、VectorIndexer根据源码注释，VectorIndexer是用于在“向量”的数据集中索引分类特征列的类（Class for indexing c">
 <meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2018-05-17T14:46:35.647Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="伦少的博客">
-<meta name="twitter:description" content="love ~ 婷宝 1412359494@qq.com">
+<meta name="twitter:title" content="spark ML之特征处理（1）">
+<meta name="twitter:description" content="前言最近在学习总结机器学习常用算法，在看spark机器学习决策树的官方示例时，发现用到了几个特征处理的类，之前没学习过，所以查了一下，感觉spark在特征处理方面的类还是挺多的，所以准备总结记录一下相关的用法，首先总结一下决策树中用到的几种。 1、VectorIndexer根据源码注释，VectorIndexer是用于在“向量”的数据集中索引分类特征列的类（Class for indexing c">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -161,82 +163,26 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-sparkMlFeatureProcessing1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/17/sparkKafka/" class="archive-article-date">
-  	<time datetime="2018-05-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/17/sparkKafka/">Spark Streaming连接Kafka入门教程</a>
+    <h1 class="article-title" itemprop="name">
+      spark ML之特征处理（1）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark streaming</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kafka</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/17/sparkMlFeatureProcessing1/" class="archive-article-date">
+        
+        <a href="/2018/05/17/sparkMlFeatureProcessing1/" class="archive-article-date">
   	<time datetime="2018-05-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-17</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/17/sparkMlFeatureProcessing1/">spark ML之特征处理（1）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+        
+      </header>
+	    
+		  <div class="article-info article-info-post">
+			
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -252,370 +198,231 @@
 		</ul>
 	</div>
 
-          
+			
 
+			<div class="clearfix"></div>
+		  </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在学习总结机器学习常用算法，在看spark机器学习决策树的官方示例时，发现用到了几个特征处理的类，之前没学习过，所以查了一下，感觉spark在特征处理方面的类还是挺多的，所以准备总结记录一下相关的用法，首先总结一下决策树中用到的几种。</p>
+<h2 id="1、VectorIndexer"><a href="#1、VectorIndexer" class="headerlink" title="1、VectorIndexer"></a>1、VectorIndexer</h2><p>根据源码注释，VectorIndexer是用于在“向量”的数据集中索引分类特征列的类（Class for indexing categorical feature columns in a dataset of <code>Vector</code>），这看起来不太好理解，直接看用法，举例说明就好了。</p>
+<h3 id="1-1-数据"><a href="#1-1-数据" class="headerlink" title="1.1 数据"></a>1.1 数据</h3><p>我们用普通的数据格式即可：<br>data1.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1,-1.0 1.0</span><br><span class="line">0,0.0 3.0</span><br><span class="line">1,-1.0 5.0</span><br><span class="line">0,0.0 1.0</span><br></pre></td></tr></table></figure></p>
+<p>其中第一列为label,后面的为features<br>spark读取数据程序（供参考）：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> spark.implicits._</span><br><span class="line"><span class="keyword">val</span> data_path = <span class="string">"files/ml/featureprocessing/data1.txt"</span></span><br><span class="line"><span class="keyword">val</span> data = spark.read.text(data_path).map &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">Row</span>(line: <span class="type">String</span>) =&gt;</span><br><span class="line">    <span class="keyword">var</span> arr = line.split(',')</span><br><span class="line">    (arr(<span class="number">0</span>), <span class="type">Vectors</span>.dense(arr(<span class="number">1</span>).split(' ').map(_.toDouble)))</span><br><span class="line">&#125;.toDF(<span class="string">"label"</span>, <span class="string">"features"</span>)</span><br><span class="line">data.show(<span class="literal">false</span>)</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+-----+----------+</span><br><span class="line">|label|features  |</span><br><span class="line">+-----+----------+</span><br><span class="line">|1    |[-1.0,1.0]|</span><br><span class="line">|0    |[0.0,3.0] |</span><br><span class="line">|1    |[-1.0,5.0]|</span><br><span class="line">|0    |[0.0,1.0] |</span><br><span class="line">+-----+----------+</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-2-代码"><a href="#1-2-代码" class="headerlink" title="1.2 代码"></a>1.2 代码</h3><p>用法一：通过设置MaxCategories<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.ml.feature.<span class="type">VectorIndexer</span></span><br><span class="line"><span class="keyword">val</span> indexer = <span class="keyword">new</span> <span class="type">VectorIndexer</span>()</span><br><span class="line">  .setInputCol(<span class="string">"features"</span>)</span><br><span class="line">  .setOutputCol(<span class="string">"indexed"</span>)</span><br><span class="line">  .setMaxCategories(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> indexerModel = indexer.fit(data)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> categoricalFeatures: <span class="type">Set</span>[<span class="type">Int</span>] = indexerModel.categoryMaps.keys.toSet</span><br><span class="line">println(<span class="string">s"Chose <span class="subst">$&#123;categoricalFeatures.size&#125;</span> categorical features: "</span> +</span><br><span class="line">  categoricalFeatures.mkString(<span class="string">", "</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> indexedData = indexerModel.transform(data)</span><br><span class="line">indexedData.show(<span class="literal">false</span>)</span><br></pre></td></tr></table></figure></p>
+<p>结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Chose 1 categorical features: 0</span><br><span class="line">+-----+----------+---------+</span><br><span class="line">|label|features  |indexed  |</span><br><span class="line">+-----+----------+---------+</span><br><span class="line">|1    |[-1.0,1.0]|[1.0,1.0]|</span><br><span class="line">|0    |[0.0,3.0] |[0.0,3.0]|</span><br><span class="line">|1    |[-1.0,5.0]|[1.0,5.0]|</span><br><span class="line">|0    |[0.0,1.0] |[0.0,1.0]|</span><br><span class="line">+-----+----------+---------+</span><br></pre></td></tr></table></figure></p>
+<p>可以看出选择了一个分类特征索引0，即第一个特征，设置MaxCategories为2，因为特征1只有两个值[-1.0,0.0]小于等于2所以会被索引，索引从零开始，而第二个特征有三个值[1.0,3.0,5.0],所以被认为是连续值，不会被索引，即保留原值。<br>将MaxCategories设为5，重新跑一下上面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Chose 2 categorical features: 0, 1</span><br><span class="line">+-----+----------+---------+</span><br><span class="line">|label|features  |indexed  |</span><br><span class="line">+-----+----------+---------+</span><br><span class="line">|1    |[-1.0,1.0]|[1.0,0.0]|</span><br><span class="line">|0    |[0.0,3.0] |[0.0,1.0]|</span><br><span class="line">|1    |[-1.0,5.0]|[1.0,2.0]|</span><br><span class="line">|0    |[0.0,1.0] |[0.0,0.0]|</span><br><span class="line">+-----+----------+---------+</span><br></pre></td></tr></table></figure></p>
+<p>这次选出两个特征都进行索引，这是因为每个特征值的数量都小于5，可以看出，索引值从0开始，依次加1，对应的原始特征值也是按大小排序对应的。</p>
+<h2 id="2、StringIndexer"><a href="#2、StringIndexer" class="headerlink" title="2、StringIndexer"></a>2、StringIndexer</h2><p>StringIndexer和上面的VectorIndexer类似，是将label列进行重新编号，为了便于理解，我们重新造一个数据，只看label就好了</p>
+<h3 id="2-1-数据"><a href="#2-1-数据" class="headerlink" title="2.1 数据"></a>2.1 数据</h3><p>data2.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">10,-1.0 1.0</span><br><span class="line">10,0.0 3.0</span><br><span class="line">7,-1.0 5.0</span><br><span class="line">5,0.0 1.0</span><br><span class="line">6,0.0 1.0</span><br><span class="line">6,0.0 1.0</span><br><span class="line">6,0.0 1.0</span><br></pre></td></tr></table></figure></p>
+<p>读数程序和上面的一样，我们直接看一下StringIndexer代码和效果吧~</p>
+<h3 id="2-2-代码"><a href="#2-2-代码" class="headerlink" title="2.2 代码"></a>2.2 代码</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.ml.feature.<span class="type">StringIndexer</span></span><br><span class="line"><span class="keyword">val</span> labelIndexer = <span class="keyword">new</span> <span class="type">StringIndexer</span>()</span><br><span class="line">  .setInputCol(<span class="string">"label"</span>)</span><br><span class="line">  .setOutputCol(<span class="string">"indexedLabel"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> indexerModel = labelIndexer.fit(data)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> indexedData = indexerModel.transform(data)</span><br><span class="line">indexedData.show(<span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+<p>结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+-----+----------+------------+</span><br><span class="line">|label|features  |indexedLabel|</span><br><span class="line">+-----+----------+------------+</span><br><span class="line">|10   |[-1.0,1.0]|1.0         |</span><br><span class="line">|10   |[0.0,3.0] |1.0         |</span><br><span class="line">|7    |[-1.0,5.0]|2.0         |</span><br><span class="line">|5    |[0.0,1.0] |3.0         |</span><br><span class="line">|6    |[0.0,1.0] |0.0         |</span><br><span class="line">|6    |[0.0,1.0] |0.0         |</span><br><span class="line">|6    |[0.0,1.0] |0.0         |</span><br><span class="line">+-----+----------+------------+</span><br></pre></td></tr></table></figure></p>
+<p>从结果一眼可以看出，该类将label重新编号了，也是从零开始，但是不是按数值（因为StringIndexer从名字上就可以看出是将string类型的转出index）大小对应,是按label出现的频次排序的，出现频次最高索引为0，依次类推，如6出现了三次则索引后为0.0。<br>既然提到了是将string类型的进行索引，那么简单的造个数看下效果吧，我想实际分类中字符类型的label也很多吧，比如根据特征分类胖瘦等<br>名字还是data2.txt吧~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">thin,-1.0 1.0</span><br><span class="line">fat,0.0 3.0</span><br><span class="line">fat,-1.0 5.0</span><br><span class="line">thin,0.0 1.0</span><br><span class="line">fat,0.0 1.0</span><br></pre></td></tr></table></figure></p>
+<p>将数据替换一下，重新跑一下上面的程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-----+----------+------------+</span><br><span class="line">|label|features  |indexedLabel|</span><br><span class="line">+-----+----------+------------+</span><br><span class="line">|thin |[-1.0,1.0]|1.0         |</span><br><span class="line">|fat  |[0.0,3.0] |0.0         |</span><br><span class="line">|fat  |[-1.0,5.0]|0.0         |</span><br><span class="line">|thin |[0.0,1.0] |1.0         |</span><br><span class="line">|fat  |[0.0,1.0] |0.0         |</span><br><span class="line">+-----+----------+------------+</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-3-注意"><a href="#2-3-注意" class="headerlink" title="2.3 注意"></a>2.3 注意</h3><p>利用训练好的模型还转化新来的数据，可能会碰到异常，为了简单起见，还是用上面的thin,fat，假如新来的数据的label里有既不是thin也不是fat的咋办，比如middle（只是举例）或者异常数据。<br>data2new.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">thin,-1.0 1.0</span><br><span class="line">fat,0.0 3.0</span><br><span class="line">middle,1.0 2.0</span><br></pre></td></tr></table></figure></p>
+<p>spark 提供了两种解决方法<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> labelIndexer = <span class="keyword">new</span> <span class="type">StringIndexer</span>()</span><br><span class="line">  .setInputCol(<span class="string">"label"</span>)</span><br><span class="line">	<span class="comment">//.setHandleInvalid("error")</span></span><br><span class="line">  .setHandleInvalid(<span class="string">"skip"</span>)</span><br><span class="line">  .setOutputCol(<span class="string">"indexedLabel"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>1、默认设置，也就是.setHandleInvalid(“error”)：会抛出异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.apache.spark.SparkException: Unseen label: middle</span><br></pre></td></tr></table></figure></p>
+<p>2、.setHandleInvalid(“skip”) 忽略这些label所在行的数据，正常运行，将输出如下结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+-----+----------+------------+</span><br><span class="line">|label|features  |indexedLabel|</span><br><span class="line">+-----+----------+------------+</span><br><span class="line">|thin |[-1.0,1.0]|1.0         |</span><br><span class="line">|fat  |[0.0,3.0] |0.0         |</span><br><span class="line">+-----+----------+------------+</span><br></pre></td></tr></table></figure></p>
+<p>稍微有点啰嗦，附下完整代码吧~</p>
+<h3 id="2-4-完整代码（供参考理解）"><a href="#2-4-完整代码（供参考理解）" class="headerlink" title="2.4 完整代码（供参考理解）"></a>2.4 完整代码（供参考理解）</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.ml</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">StringIndexerDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span></span><br><span class="line">      .builder</span><br><span class="line">      .master(<span class="string">"local"</span>)</span><br><span class="line">      .getOrCreate()</span><br><span class="line">    <span class="keyword">import</span> spark.implicits._</span><br><span class="line">    <span class="keyword">import</span> spark.implicits._</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> org.apache.spark.ml.linalg.<span class="type">Vectors</span></span><br><span class="line">    <span class="keyword">import</span> org.apache.spark.sql.<span class="type">Row</span></span><br><span class="line">    <span class="keyword">val</span> data_path = <span class="string">"files/ml/featureprocessing/data2.txt"</span></span><br><span class="line">    <span class="keyword">val</span> data = spark.read.text(data_path).map &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Row</span>(line: <span class="type">String</span>) =&gt;</span><br><span class="line">        <span class="keyword">var</span> arr = line.split(',')</span><br><span class="line">        (arr(<span class="number">0</span>), <span class="type">Vectors</span>.dense(arr(<span class="number">1</span>).split(' ').map(_.toDouble)))</span><br><span class="line">    &#125;.toDF(<span class="string">"label"</span>, <span class="string">"features"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> org.apache.spark.ml.feature.<span class="type">StringIndexer</span></span><br><span class="line">    <span class="keyword">val</span> labelIndexer = <span class="keyword">new</span> <span class="type">StringIndexer</span>()</span><br><span class="line">      .setInputCol(<span class="string">"label"</span>)</span><br><span class="line">      <span class="comment">//      .setHandleInvalid("error")</span></span><br><span class="line">      .setHandleInvalid(<span class="string">"skip"</span>)</span><br><span class="line">      .setOutputCol(<span class="string">"indexedLabel"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> indexerModel = labelIndexer.fit(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> indexedData = indexerModel.transform(data)</span><br><span class="line">    indexedData.show(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> data_new_path = <span class="string">"files/ml/featureprocessing/data2new.txt"</span></span><br><span class="line">    <span class="keyword">val</span> data_new = spark.read.text(data_new_path).map &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Row</span>(line: <span class="type">String</span>) =&gt;</span><br><span class="line">        <span class="keyword">var</span> arr = line.split(',')</span><br><span class="line">        (arr(<span class="number">0</span>), <span class="type">Vectors</span>.dense(arr(<span class="number">1</span>).split(' ').map(_.toDouble)))</span><br><span class="line">    &#125;.toDF(<span class="string">"label"</span>, <span class="string">"features"</span>)</span><br><span class="line">    <span class="keyword">val</span> indexedData_new = indexerModel.transform(data_new)</span><br><span class="line">    indexedData_new.show(<span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3、IndexToString"><a href="#3、IndexToString" class="headerlink" title="3、IndexToString"></a>3、IndexToString</h2><p>IndexToString 的作用是将StringIndexer转化的结果转回去，实际应用中大概是这样，将字符型的label转换为数值代入算法模型训练预测，这时候预测的结果是StringIndexer转化的数值型，为了便于直观展示，需要变换回去</p>
+<h3 id="3-1代码"><a href="#3-1代码" class="headerlink" title="3.1代码"></a>3.1代码</h3><p>接上面2.2的代码<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.ml.feature.<span class="type">IndexToString</span></span><br><span class="line"><span class="keyword">val</span> labelConverter = <span class="keyword">new</span> <span class="type">IndexToString</span>()</span><br><span class="line">  .setInputCol(<span class="string">"indexedLabel"</span>)</span><br><span class="line">  .setOutputCol(<span class="string">"predictedLabel"</span>)</span><br><span class="line"><span class="keyword">val</span> predict = labelConverter.transform(indexedData)</span><br><span class="line">predict.show(<span class="literal">false</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-2-结果"><a href="#3-2-结果" class="headerlink" title="3.2 结果"></a>3.2 结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+-----+----------+------------+--------------+</span><br><span class="line">|label|features  |indexedLabel|predictedLabel|</span><br><span class="line">+-----+----------+------------+--------------+</span><br><span class="line">|thin |[-1.0,1.0]|1.0         |thin          |</span><br><span class="line">|fat  |[0.0,3.0] |0.0         |fat           |</span><br><span class="line">|fat  |[-1.0,5.0]|0.0         |fat           |</span><br><span class="line">|thin |[0.0,1.0] |1.0         |thin          |</span><br><span class="line">|fat  |[0.0,1.0] |0.0         |fat           |</span><br><span class="line">+-----+----------+------------+--------------+</span><br></pre></td></tr></table></figure>
+<p>根据结果可以看到该类又把indexedLabel转换为和原来的label一样的类型了</p>
+<h2 id="4、附录"><a href="#4、附录" class="headerlink" title="4、附录"></a>4、附录</h2><p>当然在实际的算法中是要将预测后的数据进行转化的，所以为了便于理解，附上一个决策树分类的代码示例，因为这篇不是讲决策树的，所以这里不展开讲解了。</p>
+<h3 id="4-1-数据"><a href="#4-1-数据" class="headerlink" title="4.1 数据"></a>4.1 数据</h3><p>data3.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">thin,1.5 50</span><br><span class="line">fat,1.5 60</span><br><span class="line">thin,1.6 40</span><br><span class="line">fat,1.6 60</span><br><span class="line">thin,1.7 60</span><br><span class="line">fat,1.7 80</span><br><span class="line">thin,1.8 60</span><br><span class="line">fat,1.8 90</span><br><span class="line">thin,1.9 70</span><br><span class="line">fat,1.9 80</span><br></pre></td></tr></table></figure></p>
+<p>其中第一个特征为身高，第二个特征为体重，数据来源于：<a href="https://blog.csdn.net/lsldd/article/details/41223147" target="_blank" rel="noopener">用Python开始机器学习（2：决策树分类算法）</a>,（数据是作者主观臆断，具有一定逻辑性，但请无视其合理性）</p>
+<h3 id="4-2-代码及结果"><a href="#4-2-代码及结果" class="headerlink" title="4.2 代码及结果"></a>4.2 代码及结果</h3><p>该代码主要来自官方示例。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.ml</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.ml.<span class="type">Pipeline</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.ml.classification.<span class="type">DecisionTreeClassificationModel</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.ml.classification.<span class="type">DecisionTreeClassifier</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.ml.evaluation.<span class="type">MulticlassClassificationEvaluator</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.ml.feature.&#123; <span class="type">IndexToString</span>, <span class="type">StringIndexer</span>, <span class="type">VectorIndexer</span> &#125;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.ml.linalg.<span class="type">Vectors</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">Row</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DecisionTreeExample</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span></span><br><span class="line">      .builder</span><br><span class="line">      .master(<span class="string">"local"</span>)</span><br><span class="line">      .getOrCreate()</span><br><span class="line">    <span class="keyword">import</span> spark.implicits._</span><br><span class="line">    <span class="keyword">val</span> data_path = <span class="string">"files/ml/featureprocessing/data3.txt"</span></span><br><span class="line">    <span class="keyword">val</span> data = spark.read.text(data_path).map &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Row</span>(line: <span class="type">String</span>) =&gt;</span><br><span class="line">        <span class="keyword">var</span> arr = line.split(',')</span><br><span class="line">        (arr(<span class="number">0</span>), <span class="type">Vectors</span>.dense(arr(<span class="number">1</span>).split(' ').map(_.toDouble)))</span><br><span class="line">    &#125;.toDF(<span class="string">"label"</span>, <span class="string">"features"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Index labels, adding metadata to the label column.</span></span><br><span class="line">    <span class="comment">// Fit on whole dataset to include all labels in index.</span></span><br><span class="line">    <span class="keyword">val</span> labelIndexer = <span class="keyword">new</span> <span class="type">StringIndexer</span>()</span><br><span class="line">      .setInputCol(<span class="string">"label"</span>)</span><br><span class="line">      .setOutputCol(<span class="string">"indexedLabel"</span>)</span><br><span class="line">      .fit(data)</span><br><span class="line">    <span class="comment">// Automatically identify categorical features, and index them.</span></span><br><span class="line">    <span class="keyword">val</span> featureIndexer = <span class="keyword">new</span> <span class="type">VectorIndexer</span>()</span><br><span class="line">      .setInputCol(<span class="string">"features"</span>)</span><br><span class="line">      .setOutputCol(<span class="string">"indexedFeatures"</span>)</span><br><span class="line">      .setMaxCategories(<span class="number">4</span>) <span class="comment">// features with &gt; 4 distinct values are treated as continuous.</span></span><br><span class="line">      .fit(data)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Split the data into training and test sets (30% held out for testing).</span></span><br><span class="line">    <span class="keyword">val</span> <span class="type">Array</span>(trainingData, testData) = data.randomSplit(<span class="type">Array</span>(<span class="number">0.7</span>, <span class="number">0.3</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Train a DecisionTree model.</span></span><br><span class="line">    <span class="keyword">val</span> dt = <span class="keyword">new</span> <span class="type">DecisionTreeClassifier</span>()</span><br><span class="line">      .setLabelCol(<span class="string">"indexedLabel"</span>)</span><br><span class="line">      .setFeaturesCol(<span class="string">"indexedFeatures"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Convert indexed labels back to original labels.</span></span><br><span class="line">    <span class="keyword">val</span> labelConverter = <span class="keyword">new</span> <span class="type">IndexToString</span>()</span><br><span class="line">      .setInputCol(<span class="string">"prediction"</span>)</span><br><span class="line">      .setOutputCol(<span class="string">"predictedLabel"</span>)</span><br><span class="line">      .setLabels(labelIndexer.labels)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Chain indexers and tree in a Pipeline.</span></span><br><span class="line">    <span class="keyword">val</span> pipeline = <span class="keyword">new</span> <span class="type">Pipeline</span>()</span><br><span class="line">      .setStages(<span class="type">Array</span>(labelIndexer, featureIndexer, dt, labelConverter))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Train model. This also runs the indexers.</span></span><br><span class="line">    <span class="keyword">val</span> model = pipeline.fit(trainingData)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Make predictions.</span></span><br><span class="line">    <span class="keyword">val</span> predictions = model.transform(testData)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Select example rows to display.</span></span><br><span class="line">    predictions.select(<span class="string">"predictedLabel"</span>, <span class="string">"label"</span>, <span class="string">"features"</span>).show(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Select (prediction, true label) and compute test error.</span></span><br><span class="line">    <span class="keyword">val</span> evaluator = <span class="keyword">new</span> <span class="type">MulticlassClassificationEvaluator</span>()</span><br><span class="line">      .setLabelCol(<span class="string">"indexedLabel"</span>)</span><br><span class="line">      .setPredictionCol(<span class="string">"prediction"</span>)</span><br><span class="line">      .setMetricName(<span class="string">"accuracy"</span>)</span><br><span class="line">    <span class="keyword">val</span> accuracy = evaluator.evaluate(predictions)</span><br><span class="line">    println(<span class="string">"Test Error = "</span> + (<span class="number">1.0</span> - accuracy))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> treeModel = model.stages(<span class="number">2</span>).asInstanceOf[<span class="type">DecisionTreeClassificationModel</span>]</span><br><span class="line">    println(<span class="string">"Learned classification tree model:\n"</span> + treeModel.toDebugString)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br>因为训练数据和测试数据是随机分的，所以每次跑的结果不太一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">+--------------+-----+----------+</span><br><span class="line">|predictedLabel|label|  features|</span><br><span class="line">+--------------+-----+----------+</span><br><span class="line">|           fat|  fat|[1.5,60.0]|</span><br><span class="line">|           fat|  fat|[1.9,80.0]|</span><br><span class="line">|           fat| thin|[1.5,50.0]|</span><br><span class="line">+--------------+-----+----------+</span><br><span class="line"></span><br><span class="line">Test Error = 0.33333333333333337</span><br><span class="line">Learned classification tree model:</span><br><span class="line">DecisionTreeClassificationModel (uid=dtc_4f851a4dd870) of depth 3 with 7 nodes</span><br><span class="line">  If (feature 1 &lt;= 70.0)</span><br><span class="line">   If (feature 0 &lt;= 1.6)</span><br><span class="line">    If (feature 1 &lt;= 40.0)</span><br><span class="line">     Predict: 0.0</span><br><span class="line">    Else (feature 1 &gt; 40.0)</span><br><span class="line">     Predict: 1.0</span><br><span class="line">   Else (feature 0 &gt; 1.6)</span><br><span class="line">    Predict: 0.0</span><br><span class="line">  Else (feature 1 &gt; 70.0)</span><br><span class="line">   Predict: 1.0</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢您的支持!<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+	  
+		<div class="article-footer-copyright">
+
+ <p>本文由&nbsp;<b>董可伦</b>&nbsp;发表于&nbsp<a href="http://dongkelun.com">伦少的博客</a>&nbsp,采用<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">署名-非商业性使用-禁止演绎 3.0</a>进行许可。</p>
+ 
+ <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
+ 
+ <p>本文标题为: <a href="http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/">spark ML之特征处理（1）</a> </p>
+ 
+ <p>本文链接为：<a href="http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/">http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/</a></p>
+ 
+ 
+ 
+
+</div>
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+	   
+	 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/11/rdd2df/" class="archive-article-date">
-  	<time datetime="2018-05-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/05/17/sparkKafka/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spark Streaming连接Kafka入门教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/11/rdd2df/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">旧版spark（1.6版本） 将rdd动态转为dataframe</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/11/rdd2df/">旧版spark（1.6版本） 将rdd动态转为dataframe</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DataFrame</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Rdd</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、VectorIndexer"><span class="toc-number">2.</span> <span class="toc-text">1、VectorIndexer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-数据"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-代码"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、StringIndexer"><span class="toc-number">3.</span> <span class="toc-text">2、StringIndexer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-数据"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-代码"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-注意"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-完整代码（供参考理解）"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 完整代码（供参考理解）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、IndexToString"><span class="toc-number">4.</span> <span class="toc-text">3、IndexToString</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1代码"><span class="toc-number">4.1.</span> <span class="toc-text">3.1代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-结果"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、附录"><span class="toc-number">5.</span> <span class="toc-text">4、附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-数据"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-代码及结果"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 代码及结果</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/06/sparkSubmitException/" class="archive-article-date">
-  	<time datetime="2018-05-05T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-06</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/06/sparkSubmitException/">spark-submit报错:Exception in thread &#34;main&#34; java.sql.SQLException:No suitable driver</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">spark-submit</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/05/oracleConf/" class="archive-article-date">
-  	<time datetime="2018-05-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/05/oracleConf/">centos7 安装oracle11</a>
-    </h1>
+  <div id="SOHUCS" sid="sparkMlFeatureProcessing1" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cytwhjo1f",
+        conf: "a13e9cae0c98145055f273a6eae16c52"
+    });
+</script>
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/27/dfChangeAllColDatatypes/" class="archive-article-date">
-  	<time datetime="2018-04-26T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/27/dfChangeAllColDatatypes/">spark 将DataFrame所有的列类型改为double</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DataFrame</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/25/ambariConf/" class="archive-article-date">
-  	<time datetime="2018-04-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/25/ambariConf/">centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/16/sparkOnYarnConf/" class="archive-article-date">
-  	<time datetime="2018-04-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/16/sparkOnYarnConf/">spark on yarn 配置及异常解决</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">yarn</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/11/sparkNewUV/" class="archive-article-date">
-  	<time datetime="2018-04-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/11/sparkNewUV/">spark 统计每天新增用户数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">面试题</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/09/sparkMlLinearRegressionUsing/" class="archive-article-date">
-  	<time datetime="2018-04-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/09/sparkMlLinearRegressionUsing/">spark ML算法之线性回归使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ml</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -655,8 +462,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
