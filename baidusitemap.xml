@@ -4,8 +4,27 @@
 
     
   <url>
+    <loc>http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/</loc>
+    <lastmod>2018-05-18T15:28:15.877Z</lastmod>
+    <data>
+        <display>
+        <title>spark ML之特征处理（1）</title>
+        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>ml</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.dongkelun.com/2018/05/17/sparkKafka/</loc>
-    <lastmod>2018-05-18T06:54:17.708Z</lastmod>
+    <lastmod>2018-05-18T15:28:15.876Z</lastmod>
     <data>
         <display>
         <title>Spark Streaming连接Kafka入门教程</title>
@@ -25,16 +44,16 @@
 
     
   <url>
-    <loc>http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/</loc>
-    <lastmod>2018-05-17T15:09:35.620Z</lastmod>
+    <loc>http://www.dongkelun.com/2018/05/06/sparkSubmitException/</loc>
+    <lastmod>2018-05-18T15:24:38.319Z</lastmod>
     <data>
         <display>
-        <title>spark ML之特征处理（1）</title>
-        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
+        <title>spark-submit报错:Exception in thread "main" java.sql.SQLException:No suitable driver</title>
+        <pubTime>2018-05-05T16:00:00.000Z</pubTime>
         
         <tag>spark</tag>
          
-        <tag>ml</tag>
+        <tag>spark-submit</tag>
          
          
            
@@ -45,7 +64,7 @@
     
   <url>
     <loc>http://www.dongkelun.com/2018/05/11/rdd2df/</loc>
-    <lastmod>2018-05-11T15:00:38.256Z</lastmod>
+    <lastmod>2018-05-18T15:24:38.260Z</lastmod>
     <data>
         <display>
         <title>旧版spark（1.6版本） 将rdd动态转为dataframe</title>
@@ -65,16 +84,16 @@
 
     
   <url>
-    <loc>http://www.dongkelun.com/2018/05/06/sparkSubmitException/</loc>
-    <lastmod>2018-05-11T08:01:52.686Z</lastmod>
+    <loc>http://www.dongkelun.com/2018/03/23/hadoopConf/</loc>
+    <lastmod>2018-05-18T15:24:37.568Z</lastmod>
     <data>
         <display>
-        <title>spark-submit报错:Exception in thread "main" java.sql.SQLException:No suitable driver</title>
-        <pubTime>2018-05-05T16:00:00.000Z</pubTime>
+        <title>centos7 hadoop 单机模式安装配置</title>
+        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
         
-        <tag>spark</tag>
+        <tag>centos</tag>
          
-        <tag>spark-submit</tag>
+        <tag>hadoop</tag>
          
          
            
@@ -85,7 +104,7 @@
     
   <url>
     <loc>http://www.dongkelun.com/2018/04/25/ambariConf/</loc>
-    <lastmod>2018-05-08T01:33:14.540Z</lastmod>
+    <lastmod>2018-05-18T15:24:37.560Z</lastmod>
     <data>
         <display>
         <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
@@ -94,25 +113,6 @@
         <tag>centos7</tag>
          
         <tag>ambari</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.dongkelun.com/2018/03/23/hadoopConf/</loc>
-    <lastmod>2018-05-06T03:47:11.399Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 hadoop 单机模式安装配置</title>
-        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-        <tag>hadoop</tag>
          
          
            

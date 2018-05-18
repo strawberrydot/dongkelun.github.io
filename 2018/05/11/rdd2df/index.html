@@ -17,7 +17,7 @@
 <meta property="og:description" content="前言旧版本spark不能直接读取csv转为df,没有spark.read.option(“header”, “true”).csv这么简单的方法直接将第一行作为df的列名，只能现将数据读取为rdd,然后通过map和todf方法转为df,如果csv的列数很多的话用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何用旧版spark读取多列txt文件转为df 1、新版为了直观">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://wx1.sinaimg.cn/large/e44344dcly1fr7skek00uj20v209yt9j.jpg">
-<meta property="og:updated_time" content="2018-05-11T15:00:38.256Z">
+<meta property="og:updated_time" content="2018-05-18T15:24:38.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="旧版spark（1.6版本） 将rdd动态转为dataframe">
 <meta name="twitter:description" content="前言旧版本spark不能直接读取csv转为df,没有spark.read.option(“header”, “true”).csv这么简单的方法直接将第一行作为df的列名，只能现将数据读取为rdd,然后通过map和todf方法转为df,如果csv的列数很多的话用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何用旧版spark读取多列txt文件转为df 1、新版为了直观">
@@ -538,19 +538,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,11 +578,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
