@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言首先要安装好kafka,这里不做kafka安装的介绍,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好的实现方式。 1、对应依赖根据kafka版本选择对应的依赖，我的kafka版本为0.10.1，spark版本2.2.1,然后在maven仓库找到对应的依赖。（Kafka项目在版本">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="http://wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
-<meta property="og:image" content="http://wx4.sinaimg.cn/large/e44344dcly1freg6rzkvgj20zl0o3q6f.jpg">
-<meta property="og:updated_time" content="2018-05-17T09:16:17.467Z">
+<meta property="og:image" content="http://www.dongkelun.com/2018/05/17/sparkKafka/wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
+<meta property="og:image" content="http://www.dongkelun.com/2018/05/17/sparkKafka/wx4.sinaimg.cn/large/e44344dcly1freg6rzkvgj20zl0o3q6f.jpg">
+<meta property="og:updated_time" content="2018-05-18T01:41:52.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Streaming连接Kafka入门教程">
 <meta name="twitter:description" content="前言首先要安装好kafka,这里不做kafka安装的介绍,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好的实现方式。 1、对应依赖根据kafka版本选择对应的依赖，我的kafka版本为0.10.1，spark版本2.2.1,然后在maven仓库找到对应的依赖。（Kafka项目在版本">
-<meta name="twitter:image" content="http://wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
+<meta name="twitter:image" content="http://www.dongkelun.com/2018/05/17/sparkKafka/wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -226,9 +226,9 @@
 <p>然后依次发送下面几个消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
 <h2 id="6、结果"><a href="#6、结果" class="headerlink" title="6、结果"></a>6、结果</h2><p>然后在eclipse console就可以看到对应的数据了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
 <p>为了直观的展示和理解，附上截图：</p>
-<p>发送消息<br><img src="http://wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg" alt=""></p>
+<p>发送消息<br><img src="wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg" alt=""></p>
 <p>结果</p>
-<p><img src="http://wx4.sinaimg.cn/large/e44344dcly1freg6rzkvgj20zl0o3q6f.jpg" alt=""></p>
+<p><img src="wx4.sinaimg.cn/large/e44344dcly1freg6rzkvgj20zl0o3q6f.jpg" alt=""></p>
 
       
 
@@ -347,9 +347,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/05/17/sparkMlFeatureProcessing1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          spark ML之特征处理（1）
+        
+      </div>
+    </a>
   
-    <a href="/2018/05/17/sparkMlFeatureProcessing1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spark ML之特征处理（1）</div>
+  
+    <a href="/2018/05/11/rdd2df/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">旧版spark（1.6版本） 将rdd动态转为dataframe</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -546,14 +555,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
@@ -563,6 +564,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -582,27 +591,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,15 +603,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,6 +636,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -4,27 +4,8 @@
 
     
   <url>
-    <loc>http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/</loc>
-    <lastmod>2018-05-17T15:09:35.620Z</lastmod>
-    <data>
-        <display>
-        <title>spark ML之特征处理（1）</title>
-        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>ml</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://www.dongkelun.com/2018/05/17/sparkKafka/</loc>
-    <lastmod>2018-05-17T09:16:17.467Z</lastmod>
+    <lastmod>2018-05-18T01:41:52.963Z</lastmod>
     <data>
         <display>
         <title>Spark Streaming连接Kafka入门教程</title>
@@ -35,6 +16,25 @@
         <tag>spark streaming</tag>
          
         <tag>kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/</loc>
+    <lastmod>2018-05-17T15:09:35.620Z</lastmod>
+    <data>
+        <display>
+        <title>spark ML之特征处理（1）</title>
+        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>ml</tag>
          
          
            
