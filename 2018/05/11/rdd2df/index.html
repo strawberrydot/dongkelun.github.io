@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://www.dongkelun.com">
+  <link rel="dns-prefetch" href="https://www.dongkelun.com">
   <title>旧版spark（1.6版本） 将rdd动态转为dataframe | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言旧版本spark不能直接读取csv转为df,没有spark.read.option(“header”, “true”).csv这么简单的方法直接将第一行作为df的列名，只能现将数据读取为rdd,然后通过map和todf方法转为df,如果csv的列数很多的话用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何用旧版spark读取多列txt文件转为df 1、新版为了直观">
 <meta name="keywords" content="spark,DataFrame,Rdd">
 <meta property="og:type" content="article">
 <meta property="og:title" content="旧版spark（1.6版本） 将rdd动态转为dataframe">
-<meta property="og:url" content="http://www.dongkelun.com/2018/05/11/rdd2df/index.html">
+<meta property="og:url" content="https://www.dongkelun.com/2018/05/11/rdd2df/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言旧版本spark不能直接读取csv转为df,没有spark.read.option(“header”, “true”).csv这么简单的方法直接将第一行作为df的列名，只能现将数据读取为rdd,然后通过map和todf方法转为df,如果csv的列数很多的话用如Array((1,2..))即Arrar(元组)创建的话很麻烦，本文解决如何用旧版spark读取多列txt文件转为df 1、新版为了直观">
 <meta property="og:locale" content="cn">
@@ -265,9 +265,9 @@
  
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
  
- <p>本文标题为: <a href="http://www.dongkelun.com/2018/05/11/rdd2df/">旧版spark（1.6版本） 将rdd动态转为dataframe</a> </p>
+ <p>本文标题为: <a href="https://www.dongkelun.com/2018/05/11/rdd2df/">旧版spark（1.6版本） 将rdd动态转为dataframe</a> </p>
  
- <p>本文链接为：<a href="http://www.dongkelun.com/2018/05/11/rdd2df/">http://www.dongkelun.com/2018/05/11/rdd2df/</a></p>
+ <p>本文链接为：<a href="https://www.dongkelun.com/2018/05/11/rdd2df/">https://www.dongkelun.com/2018/05/11/rdd2df/</a></p>
  
  
  
@@ -327,7 +327,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.dongkelun.com/2018/05/11/rdd2df/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://www.dongkelun.com/2018/05/11/rdd2df/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -530,11 +530,7 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,7 +542,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,15 +566,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -582,7 +578,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -610,10 +606,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
@@ -623,6 +615,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>
