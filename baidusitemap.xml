@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/05/20/hiveQueryException/</loc>
+    <lastmod>2018-05-20T11:19:39.582Z</lastmod>
+    <data>
+        <display>
+        <title>hive查询报错:java.io.IOException:org.apache.parquet.io.ParquetDecodingException</title>
+        <pubTime>2018-05-19T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>hive</tag>
+         
+        <tag>异常解决</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/03/15/winSparkConf/</loc>
     <lastmod>2018-05-19T14:23:27.509Z</lastmod>
     <data>
