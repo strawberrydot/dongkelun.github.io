@@ -18,7 +18,7 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/mw690/e44344dcly1frjya2fprpj20la02kjra.jpg">
-<meta property="og:updated_time" content="2018-05-22T09:10:52.516Z">
+<meta property="og:updated_time" content="2018-05-22T09:34:24.157Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka安装启动入门教程">
 <meta name="twitter:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，并提出可能会出现的问题。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我">
@@ -248,12 +248,10 @@
 <h3 id="7、5-消费消息"><a href="#7、5-消费消息" class="headerlink" title="7、5 消费消息"></a>7、5 消费消息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic my-replicated-topic</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my test message 1</span><br><span class="line">my test message 2</span><br></pre></td></tr></table></figure>
 <h3 id="7-6-测试容错及发现的问题"><a href="#7-6-测试容错及发现的问题" class="headerlink" title="7.6 测试容错及发现的问题"></a>7.6 测试容错及发现的问题</h3><p>我的leader是节点0，现在kill掉</p>
-<p>小问题：<br>官网提供下面的命令查看进程号(官网leader为节点1)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep server-1.properties</span><br></pre></td></tr></table></figure></p>
-<p>那么执行相同命令查看我的节点0<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep server-0.properties</span><br></pre></td></tr></table></figure></p>
-<p>得到如下面结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root      11040  0.0  0.0 112648   976 pts/4    R+   03:04   0:00 grep --color=auto server-0.properties</span><br></pre></td></tr></table></figure></p>
-<p>然后<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 11040</span><br></pre></td></tr></table></figure></p>
-<p>发现kill不掉<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-bash: kill: (11040) - No such process</span><br></pre></td></tr></table></figure></p>
-<p>这个每次执行进程号是不一样的，想了半天，才想到这个其实是我们执行这条命令的进程，其实之前知道这个点，但一直思考为啥会变…发现自己有点蠢了~<br>因为我的节点0执行命令后面没有加 &amp;（官网也是这样的），所以直接ctrl+c 就可以停止了，节点1、2加了 &amp; ，就可以按上面的方法kill了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep server.properties</span><br></pre></td></tr></table></figure>
+<p>得到对应的进程号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root      16557 34.6  8.4 4322904 326472 pts/1  Sl+  05:30 ...</span><br><span class="line">2.11-1.1.0/bin/../libs/zookeeper-3.4.10.jar kafka.Kafka config/server.properties</span><br><span class="line"></span><br><span class="line">root      11040  0.0  0.0 112648   976 pts/4    R+   03:04   0:00 grep --color=auto server-0.properties</span><br></pre></td></tr></table></figure>
+<p>然后kill掉第一个（第二个是grep命令本身的）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 16557</span><br></pre></td></tr></table></figure></p>
 <p>kill掉之后再描述下topic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic my-replicated-topic</span><br><span class="line">Topic:my-replicated-topic	PartitionCount:1	ReplicationFactor:3	Configs:</span><br><span class="line">	Topic: my-replicated-topic	Partition: 0	Leader: 1	Replicas: 0,1,2	Isr: 1,2</span><br></pre></td></tr></table></figure></p>
 <p>现在leader已经切换到节点1，Isr也只有节点1和2了<br>ps aux | grep server-0.properties<br>root       7893  0.0  0.0 112648   976 pts/3    R+   23:55   0:00 grep –color=auto server-0.properties</p>
 <p>官网上说：但是即使原来的leader失败，这些消息仍然可用于消费，但是下面又有一些坑<br>首先执行下面这句<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic my-replicated-topic</span><br></pre></td></tr></table></figure></p>
@@ -557,15 +555,15 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -597,10 +595,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
@@ -629,6 +623,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
@@ -645,11 +643,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
