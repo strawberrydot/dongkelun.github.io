@@ -18,7 +18,7 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1freg6rzkvgj20zl0o3q6f.jpg">
-<meta property="og:updated_time" content="2018-05-22T09:17:11.852Z">
+<meta property="og:updated_time" content="2018-05-22T14:50:45.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Streaming连接Kafka入门教程">
 <meta name="twitter:description" content="前言首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好的实现方式。 1、对应依赖根据kafka版本选择对应的依赖，我的kafka版本为0.10.1，spark版本2.2.1,然后在maven">
@@ -221,7 +221,7 @@
 <p>(我用的是eclipse sbt,具体可看我的其他博客，具体命令根据自己的实际情况)</p>
 <h2 id="3、创建topic"><a href="#3、创建topic" class="headerlink" title="3、创建topic"></a>3、创建topic</h2><p>创建测试用topic top1<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic top1</span><br></pre></td></tr></table></figure></p>
 <h2 id="4、启动程序"><a href="#4、启动程序" class="headerlink" title="4、启动程序"></a>4、启动程序</h2><p>下好依赖之后，根据官方文档提供的示例进行代码测试<br>下面的代码示例，主要实现spark 连接kafka,并将接收的数据打印出来，没有实现复杂的功能。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.kafka</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark._</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming._</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.<span class="type">StreamingContext</span>._</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.<span class="type">StringDeserializer</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.kafka010._</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.kafka010.<span class="type">LocationStrategies</span>.<span class="type">PreferConsistent</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.kafka010.<span class="type">ConsumerStrategies</span>.<span class="type">Subscribe</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">KafaDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="string">"local[2]"</span>).setAppName(<span class="string">"KafaDemo"</span>)</span><br><span class="line">    <span class="comment">//刷新时间设置为1秒</span></span><br><span class="line">    <span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(conf, <span class="type">Seconds</span>(<span class="number">1</span>))</span><br><span class="line">    <span class="comment">//消费者配置</span></span><br><span class="line">    <span class="keyword">val</span> kafkaParams = <span class="type">Map</span>[<span class="type">String</span>, <span class="type">Object</span>](</span><br><span class="line">      <span class="string">"bootstrap.servers"</span> -&gt; <span class="string">"10.180.29.180:6667"</span>, <span class="comment">//kafka集群地址</span></span><br><span class="line">      <span class="string">"key.deserializer"</span> -&gt; classOf[<span class="type">StringDeserializer</span>],</span><br><span class="line">      <span class="string">"value.deserializer"</span> -&gt; classOf[<span class="type">StringDeserializer</span>],</span><br><span class="line">      <span class="string">"group.id"</span> -&gt; <span class="string">"group"</span>, <span class="comment">//消费者组名</span></span><br><span class="line">      <span class="string">"auto.offset.reset"</span> -&gt; <span class="string">"latest"</span>, <span class="comment">//latest自动重置偏移量为最新的偏移量</span></span><br><span class="line">      <span class="string">"enable.auto.commit"</span> -&gt; (<span class="literal">false</span>: java.lang.<span class="type">Boolean</span>)) <span class="comment">//如果是true，则这个消费者的偏移量会在后台自动提交</span></span><br><span class="line">    <span class="keyword">val</span> topics = <span class="type">Array</span>(<span class="string">"top1"</span>) <span class="comment">//消费主题，可以同时消费多个</span></span><br><span class="line">    <span class="comment">//创建DStream，返回接收到的输入数据</span></span><br><span class="line">    <span class="keyword">val</span> stream = <span class="type">KafkaUtils</span>.createDirectStream[<span class="type">String</span>, <span class="type">String</span>](</span><br><span class="line">      ssc,</span><br><span class="line">      <span class="type">PreferConsistent</span>,</span><br><span class="line">      <span class="type">Subscribe</span>[<span class="type">String</span>, <span class="type">String</span>](topics, kafkaParams))</span><br><span class="line">    <span class="comment">//打印获取到的数据，因为1秒刷新一次，所以数据长度大于0时才打印</span></span><br><span class="line">    stream.foreachRDD(f =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (f.count &gt; <span class="number">0</span>)</span><br><span class="line">        f.foreach(f =&gt; println(f.value()))</span><br><span class="line">    &#125;)</span><br><span class="line">    ssc.start();</span><br><span class="line">    ssc.awaitTermination();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>启动上面的程序（本地eclipse启动即可）</p>
+<p>启动上面的程序（本地eclipse启动即可）<br>其中当auto.offset.reset为latest时，直面上看只消费程序启动后产生的数据，若想获取历史数据，将auto.offset.reset改为earliest即可，下面是具体的含义解释,该解释来自:<a href="https://blog.csdn.net/lishuangzhe7047/article/details/74530417" target="_blank" rel="noopener">https://blog.csdn.net/lishuangzhe7047/article/details/74530417</a><br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">earliest </span><br><span class="line">当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费 </span><br><span class="line">latest </span><br><span class="line">当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据 </span><br><span class="line">none </span><br><span class="line">topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常</span><br></pre></td></tr></table></figure></p>
 <h3 id="需要记住的要点"><a href="#需要记住的要点" class="headerlink" title="需要记住的要点"></a>需要记住的要点</h3><p>当在本地运行一个 Spark Streaming 程序的时候，不要使用 “local” 或者 “local[1]” 作为 master 的 URL 。这两种方法中的任何一个都意味着只有一个线程将用于运行本地任务。如果你正在使用一个基于接收器（receiver）的输入离散流（input DStream）（例如， sockets ，Kafka ，Flume 等），则该单独的线程将用于运行接收器（receiver），而没有留下任何的线程用于处理接收到的数据。因此，在本地运行时，总是用 “local[n]” 作为 master URL ，其中的 n &gt; 运行接收器的数量。<br>将逻辑扩展到集群上去运行，分配给 Spark Streaming 应用程序的内核（core）的内核数必须大于接收器（receiver）的数量。否则系统将接收数据，但是无法处理它。</p>
 <p>我一开始没有看到官网提醒的这一点，将示例中的local[2]改为local，现在已经在代码里改回local[2]了，但是下面的截图没有替换，注意下。</p>
 <h2 id="5、发送消息"><a href="#5、发送消息" class="headerlink" title="5、发送消息"></a>5、发送消息</h2><p>运行producer<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list localhost:6667 --topic top1</span><br></pre></td></tr></table></figure></p>
@@ -538,19 +538,7 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,7 +554,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,15 +578,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,11 +586,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,7 +598,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,15 +606,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -630,11 +622,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>

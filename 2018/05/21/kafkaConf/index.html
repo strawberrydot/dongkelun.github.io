@@ -18,7 +18,7 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/mw690/e44344dcly1frjya2fprpj20la02kjra.jpg">
-<meta property="og:updated_time" content="2018-05-22T09:36:16.374Z">
+<meta property="og:updated_time" content="2018-05-22T15:07:10.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka安装启动入门教程">
 <meta name="twitter:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，并提出可能会出现的问题。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我">
@@ -231,6 +231,11 @@
 <h2 id="6、启动消费者"><a href="#6、启动消费者" class="headerlink" title="6、启动消费者"></a>6、启动消费者</h2><p>消费者可以将消息转储到标准输出<br>打开第四个个终端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic <span class="built_in">test</span> --from-beginning</span><br></pre></td></tr></table></figure></p>
 <p>然后就可以在命令行看到生产者发送的消息了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is a message</span><br><span class="line">This is another message</span><br></pre></td></tr></table></figure></p>
 <p><img src="//wx4.sinaimg.cn/mw690/e44344dcly1frjya2fprpj20la02kjra.jpg" alt=""></p>
+<h2 id="7、spark远程连接kafka"><a href="#7、spark远程连接kafka" class="headerlink" title="7、spark远程连接kafka"></a>7、spark远程连接kafka</h2><p>因为我是用spark进行开发的，所以此时就想测试一下，这样配置，用spark程序在celipse里是否可以获取到kafka的数据（我之前使用ambari搭建的kafka进行测试的），程序可参考<a href="https://dongkelun.com/2018/05/17/sparkKafka/" target="_blank" rel="noopener">Spark Streaming连接Kafka入门教程</a>,但是运行程序发现并不能获取到kafka对应topic里的消息。<br>几次尝试，发现修改下面的配置即可<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim config/server.properties</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listeners=PLAINTEXT://<span class="number">192.168</span>.<span class="number">44.129</span>:<span class="number">9092</span></span><br></pre></td></tr></table></figure>
+<p>其中kafka默认的端口就是9092，不同的地方是端口前面加上了ip（192.168.44.129）,我想默认的是localhost，spark程序远程通过ip地址和localhost对应不上，所以获取不到kafka的消息，注意在第8部分：配置多个broker的集群，为了和官方文档一致，并没有加上ip，大家可根据需要自行修改。<br>这样的话就可以在程序里获取到历史消息了，但是如果想新产生几条数据的话，启动命令需要将localhost改为192.168.44.128（ambari安装的kafka启动命令localhost就没事，而且远程也可以获取到kafka的数据，因为我只是用来测试，所以就没深入研究~）,否则会产生异常，即：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list 192.168.44.129:9092 --topic <span class="built_in">test</span></span><br><span class="line">bin/kafka-console-consumer.sh --bootstrap-server 192.168.44.129:9092 --topic <span class="built_in">test</span> --from-beginning</span><br></pre></td></tr></table></figure>
+<p>对ambari有兴趣的可以参考<a href="https://dongkelun.com/2018/04/25/ambariConf/" target="_blank" rel="noopener">centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</a></p>
 <h2 id="7、设置多个broker的集群"><a href="#7、设置多个broker的集群" class="headerlink" title="7、设置多个broker的集群"></a>7、设置多个broker的集群</h2><p>到目前为止，我们设置的是单个broker，这样并不好，下面我们还是在这一台机器上设置三个节点。</p>
 <h3 id="7-1-为每个broker创建一个配置文件"><a href="#7-1-为每个broker创建一个配置文件" class="headerlink" title="7.1 为每个broker创建一个配置文件"></a>7.1 为每个broker创建一个配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp config/server.properties config/server-1.properties</span><br><span class="line">cp config/server.properties config/server-2.properties</span><br></pre></td></tr></table></figure>
 <p>然后用vim修改<br>config/server-1.properties:<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">broker.id=<span class="number">1</span></span><br><span class="line">listeners=PLAINTEXT://:<span class="number">9093</span></span><br><span class="line"><span class="built_in">log</span>.dir=/tmp/kafka-logs-<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
@@ -404,7 +409,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载"><span class="toc-number">2.</span> <span class="toc-text">1、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、解压到指定目录"><span class="toc-number">3.</span> <span class="toc-text">2、解压到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、启动服务"><span class="toc-number">4.</span> <span class="toc-text">3、启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-启动zookeeper"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 启动zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-启动kafka服务"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 启动kafka服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、创建一个主题"><span class="toc-number">5.</span> <span class="toc-text">4、创建一个主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、发送消息"><span class="toc-number">6.</span> <span class="toc-text">5、发送消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、启动消费者"><span class="toc-number">7.</span> <span class="toc-text">6、启动消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、设置多个broker的集群"><span class="toc-number">8.</span> <span class="toc-text">7、设置多个broker的集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-为每个broker创建一个配置文件"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 为每个broker创建一个配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-启动新节点"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 启动新节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-创建三个副本的新主题："><span class="toc-number">8.3.</span> <span class="toc-text">7.3 创建三个副本的新主题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-发送消息"><span class="toc-number">8.4.</span> <span class="toc-text">7.4 发送消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、5-消费消息"><span class="toc-number">8.5.</span> <span class="toc-text">7、5 消费消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-测试容错及发现的问题"><span class="toc-number">8.6.</span> <span class="toc-text">7.6 测试容错及发现的问题</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载"><span class="toc-number">2.</span> <span class="toc-text">1、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、解压到指定目录"><span class="toc-number">3.</span> <span class="toc-text">2、解压到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、启动服务"><span class="toc-number">4.</span> <span class="toc-text">3、启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-启动zookeeper"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 启动zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-启动kafka服务"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 启动kafka服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、创建一个主题"><span class="toc-number">5.</span> <span class="toc-text">4、创建一个主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、发送消息"><span class="toc-number">6.</span> <span class="toc-text">5、发送消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、启动消费者"><span class="toc-number">7.</span> <span class="toc-text">6、启动消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、spark远程连接kafka"><span class="toc-number">8.</span> <span class="toc-text">7、spark远程连接kafka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、设置多个broker的集群"><span class="toc-number">9.</span> <span class="toc-text">7、设置多个broker的集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-为每个broker创建一个配置文件"><span class="toc-number">9.1.</span> <span class="toc-text">7.1 为每个broker创建一个配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-启动新节点"><span class="toc-number">9.2.</span> <span class="toc-text">7.2 启动新节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-创建三个副本的新主题："><span class="toc-number">9.3.</span> <span class="toc-text">7.3 创建三个副本的新主题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-发送消息"><span class="toc-number">9.4.</span> <span class="toc-text">7.4 发送消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、5-消费消息"><span class="toc-number">9.5.</span> <span class="toc-text">7、5 消费消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-测试容错及发现的问题"><span class="toc-number">9.6.</span> <span class="toc-text">7.6 测试容错及发现的问题</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -555,19 +560,7 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -583,7 +576,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -595,15 +600,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,11 +608,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,7 +620,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -631,15 +628,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,11 +644,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
