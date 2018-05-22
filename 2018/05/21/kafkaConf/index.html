@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，并提出可能会出现的问题。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="https://wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/mw690/e44344dcly1frjya2fprpj20la02kjra.jpg">
-<meta property="og:updated_time" content="2018-05-22T15:33:49.394Z">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frjya2fprpj20la02kjra.jpg">
+<meta property="og:updated_time" content="2018-05-22T15:40:55.125Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka安装启动入门教程">
 <meta name="twitter:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，并提出可能会出现的问题。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我">
-<meta name="twitter:image" content="https://wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
+<meta name="twitter:image" content="https://wx3.sinaimg.cn/large/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -227,10 +227,10 @@
 <p>或者，您也可以将代理配置为在发布不存在的主题时自动创建主题，而不是手动创建主题。</p>
 <h2 id="5、发送消息"><a href="#5、发送消息" class="headerlink" title="5、发送消息"></a>5、发送消息</h2><p>Kafka带有一个命令行客户端，它将从文件或标准输入中获取输入，并将其作为消息发送到Kafka集群。默认情况下，每行将作为单独的消息发送。<br>启动生产者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list localhost:9092 --topic <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>输入几条消息发送到服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;This is a message</span><br><span class="line">&gt;This is another message</span><br></pre></td></tr></table></figure></p>
-<p><img src="//wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg" alt=""></p>
+<p><img src="//wx3.sinaimg.cn/large/e44344dcly1frjya1pfpmj20nr03h3yj.jpg" alt=""></p>
 <h2 id="6、启动消费者"><a href="#6、启动消费者" class="headerlink" title="6、启动消费者"></a>6、启动消费者</h2><p>消费者可以将消息转储到标准输出<br>打开第四个个终端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic <span class="built_in">test</span> --from-beginning</span><br></pre></td></tr></table></figure></p>
 <p>然后就可以在命令行看到生产者发送的消息了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is a message</span><br><span class="line">This is another message</span><br></pre></td></tr></table></figure></p>
-<p><img src="//wx4.sinaimg.cn/mw690/e44344dcly1frjya2fprpj20la02kjra.jpg" alt=""></p>
+<p><img src="//wx4.sinaimg.cn/large/e44344dcly1frjya2fprpj20la02kjra.jpg" alt=""></p>
 <h2 id="7、spark远程连接kafka"><a href="#7、spark远程连接kafka" class="headerlink" title="7、spark远程连接kafka"></a>7、spark远程连接kafka</h2><p>因为我是用spark进行开发的，所以此时就想测试一下，这样配置，用spark程序在celipse里是否可以获取到kafka的数据（我之前使用ambari搭建的kafka进行测试的），程序可参考<a href="https://dongkelun.com/2018/05/17/sparkKafka/" target="_blank" rel="noopener">Spark Streaming连接Kafka入门教程</a>,但是运行程序发现并不能获取到kafka对应topic里的消息。<br>几次尝试，发现修改下面的配置即可<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim config/server.properties</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listeners=PLAINTEXT://<span class="number">192.168</span>.<span class="number">44.129</span>:<span class="number">9092</span></span><br></pre></td></tr></table></figure>
 <p>其中kafka默认的端口就是9092，不同的地方是端口前面加上了ip（192.168.44.129）,我想默认的是localhost，spark程序远程通过ip地址和localhost对应不上，所以获取不到kafka的消息，注意在第8部分：配置多个broker的集群，为了和官方文档一致，并没有加上ip，大家可根据需要自行修改。<br>这样的话就可以在程序里获取到历史消息了，但是如果想新产生几条数据的话，启动命令需要将localhost改为192.168.44.128（ambari安装的kafka启动命令localhost就没事，而且远程也可以获取到kafka的数据，因为我只是用来测试，所以就没深入研究~）,否则会产生异常，即：</p>
@@ -560,15 +560,15 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,10 +588,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -600,15 +596,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -652,11 +652,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
