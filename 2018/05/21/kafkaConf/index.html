@@ -18,7 +18,7 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/mw690/e44344dcly1frjya2fprpj20la02kjra.jpg">
-<meta property="og:updated_time" content="2018-05-22T08:41:50.640Z">
+<meta property="og:updated_time" content="2018-05-22T09:10:52.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka安装启动入门教程">
 <meta name="twitter:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，并提出可能会出现的问题。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我">
@@ -247,7 +247,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;my test message 1</span><br><span class="line">&gt;my test message 2</span><br></pre></td></tr></table></figure>
 <h3 id="7、5-消费消息"><a href="#7、5-消费消息" class="headerlink" title="7、5 消费消息"></a>7、5 消费消息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --topic my-replicated-topic</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my test message 1</span><br><span class="line">my test message 2</span><br></pre></td></tr></table></figure>
-<h3 id="7-5-测试容错及发现的问题"><a href="#7-5-测试容错及发现的问题" class="headerlink" title="7.5 测试容错及发现的问题"></a>7.5 测试容错及发现的问题</h3><p>我的leader是节点0，现在kill掉</p>
+<h3 id="7-6-测试容错及发现的问题"><a href="#7-6-测试容错及发现的问题" class="headerlink" title="7.6 测试容错及发现的问题"></a>7.6 测试容错及发现的问题</h3><p>我的leader是节点0，现在kill掉</p>
 <p>小问题：<br>官网提供下面的命令查看进程号(官网leader为节点1)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep server-1.properties</span><br></pre></td></tr></table></figure></p>
 <p>那么执行相同命令查看我的节点0<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep server-0.properties</span><br></pre></td></tr></table></figure></p>
 <p>得到如下面结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root      11040  0.0  0.0 112648   976 pts/4    R+   03:04   0:00 grep --color=auto server-0.properties</span><br></pre></td></tr></table></figure></p>
@@ -406,7 +406,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载"><span class="toc-number">2.</span> <span class="toc-text">1、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、解压到指定目录"><span class="toc-number">3.</span> <span class="toc-text">2、解压到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、启动服务"><span class="toc-number">4.</span> <span class="toc-text">3、启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-启动zookeeper"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 启动zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-启动kafka服务"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 启动kafka服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、创建一个主题"><span class="toc-number">5.</span> <span class="toc-text">4、创建一个主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、发送消息"><span class="toc-number">6.</span> <span class="toc-text">5、发送消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、启动消费者"><span class="toc-number">7.</span> <span class="toc-text">6、启动消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、设置多个broker的集群"><span class="toc-number">8.</span> <span class="toc-text">7、设置多个broker的集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-为每个broker创建一个配置文件"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 为每个broker创建一个配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-启动新节点"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 启动新节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-创建三个副本的新主题："><span class="toc-number">8.3.</span> <span class="toc-text">7.3 创建三个副本的新主题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-发送消息"><span class="toc-number">8.4.</span> <span class="toc-text">7.4 发送消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、5-消费消息"><span class="toc-number">8.5.</span> <span class="toc-text">7、5 消费消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-测试容错及发现的问题"><span class="toc-number">8.6.</span> <span class="toc-text">7.5 测试容错及发现的问题</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载"><span class="toc-number">2.</span> <span class="toc-text">1、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、解压到指定目录"><span class="toc-number">3.</span> <span class="toc-text">2、解压到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、启动服务"><span class="toc-number">4.</span> <span class="toc-text">3、启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-启动zookeeper"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 启动zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-启动kafka服务"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 启动kafka服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、创建一个主题"><span class="toc-number">5.</span> <span class="toc-text">4、创建一个主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、发送消息"><span class="toc-number">6.</span> <span class="toc-text">5、发送消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、启动消费者"><span class="toc-number">7.</span> <span class="toc-text">6、启动消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、设置多个broker的集群"><span class="toc-number">8.</span> <span class="toc-text">7、设置多个broker的集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-为每个broker创建一个配置文件"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 为每个broker创建一个配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-启动新节点"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 启动新节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-创建三个副本的新主题："><span class="toc-number">8.3.</span> <span class="toc-text">7.3 创建三个副本的新主题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-发送消息"><span class="toc-number">8.4.</span> <span class="toc-text">7.4 发送消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、5-消费消息"><span class="toc-number">8.5.</span> <span class="toc-text">7、5 消费消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-测试容错及发现的问题"><span class="toc-number">8.6.</span> <span class="toc-text">7.6 测试容错及发现的问题</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -557,14 +557,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
@@ -574,6 +566,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -605,11 +605,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,11 +617,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
