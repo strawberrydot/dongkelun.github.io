@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="https://www.dongkelun.com">
   <title>Kafka安装启动简单入门教程 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，安装较为简单，我这里只是记录一下。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downlo">
+  <meta name="description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，我这里只是记录一下。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我下载">
 <meta name="keywords" content="centos7,kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka安装启动简单入门教程">
 <meta property="og:url" content="https://www.dongkelun.com/2018/05/21/kafkaConf/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，安装较为简单，我这里只是记录一下。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downlo">
+<meta property="og:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，我这里只是记录一下。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我下载">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/mw690/e44344dcly1frjya2fprpj20la02kjra.jpg">
-<meta property="og:updated_time" content="2018-05-22T03:23:04.996Z">
+<meta property="og:updated_time" content="2018-05-22T03:34:28.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka安装启动简单入门教程">
-<meta name="twitter:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，安装较为简单，我这里只是记录一下。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downlo">
+<meta name="twitter:description" content="前言本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，我这里只是记录一下。官方文档：http://kafka.apache.org/quickstart本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~ 1、下载可直接在官网下载对应的版本http://kafka.apache.org/downloads，我下载">
 <meta name="twitter:image" content="https://wx3.sinaimg.cn/mw690/e44344dcly1frjya1pfpmj20nr03h3yj.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
@@ -209,11 +209,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，安装较为简单，我这里只是记录一下。官方文档：<a href="http://kafka.apache.org/quickstart" target="_blank" rel="noopener">http://kafka.apache.org/quickstart</a><br>本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文讲如何安装启动kafka,并进行测试，其中zookeepr是kafka自带的，本文基本按照官网文档进行安装启动的，我这里只是记录一下。官方文档：<a href="http://kafka.apache.org/quickstart" target="_blank" rel="noopener">http://kafka.apache.org/quickstart</a><br>本文虚拟机系统：centos7，不过其他版本的Linux系统是一样的~</p>
 <h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>可直接在官网下载对应的版本<a href="http://kafka.apache.org/downloads" target="_blank" rel="noopener">http://kafka.apache.org/downloads</a>，我下载的是二进制版的，由于我的scala版本是2.11，所以下载kafka_2.11-1.1.0.tgz，大家可以根据自己的实际情况选择对应的版本。执行以下命令即可下载到本地了。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors.tuna.tsinghua.edu.cn/apache/kafka/1.1.0/kafka_2.11-1.1.0.tgz</span><br></pre></td></tr></table></figure>
 <h2 id="2、解压到指定目录"><a href="#2、解压到指定目录" class="headerlink" title="2、解压到指定目录"></a>2、解压到指定目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzf kafka_2.11-1.1.0.tgz -C /opt/</span><br></pre></td></tr></table></figure>
 <h2 id="3、启动服务"><a href="#3、启动服务" class="headerlink" title="3、启动服务"></a>3、启动服务</h2><h3 id="3-1-启动zookeeper"><a href="#3-1-启动zookeeper" class="headerlink" title="3.1 启动zookeeper"></a>3.1 启动zookeeper</h3><p>kafka用到zookeeper，因此如果您的机器上没有zookeeper服务，则需要先启动zookpeer服务，本文使用kafka自带的zookeeper。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/kafka_2.11-1.1.0/</span><br><span class="line">bin/zookeeper-server-start.sh config/zookeeper.properties</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>因日志较多，所以只给出前几行信息和最后一行成功的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[2018-05-21 12:17:44,461] INFO Reading configuration from: config/zookeeper.properties (org.apache.zookeeper.server.quorum.QuorumPeerConfig)</span><br><span class="line">[2018-05-21 12:17:44,472] INFO autopurge.snapRetainCount set to 3 (org.apache.zookeeper.server.DatadirCleanupManager)</span><br><span class="line">...</span><br><span class="line">[2018-05-21 12:17:44,844] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory)</span><br></pre></td></tr></table></figure></p>
 <p>可以看到zookeeper服务的端口为2181</p>
 <h3 id="3-2-启动kafka服务"><a href="#3-2-启动kafka服务" class="headerlink" title="3.2 启动kafka服务"></a>3.2 启动kafka服务</h3><p>打开第二个终端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure></p>
@@ -528,14 +529,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
@@ -548,6 +541,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
@@ -556,15 +557,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -616,11 +617,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
