@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
-    <lastmod>2018-05-23T15:38:32.044Z</lastmod>
+    <lastmod>2018-05-23T16:56:08.698Z</lastmod>
     <data>
         <display>
         <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
@@ -537,9 +537,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>scala</tag>
-         
         <tag>转载</tag>
+         
+        <tag>scala</tag>
          
          
            
