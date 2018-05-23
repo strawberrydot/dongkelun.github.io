@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
+    
+    <lastmod>2018-05-23T15:38:32.044Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.dongkelun.com/2018/05/05/oracleConf/</loc>
+    
+    <lastmod>2018-05-23T12:52:36.380Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.dongkelun.com/2018/05/21/kafkaConf/</loc>
     
     <lastmod>2018-05-22T15:40:55.125Z</lastmod>
@@ -75,13 +89,6 @@
     <loc>https://www.dongkelun.com/2018/05/11/rdd2df/</loc>
     
     <lastmod>2018-05-19T14:21:47.259Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.dongkelun.com/2018/05/05/oracleConf/</loc>
-    
-    <lastmod>2018-05-19T14:21:41.947Z</lastmod>
     
   </url>
   

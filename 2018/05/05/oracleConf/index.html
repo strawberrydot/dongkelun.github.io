@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fr0kjkstktj20pa0a5aag.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fr0kjm2nfzj20k10bdgmb.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fr0kjmh4ygj20pb07nq34.jpg">
-<meta property="og:updated_time" content="2018-05-19T14:21:41.947Z">
+<meta property="og:updated_time" content="2018-05-23T12:52:36.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 安装oracle11">
 <meta name="twitter:description" content="前言由于需要学习配置oracle goldengate(ogg),奈何没有oracle环境，所以想自己装一个oracle，搜了一下相关文档，跟着安装了一下，发现oracle安装比mysql安装麻烦多了，而且出现了很多博客上没有提到的错误，所以特此记录一下~ 1、下载下载地址：http://www.oracle.com/technetwork/database/enterprise-edition/">
@@ -234,7 +234,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if [ $USER = &quot;oracle&quot; ]; then</span><br><span class="line">if [ $SHELL = &quot;/bin/ksh&quot; ]; then</span><br><span class="line">ulimit -p 16384</span><br><span class="line">ulimit -n 65536</span><br><span class="line">else</span><br><span class="line">ulimit -u 16384 -n 65536</span><br><span class="line">fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 <h2 id="7、创建oracle相关目录"><a href="#7、创建oracle相关目录" class="headerlink" title="7、创建oracle相关目录"></a>7、创建oracle相关目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /db/app/oracle/product/11.2.0</span><br><span class="line">mkdir /db/app/oracle/oradata</span><br><span class="line">mkdir /db/app/oracle/inventory</span><br><span class="line">mkdir /db/app/oracle/fast_recovery_area</span><br><span class="line">chown -R oracle:oinstall /db/app/oracle</span><br><span class="line">chmod -R 775 /db/app/oracle</span><br><span class="line">mkdir -p /u01/app/oracle/inventory</span><br><span class="line">chown -R oracle:oinstall /u01/app/oracle/inventory</span><br></pre></td></tr></table></figure>
 <h2 id="8、配置oracle用户环境变量"><a href="#8、配置oracle用户环境变量" class="headerlink" title="8、配置oracle用户环境变量"></a>8、配置oracle用户环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su oracle</span><br><span class="line">vim .bash_profile</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">umask 022</span><br><span class="line">export ORACLE_HOSTNAME=ambari.master.com</span><br><span class="line">export ORACLE_BASE=/db/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/</span><br><span class="line">export ORACLE_SID=ORCL</span><br><span class="line">export PATH=.:$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$ORACLE_HOME/jdk/bin:$PATH</span><br><span class="line">export LC_ALL=&quot;en_US&quot;</span><br><span class="line">export LANG=&quot;en_US&quot;</span><br><span class="line">export NLS_LANG=&quot;AMERICAN_AMERICA.ZHS16GBK&quot;</span><br><span class="line">export NLS_DATE_FORMAT=&quot;YYYY-MM-DD HH24:MI:SS&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">umask <span class="number">022</span></span><br><span class="line">export ORACLE_HOSTNAME=ambari.master.<span class="keyword">com</span></span><br><span class="line">export ORACLE_BASE=/db/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/<span class="number">11.2</span>.<span class="number">0</span>/</span><br><span class="line">export ORACLE_SID=ORCL</span><br><span class="line">export PATH=.:$ORACLE_HOME/bin:$ORACLE_HOME/OPatch:$ORACLE_HOME/jdk/bin:$PATH</span><br><span class="line">export LC_ALL=<span class="string">"en_US"</span></span><br><span class="line">export LANG=<span class="string">"en_US"</span></span><br><span class="line">export NLS_LANG=<span class="string">"AMERICAN_AMERICA.ZHS16GBK"</span></span><br><span class="line">export NLS_DATE_FORMAT=<span class="string">"YYYY-MM-DD HH24:MI:SS"</span></span><br></pre></td></tr></table></figure>
+<p>使之生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>关于Linux权限的小问题，此处网上资料是配置在.bash_profile即/home/oracle/.bash_profile文件里，我开始也是这样设置的，但每次重新登录切换到oracle用户发现每次都要重新source一下，后来发现必须以oracle用户登录才能每次都生效，不用重新source,如果用root用户登录，再切换到oracle用户的话，需要重新source的，为了方便，我把环境变量在/home/oracle/.bashrc里有配置了一份，这样我从root切换到oracle用户的也不需要重新source了，方便了我后面的使用，当然在生产上还是建议只配置在/home/oracle/.bash_profile，具体的Linux文件权限问题可自行在网上查一下相关资料，希望能对Linux文件权限不太熟悉的同学有所帮助，因为这也困扰了我好多天~</p>
 <h2 id="9、解压安装包"><a href="#9、解压安装包" class="headerlink" title="9、解压安装包"></a>9、解压安装包</h2><p>如果安装包在root用户下，现切换到root用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip linux.x64_11gR2_database_1of2.zip -d /db</span><br><span class="line">unzip linux.x64_11gR2_database_2of2.zip -d /db</span><br></pre></td></tr></table></figure>
 <p>然后执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /db/etc/</span><br><span class="line">cp /db/database/response/* /db/etc/</span><br><span class="line">vim /db/etc/db_install.rsp</span><br></pre></td></tr></table></figure></p>
@@ -269,7 +271,7 @@
 <p>如果执行查询会报错：database not mounted，因为上面已经报错ORA-01102: cannot mount database in EXCLUSIVE mode</p>
 <h3 id="13-6-解决-cannot-mount-database-in-EXCLUSIVE-mode"><a href="#13-6-解决-cannot-mount-database-in-EXCLUSIVE-mode" class="headerlink" title="13.6 解决 cannot mount database in EXCLUSIVE mode"></a>13.6 解决 cannot mount database in EXCLUSIVE mode</h3><p>先关闭数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown immediate</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; shutdown immediate</span><br><span class="line">ORA-01507: database not mounted</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ORACLE instance shut down.</span><br></pre></td></tr></table></figure>
-<p>然后在root用户执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser -k lkORCL</span><br></pre></td></tr></table></figure></p>
+<p>然后在root用户执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd $ORACLE_HOME/dbs</span><br><span class="line">fuser -k lkORCL</span><br><span class="line">/db/app/oracle/product/11.2.0/dbs/lkORCL:  2933  2939  2943  2945  2949  2951  2953  2955  2957  2959  2961  2963  3138  3140  3142  3144  3341  3343  3345  3869  3961</span><br></pre></td></tr></table></figure></p>
 <p>其中lkORCL 为自己设置oracle实例名的大写。<br>再执行fuser -u lkORCL没有任何输出即可<br>参考：<a href="https://blog.csdn.net/qq_27966627/article/details/51062822" target="_blank" rel="noopener">ORA-01507: database not mounted （转）</a></p>
 <p>这时再执行startup就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; startup</span><br><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area 1720328192 bytes</span><br><span class="line">Fixed Size		    2214056 bytes</span><br><span class="line">Variable Size		 1006634840 bytes</span><br><span class="line">Database Buffers	  704643072 bytes</span><br><span class="line">Redo Buffers		    6836224 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br><span class="line">SQL&gt; select * from v$version;</span><br><span class="line"></span><br><span class="line">BANNER</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production</span><br><span class="line">PL/SQL Release 11.2.0.1.0 - Production</span><br><span class="line">CORE	11.2.0.1.0	Production</span><br><span class="line">TNS for Linux: Version 11.2.0.1.0 - Production</span><br><span class="line">NLSRTL Version 11.2.0.1.0 - Production</span><br><span class="line"></span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure></p>
 <p>再执行其他查询语句测试一下即可</p>
@@ -596,6 +598,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -604,11 +610,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,19 +626,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,11 +670,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,11 +682,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
             
             <div class="clearfix"></div>

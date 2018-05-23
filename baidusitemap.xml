@@ -4,6 +4,44 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
+    <lastmod>2018-05-23T15:38:32.044Z</lastmod>
+    <data>
+        <display>
+        <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
+        <pubTime>2018-05-22T16:00:00.000Z</pubTime>
+        
+        <tag>kafka</tag>
+         
+        <tag>ogg</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.dongkelun.com/2018/05/05/oracleConf/</loc>
+    <lastmod>2018-05-23T12:52:36.380Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 安装oracle11</title>
+        <pubTime>2018-05-04T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>oracle</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/05/21/kafkaConf/</loc>
     <lastmod>2018-05-22T15:40:55.125Z</lastmod>
     <data>
@@ -208,25 +246,6 @@
         <tag>DataFrame</tag>
          
         <tag>Rdd</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.dongkelun.com/2018/05/05/oracleConf/</loc>
-    <lastmod>2018-05-19T14:21:41.947Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 安装oracle11</title>
-        <pubTime>2018-05-04T16:00:00.000Z</pubTime>
-        
-        <tag>centos7</tag>
-         
-        <tag>oracle</tag>
          
          
            
