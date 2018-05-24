@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/05/17/sparkKafka/</loc>
+    <lastmod>2018-05-24T07:27:56.927Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Streaming连接Kafka入门教程</title>
+        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>kafka</tag>
+         
+        <tag>spark streaming</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.dongkelun.com/2018/05/21/kafkaConf/</loc>
+    <lastmod>2018-05-24T07:24:44.164Z</lastmod>
+    <data>
+        <display>
+        <title>Kafka安装启动入门教程</title>
+        <pubTime>2018-05-20T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
     <lastmod>2018-05-23T16:59:46.277Z</lastmod>
     <data>
@@ -33,46 +73,6 @@
         <tag>centos7</tag>
          
         <tag>oracle</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.dongkelun.com/2018/05/21/kafkaConf/</loc>
-    <lastmod>2018-05-22T15:40:55.125Z</lastmod>
-    <data>
-        <display>
-        <title>Kafka安装启动入门教程</title>
-        <pubTime>2018-05-20T16:00:00.000Z</pubTime>
-        
-        <tag>centos7</tag>
-         
-        <tag>kafka</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.dongkelun.com/2018/05/17/sparkKafka/</loc>
-    <lastmod>2018-05-22T15:26:35.450Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Streaming连接Kafka入门教程</title>
-        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>kafka</tag>
-         
-        <tag>spark streaming</tag>
          
          
            

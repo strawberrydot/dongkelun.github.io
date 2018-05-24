@@ -18,7 +18,7 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1freg6rzkvgj20zl0o3q6f.jpg">
-<meta property="og:updated_time" content="2018-05-22T15:26:35.450Z">
+<meta property="og:updated_time" content="2018-05-24T07:27:56.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Streaming连接Kafka入门教程">
 <meta name="twitter:description" content="前言首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考Kafka安装启动入门教程和centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好">
@@ -224,8 +224,8 @@
 <p>启动上面的程序（本地eclipse启动即可）<br>其中当auto.offset.reset为latest时，直面上看只消费程序启动后产生的数据，若想获取历史数据，将auto.offset.reset改为earliest即可，下面是具体的含义解释,该解释来自:<a href="https://blog.csdn.net/lishuangzhe7047/article/details/74530417" target="_blank" rel="noopener">https://blog.csdn.net/lishuangzhe7047/article/details/74530417</a><br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">earliest </span><br><span class="line">当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费 </span><br><span class="line">latest </span><br><span class="line">当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据 </span><br><span class="line">none </span><br><span class="line">topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常</span><br></pre></td></tr></table></figure></p>
 <h3 id="需要记住的要点"><a href="#需要记住的要点" class="headerlink" title="需要记住的要点"></a>需要记住的要点</h3><p>当在本地运行一个 Spark Streaming 程序的时候，不要使用 “local” 或者 “local[1]” 作为 master 的 URL 。这两种方法中的任何一个都意味着只有一个线程将用于运行本地任务。如果你正在使用一个基于接收器（receiver）的输入离散流（input DStream）（例如， sockets ，Kafka ，Flume 等），则该单独的线程将用于运行接收器（receiver），而没有留下任何的线程用于处理接收到的数据。因此，在本地运行时，总是用 “local[n]” 作为 master URL ，其中的 n &gt; 运行接收器的数量。<br>将逻辑扩展到集群上去运行，分配给 Spark Streaming 应用程序的内核（core）的内核数必须大于接收器（receiver）的数量。否则系统将接收数据，但是无法处理它。</p>
 <p>我一开始没有看到官网提醒的这一点，将示例中的local[2]改为local，现在已经在代码里改回local[2]了，但是下面的截图没有替换，注意下。</p>
-<h2 id="5、发送消息"><a href="#5、发送消息" class="headerlink" title="5、发送消息"></a>5、发送消息</h2><p>运行producer<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list localhost:6667 --topic top1</span><br></pre></td></tr></table></figure></p>
-<p>然后依次发送下面几个消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
+<h2 id="5、发送消息"><a href="#5、发送消息" class="headerlink" title="5、发送消息"></a>5、发送消息</h2><p>运行producer<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list ambari.master.com:6667 --topic top1</span><br></pre></td></tr></table></figure></p>
+<p>注意：ambari.master.com为ip的映射名，可以直接写ip，但是不能写localhost，否则远程spark获取不到，如果为localhost，则需要修改配置，具体怎么改，可参考<a href="https://dongkelun.com/2018/05/21/kafkaConf/" target="_blank" rel="noopener">Kafka安装启动入门教程</a>中第七条。<br>然后依次发送下面几个消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
 <h2 id="6、结果"><a href="#6、结果" class="headerlink" title="6、结果"></a>6、结果</h2><p>然后在eclipse console就可以看到对应的数据了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
 <p>为了直观的展示和理解，附上截图：</p>
 <p>发送消息<br><img src="//wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg" alt=""></p>
@@ -538,11 +538,7 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,7 +550,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,11 +562,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,7 +582,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -586,19 +590,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -610,11 +606,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,15 +634,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
