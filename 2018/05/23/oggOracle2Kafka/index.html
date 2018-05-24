@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frloqscpk2j217h0bn3zh.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frlon3njt7j21cp0l1add.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frlon47xfij21fm0e6abb.jpg">
-<meta property="og:updated_time" content="2018-05-23T16:59:46.277Z">
+<meta property="og:updated_time" content="2018-05-24T08:06:02.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用ogg实现oracle到kafka的增量数据实时同步">
 <meta name="twitter:description" content="前言ogg即Oracle GoldenGate是Oracle的同步工具，本文讲如何配置ogg以实现Oracle数据库增量数据实时同步到kafka中，其中同步消息格式为json。下面是我的源端和目标端的一些配置信息：    - 版本 OGG版本 ip 别名     源端 OracleRelease 11.2.0.1.0 Oracle GoldenGate 11.2.1.0.3 for Oracle">
@@ -241,7 +241,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>可在<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">这里</a>或<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">旧版本</a>查询下载<br>注意：源端和目标端的文件不一样，目标端需要下载Oracle GoldenGate for Big Data,源端需要下载Oracle GoldenGate for Oracle具体下载方法见最后的附录截图：</p>
+<h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>可在<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">这里</a>或<a href="https://edelivery.oracle.com/osdc/faces/SoftwareDelivery" target="_blank" rel="noopener">旧版本</a>查询下载<br>注意：源端和目标端的文件不一样，目标端需要下载Oracle GoldenGate for Big Data,源端需要下载Oracle GoldenGate for Oracle具体下载方法见最后的附录截图：</p>
 <h2 id="2、源端（Oracle）配置"><a href="#2、源端（Oracle）配置" class="headerlink" title="2、源端（Oracle）配置"></a>2、源端（Oracle）配置</h2><p>注意：源端是安装了oracle的机器，oracle环境变量之前都配置好了</p>
 <h3 id="2-1-解压"><a href="#2-1-解压" class="headerlink" title="2.1 解压"></a>2.1 解压</h3><p>先建立ogg目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/ogg</span><br><span class="line">chown -R oracle:oinstall /opt/ogg （使oracle用户有ogg的权限，后面有些需要在oracle用户下执行才能成功）</span><br><span class="line">unzip V34339-01.zip</span><br></pre></td></tr></table></figure></p>
 <p>解压后得到一个tar包，再解压这个tar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xf fbo_ggs_Linux_x64_ora11g_64bit.tar -C /opt/ogg</span><br></pre></td></tr></table></figure></p>
@@ -326,7 +326,7 @@
 <h3 id="6-4-SparkStreaming测试消费同步消息"><a href="#6-4-SparkStreaming测试消费同步消息" class="headerlink" title="6.4 SparkStreaming测试消费同步消息"></a>6.4 SparkStreaming测试消费同步消息</h3><p>具体代码可参考<a href="https://dongkelun.com/2018/05/17/sparkKafka/" target="_blank" rel="noopener">Spark Streaming连接Kafka入门教程</a><br>下面附上消费成功的结果图<br><img src="//wx2.sinaimg.cn/large/e44344dcly1frlosg4v2aj21730oajv9.jpg" alt=""></p>
 <h2 id="7-附录"><a href="#7-附录" class="headerlink" title="7 附录"></a>7 附录</h2><p>目标端在<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">这里</a>，下载下来后文件名123111_ggs_Adapters_Linux_x64.zip</p>
 <p><img src="//wx3.sinaimg.cn/large/e44344dcly1frlon533rgj217c0gg433.jpg" alt=""></p>
-<p>源端在<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">旧版本</a>查询下载，下载后文件名为V34339-01.zip</p>
+<p>源端在<a href="https://edelivery.oracle.com/osdc/faces/SoftwareDelivery" target="_blank" rel="noopener">旧版本</a>查询下载，下载后文件名为V34339-01.zip</p>
 <p><img src="//wx3.sinaimg.cn/large/e44344dcly1frlon362fcj219o0fp40t.jpg" alt=""></p>
 <p><img src="//wx4.sinaimg.cn/large/e44344dcly1frloqscpk2j217h0bn3zh.jpg" alt=""></p>
 <p><img src="//wx4.sinaimg.cn/large/e44344dcly1frlon3njt7j21cp0l1add.jpg" alt=""></p>
@@ -634,6 +634,18 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -650,22 +662,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -674,31 +670,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -710,11 +686,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,7 +718,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
