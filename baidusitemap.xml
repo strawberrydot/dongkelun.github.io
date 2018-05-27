@@ -4,8 +4,27 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/05/27/sparkDelFirstNLines/</loc>
+    <lastmod>2018-05-27T10:58:57.021Z</lastmod>
+    <data>
+        <display>
+        <title>如何解决spark开发中遇到需要去掉文件前几行数据的问题</title>
+        <pubTime>2018-05-26T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>rdd</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
-    <lastmod>2018-05-24T08:56:40.654Z</lastmod>
+    <lastmod>2018-05-25T00:58:13.054Z</lastmod>
     <data>
         <display>
         <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
@@ -537,9 +556,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>scala</tag>
-         
         <tag>转载</tag>
+         
+        <tag>scala</tag>
          
          
            
