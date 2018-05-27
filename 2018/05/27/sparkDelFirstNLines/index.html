@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言我碰到的问题是这样的，我需要读取压缩文件里的数据存到hive表里，压缩文件解压之后是一个txt，这个txt里前几行的数据是垃圾数据，而这个txt文件太大，txt是直接打不开的，所以不能手动打开删除前几行数据，而这个文件是业务人员从别人那拿到的所以也不能改，本文就是讲如何解决这个问题。 1、数据首先造几条数据，以理解我的需求data.txt12345678id           name">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-05-27T10:58:57.021Z">
+<meta property="og:updated_time" content="2018-05-27T11:01:44.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何解决spark开发中遇到需要去掉文件前几行数据的问题">
 <meta name="twitter:description" content="前言我碰到的问题是这样的，我需要读取压缩文件里的数据存到hive表里，压缩文件解压之后是一个txt，这个txt里前几行的数据是垃圾数据，而这个txt文件太大，txt是直接打不开的，所以不能手动打开删除前几行数据，而这个文件是业务人员从别人那拿到的所以也不能改，本文就是讲如何解决这个问题。 1、数据首先造几条数据，以理解我的需求data.txt12345678id           name">
@@ -223,8 +223,8 @@
 <h3 id="2-4-关于rdd重新分区"><a href="#2-4-关于rdd重新分区" class="headerlink" title="2.4 关于rdd重新分区"></a>2.4 关于rdd重新分区</h3><p>可通过repartition和coalesce对rdd进行重新分区，通过如下代码测试<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdd.repartition(<span class="number">3</span>).take(<span class="number">3</span>).foreach(println)</span><br><span class="line">rdd.coalesce(<span class="number">3</span>).take(<span class="number">3</span>).foreach(println)</span><br></pre></td></tr></table></figure></p>
 <p>通过结果得出coalesce之后顺序和之前的顺序是一样的，而repartition之后的顺序和之前不一样了，也就是如果rdd进行repartition之后的前几行和原来的前几行是不一样的，但是重新分区的数目固定的话，每次repartition之后的顺序是一样的。<br>注：repartition 内部实现调用的 coalesce 且为coalesce中  shuffle = true的实现<br>关于Spark中repartition和coalesce的使用场景，参考<a href="http://www.lishiyu.cn/post/104.html" target="_blank" rel="noopener">Spark中repartition和coalesce的区别与使用场景解析</a><br>因为我没有repartition的需求，所以可以通过2.2的代码解决我的问题，且如果有repartition的需求，可以在删掉前几行之后再repartition~</p>
 <h2 id="3、通过Linux命令删除文件前几行"><a href="#3、通过Linux命令删除文件前几行" class="headerlink" title="3、通过Linux命令删除文件前几行"></a>3、通过Linux命令删除文件前几行</h2><p>命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat data.txt </span><br><span class="line"></span><br><span class="line">id           name                addr            time                                      </span><br><span class="line">------------ ------------------- --------------- --------------------</span><br><span class="line">1            zhangsan            shanghai        2018-05-25</span><br><span class="line">2            zhangsan            shanghai        2018-05-25</span><br><span class="line">3            zhangsan            shanghai        2018-05-25</span><br><span class="line">4            zhangsan            shanghai        2018-05-25</span><br><span class="line">5            zhangsan            shanghai        2018-05-25</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tail -n+4 data.txt &gt; data_new.txt</span><br><span class="line">cat data_new.txt </span><br><span class="line">1            zhangsan            shanghai        2018-05-25</span><br><span class="line">2            zhangsan            shanghai        2018-05-25</span><br><span class="line">3            zhangsan            shanghai        2018-05-25</span><br><span class="line">4            zhangsan            shanghai        2018-05-25</span><br><span class="line">5            zhangsan            shanghai        2018-05-25</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mv data_new.txt data.txt </span><br><span class="line">mv：是否覆盖&quot;data.txt&quot;？ y</span><br><span class="line">cat data.txt </span><br><span class="line">1            zhangsan            shanghai        2018-05-25</span><br><span class="line">2            zhangsan            shanghai        2018-05-25</span><br><span class="line">3            zhangsan            shanghai        2018-05-25</span><br><span class="line">4            zhangsan            shanghai        2018-05-25</span><br><span class="line">5            zhangsan            shanghai        2018-05-25</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tail -n+4 data.txt &gt; data_new.txt</span><br><span class="line">cat data_new.txt </span><br><span class="line">1            zhangsan            shanghai        2018-05-25</span><br><span class="line">2            zhangsan            shanghai        2018-05-25</span><br><span class="line">3            zhangsan            shanghai        2018-05-25</span><br><span class="line">4            zhangsan            shanghai        2018-05-25</span><br><span class="line">5            zhangsan            shanghai        2018-05-25</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mv data_new.txt data.txt </span><br><span class="line">mv：是否覆盖<span class="string">"data.txt"</span>？ y</span><br><span class="line">cat data.txt </span><br><span class="line">1            zhangsan            shanghai        2018-05-25</span><br><span class="line">2            zhangsan            shanghai        2018-05-25</span><br><span class="line">3            zhangsan            shanghai        2018-05-25</span><br><span class="line">4            zhangsan            shanghai        2018-05-25</span><br><span class="line">5            zhangsan            shanghai        2018-05-25</span><br></pre></td></tr></table></figure>
 <p>注：其中的cat只是为了便于理解每个操作步骤之后的结果<br>这样就可以删除文件前三条数据了，之后压缩，上传的hdfs再进行spark程序处理即可<br>参考：<a href="https://blog.csdn.net/cugb1004101218/article/details/44022571" target="_blank" rel="noopener">linux删除大文件的前n行</a></p>
 <h2 id="4、最后"><a href="#4、最后" class="headerlink" title="4、最后"></a>4、最后</h2><p>不知道我对spark的分区的理解是否正确，如果不对的话，欢迎大家提出指正~</p>
 
@@ -533,15 +533,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,14 +553,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
@@ -569,23 +561,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,7 +573,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,19 +593,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,15 +609,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
             
             <div class="clearfix"></div>
