@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/05/27/sparkDelFirstNLines/</loc>
+    <lastmod>2018-05-28T03:25:14.956Z</lastmod>
+    <data>
+        <display>
+        <title>如何解决spark开发中遇到需要去掉文件前几行数据的问题</title>
+        <pubTime>2018-05-26T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>rdd</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/05/11/rdd2df/</loc>
     <lastmod>2018-05-28T03:09:58.257Z</lastmod>
     <data>
@@ -16,25 +35,6 @@
         <tag>DataFrame</tag>
          
         <tag>Rdd</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.dongkelun.com/2018/05/27/sparkDelFirstNLines/</loc>
-    <lastmod>2018-05-27T13:09:14.917Z</lastmod>
-    <data>
-        <display>
-        <title>如何解决spark开发中遇到需要去掉文件前几行数据的问题</title>
-        <pubTime>2018-05-26T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>rdd</tag>
          
          
            
@@ -556,9 +556,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>转载</tag>
-         
         <tag>scala</tag>
+         
+        <tag>转载</tag>
          
          
            

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言我碰到的问题是这样的，我需要读取压缩文件里的数据存到hive表里，压缩文件解压之后是一个txt，这个txt里前几行的数据是垃圾数据，而这个txt文件太大，txt是直接打不开的，所以不能手动打开删除前几行数据，而这个文件是业务人员从别人那拿到的所以也不能改，本文就是讲如何解决这个问题。 1、数据首先造几条数据，以理解我的需求data.txt12345678id           name">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-05-27T13:09:14.917Z">
+<meta property="og:updated_time" content="2018-05-28T03:25:14.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何解决spark开发中遇到需要去掉文件前几行数据的问题">
 <meta name="twitter:description" content="前言我碰到的问题是这样的，我需要读取压缩文件里的数据存到hive表里，压缩文件解压之后是一个txt，这个txt里前几行的数据是垃圾数据，而这个txt文件太大，txt是直接打不开的，所以不能手动打开删除前几行数据，而这个文件是业务人员从别人那拿到的所以也不能改，本文就是讲如何解决这个问题。 1、数据首先造几条数据，以理解我的需求data.txt12345678id           name">
@@ -227,7 +227,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mv data_new.txt data.txt </span><br><span class="line">mv：是否覆盖<span class="string">"data.txt"</span>？ y</span><br><span class="line">cat data.txt </span><br><span class="line">1            zhangsan            shanghai        2018-05-25</span><br><span class="line">2            zhangsan            shanghai        2018-05-25</span><br><span class="line">3            zhangsan            shanghai        2018-05-25</span><br><span class="line">4            zhangsan            shanghai        2018-05-25</span><br><span class="line">5            zhangsan            shanghai        2018-05-25</span><br></pre></td></tr></table></figure>
 <p>注：其中的cat只是为了便于理解每个操作步骤之后的结果<br>这样就可以删除文件前三条数据了，之后压缩，上传到hdfs再用spark程序处理即可<br>参考：<a href="https://blog.csdn.net/cugb1004101218/article/details/44022571" target="_blank" rel="noopener">linux删除大文件的前n行</a></p>
 <h2 id="4、最后"><a href="#4、最后" class="headerlink" title="4、最后"></a>4、最后</h2><p>不知道我对spark的分区的理解是否正确，如果不对的话，欢迎大家提出指正~</p>
-
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>最后附上将此格式的txt文件读取为rdd并转为df的示例程序<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.sql</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">Row</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types.<span class="type">StringType</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types.<span class="type">StructField</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types.<span class="type">StructType</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"DelFirstNLines"</span>).master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line">    <span class="keyword">val</span> path = <span class="string">"files/data.txt"</span></span><br><span class="line">    <span class="keyword">val</span> data = sc.textFile(path, <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">val</span> arr = data.take(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> rdd = data.filter(!arr.contains(_))</span><br><span class="line">    <span class="comment">//第二行为列名</span></span><br><span class="line">    <span class="keyword">val</span> colName = arr(<span class="number">1</span>).split(<span class="string">" +"</span>) <span class="comment">// +表示根据一个或多个空格进行分割</span></span><br><span class="line">    <span class="keyword">val</span> schema = <span class="type">StructType</span>(colName.map(fieldName =&gt; <span class="type">StructField</span>(fieldName, <span class="type">StringType</span>, <span class="literal">true</span>)))</span><br><span class="line">    <span class="keyword">val</span> rowRDD = rdd.map(_.split(<span class="string">" +"</span>)).map(p =&gt; <span class="type">Row</span>(p: _*))</span><br><span class="line">    <span class="keyword">val</span> df = spark.createDataFrame(rowRDD, schema)</span><br><span class="line">    df.show()</span><br><span class="line"></span><br><span class="line">    spark.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+---+--------+--------+----------+</span><br><span class="line">| id|    name|    addr|      time|</span><br><span class="line">+---+--------+--------+----------+</span><br><span class="line">|  1|zhangsan|shanghai|2018-05-25|</span><br><span class="line">|  2|zhangsan|shanghai|2018-05-25|</span><br><span class="line">|  3|zhangsan|shanghai|2018-05-25|</span><br><span class="line">|  4|zhangsan|shanghai|2018-05-25|</span><br><span class="line">|  5|zhangsan|shanghai|2018-05-25|</span><br><span class="line">+---+--------+--------+----------+</span><br></pre></td></tr></table></figure>
       
 
       
@@ -377,7 +378,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、数据"><span class="toc-number">2.</span> <span class="toc-text">1、数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、尝试用代码解决"><span class="toc-number">3.</span> <span class="toc-text">2、尝试用代码解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-思路一"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 思路一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-思路2"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 思路2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-关于rdd前几行的定义"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 关于rdd前几行的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-关于rdd重新分区"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 关于rdd重新分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、通过Linux命令删除文件前几行"><span class="toc-number">4.</span> <span class="toc-text">3、通过Linux命令删除文件前几行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、最后"><span class="toc-number">5.</span> <span class="toc-text">4、最后</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、数据"><span class="toc-number">2.</span> <span class="toc-text">1、数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、尝试用代码解决"><span class="toc-number">3.</span> <span class="toc-text">2、尝试用代码解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-思路一"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 思路一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-思路2"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 思路2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-关于rdd前几行的定义"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 关于rdd前几行的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-关于rdd重新分区"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 关于rdd重新分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、通过Linux命令删除文件前几行"><span class="toc-number">4.</span> <span class="toc-text">3、通过Linux命令删除文件前几行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、最后"><span class="toc-number">5.</span> <span class="toc-text">4、最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-number">6.</span> <span class="toc-text">附录</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -536,15 +537,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -576,15 +577,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,10 +598,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,11 +621,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
