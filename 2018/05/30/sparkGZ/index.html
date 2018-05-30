@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言本文讲如何用spark读取gz类型的压缩文件，以及如何解决我遇到的各种问题。 1、文件压缩下面这一部分摘自Spark快速大数据分析：&amp;emsp;&amp;emsp;在大数据工作中，我们经常需要对数据进行压缩以节省存储空间和网络传输开销。对于大多数Hadoop输出格式来说，我们可以指定一种压缩编解码器来压缩数据。&amp;emsp;&amp;emsp;选择一个输出压缩编解码器可能会对这些数据以后的用户产生巨大影响。对于">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-05-30T03:31:19.199Z">
+<meta property="og:updated_time" content="2018-05-30T03:36:21.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark读取压缩文件">
 <meta name="twitter:description" content="前言本文讲如何用spark读取gz类型的压缩文件，以及如何解决我遇到的各种问题。 1、文件压缩下面这一部分摘自Spark快速大数据分析：&amp;emsp;&amp;emsp;在大数据工作中，我们经常需要对数据进行压缩以节省存储空间和网络传输开销。对于大多数Hadoop输出格式来说，我们可以指定一种压缩编解码器来压缩数据。&amp;emsp;&amp;emsp;选择一个输出压缩编解码器可能会对这些数据以后的用户产生巨大影响。对于">
@@ -297,7 +297,7 @@
 <p>参考：<a href="https://www.cnblogs.com/bonnienote/p/6139671.html" target="_blank" rel="noopener">Spark Scala 读取GBK文件的方法</a></p>
 <h4 id="3-2-3-Linux命令"><a href="#3-2-3-Linux命令" class="headerlink" title="3.2.3 Linux命令"></a>3.2.3 Linux命令</h4><p>可直接通过Linux命令转换txt的编码格式，再压缩，这样代码就不用修改<br>其实在3.2.1中已经涉及到了<br>1、通过Linux自带的命令iconv<br>iconv不能覆盖原来的文件，只能生成新的文件之后，再通过mv命令去覆盖<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iconv -f gbk -t utf8 data_gbk.txt &gt; data_new.txt</span><br></pre></td></tr></table></figure></p>
 <p>2、通过enca<br>enca可以直接覆盖原来的文件，这样如果不想改变来的文件名，就少一步mv操作了，enca不是子系统自带的，需要自己下载安装，可在<a href="http://dl.cihar.com/enca/" target="_blank" rel="noopener">http://dl.cihar.com/enca/</a>下载最新版本。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#下载&amp;解压</span></span><br><span class="line">wget http://dl.cihar.com/enca/enca-1.19.tar.gz</span><br><span class="line">tar -zxvf enca-1.19.tar.gz</span><br><span class="line"><span class="built_in">cd</span> enca-1.19</span><br><span class="line"><span class="comment">#编译安装</span></span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#下载&amp;解压</span></span><br><span class="line">wget http://dl.cihar.com/enca/enca-1.19.tar.gz</span><br><span class="line">tar -zxvf enca-1.19.tar.gz</span><br><span class="line"><span class="built_in">cd</span> enca-1.19</span><br><span class="line"><span class="comment">#编译安装</span></span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 <p>安装好了之后通过下面的命令转换即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enca -L zh_CN -x UTF-8 data_gbk.txt</span><br></pre></td></tr></table></figure></p>
 <p>转换编码格式之后，在通过程序测试即可。</p>
 <p>参考:<a href="https://blog.csdn.net/houmou/article/details/51064579" target="_blank" rel="noopener">linux 下的文件编码格式转换</a></p>
@@ -614,15 +614,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,11 +658,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,15 +678,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
