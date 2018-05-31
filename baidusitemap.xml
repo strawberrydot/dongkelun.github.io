@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
+    <lastmod>2018-05-31T02:49:25.174Z</lastmod>
+    <data>
+        <display>
+        <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
+        <pubTime>2018-05-22T16:00:00.000Z</pubTime>
+        
+        <tag>ogg</tag>
+         
+        <tag>kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/05/30/sparkGZ/</loc>
     <lastmod>2018-05-30T07:41:40.101Z</lastmod>
     <data>
@@ -56,25 +75,6 @@
         <tag>DataFrame</tag>
          
         <tag>Rdd</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
-    <lastmod>2018-05-25T00:58:13.054Z</lastmod>
-    <data>
-        <display>
-        <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
-        <pubTime>2018-05-22T16:00:00.000Z</pubTime>
-        
-        <tag>kafka</tag>
-         
-        <tag>ogg</tag>
          
          
            

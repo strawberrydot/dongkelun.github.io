@@ -9,7 +9,7 @@
   <title>利用ogg实现oracle到kafka的增量数据实时同步 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言ogg即Oracle GoldenGate是Oracle的同步工具，本文讲如何配置ogg以实现Oracle数据库增量数据实时同步到kafka中，其中同步消息格式为json。下面是我的源端和目标端的一些配置信息：    - 版本 OGG版本 ip 别名     源端 OracleRelease 11.2.0.1.0 Oracle GoldenGate 11.2.1.0.3 for Oracle">
-<meta name="keywords" content="kafka,ogg">
+<meta name="keywords" content="ogg,kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用ogg实现oracle到kafka的增量数据实时同步">
 <meta property="og:url" content="https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/index.html">
@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frloqscpk2j217h0bn3zh.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frlon3njt7j21cp0l1add.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frlon47xfij21fm0e6abb.jpg">
-<meta property="og:updated_time" content="2018-05-25T00:58:13.054Z">
+<meta property="og:updated_time" content="2018-05-31T02:49:25.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用ogg实现oracle到kafka的增量数据实时同步">
 <meta name="twitter:description" content="前言ogg即Oracle GoldenGate是Oracle的同步工具，本文讲如何配置ogg以实现Oracle数据库增量数据实时同步到kafka中，其中同步消息格式为json。下面是我的源端和目标端的一些配置信息：    - 版本 OGG版本 ip 别名     源端 OracleRelease 11.2.0.1.0 Oracle GoldenGate 11.2.1.0.3 for Oracle">
@@ -195,11 +195,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kafka</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ogg</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ogg</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kafka</a>
         		</li>
       		
 		</ul>
@@ -288,7 +288,7 @@
 <p>)</p>
 <p>添加trail文件的定义与extract进程绑定：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GGSCI (ambari.master.com) 17&gt; add exttrail /opt/ogg/dirdat/to,extract extkafka</span><br><span class="line">EXTTRAIL added.</span><br></pre></td></tr></table></figure>
-<h3 id="4-5-配置pump进程"><a href="#4-5-配置pump进程" class="headerlink" title="4.5 配置pump进程"></a>4.5 配置pump进程</h3><p>pump进程本质上来说也是一个extract，只不过他的作用仅仅是把trail文件传递到目标端，配置过程和extract进程类似，只是逻辑上称之为pump进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GGSCI (ambari.master.com) 18&gt; edit param pukafka</span><br><span class="line">passthru</span><br><span class="line">dynamicresolution</span><br><span class="line">userid ogg,password ogg</span><br><span class="line">rmthost 192.168.44.129 mgrport 7809</span><br><span class="line">rmttrail /opt/ogg/dirdat/to</span><br><span class="line">table test_ogg.test_ogg;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-5-配置pump进程"><a href="#4-5-配置pump进程" class="headerlink" title="4.5 配置pump进程"></a>4.5 配置pump进程</h3><p>pump进程本质上来说也是一个extract，只不过他的作用仅仅是把trail文件传递到目标端，配置过程和extract进程类似，只是逻辑上称之为pump进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GGSCI (ambari.master.com) 18&gt; edit param pukafka</span><br><span class="line">extract pukafka</span><br><span class="line">passthru</span><br><span class="line">dynamicresolution</span><br><span class="line">userid ogg,password ogg</span><br><span class="line">rmthost 192.168.44.129 mgrport 7809</span><br><span class="line">rmttrail /opt/ogg/dirdat/to</span><br><span class="line">table test_ogg.test_ogg;</span><br></pre></td></tr></table></figure></p>
 <p>说明：第一行指定extract进程名称；passthru即禁止OGG与Oracle交互，我们这里使用pump逻辑传输，故禁止即可；dynamicresolution动态解析；userid ogg,password ogg即OGG连接Oracle数据库的帐号密码rmthost和mgrhost即目标端(kafka)OGG的mgr服务的地址以及监听端口；rmttrail即目标端trail文件存储位置以及名称。</p>
 <p>分别将本地trail文件和目标端的trail文件绑定到extract进程：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GGSCI (ambari.master.com) 1&gt; add extract pukafka,exttrailsource /opt/ogg/dirdat/to</span><br><span class="line">EXTRACT added.</span><br><span class="line">GGSCI (ambari.master.com) 2&gt; add rmttrail /opt/ogg/dirdat/to,extract pukafka</span><br><span class="line">RMTTRAIL added.</span><br></pre></td></tr></table></figure></p>
 <h3 id="4-6-配置define文件"><a href="#4-6-配置define文件" class="headerlink" title="4.6 配置define文件"></a>4.6 配置define文件</h3><p>Oracle与MySQL，Hadoop集群（HDFS，Hive，kafka等）等之间数据传输可以定义为异构数据类型的传输，故需要定义表之间的关系映射，在OGG命令行执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GGSCI (ambari.master.com) 3&gt; edit param test_ogg</span><br><span class="line">defsfile /opt/ogg/dirdef/test_ogg.test_ogg</span><br><span class="line">userid ogg,password ogg</span><br><span class="line">table test_ogg.test_ogg;</span><br></pre></td></tr></table></figure></p>
@@ -642,18 +642,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -662,15 +650,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,11 +666,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,11 +686,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,15 +706,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -734,11 +718,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,7 +746,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
             
             <div class="clearfix"></div>
