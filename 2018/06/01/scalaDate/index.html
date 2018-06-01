@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言本文主要记录我自己对日期格式数据的一些常用操作，主要目的是备忘，方便随时查阅。本文没有将代码封装为函数，如果有需要的可以自行封装，注意每一部分的代码会依赖前面代码里的变量。 代码可以直接在spark-shell里运行（在scala里有的包没有） 1、字符串转日期12345678import java.text.SimpleDateFormatimport org.joda.time.DateT">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-06-01T07:47:31.600Z">
+<meta property="og:updated_time" content="2018-06-01T07:51:02.372Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala日期操作">
 <meta name="twitter:description" content="前言本文主要记录我自己对日期格式数据的一些常用操作，主要目的是备忘，方便随时查阅。本文没有将代码封装为函数，如果有需要的可以自行封装，注意每一部分的代码会依赖前面代码里的变量。 代码可以直接在spark-shell里运行（在scala里有的包没有） 1、字符串转日期12345678import java.text.SimpleDateFormatimport org.joda.time.DateT">
@@ -219,6 +219,8 @@
 <h2 id="4、计算时间差"><a href="#4、计算时间差" class="headerlink" title="4、计算时间差"></a>4、计算时间差</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> startDateStr = <span class="string">"2018-03-21"</span></span><br><span class="line"><span class="keyword">val</span> endDateStr = <span class="string">"2018-03-22"</span></span><br><span class="line"><span class="keyword">val</span> startDate = <span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(pattern).parse(startDateStr)</span><br><span class="line"><span class="keyword">val</span> endDate = <span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(pattern).parse(endDateStr)</span><br><span class="line"><span class="keyword">val</span> between = endDate.getTime - startDate.getTime</span><br><span class="line"><span class="keyword">val</span> second = between / <span class="number">1000</span></span><br><span class="line"><span class="keyword">val</span> hour = between / <span class="number">1000</span> / <span class="number">3600</span></span><br><span class="line"><span class="keyword">val</span> day = between / <span class="number">1000</span> / <span class="number">3600</span> / <span class="number">24</span></span><br><span class="line"><span class="keyword">val</span> year = between / <span class="number">1000</span> / <span class="number">3600</span> / <span class="number">24</span> / <span class="number">365</span></span><br></pre></td></tr></table></figure>
 <p>如果需要结果为小数，以hour举例<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.<span class="type">DecimalFormat</span></span><br><span class="line"><span class="keyword">val</span> hour: <span class="type">Float</span> = between.toFloat / <span class="number">1000</span> / <span class="number">3600</span></span><br><span class="line"><span class="keyword">val</span> decf: <span class="type">DecimalFormat</span> = <span class="keyword">new</span> <span class="type">DecimalFormat</span>(<span class="string">"#.00"</span>)</span><br><span class="line">println(hour)</span><br><span class="line">println(decf.format(hour)) <span class="comment">//格式化为两位小数</span></span><br></pre></td></tr></table></figure></p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">24.0</span></span><br><span class="line"><span class="number">24.00</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/qq_16038125/article/details/72834270" target="_blank" rel="noopener">https://blog.csdn.net/qq_16038125/article/details/72834270</a></p>
+<p><a href="https://blog.csdn.net/springlustre/article/details/47273353" target="_blank" rel="noopener">https://blog.csdn.net/springlustre/article/details/47273353</a></p>
 
       
 
@@ -369,7 +371,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、字符串转日期"><span class="toc-number">2.</span> <span class="toc-text">1、字符串转日期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、日期转字符串"><span class="toc-number">3.</span> <span class="toc-text">2、日期转字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、字符串转时间戳"><span class="toc-number">4.</span> <span class="toc-text">3、字符串转时间戳</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、计算时间差"><span class="toc-number">5.</span> <span class="toc-text">4、计算时间差</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、字符串转日期"><span class="toc-number">2.</span> <span class="toc-text">1、字符串转日期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、日期转字符串"><span class="toc-number">3.</span> <span class="toc-text">2、日期转字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、字符串转时间戳"><span class="toc-number">4.</span> <span class="toc-text">3、字符串转时间戳</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、计算时间差"><span class="toc-number">5.</span> <span class="toc-text">4、计算时间差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -520,6 +522,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
@@ -536,19 +546,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,11 +558,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,6 +594,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
@@ -601,10 +607,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,19 +626,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
