@@ -191,12 +191,9 @@
 <h2 id="2、日期转字符串"><a href="#2、日期转字符串" class="headerlink" title="2、日期转字符串"></a>2、日期转字符串</h2><p>将上面的日期转成其他格式的字符串</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(<span class="string">"yyyyMMdd"</span>).format(date))</span><br></pre></td></tr></table></figure>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20180601</span></span><br></pre></td></tr></table></figure>
-<h2 id="3、字符串转时间戳"><a href="#3、字符串转时间戳" class="headerlink" title="3、字符串转时间戳"></a>3、字符串转时间戳</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(date.getTime)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(date.getTime)</span><br></pre></td></tr></table></figure>
-<h2 id="4、计算时间差"><a href="#4、计算时间差" class="headerlink" title="4、计算时间差"></a>4、计算时间差</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> startDateStr = <span class="string">"2018-03-21"</span></span><br><span class="line"><span class="keyword">val</span> endDateStr = <span class="string">"2018-03-22"</span></span><br><span class="line"><span class="keyword">val</span> startDate = <span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(pattern).parse(startDateStr)</span><br><span class="line"><span class="keyword">val</span> endDate = <span class="keyword">new</span> <span class="type">SimpleDateFormat</span>(pattern).parse(endDateStr)</span><br><span class="line"><span class="keyword">val</span> between = endDate.getTime - startDate.getTime</span><br><span class="line"><span class="keyword">val</span> second = between / <span class="number">1000</span></span><br><span class="line"><span class="keyword">val</span> hour = between / <span class="number">1000</span> / <span class="number">3600</span></span><br><span class="line"><span class="keyword">val</span> day = between / <span class="number">1000</span> / <span class="number">3600</span> / <span class="number">24</span></span><br><span class="line"><span class="keyword">val</span> year = between / <span class="number">1000</span> / <span class="number">3600</span> / <span class="number">24</span> / <span class="number">365</span></span><br></pre></td></tr></table></figure>
-<p>如果需要结果为小数，以hour举例<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.<span class="type">DecimalFormat</span></span><br><span class="line"><span class="keyword">val</span> hour: <span class="type">Float</span> = between.toFloat / <span class="number">1000</span> / <span class="number">3600</span></span><br><span class="line"><span class="keyword">val</span> decf: <span class="type">DecimalFormat</span> = <span class="keyword">new</span> <span class="type">DecimalFormat</span>(<span class="string">"#.00"</span>)</span><br><span class="line">println(hour)</span><br><span class="line">println(decf.format(hour)) <span class="comment">//格式化为两位小数</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">24.0</span></span><br><span class="line"><span class="number">24.00</span></span><br></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2018/06/01/scalaDate/#more">more >></a>
+        
       
 
       
@@ -848,19 +845,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -872,11 +869,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -885,14 +898,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -908,7 +913,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -924,7 +933,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -932,23 +941,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
             
             <div class="clearfix"></div>
