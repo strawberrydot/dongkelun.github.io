@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/03/21/sparkMysql/</loc>
+    <lastmod>2018-06-01T08:08:29.242Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Sql 连接mysql</title>
+        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>scala</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/06/01/scalaDate/</loc>
     <lastmod>2018-06-01T07:51:02.372Z</lastmod>
     <data>
@@ -267,25 +286,6 @@
         <tag>scala</tag>
          
         <tag>面试题</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.dongkelun.com/2018/03/21/sparkMysql/</loc>
-    <lastmod>2018-05-19T14:22:49.976Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Sql 连接mysql</title>
-        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>scala</tag>
          
          
            

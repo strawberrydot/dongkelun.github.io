@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb942xfj20vz09z0tj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb9pmnmj213v0o1tbo.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmba88iyj215n07r0t8.jpg">
-<meta property="og:updated_time" content="2018-05-19T14:22:49.976Z">
+<meta property="og:updated_time" content="2018-06-01T08:08:29.242Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Sql 连接mysql">
 <meta name="twitter:description" content="1、基本概念和用法（摘自spark官方文档中文版）Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Pyth">
@@ -258,6 +258,10 @@
 <p><img src="//wx4.sinaimg.cn/large/e44344dcly1fpqmb9pmnmj213v0o1tbo.jpg" alt=""></p>
 <p>再查询一次，就会发现表里多了几条数据</p>
 <p><img src="//wx4.sinaimg.cn/large/e44344dcly1fpqmba88iyj215n07r0t8.jpg" alt=""></p>
+<h2 id="3、注意"><a href="#3、注意" class="headerlink" title="3、注意"></a>3、注意</h2><p>上面的代码在本地eclipse运行时没有问题的,如果放在服务器上用spark-submit提交的话，可能会报异常<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.sql.<span class="type">SQLException</span>:<span class="type">No</span> suitable driver</span><br></pre></td></tr></table></figure></p>
+<p>解决方法是在代码里添加<br>mysql:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.option(<span class="string">"driver"</span>, <span class="string">"com.mysql.jdbc.Driver)</span></span><br></pre></td></tr></table></figure></p>
+<p>oracle:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.option(<span class="string">"driver"</span>, <span class="string">"oracle.jdbc.driver.OracleDriver"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>具体可参考我的另一篇博客：<a href="https://dongkelun.com/2018/05/06/sparkSubmitException/" target="_blank" rel="noopener">spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable driver</a></p>
 
       
 
@@ -417,7 +421,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、基本概念和用法（摘自spark官方文档中文版）"><span class="toc-number">1.</span> <span class="toc-text">1、基本概念和用法（摘自spark官方文档中文版）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、scala代码实现连接mysql"><span class="toc-number">2.</span> <span class="toc-text">2、scala代码实现连接mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加mysql-依赖"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 添加mysql 依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-建表并初始化数据"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 建表并初始化数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-代码"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-查询"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-插入数据"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 插入数据</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、基本概念和用法（摘自spark官方文档中文版）"><span class="toc-number">1.</span> <span class="toc-text">1、基本概念和用法（摘自spark官方文档中文版）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、scala代码实现连接mysql"><span class="toc-number">2.</span> <span class="toc-text">2、scala代码实现连接mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加mysql-依赖"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 添加mysql 依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-建表并初始化数据"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 建表并初始化数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-代码"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-查询"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-插入数据"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 插入数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、注意"><span class="toc-number">3.</span> <span class="toc-text">3、注意</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -568,14 +572,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
@@ -588,11 +584,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,19 +612,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,10 +632,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
@@ -640,11 +640,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,15 +680,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
