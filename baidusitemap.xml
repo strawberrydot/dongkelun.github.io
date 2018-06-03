@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/06/03/sparkCacheAndPersist/</loc>
+    <lastmod>2018-06-03T14:04:56.834Z</lastmod>
+    <data>
+        <display>
+        <title>Spark 持久化（cache和persist的区别）</title>
+        <pubTime>2018-06-02T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>持久化</tag>
+         
+        <tag>cache</tag>
+         
+        <tag>persist</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/03/21/sparkMysql/</loc>
     <lastmod>2018-06-01T08:09:42.367Z</lastmod>
     <data>
