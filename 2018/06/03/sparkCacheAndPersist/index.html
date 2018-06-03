@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="1、RDD 持久化Spark 中一个很重要的能力是将数据持久化（或称为缓存），在多个操作间都可以访问这些持久化的数据。当持久化一个 RDD 时，每个节点的其它分区都可以使用 RDD 在内存中进行计算，在该数据上的其他 action 操作将直接使用内存中的数据。这样会让以后的 action 操作计算速度加快（通常运行速度会加速 10 倍）。缓存是迭代算法和快速的交互式使用的重要工具。 RDD 可以使">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-06-03T14:04:56.834Z">
+<meta property="og:updated_time" content="2018-06-03T15:04:56.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 持久化（cache和persist的区别）">
 <meta name="twitter:description" content="1、RDD 持久化Spark 中一个很重要的能力是将数据持久化（或称为缓存），在多个操作间都可以访问这些持久化的数据。当持久化一个 RDD 时，每个节点的其它分区都可以使用 RDD 在内存中进行计算，在该数据上的其他 action 操作将直接使用内存中的数据。这样会让以后的 action 操作计算速度加快（通常运行速度会加速 10 倍）。缓存是迭代算法和快速的交互式使用的重要工具。 RDD 可以使">
@@ -250,6 +250,12 @@
 <h2 id="6、DataFrame的cache和persist的区别"><a href="#6、DataFrame的cache和persist的区别" class="headerlink" title="6、DataFrame的cache和persist的区别"></a>6、DataFrame的cache和persist的区别</h2><p>官网和上的教程说的都是RDD,但是没有讲df的缓存，通过源码发现df和rdd还是不太一样的。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Persist this Dataset with the default storage level (`MEMORY_AND_DISK`).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @group basic</span></span><br><span class="line"><span class="comment"> * @since 1.6.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cache</span></span>(): <span class="keyword">this</span>.<span class="keyword">type</span> = persist()</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Persist this Dataset with the default storage level (`MEMORY_AND_DISK`).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @group basic</span></span><br><span class="line"><span class="comment"> * @since 1.6.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">persist</span></span>(): <span class="keyword">this</span>.<span class="keyword">type</span> = &#123;</span><br><span class="line">  sparkSession.sharedState.cacheManager.cacheQuery(<span class="keyword">this</span>)</span><br><span class="line">  <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Persist this Dataset with the given storage level.</span></span><br><span class="line"><span class="comment"> * @param newLevel One of: `MEMORY_ONLY`, `MEMORY_AND_DISK`, `MEMORY_ONLY_SER`,</span></span><br><span class="line"><span class="comment"> *                 `MEMORY_AND_DISK_SER`, `DISK_ONLY`, `MEMORY_ONLY_2`,</span></span><br><span class="line"><span class="comment"> *                 `MEMORY_AND_DISK_2`, etc.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @group basic</span></span><br><span class="line"><span class="comment"> * @since 1.6.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">persist</span></span>(newLevel: <span class="type">StorageLevel</span>): <span class="keyword">this</span>.<span class="keyword">type</span> = &#123;</span><br><span class="line">  sparkSession.sharedState.cacheManager.cacheQuery(<span class="keyword">this</span>, <span class="type">None</span>, newLevel)</span><br><span class="line">  <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cacheQuery</span></span>(</span><br><span class="line">    query: <span class="type">Dataset</span>[_],</span><br><span class="line">    tableName: <span class="type">Option</span>[<span class="type">String</span>] = <span class="type">None</span>,</span><br><span class="line">    storageLevel: <span class="type">StorageLevel</span> = <span class="type">MEMORY_AND_DISK</span>): <span class="type">Unit</span> = writeLock</span><br></pre></td></tr></table></figure>
 <p>可以到cache()依然调用的persist()，但是persist调用cacheQuery，而cacheQuery的默认存储级别为MEMORY_AND_DISK，这点和rdd是不一样的。</p>
+<h2 id="7、代码测试"><a href="#7、代码测试" class="headerlink" title="7、代码测试"></a>7、代码测试</h2><p>新建一个测试的txt,文件越大越好，如果文件比较小，可能cache的效果还不如不cache的好。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line">    <span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> rdd = sc.textFile(<span class="string">"files/test.txt"</span>)</span><br><span class="line">    <span class="keyword">var</span> beiginTime = <span class="type">System</span>.currentTimeMillis</span><br><span class="line">    println(rdd.count)</span><br><span class="line">    <span class="keyword">var</span> endTime = <span class="type">System</span>.currentTimeMillis</span><br><span class="line">    println(<span class="string">"cost "</span> + (endTime - beiginTime) + <span class="string">" milliseconds."</span>)</span><br><span class="line"></span><br><span class="line">    beiginTime = <span class="type">System</span>.currentTimeMillis</span><br><span class="line">    println(rdd.count)</span><br><span class="line">    endTime = <span class="type">System</span>.currentTimeMillis</span><br><span class="line">    println(<span class="string">"cost "</span> + (endTime - beiginTime) + <span class="string">" milliseconds."</span>)</span><br><span class="line">    spark.stop</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>先看一下没有cache的时间<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">79391</span></span><br><span class="line">cost <span class="number">575</span> milliseconds.</span><br><span class="line"><span class="number">79391</span></span><br><span class="line">cost <span class="number">124</span> milliseconds.</span><br></pre></td></tr></table></figure></p>
+<p>然后将代码val rdd = sc.textFile(“files/test.txt”)替换为val rdd = sc.textFile(“files/test.txt”).cache，再进行测试<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">79391</span></span><br><span class="line">cost <span class="number">635</span> milliseconds.</span><br><span class="line"><span class="number">79391</span></span><br><span class="line">cost <span class="number">44</span> milliseconds.</span><br></pre></td></tr></table></figure></p>
+<p>可以看到cache后第二次count的时间明显比没有cache第二次count的时间少很多，第一次count时间增加是因为要进行持久化，如果看总时间的话，只有多次使用该rdd的时候，效果才明显。</p>
+<h2 id="8、注意"><a href="#8、注意" class="headerlink" title="8、注意"></a>8、注意</h2><p>cache()和persist()的使用使用规则的：<br>必须在transformation或者textfile等创建一个rdd之后，直接连续调用cache()或者persist()才可以，如果先创建一个rdd,再单独另起一行执行cache()或者persist()，是没有用的，而且会报错，大量的文件会丢失。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/houmou/article/details/52491419" target="_blank" rel="noopener">https://blog.csdn.net/houmou/article/details/52491419</a></p>
 
       
 
@@ -400,7 +406,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、RDD-持久化"><span class="toc-number">1.</span> <span class="toc-text">1、RDD 持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、存储级别"><span class="toc-number">2.</span> <span class="toc-text">2、存储级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、如何选择存储级别"><span class="toc-number">3.</span> <span class="toc-text">3、如何选择存储级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、删除数据"><span class="toc-number">4.</span> <span class="toc-text">4、删除数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、RDD的cache和persist的区别"><span class="toc-number">5.</span> <span class="toc-text">5、RDD的cache和persist的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、DataFrame的cache和persist的区别"><span class="toc-number">6.</span> <span class="toc-text">6、DataFrame的cache和persist的区别</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、RDD-持久化"><span class="toc-number">1.</span> <span class="toc-text">1、RDD 持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、存储级别"><span class="toc-number">2.</span> <span class="toc-text">2、存储级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、如何选择存储级别"><span class="toc-number">3.</span> <span class="toc-text">3、如何选择存储级别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、删除数据"><span class="toc-number">4.</span> <span class="toc-text">4、删除数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、RDD的cache和persist的区别"><span class="toc-number">5.</span> <span class="toc-text">5、RDD的cache和persist的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、DataFrame的cache和persist的区别"><span class="toc-number">6.</span> <span class="toc-text">6、DataFrame的cache和persist的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、代码测试"><span class="toc-number">7.</span> <span class="toc-text">7、代码测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、注意"><span class="toc-number">8.</span> <span class="toc-text">8、注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">9.</span> <span class="toc-text">参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -551,15 +557,15 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -583,6 +589,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -591,19 +601,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,6 +645,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
@@ -651,7 +661,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -660,10 +670,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
