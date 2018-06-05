@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
+    
+    <lastmod>2018-06-05T08:56:20.333Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.dongkelun.com/2018/06/03/sparkCacheAndPersist/</loc>
     
     <lastmod>2018-06-03T15:06:57.251Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://www.dongkelun.com/2018/06/01/scalaDate/</loc>
     
     <lastmod>2018-06-01T07:51:02.372Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
-    
-    <lastmod>2018-05-31T09:39:40.014Z</lastmod>
     
   </url>
   

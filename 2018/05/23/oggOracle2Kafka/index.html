@@ -9,7 +9,7 @@
   <title>利用ogg实现oracle到kafka的增量数据实时同步 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言ogg即Oracle GoldenGate是Oracle的同步工具，本文讲如何配置ogg以实现Oracle数据库增量数据实时同步到kafka中，其中同步消息格式为json。下面是我的源端和目标端的一些配置信息：    - 版本 OGG版本 ip 别名     源端 OracleRelease 11.2.0.1.0 Oracle GoldenGate 11.2.1.0.3 for Oracle">
-<meta name="keywords" content="kafka,ogg">
+<meta name="keywords" content="ogg,kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用ogg实现oracle到kafka的增量数据实时同步">
 <meta property="og:url" content="https://www.dongkelun.com/2018/05/23/oggOracle2Kafka/index.html">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frloqscpk2j217h0bn3zh.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frlon3njt7j21cp0l1add.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1frlon47xfij21fm0e6abb.jpg">
-<meta property="og:updated_time" content="2018-05-31T09:39:40.014Z">
+<meta property="og:updated_time" content="2018-06-05T08:56:20.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用ogg实现oracle到kafka的增量数据实时同步">
 <meta name="twitter:description" content="前言ogg即Oracle GoldenGate是Oracle的同步工具，本文讲如何配置ogg以实现Oracle数据库增量数据实时同步到kafka中，其中同步消息格式为json。下面是我的源端和目标端的一些配置信息：    - 版本 OGG版本 ip 别名     源端 OracleRelease 11.2.0.1.0 Oracle GoldenGate 11.2.1.0.3 for Oracle">
@@ -196,11 +196,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kafka</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ogg</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ogg</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kafka</a>
         		</li>
       		
 		</ul>
@@ -244,15 +244,15 @@
 </table>
 <h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>可在<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">这里</a>或<a href="https://edelivery.oracle.com/osdc/faces/SoftwareDelivery" target="_blank" rel="noopener">旧版本</a>查询下载<br>注意：源端和目标端的文件不一样，目标端需要下载Oracle GoldenGate for Big Data,源端需要下载Oracle GoldenGate for Oracle具体下载方法见最后的附录截图。</p>
 <h2 id="2、源端（Oracle）配置"><a href="#2、源端（Oracle）配置" class="headerlink" title="2、源端（Oracle）配置"></a>2、源端（Oracle）配置</h2><p>注意：源端是安装了oracle的机器，oracle环境变量之前都配置好了</p>
-<h3 id="2-1-解压"><a href="#2-1-解压" class="headerlink" title="2.1 解压"></a>2.1 解压</h3><p>先建立ogg目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/ogg</span><br><span class="line">chown -R oracle:oinstall /opt/ogg （使oracle用户有ogg的权限，后面有些需要在oracle用户下执行才能成功）</span><br><span class="line">unzip V34339-01.zip</span><br></pre></td></tr></table></figure></p>
-<p>解压后得到一个tar包，再解压这个tar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xf fbo_ggs_Linux_x64_ora11g_64bit.tar -C /opt/ogg</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-1-解压"><a href="#2-1-解压" class="headerlink" title="2.1 解压"></a>2.1 解压</h3><p>先建立ogg目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/ogg</span><br><span class="line">unzip V34339-01.zip</span><br></pre></td></tr></table></figure></p>
+<p>解压后得到一个tar包，再解压这个tar<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar xf fbo_ggs_Linux_x64_ora11g_64bit.tar -C /opt/ogg</span><br><span class="line">chown -R oracle:oinstall /opt/ogg （使oracle用户有ogg的权限，后面有些需要在oracle用户下执行才能成功）</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <h3 id="2-2-配置ogg环境变量"><a href="#2-2-配置ogg环境变量" class="headerlink" title="2.2 配置ogg环境变量"></a>2.2 配置ogg环境变量</h3><p>为了简单方便起见，我在/etc/profile里配置的，建议在生产中配置oracle的环境变量文件/home/oracle/.bash_profile里配置，为了怕出问题，我把OGG_HOME等环境变量在/etc/profile配置了一份，不知道这是否是必须的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export OGG_HOME=/<span class="keyword">opt</span>/ogg</span><br><span class="line">export LD_LIBRARY_PATH=$ORACLE_HOME/li<span class="variable">b:</span>/usr/lib</span><br><span class="line">export PATH=$OGG_HOME:$PATH</span><br></pre></td></tr></table></figure>
 <p>使之生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></p>
 <p>测试一下ogg命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ggsci</span><br></pre></td></tr></table></figure></p>
 <p>如果命令成功即可进行下一步，不成功请检查前面的步骤。</p>
-<h3 id="2-3-oracle打开归档模式"><a href="#2-3-oracle打开归档模式" class="headerlink" title="2.3 oracle打开归档模式"></a>2.3 oracle打开归档模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su oracle</span><br><span class="line">source ~/.bash_profile  </span><br><span class="line">sqlplus / as sysdba</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-oracle打开归档模式"><a href="#2-3-oracle打开归档模式" class="headerlink" title="2.3 oracle打开归档模式"></a>2.3 oracle打开归档模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su - oracle</span><br><span class="line">sqlplus / as sysdba</span><br></pre></td></tr></table></figure>
 <p>执行下面的命令查看当前是否为归档模式<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">archive log list</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; archive log list </span><br><span class="line">Database log mode	       No Archive Mode</span><br><span class="line">Automatic archival	       Disabled</span><br><span class="line">Archive destination	       USE_DB_RECOVERY_FILE_DEST</span><br><span class="line">Oldest online log sequence     12</span><br><span class="line">Current log sequence	       14</span><br></pre></td></tr></table></figure>
 <p>若为Disabled，手动打开即可<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conn / as sysdba (以DBA身份连接数据库) </span><br><span class="line">shutdown immediate (立即关闭数据库)</span><br><span class="line">startup mount (启动实例并加载数据库，但不打开)</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">archivelog</span>; (更改数据库为归档模式)</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">open</span>; (打开数据库)</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">archive</span> <span class="keyword">log</span> <span class="keyword">start</span>; (启用自动归档)</span><br></pre></td></tr></table></figure></p>
@@ -344,7 +344,8 @@
 <p>测试一下<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"table"</span>:<span class="string">"TCLOUD.T_OGG2"</span>,<span class="string">"op_type"</span>:<span class="string">"U"</span>,<span class="string">"op_ts"</span>:<span class="string">"2018-05-31 15:27:45.655518"</span>,<span class="string">"current_ts"</span>:<span class="string">"2018-05-31T15:27:52.891000"</span>,<span class="string">"pos"</span>:<span class="string">"00000000000000006070"</span>,<span class="string">"primary_keys"</span>:[<span class="string">"ID"</span>,<span class="string">"IDD"</span>],<span class="string">"before"</span>:&#123;<span class="string">"ID"</span>:<span class="number">1</span>,<span class="string">"TEXT_NAME"</span>:null,<span class="string">"AGE"</span>:<span class="number">1</span>,<span class="string">"ADD"</span>:null,<span class="string">"IDD"</span>:<span class="string">"1"</span>&#125;,<span class="string">"after"</span>:&#123;<span class="string">"ID"</span>:<span class="number">1</span>,<span class="string">"TEXT_NAME"</span>:null,<span class="string">"AGE"</span>:<span class="number">20</span>,<span class="string">"ADD"</span>:null,<span class="string">"IDD"</span>:<span class="string">"1"</span>&#125;&#125;</span><br><span class="line">&#123;<span class="string">"table"</span>:<span class="string">"TCLOUD.T_OGG2"</span>,<span class="string">"op_type"</span>:<span class="string">"U"</span>,<span class="string">"op_ts"</span>:<span class="string">"2018-05-31 15:27:45.655518"</span>,<span class="string">"current_ts"</span>:<span class="string">"2018-05-31T15:27:52.893000"</span>,<span class="string">"pos"</span>:<span class="string">"00000000000000006341"</span>,<span class="string">"primary_keys"</span>:[<span class="string">"ID"</span>,<span class="string">"IDD"</span>],<span class="string">"before"</span>:&#123;<span class="string">"ID"</span>:<span class="number">1</span>,<span class="string">"TEXT_NAME"</span>:null,<span class="string">"AGE"</span>:<span class="number">1</span>,<span class="string">"ADD"</span>:null,<span class="string">"IDD"</span>:<span class="string">"2"</span>&#125;,<span class="string">"after"</span>:&#123;<span class="string">"ID"</span>:<span class="number">1</span>,<span class="string">"TEXT_NAME"</span>:null,<span class="string">"AGE"</span>:<span class="number">20</span>,<span class="string">"ADD"</span>:null,<span class="string">"IDD"</span>:<span class="string">"2"</span>&#125;&#125;</span><br><span class="line">&#123;<span class="string">"table"</span>:<span class="string">"TCLOUD.T_OGG2"</span>,<span class="string">"op_type"</span>:<span class="string">"U"</span>,<span class="string">"op_ts"</span>:<span class="string">"2018-05-31 15:27:45.655518"</span>,<span class="string">"current_ts"</span>:<span class="string">"2018-05-31T15:27:52.895000"</span>,<span class="string">"pos"</span>:<span class="string">"00000000000000006612"</span>,<span class="string">"primary_keys"</span>:[<span class="string">"ID"</span>,<span class="string">"IDD"</span>],<span class="string">"before"</span>:&#123;<span class="string">"ID"</span>:<span class="number">1</span>,<span class="string">"TEXT_NAME"</span>:null,<span class="string">"AGE"</span>:<span class="number">1</span>,<span class="string">"ADD"</span>:null,<span class="string">"IDD"</span>:<span class="string">"8"</span>&#125;,<span class="string">"after"</span>:&#123;<span class="string">"ID"</span>:<span class="number">1</span>,<span class="string">"TEXT_NAME"</span>:null,<span class="string">"AGE"</span>:<span class="number">20</span>,<span class="string">"ADD"</span>:null,<span class="string">"IDD"</span>:<span class="string">"8"</span>&#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>到现在json信息里的内容已经很全了，基本满足了我想要的，附图：<br><img src="//wx1.sinaimg.cn/large/e44344dcly1frunjlwbknj21gn0dw788.jpg" alt=""><br>启发我发现和Oracle全列补充日志没有开启有关的博客：<a href="https://blog.csdn.net/huoshuyinhua/article/details/79013387" target="_blank" rel="noopener">https://blog.csdn.net/huoshuyinhua/article/details/79013387</a><br>开启命令参考：<a href="https://blog.csdn.net/aaron8219/article/details/16825963" target="_blank" rel="noopener">https://blog.csdn.net/aaron8219/article/details/16825963</a></p>
 <p>注：博客上讲到，开启全列补充日志会导致磁盘快速增长，LGWR进程繁忙，不建议使用。大家可根据自己的情况使用。</p>
-<h2 id="8、附录"><a href="#8、附录" class="headerlink" title="8、附录"></a>8、附录</h2><p>目标端在<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">这里</a>，下载下来后文件名123111_ggs_Adapters_Linux_x64.zip</p>
+<h2 id="8、关于通配"><a href="#8、关于通配" class="headerlink" title="8、关于通配"></a>8、关于通配</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果想通配整个库的话，只需要把上面的配置所有表名的改为*，如test_ogg.test_ogg改为 test_ogg.*,但是kafka的topic不能通配，所以需要把所有的表的数据放在一个topic即可，后面再用程序解析表名即可。</span><br></pre></td></tr></table></figure>
+<h2 id="9、附录"><a href="#9、附录" class="headerlink" title="9、附录"></a>9、附录</h2><p>目标端在<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">这里</a>，下载下来后文件名123111_ggs_Adapters_Linux_x64.zip</p>
 <p><img src="//wx3.sinaimg.cn/large/e44344dcly1frlon533rgj217c0gg433.jpg" alt=""></p>
 <p>源端在<a href="https://edelivery.oracle.com/osdc/faces/SoftwareDelivery" target="_blank" rel="noopener">旧版本</a>查询下载，下载后文件名为V34339-01.zip</p>
 <p><img src="//wx3.sinaimg.cn/large/e44344dcly1frlon362fcj219o0fp40t.jpg" alt=""></p>
@@ -511,7 +512,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载"><span class="toc-number">2.</span> <span class="toc-text">1、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、源端（Oracle）配置"><span class="toc-number">3.</span> <span class="toc-text">2、源端（Oracle）配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-解压"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-配置ogg环境变量"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 配置ogg环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-oracle打开归档模式"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 oracle打开归档模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Oracle打开日志相关"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 Oracle打开日志相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-oracle创建复制用户"><span class="toc-number">3.5.</span> <span class="toc-text">2.5 oracle创建复制用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-OGG初始化"><span class="toc-number">3.6.</span> <span class="toc-text">2.6 OGG初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-Oracle创建测试表"><span class="toc-number">3.7.</span> <span class="toc-text">2.7 Oracle创建测试表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-目标端（kafka）配置"><span class="toc-number">4.</span> <span class="toc-text">3 目标端（kafka）配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-环境变量"><span class="toc-number">4.1.</span> <span class="toc-text">3.2 环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-初始化目录"><span class="toc-number">4.2.</span> <span class="toc-text">3.3 初始化目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、OGG源端配置"><span class="toc-number">5.</span> <span class="toc-text">4、OGG源端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-配置OGG的全局变量"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 配置OGG的全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-配置管理器mgr"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 配置管理器mgr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-添加复制表"><span class="toc-number">5.3.</span> <span class="toc-text">4.3 添加复制表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-配置extract进程"><span class="toc-number">5.4.</span> <span class="toc-text">4.4 配置extract进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-配置pump进程"><span class="toc-number">5.5.</span> <span class="toc-text">4.5 配置pump进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-配置define文件"><span class="toc-number">5.6.</span> <span class="toc-text">4.6 配置define文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、OGG目标端配置"><span class="toc-number">6.</span> <span class="toc-text">5、OGG目标端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-开启kafka服务"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 开启kafka服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-配置管理器mgr"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 配置管理器mgr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-配置checkpoint"><span class="toc-number">6.3.</span> <span class="toc-text">5.3 配置checkpoint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-配置replicate进程"><span class="toc-number">6.4.</span> <span class="toc-text">5.4 配置replicate进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-配置kafka-props"><span class="toc-number">6.5.</span> <span class="toc-text">5.5 配置kafka.props</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-添加trail文件到replicate进程"><span class="toc-number">6.6.</span> <span class="toc-text">5.6 添加trail文件到replicate进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、测试"><span class="toc-number">7.</span> <span class="toc-text">6、测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-启动所有进程"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 启动所有进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-异常解决"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 异常解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-测试同步更新效果"><span class="toc-number">7.3.</span> <span class="toc-text">6.3 测试同步更新效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-SparkStreaming测试消费同步消息"><span class="toc-number">7.4.</span> <span class="toc-text">6.4 SparkStreaming测试消费同步消息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、更新：后续遇到的问题"><span class="toc-number">8.</span> <span class="toc-text">7、更新：后续遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-添加before"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 添加before</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-添加主键"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 添加主键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-补全全部字段"><span class="toc-number">8.3.</span> <span class="toc-text">7.3 补全全部字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、附录"><span class="toc-number">9.</span> <span class="toc-text">8、附录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、下载"><span class="toc-number">2.</span> <span class="toc-text">1、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、源端（Oracle）配置"><span class="toc-number">3.</span> <span class="toc-text">2、源端（Oracle）配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-解压"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-配置ogg环境变量"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 配置ogg环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-oracle打开归档模式"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 oracle打开归档模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Oracle打开日志相关"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 Oracle打开日志相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-oracle创建复制用户"><span class="toc-number">3.5.</span> <span class="toc-text">2.5 oracle创建复制用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-OGG初始化"><span class="toc-number">3.6.</span> <span class="toc-text">2.6 OGG初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-Oracle创建测试表"><span class="toc-number">3.7.</span> <span class="toc-text">2.7 Oracle创建测试表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-目标端（kafka）配置"><span class="toc-number">4.</span> <span class="toc-text">3 目标端（kafka）配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-环境变量"><span class="toc-number">4.1.</span> <span class="toc-text">3.2 环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-初始化目录"><span class="toc-number">4.2.</span> <span class="toc-text">3.3 初始化目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、OGG源端配置"><span class="toc-number">5.</span> <span class="toc-text">4、OGG源端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-配置OGG的全局变量"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 配置OGG的全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-配置管理器mgr"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 配置管理器mgr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-添加复制表"><span class="toc-number">5.3.</span> <span class="toc-text">4.3 添加复制表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-配置extract进程"><span class="toc-number">5.4.</span> <span class="toc-text">4.4 配置extract进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-配置pump进程"><span class="toc-number">5.5.</span> <span class="toc-text">4.5 配置pump进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-配置define文件"><span class="toc-number">5.6.</span> <span class="toc-text">4.6 配置define文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、OGG目标端配置"><span class="toc-number">6.</span> <span class="toc-text">5、OGG目标端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-开启kafka服务"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 开启kafka服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-配置管理器mgr"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 配置管理器mgr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-配置checkpoint"><span class="toc-number">6.3.</span> <span class="toc-text">5.3 配置checkpoint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-配置replicate进程"><span class="toc-number">6.4.</span> <span class="toc-text">5.4 配置replicate进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-配置kafka-props"><span class="toc-number">6.5.</span> <span class="toc-text">5.5 配置kafka.props</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-添加trail文件到replicate进程"><span class="toc-number">6.6.</span> <span class="toc-text">5.6 添加trail文件到replicate进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、测试"><span class="toc-number">7.</span> <span class="toc-text">6、测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-启动所有进程"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 启动所有进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-异常解决"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 异常解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-测试同步更新效果"><span class="toc-number">7.3.</span> <span class="toc-text">6.3 测试同步更新效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-SparkStreaming测试消费同步消息"><span class="toc-number">7.4.</span> <span class="toc-text">6.4 SparkStreaming测试消费同步消息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、更新：后续遇到的问题"><span class="toc-number">8.</span> <span class="toc-text">7、更新：后续遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-添加before"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 添加before</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-添加主键"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 添加主键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-补全全部字段"><span class="toc-number">8.3.</span> <span class="toc-text">7.3 补全全部字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、关于通配"><span class="toc-number">9.</span> <span class="toc-text">8、关于通配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、附录"><span class="toc-number">10.</span> <span class="toc-text">9、附录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">11.</span> <span class="toc-text">参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -662,7 +663,23 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -674,26 +691,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -702,15 +699,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,11 +727,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,22 +755,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
@@ -774,7 +763,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -782,15 +771,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
             
             <div class="clearfix"></div>
