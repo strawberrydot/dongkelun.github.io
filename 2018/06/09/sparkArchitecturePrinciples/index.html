@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="https://www.dongkelun.com">
   <title>Spark架构原理 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言本文总结了Spark架构原理,其中主要包括五个组件：Driver、Master、Worker、Executor和Task，简要概括了每个组件是干啥的，并总结提交spark程序之后，这五个组件运行的详细步骤。 1、流程图为了直观，就把流程图放在最前面了 2、MasterMaster是个进程，主要负责资源的调度和分配，集群的监控等。 3、Masterdriver是一个进程，我们编写的spark程序">
+  <meta name="description" content="前言本文总结了Spark架构原理,其中主要包括五个组件：Driver、Master、Worker、Executor和Task，简要概括了每个组件是干啥的，并总结提交spark程序之后，这五个组件运行的详细步骤。 1、流程图为了直观，就把流程图放在最前面了">
 <meta name="keywords" content="spark,原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark架构原理">
 <meta property="og:url" content="https://www.dongkelun.com/2018/06/09/sparkArchitecturePrinciples/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言本文总结了Spark架构原理,其中主要包括五个组件：Driver、Master、Worker、Executor和Task，简要概括了每个组件是干啥的，并总结提交spark程序之后，这五个组件运行的详细步骤。 1、流程图为了直观，就把流程图放在最前面了 2、MasterMaster是个进程，主要负责资源的调度和分配，集群的监控等。 3、Masterdriver是一个进程，我们编写的spark程序">
+<meta property="og:description" content="前言本文总结了Spark架构原理,其中主要包括五个组件：Driver、Master、Worker、Executor和Task，简要概括了每个组件是干啥的，并总结提交spark程序之后，这五个组件运行的详细步骤。 1、流程图为了直观，就把流程图放在最前面了">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fs59fotumij21130ko0v7.jpg">
-<meta property="og:updated_time" content="2018-06-09T14:04:22.077Z">
+<meta property="og:updated_time" content="2018-06-09T14:06:28.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark架构原理">
-<meta name="twitter:description" content="前言本文总结了Spark架构原理,其中主要包括五个组件：Driver、Master、Worker、Executor和Task，简要概括了每个组件是干啥的，并总结提交spark程序之后，这五个组件运行的详细步骤。 1、流程图为了直观，就把流程图放在最前面了 2、MasterMaster是个进程，主要负责资源的调度和分配，集群的监控等。 3、Masterdriver是一个进程，我们编写的spark程序">
+<meta name="twitter:description" content="前言本文总结了Spark架构原理,其中主要包括五个组件：Driver、Master、Worker、Executor和Task，简要概括了每个组件是干啥的，并总结提交spark程序之后，这五个组件运行的详细步骤。 1、流程图为了直观，就把流程图放在最前面了">
 <meta name="twitter:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fs59fotumij21130ko0v7.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
@@ -209,9 +209,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文总结了Spark架构原理,其中主要包括五个组件：Driver、Master、Worker、Executor和Task，简要概括了每个组件是干啥的，并总结提交spark程序之后，这五个组件运行的详细步骤。</p>
-<h2 id="1、流程图"><a href="#1、流程图" class="headerlink" title="1、流程图"></a>1、流程图</h2><p>为了直观，就把流程图放在最前面了<br><img src="//wx3.sinaimg.cn/large/e44344dcly1fs59fotumij21130ko0v7.jpg" alt=""></p>
-<h2 id="2、Master"><a href="#2、Master" class="headerlink" title="2、Master"></a>2、Master</h2><p>Master是个进程，主要负责资源的调度和分配，集群的监控等。</p>
-<h2 id="3、Master"><a href="#3、Master" class="headerlink" title="3、Master"></a>3、Master</h2><p>driver是一个进程，我们编写的spark程序运行在driver上，由dirver进程执行，driver是作业的主进程，具有main函数，是程序的入口点，driver进程启动后，向master发送请求，进行注册，申请资源，在后面的executor启动后，会向dirver进行反注册，dirver注册了executor后，正式执行spark程序，读取数据源，创建rdd或dataframe，生成stage,提交task到executor</p>
+<h2 id="1、流程图"><a href="#1、流程图" class="headerlink" title="1、流程图"></a>1、流程图</h2><p>为了直观，就把流程图放在最前面了<br><img src="//wx3.sinaimg.cn/large/e44344dcly1fs59fotumij21130ko0v7.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="2、Driver"><a href="#2、Driver" class="headerlink" title="2、Driver"></a>2、Driver</h2><p>driver是一个进程，我们编写的spark程序运行在driver上，由dirver进程执行，driver是作业的主进程，具有main函数，是程序的入口点，driver进程启动后，向master发送请求，进行注册，申请资源，在后面的executor启动后，会向dirver进行反注册，dirver注册了executor后，正式执行spark程序，读取数据源，创建rdd或dataframe，生成stage,提交task到executor</p>
+<h2 id="3、Master"><a href="#3、Master" class="headerlink" title="3、Master"></a>3、Master</h2><p>Master是个进程，主要负责资源的调度和分配，集群的监控等。</p>
 <h2 id="4、Worker"><a href="#4、Worker" class="headerlink" title="4、Worker"></a>4、Worker</h2><p>worke是个进程，主要负责两个，一个是用自己的内存存储RDD的某个或某些partition，另一个是启动其他进程和线程，对RDD上的partition进行处理和计算。</p>
 <h2 id="5、Executor"><a href="#5、Executor" class="headerlink" title="5、Executor"></a>5、Executor</h2><p>Executor是个进程，一个Executor执行多个Task，多个Executor可以并行执行，可以通过–num-executors来指定Executor的数量，但是经过我的测试，Executor最大为集群可用的cpu核数减1。</p>
 <h2 id="6、Task"><a href="#6、Task" class="headerlink" title="6、Task"></a>6、Task</h2><p>Task是个线程，具体的spark任务是在Task上运行的，某些并行的算子，有多少个分区就有多少个task，但是有些算子像take这样的只有一个task。</p>
@@ -366,7 +366,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、流程图"><span class="toc-number">2.</span> <span class="toc-text">1、流程图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Master"><span class="toc-number">3.</span> <span class="toc-text">2、Master</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、Master"><span class="toc-number">4.</span> <span class="toc-text">3、Master</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Worker"><span class="toc-number">5.</span> <span class="toc-text">4、Worker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Executor"><span class="toc-number">6.</span> <span class="toc-text">5、Executor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Task"><span class="toc-number">7.</span> <span class="toc-text">6、Task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、详细的流程"><span class="toc-number">8.</span> <span class="toc-text">7、详细的流程</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、流程图"><span class="toc-number">2.</span> <span class="toc-text">1、流程图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Driver"><span class="toc-number">3.</span> <span class="toc-text">2、Driver</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、Master"><span class="toc-number">4.</span> <span class="toc-text">3、Master</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Worker"><span class="toc-number">5.</span> <span class="toc-text">4、Worker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Executor"><span class="toc-number">6.</span> <span class="toc-text">5、Executor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Task"><span class="toc-number">7.</span> <span class="toc-text">6、Task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、详细的流程"><span class="toc-number">8.</span> <span class="toc-text">7、详细的流程</span></a></li></ol>
                     </div>
                 </span>
             </div>
