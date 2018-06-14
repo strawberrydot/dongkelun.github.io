@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/06/14/updateStateBykeyWordCount/</loc>
+    <lastmod>2018-06-14T15:03:04.109Z</lastmod>
+    <data>
+        <display>
+        <title>SparkStreaming+Kafka 实现基于缓存的实时wordcount程序</title>
+        <pubTime>2018-06-13T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>SparkStreaming</tag>
+         
+        <tag>Kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/06/09/sparkArchitecturePrinciples/</loc>
     <lastmod>2018-06-09T14:06:28.994Z</lastmod>
     <data>
