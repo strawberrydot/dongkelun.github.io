@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.dongkelun.com">
+  <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>Spark Streaming连接Kafka入门教程 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考Kafka安装启动入门教程和centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好">
 <meta name="keywords" content="spark,kafka,spark streaming">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark Streaming连接Kafka入门教程">
-<meta property="og:url" content="https://www.dongkelun.com/2018/05/17/sparkKafka/index.html">
+<meta property="og:url" content="https://dongkelun.com/2018/05/17/sparkKafka/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考Kafka安装启动入门教程和centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好">
 <meta property="og:locale" content="cn">
@@ -213,7 +213,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考<a href="https://dongkelun.com/2018/05/21/kafkaConf/" target="_blank" rel="noopener">Kafka安装启动入门教程</a>和<a href="https://dongkelun.com/2018/04/25/ambariConf/" target="_blank" rel="noopener">centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</a>,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好的实现方式。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考<a href="https://dongkelun.com/2018/05/21/kafkaConf/">Kafka安装启动入门教程</a>和<a href="https://dongkelun.com/2018/04/25/ambariConf/">centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</a>,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好的实现方式。</p>
 <h2 id="1、对应依赖"><a href="#1、对应依赖" class="headerlink" title="1、对应依赖"></a>1、对应依赖</h2><p>根据kafka版本选择对应的依赖，我的kafka版本为0.10.1，spark版本2.2.1,然后在maven仓库找到对应的依赖。<br>（Kafka项目在版本0.8和0.10之间引入了新的消费者API，因此有两个独立的相应Spark Streaming软件包可用）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spark-streaming-kafka-0-10_2.11&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
 <p>我用的是sbt，对应的依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;org.apache.spark&quot; % &quot;spark-streaming-kafka-0-10_2.11&quot; % &quot;2.2.1&quot;</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
@@ -225,7 +225,7 @@
 <h3 id="需要记住的要点"><a href="#需要记住的要点" class="headerlink" title="需要记住的要点"></a>需要记住的要点</h3><p>当在本地运行一个 Spark Streaming 程序的时候，不要使用 “local” 或者 “local[1]” 作为 master 的 URL 。这两种方法中的任何一个都意味着只有一个线程将用于运行本地任务。如果你正在使用一个基于接收器（receiver）的输入离散流（input DStream）（例如， sockets ，Kafka ，Flume 等），则该单独的线程将用于运行接收器（receiver），而没有留下任何的线程用于处理接收到的数据。因此，在本地运行时，总是用 “local[n]” 作为 master URL ，其中的 n &gt; 运行接收器的数量。<br>将逻辑扩展到集群上去运行，分配给 Spark Streaming 应用程序的内核（core）的内核数必须大于接收器（receiver）的数量。否则系统将接收数据，但是无法处理它。</p>
 <p>我一开始没有看到官网提醒的这一点，将示例中的local[2]改为local，现在已经在代码里改回local[2]了，但是下面的截图没有替换，注意下。</p>
 <h2 id="5、发送消息"><a href="#5、发送消息" class="headerlink" title="5、发送消息"></a>5、发送消息</h2><p>运行producer<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list ambari.master.com:6667 --topic top1</span><br></pre></td></tr></table></figure></p>
-<p>注意：ambari.master.com为ip的映射名，可以直接写ip，但是不能写localhost，否则远程spark获取不到，如果为localhost，则需要修改配置，具体怎么改，可参考<a href="https://dongkelun.com/2018/05/21/kafkaConf/" target="_blank" rel="noopener">Kafka安装启动入门教程</a>中第七条。<br>然后依次发送下面几个消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
+<p>注意：ambari.master.com为ip的映射名，可以直接写ip，但是不能写localhost，否则远程spark获取不到，如果为localhost，则需要修改配置，具体怎么改，可参考<a href="https://dongkelun.com/2018/05/21/kafkaConf/">Kafka安装启动入门教程</a>中第七条。<br>然后依次发送下面几个消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
 <h2 id="6、结果"><a href="#6、结果" class="headerlink" title="6、结果"></a>6、结果</h2><p>然后在eclipse console就可以看到对应的数据了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop</span><br><span class="line">spark</span><br><span class="line">kafka</span><br><span class="line">中文测试</span><br></pre></td></tr></table></figure></p>
 <p>为了直观的展示和理解，附上截图：</p>
 <p>发送消息<br><img src="//wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg" alt=""></p>
@@ -274,9 +274,9 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://www.dongkelun.com/2018/05/17/sparkKafka/">Spark Streaming连接Kafka入门教程</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/05/17/sparkKafka/">Spark Streaming连接Kafka入门教程</a> </p>
  
- <p>本文链接：<a href="https://www.dongkelun.com/2018/05/17/sparkKafka/">https://www.dongkelun.com/2018/05/17/sparkKafka/</a></p>
+ <p>本文链接：<a href="https://dongkelun.com/2018/05/17/sparkKafka/">https://dongkelun.com/2018/05/17/sparkKafka/</a></p>
  <p>--------------------</p>
  <p>作者联系方式：</p>
  <p>QQ：1412359494</p>
@@ -338,7 +338,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://www.dongkelun.com/2018/05/17/sparkKafka/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/05/17/sparkKafka/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -549,15 +549,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,11 +593,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.dongkelun.com">
+  <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>spark-submit提交Spark Streamming+Kafka程序 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言Spark Streaming本身是没有Kafka相关的jar包和API的，如果想利用Spark Streaming获取Kafka里的数据，需要自己将依赖添加SBT或Maven项目中，添加依赖更新项目之后，就可以在Eclipse等IDE里直接运行Spark Streamming+Kafka的程序了，可参考Spark Streaming连接Kafka入门教程，但是如果需要在集群通过spark-s">
 <meta name="keywords" content="spark,Spark Streamming,Kafka,spark-submit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spark-submit提交Spark Streamming+Kafka程序">
-<meta property="og:url" content="https://www.dongkelun.com/2018/06/19/sparkSubmitKafka/index.html">
+<meta property="og:url" content="https://dongkelun.com/2018/06/19/sparkSubmitKafka/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言Spark Streaming本身是没有Kafka相关的jar包和API的，如果想利用Spark Streaming获取Kafka里的数据，需要自己将依赖添加SBT或Maven项目中，添加依赖更新项目之后，就可以在Eclipse等IDE里直接运行Spark Streamming+Kafka的程序了，可参考Spark Streaming连接Kafka入门教程，但是如果需要在集群通过spark-s">
 <meta property="og:locale" content="cn">
@@ -214,7 +214,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spark Streaming本身是没有Kafka相关的jar包和API的，如果想利用Spark Streaming获取Kafka里的数据，需要自己将依赖添加SBT或Maven项目中，添加依赖更新项目之后，就可以在Eclipse等IDE里直接运行Spark Streamming+Kafka的程序了，可参考<a href="https://dongkelun.com/2018/05/17/sparkKafka/" target="_blank" rel="noopener">Spark Streaming连接Kafka入门教程</a>，但是如果需要在集群通过spark-submit提交jar包的方式来运行程序的话，会抛出异常：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Exception</span> in thread <span class="string">"main"</span> java.lang.<span class="type">NoClassDefFoundError</span>: org/apache/kafka/common/serialization/<span class="type">StringDeserializer</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spark Streaming本身是没有Kafka相关的jar包和API的，如果想利用Spark Streaming获取Kafka里的数据，需要自己将依赖添加SBT或Maven项目中，添加依赖更新项目之后，就可以在Eclipse等IDE里直接运行Spark Streamming+Kafka的程序了，可参考<a href="https://dongkelun.com/2018/05/17/sparkKafka/">Spark Streaming连接Kafka入门教程</a>，但是如果需要在集群通过spark-submit提交jar包的方式来运行程序的话，会抛出异常：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Exception</span> in thread <span class="string">"main"</span> java.lang.<span class="type">NoClassDefFoundError</span>: org/apache/kafka/common/serialization/<span class="type">StringDeserializer</span></span><br></pre></td></tr></table></figure></p>
 <p>这是因为Spark本身没有Kafka相关的jar，所以需要将与Kafka相关的jar添加Spark环境中</p>
 <h2 id="1、相关jar包"><a href="#1、相关jar包" class="headerlink" title="1、相关jar包"></a>1、相关jar包</h2><p>总共需要两个jar，可以在SBT和Maven下载的目录里找到，分别为org.apache.spark/spark-streaming-kafka-0-10_2.11/jars/spark-streaming-kafka-0-10_2.11-2.3.0.jar和org.apache.kafka/kafka-clients/jars/kafka-clients-0.10.0.1.jar,具体的名字会因你的kafka版本和spark版本而有所不同<br><a id="more"></a></p>
 <h2 id="2、方法一"><a href="#2、方法一" class="headerlink" title="2、方法一"></a>2、方法一</h2><p>第一个方法也是我觉得最简单的方法，将这两个jar拷贝到$SPARK_HOME/jars目下即可<br>如果用ambari安装的spark2,则对应的目录为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/hdp/current/spark2-client/jars/</span><br></pre></td></tr></table></figure></p>
@@ -222,7 +222,7 @@
 <p>然后通过如下命令提交jar即可(只是最简单的配置，实际还需要配置Executor的数量，内存大小等等)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --master yarn --class com.dkl.leanring.spark.kafka.KafaDemo spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
 <h2 id="3、方法二"><a href="#3、方法二" class="headerlink" title="3、方法二"></a>3、方法二</h2><p>通过–jars指定需要的jar，多个jar需要以逗号分隔<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --master yarn --class com.dkl.leanring.spark.kafka.KafaDemo --jars jars/kafka-clients-0.10.0.1.jar,jars/spark-streaming-kafka-0-10_2.11-2.3.0.jar spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
 <p>这种方式如果依赖的jar很多的话就不方便了</p>
-<p>关于spark-submit添加依赖jar更详细说明可参考<a href="https://dongkelun.com/2018/05/06/sparkSubmitException/" target="_blank" rel="noopener">https://dongkelun.com/2018/05/06/sparkSubmitException/</a></p>
+<p>关于spark-submit添加依赖jar更详细说明可参考<a href="https://dongkelun.com/2018/05/06/sparkSubmitException/">https://dongkelun.com/2018/05/06/sparkSubmitException/</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/zhangXingSheng/p/6646879.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhangXingSheng/p/6646879.html</a></p>
 
       
@@ -267,9 +267,9 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://www.dongkelun.com/2018/06/19/sparkSubmitKafka/">spark-submit提交Spark Streamming+Kafka程序</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/06/19/sparkSubmitKafka/">spark-submit提交Spark Streamming+Kafka程序</a> </p>
  
- <p>本文链接：<a href="https://www.dongkelun.com/2018/06/19/sparkSubmitKafka/">https://www.dongkelun.com/2018/06/19/sparkSubmitKafka/</a></p>
+ <p>本文链接：<a href="https://dongkelun.com/2018/06/19/sparkSubmitKafka/">https://dongkelun.com/2018/06/19/sparkSubmitKafka/</a></p>
  <p>--------------------</p>
  <p>作者联系方式：</p>
  <p>QQ：1412359494</p>
@@ -331,7 +331,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://www.dongkelun.com/2018/06/19/sparkSubmitKafka/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/06/19/sparkSubmitKafka/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -542,15 +542,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -586,11 +586,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">

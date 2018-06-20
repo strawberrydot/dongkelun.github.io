@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.dongkelun.com">
+  <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>spark-submit报错:Exception in thread &#34;main&#34; java.sql.SQLException:No suitable driver | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
 <meta name="keywords" content="spark,spark-submit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spark-submit报错:Exception in thread &quot;main&quot; java.sql.SQLException:No suitable driver">
-<meta property="og:url" content="https://www.dongkelun.com/2018/05/06/sparkSubmitException/index.html">
+<meta property="og:url" content="https://dongkelun.com/2018/05/06/sparkSubmitException/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
 <meta property="og:locale" content="cn">
@@ -216,7 +216,7 @@
 <p>其中不同旧版本和新版本sbt写法不一样，具体可上网看一下别人的博客或者在官网查看。</p>
 <p>这样就可以sbt-assembly进行打包了，发现这样打的jar包确实很大，用sbt package打的jar包大小1.48MB,sbt-assembly打的jar包大小194MB,将spark-scala-assembly-1.0.jar上传到服务器，然后执行submit,发现还是报同样的错，查看一下sbt-assembly日志，发现确实将oracle驱动加载上了~</p>
 <h2 id="3、真正原因"><a href="#3、真正原因" class="headerlink" title="3、真正原因"></a>3、真正原因</h2><p>这样就猜想不是缺少oracle驱动，于是上网查了好多，偶然发现可能是代码问题，下面是我写的从oracle取数的部分代码<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> allTablesDF = spark.read</span><br><span class="line">  .format(<span class="string">"jdbc"</span>)</span><br><span class="line">  .option(<span class="string">"url"</span>, <span class="string">"jdbc:oracle:thin:@192.168.44.128:1521:orcl"</span>)</span><br><span class="line">  .option(<span class="string">"dbtable"</span>, <span class="string">"(select table_name,owner from all_tables where  owner  in('BIGDATA'))a"</span>)</span><br><span class="line">  .option(<span class="string">"user"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">  .option(<span class="string">"password"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">  .load()</span><br></pre></td></tr></table></figure></p>
-<p>写法和我之前写的spark连接mysql的博客里的写法是一样的：<a href="http://dongkelun.com/2018/03/21/sparkMysql/" target="_blank" rel="noopener">Spark Sql 连接mysql</a><br>这样写在eclipse运行是没问题的，但是在spark-submit提交时是不行的，需要加上驱动信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.option(&quot;driver&quot;, &quot;oracle.jdbc.driver.OracleDriver&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>写法和我之前写的spark连接mysql的博客里的写法是一样的：<a href="http://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a><br>这样写在eclipse运行是没问题的，但是在spark-submit提交时是不行的，需要加上驱动信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.option(&quot;driver&quot;, &quot;oracle.jdbc.driver.OracleDriver&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>重新打包，再运行，发现果然没问题</p>
 <h2 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h2><h3 id="4-1"><a href="#4-1" class="headerlink" title="4.1"></a>4.1</h3><p>其实在用spark提交之前写的spark连接mysql的程序也会报统一的错(如果$SPARK_HOME/jars没有mysql驱动)，和oracle驱动不在sbt仓库里没关系。<br>但是之前在spark-shell里测试spark连接hive时已经将mysql驱动拷贝过去了，所以mysql没有报错</p>
 <h3 id="4-2"><a href="#4-2" class="headerlink" title="4.2"></a>4.2</h3><p>在代码里加上driver之后再提交如果没有oracle驱动会报不同的错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassNotFoundException: oracle.jdbc.driver.OracleDriver</span><br></pre></td></tr></table></figure></p>
@@ -271,9 +271,9 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://www.dongkelun.com/2018/05/06/sparkSubmitException/">spark-submit报错:Exception in thread &#34;main&#34; java.sql.SQLException:No suitable driver</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/05/06/sparkSubmitException/">spark-submit报错:Exception in thread &#34;main&#34; java.sql.SQLException:No suitable driver</a> </p>
  
- <p>本文链接：<a href="https://www.dongkelun.com/2018/05/06/sparkSubmitException/">https://www.dongkelun.com/2018/05/06/sparkSubmitException/</a></p>
+ <p>本文链接：<a href="https://dongkelun.com/2018/05/06/sparkSubmitException/">https://dongkelun.com/2018/05/06/sparkSubmitException/</a></p>
  <p>--------------------</p>
  <p>作者联系方式：</p>
  <p>QQ：1412359494</p>
@@ -335,7 +335,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://www.dongkelun.com/2018/05/06/sparkSubmitException/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/05/06/sparkSubmitException/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -546,15 +546,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,11 +590,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">

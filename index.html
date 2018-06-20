@@ -5,13 +5,13 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.dongkelun.com">
+  <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1412359494@qq.com">
 <meta property="og:type" content="website">
 <meta property="og:title" content="伦少的博客">
-<meta property="og:url" content="https://www.dongkelun.com/index.html">
+<meta property="og:url" content="https://dongkelun.com/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="1412359494@qq.com">
 <meta property="og:locale" content="cn">
@@ -275,7 +275,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spark Streaming本身是没有Kafka相关的jar包和API的，如果想利用Spark Streaming获取Kafka里的数据，需要自己将依赖添加SBT或Maven项目中，添加依赖更新项目之后，就可以在Eclipse等IDE里直接运行Spark Streamming+Kafka的程序了，可参考<a href="https://dongkelun.com/2018/05/17/sparkKafka/" target="_blank" rel="noopener">Spark Streaming连接Kafka入门教程</a>，但是如果需要在集群通过spark-submit提交jar包的方式来运行程序的话，会抛出异常：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Exception</span> in thread <span class="string">"main"</span> java.lang.<span class="type">NoClassDefFoundError</span>: org/apache/kafka/common/serialization/<span class="type">StringDeserializer</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spark Streaming本身是没有Kafka相关的jar包和API的，如果想利用Spark Streaming获取Kafka里的数据，需要自己将依赖添加SBT或Maven项目中，添加依赖更新项目之后，就可以在Eclipse等IDE里直接运行Spark Streamming+Kafka的程序了，可参考<a href="https://dongkelun.com/2018/05/17/sparkKafka/">Spark Streaming连接Kafka入门教程</a>，但是如果需要在集群通过spark-submit提交jar包的方式来运行程序的话，会抛出异常：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Exception</span> in thread <span class="string">"main"</span> java.lang.<span class="type">NoClassDefFoundError</span>: org/apache/kafka/common/serialization/<span class="type">StringDeserializer</span></span><br></pre></td></tr></table></figure></p>
 <p>这是因为Spark本身没有Kafka相关的jar，所以需要将与Kafka相关的jar添加Spark环境中</p>
 <h2 id="1、相关jar包"><a href="#1、相关jar包" class="headerlink" title="1、相关jar包"></a>1、相关jar包</h2><p>总共需要两个jar，可以在SBT和Maven下载的目录里找到，分别为org.apache.spark/spark-streaming-kafka-0-10_2.11/jars/spark-streaming-kafka-0-10_2.11-2.3.0.jar和org.apache.kafka/kafka-clients/jars/kafka-clients-0.10.0.1.jar,具体的名字会因你的kafka版本和spark版本而有所不同<br>
         
@@ -767,15 +767,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -811,11 +811,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
