@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://www.dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
+    <lastmod>2018-06-20T08:19:52.470Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Streamming+Kafka提交offset实现有且仅有一次</title>
+        <pubTime>2018-06-19T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>Spark Streamming</tag>
+         
+        <tag>Kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.dongkelun.com/2018/05/17/sparkKafka/</loc>
     <lastmod>2018-06-19T09:18:42.023Z</lastmod>
     <data>
@@ -34,11 +55,11 @@
         
         <tag>spark</tag>
          
-        <tag>spark-submit</tag>
-         
         <tag>Spark Streamming</tag>
          
         <tag>Kafka</tag>
+         
+        <tag>spark-submit</tag>
          
          
            
