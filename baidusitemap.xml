@@ -4,25 +4,8 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/06/21/modifyKafkaOffsetTime/</loc>
-    <lastmod>2018-06-21T08:44:08.181Z</lastmod>
-    <data>
-        <display>
-        <title>通过offsets.retention.minutes设置kafka offset的过期时间</title>
-        <pubTime>2018-06-20T16:00:00.000Z</pubTime>
-        
-        <tag>Kafka</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
-    <lastmod>2018-06-21T08:43:30.251Z</lastmod>
+    <lastmod>2018-06-21T08:50:23.182Z</lastmod>
     <data>
         <display>
         <title>Spark Streamming+Kafka提交offset实现有且仅有一次</title>
@@ -33,6 +16,23 @@
         <tag>Kafka</tag>
          
         <tag>Spark Streamming</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/06/21/modifyKafkaOffsetTime/</loc>
+    <lastmod>2018-06-21T08:44:08.181Z</lastmod>
+    <data>
+        <display>
+        <title>通过offsets.retention.minutes设置kafka offset的过期时间</title>
+        <pubTime>2018-06-20T16:00:00.000Z</pubTime>
+        
+        <tag>Kafka</tag>
          
          
            
