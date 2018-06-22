@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/06/21/modifyKafkaOffsetTime/</loc>
+    <lastmod>2018-06-22T07:57:38.793Z</lastmod>
+    <data>
+        <display>
+        <title>通过offsets.retention.minutes设置kafka offset的过期时间</title>
+        <pubTime>2018-06-20T16:00:00.000Z</pubTime>
+        
+        <tag>Kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
     <lastmod>2018-06-21T08:50:23.182Z</lastmod>
     <data>
@@ -16,23 +33,6 @@
         <tag>Kafka</tag>
          
         <tag>Spark Streamming</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/21/modifyKafkaOffsetTime/</loc>
-    <lastmod>2018-06-21T08:44:08.181Z</lastmod>
-    <data>
-        <display>
-        <title>通过offsets.retention.minutes设置kafka offset的过期时间</title>
-        <pubTime>2018-06-20T16:00:00.000Z</pubTime>
-        
-        <tag>Kafka</tag>
          
          
            
@@ -173,9 +173,9 @@
         <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
         <pubTime>2018-05-22T16:00:00.000Z</pubTime>
         
-        <tag>kafka</tag>
-         
         <tag>ogg</tag>
+         
+        <tag>kafka</tag>
          
          
            
@@ -720,9 +720,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>scala</tag>
-         
         <tag>转载</tag>
+         
+        <tag>scala</tag>
          
          
            
