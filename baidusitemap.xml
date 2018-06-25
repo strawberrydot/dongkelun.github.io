@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/06/25/KafkaUV/</loc>
+    <lastmod>2018-06-25T09:45:56.622Z</lastmod>
+    <data>
+        <display>
+        <title>SparkStreaming+Kafka 实现统计基于缓存的实时uv</title>
+        <pubTime>2018-06-24T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>SparkStreaming</tag>
+         
+        <tag>Kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/06/21/modifyKafkaOffsetTime/</loc>
     <lastmod>2018-06-22T08:36:45.549Z</lastmod>
     <data>
@@ -95,9 +116,9 @@
         
         <tag>spark</tag>
          
-        <tag>Kafka</tag>
-         
         <tag>SparkStreaming</tag>
+         
+        <tag>Kafka</tag>
          
          
            
