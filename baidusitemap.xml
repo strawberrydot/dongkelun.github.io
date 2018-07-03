@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
+    <lastmod>2018-07-03T00:55:35.944Z</lastmod>
+    <data>
+        <display>
+        <title>旧版spark（1.6版本） 将rdd动态转为dataframe</title>
+        <pubTime>2018-05-10T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>DataFrame</tag>
+         
+        <tag>Rdd</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/06/28/sparkGetPartitionId/</loc>
     <lastmod>2018-06-28T06:56:22.168Z</lastmod>
     <data>
@@ -112,9 +133,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>Spark Streamming</tag>
-         
         <tag>spark-submit</tag>
+         
+        <tag>Spark Streamming</tag>
          
          
            
@@ -211,9 +232,9 @@
         <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
         <pubTime>2018-05-22T16:00:00.000Z</pubTime>
         
-        <tag>kafka</tag>
-         
         <tag>ogg</tag>
+         
+        <tag>kafka</tag>
          
          
            
@@ -294,27 +315,6 @@
         <tag>spark</tag>
          
         <tag>rdd</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
-    <lastmod>2018-05-28T03:09:58.257Z</lastmod>
-    <data>
-        <display>
-        <title>旧版spark（1.6版本） 将rdd动态转为dataframe</title>
-        <pubTime>2018-05-10T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>DataFrame</tag>
-         
-        <tag>Rdd</tag>
          
          
            
@@ -758,9 +758,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>转载</tag>
-         
         <tag>scala</tag>
+         
+        <tag>转载</tag>
          
          
            
