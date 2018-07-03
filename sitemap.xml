@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
+    
+    <lastmod>2018-07-03T08:22:02.428Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
     
     <lastmod>2018-07-03T00:55:35.944Z</lastmod>
@@ -89,13 +96,6 @@
     <loc>https://dongkelun.com/2018/06/03/sparkCacheAndPersist/</loc>
     
     <lastmod>2018-06-03T15:06:57.251Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
-    
-    <lastmod>2018-06-01T08:09:42.367Z</lastmod>
     
   </url>
   
