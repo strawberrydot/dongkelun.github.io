@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言本文总结如何将DataFrame按某列降序排序，因为Spark默认的排序方式为升序，而降序的用法和java语言等又不一样，所以需要特地总结记录一下其用法。 1、创建测试用DataFrame123val data = Array((7, 2, 3), (1, 8, 6), (4, 5, 9))val df = spark.createDataFrame(data).toDF(&quot;col1&quot;, &quot;c">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-07-04T14:40:59.872Z">
+<meta property="og:updated_time" content="2018-07-05T01:01:12.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark DataFrame按某列降序排序">
 <meta name="twitter:description" content="前言本文总结如何将DataFrame按某列降序排序，因为Spark默认的排序方式为升序，而降序的用法和java语言等又不一样，所以需要特地总结记录一下其用法。 1、创建测试用DataFrame123val data = Array((7, 2, 3), (1, 8, 6), (4, 5, 9))val df = spark.createDataFrame(data).toDF(&quot;col1&quot;, &quot;c">
@@ -226,7 +226,7 @@
 <h2 id="6、降序方法四"><a href="#6、降序方法四" class="headerlink" title="6、降序方法四"></a>6、降序方法四</h2><p>下面的方法和方法三是一样的，由于结果一样，就不贴上了<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.orderBy(-col(<span class="string">"col2"</span>)).show</span><br></pre></td></tr></table></figure></p>
 <h2 id="7、降序方法五"><a href="#7、降序方法五" class="headerlink" title="7、降序方法五"></a>7、降序方法五</h2><p>下面的方法和方法四是一样的，由于结果一样，就不贴上了<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.orderBy(col(<span class="string">"col2"</span>).desc).show</span><br></pre></td></tr></table></figure></p>
 <h2 id="8、sort函数"><a href="#8、sort函数" class="headerlink" title="8、sort函数"></a>8、sort函数</h2><p>sort函数和orderBy用法和结果是一样的，因为orderBy和sql语法里的order by名字一样，所以我首先想到这个方法，就把orderBy放在前面介绍了（sort比orderBy短一点哈~）<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.sort(desc(<span class="string">"col2"</span>)).show</span><br></pre></td></tr></table></figure></p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.df</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DfSortDesc</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"JdbcDemo"</span>).master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> data = <span class="type">Array</span>((<span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>), (<span class="number">1</span>, <span class="number">8</span>, <span class="number">6</span>), (<span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>))</span><br><span class="line">    <span class="keyword">val</span> df = spark.createDataFrame(data).toDF(<span class="string">"col1"</span>, <span class="string">"col2"</span>, <span class="string">"col3"</span>)</span><br><span class="line">    <span class="comment">//打印 df</span></span><br><span class="line">    df.show()</span><br><span class="line">    <span class="comment">// 默认的升序</span></span><br><span class="line">    df.orderBy(<span class="string">"col2"</span>).show()</span><br><span class="line">    <span class="comment">//降序方法一</span></span><br><span class="line">    df.orderBy(-df(<span class="string">"col2"</span>)).show</span><br><span class="line">    <span class="comment">//降序方法二同上</span></span><br><span class="line">    df.orderBy(df(<span class="string">"col2"</span>).desc).show</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line">    <span class="comment">//降序方法三</span></span><br><span class="line">    df.orderBy(desc(<span class="string">"col2"</span>)).show</span><br><span class="line">    <span class="comment">//测试方法三</span></span><br><span class="line">    spark.createDataFrame(data).toDF(<span class="string">"col1"</span>, <span class="string">"col2"</span>, <span class="string">"col3"</span>).orderBy(desc(<span class="string">"col2"</span>)).show</span><br><span class="line"></span><br><span class="line">    <span class="comment">//降序方法四</span></span><br><span class="line">    df.orderBy(-col(<span class="string">"col2"</span>)).show</span><br><span class="line">    <span class="comment">//降序方法五</span></span><br><span class="line">    df.orderBy(col(<span class="string">"col2"</span>).desc).show</span><br><span class="line">    <span class="comment">//sort函数和orderBy用法和结果是一样的</span></span><br><span class="line">    df.sort(desc(<span class="string">"col2"</span>)).show</span><br><span class="line">    spark.stop()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.df</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DfSortDesc</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"DfSortDesc"</span>).master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> data = <span class="type">Array</span>((<span class="number">7</span>, <span class="number">2</span>, <span class="number">3</span>), (<span class="number">1</span>, <span class="number">8</span>, <span class="number">6</span>), (<span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>))</span><br><span class="line">    <span class="keyword">val</span> df = spark.createDataFrame(data).toDF(<span class="string">"col1"</span>, <span class="string">"col2"</span>, <span class="string">"col3"</span>)</span><br><span class="line">    <span class="comment">//打印 df</span></span><br><span class="line">    df.show()</span><br><span class="line">    <span class="comment">// 默认的升序</span></span><br><span class="line">    df.orderBy(<span class="string">"col2"</span>).show()</span><br><span class="line">    <span class="comment">//降序方法一</span></span><br><span class="line">    df.orderBy(-df(<span class="string">"col2"</span>)).show</span><br><span class="line">    <span class="comment">//降序方法二同上</span></span><br><span class="line">    df.orderBy(df(<span class="string">"col2"</span>).desc).show</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line">    <span class="comment">//降序方法三</span></span><br><span class="line">    df.orderBy(desc(<span class="string">"col2"</span>)).show</span><br><span class="line">    <span class="comment">//测试方法三</span></span><br><span class="line">    spark.createDataFrame(data).toDF(<span class="string">"col1"</span>, <span class="string">"col2"</span>, <span class="string">"col3"</span>).orderBy(desc(<span class="string">"col2"</span>)).show</span><br><span class="line"></span><br><span class="line">    <span class="comment">//降序方法四</span></span><br><span class="line">    df.orderBy(-col(<span class="string">"col2"</span>)).show</span><br><span class="line">    <span class="comment">//降序方法五</span></span><br><span class="line">    df.orderBy(col(<span class="string">"col2"</span>).desc).show</span><br><span class="line">    <span class="comment">//sort函数和orderBy用法和结果是一样的</span></span><br><span class="line">    df.sort(desc(<span class="string">"col2"</span>)).show</span><br><span class="line">    spark.stop()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/dabokele/article/details/52802150" target="_blank" rel="noopener">Spark-SQL之DataFrame操作大全</a><br><a href="https://www.sohu.com/a/143978243_692906" target="_blank" rel="noopener">在Apache Spark 2.0中使用DataFrames和SQL</a></p>
 
       
@@ -541,7 +541,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,19 +561,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,19 +577,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,11 +593,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,7 +605,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,15 +629,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,15 +653,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,15 +665,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
             
             <div class="clearfix"></div>
