@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/06/19/sparkSubmitKafka/</loc>
+    <lastmod>2018-07-05T01:57:09.016Z</lastmod>
+    <data>
+        <display>
+        <title>spark-submit提交Spark Streamming+Kafka程序</title>
+        <pubTime>2018-06-18T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>Kafka</tag>
+         
+        <tag>Spark Streamming</tag>
+         
+        <tag>spark-submit</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/07/04/sparkDfSortDesc/</loc>
     <lastmod>2018-07-05T01:01:12.319Z</lastmod>
     <data>
@@ -151,29 +174,6 @@
         <tag>kafka</tag>
          
         <tag>spark streaming</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/19/sparkSubmitKafka/</loc>
-    <lastmod>2018-06-19T03:07:19.854Z</lastmod>
-    <data>
-        <display>
-        <title>spark-submit提交Spark Streamming+Kafka程序</title>
-        <pubTime>2018-06-18T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>Kafka</tag>
-         
-        <tag>Spark Streamming</tag>
-         
-        <tag>spark-submit</tag>
          
          
            
