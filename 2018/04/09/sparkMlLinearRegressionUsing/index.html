@@ -9,14 +9,14 @@
   <title>spark ML算法之线性回归使用 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言本文是讲如何使用spark ml进行线性回归，不涉及线性回归的原理。 1、数据格式1.1 普通标签格式1.1.1 格式为：1标签,特征值1 特征值2 特征值3... 12345671,1.92,3.13,43.5,4.454,5.029,9.97-2,-0.98 1.1.2 spark 读取1、Rdd旧版（mllib）的线性回归要求传入的参数类型为RDD[LabeledPoint]">
-<meta name="keywords" content="spark,ml,算法">
+<meta name="keywords" content="Spark,ml,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spark ML算法之线性回归使用">
 <meta property="og:url" content="https://dongkelun.com/2018/04/09/sparkMlLinearRegressionUsing/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言本文是讲如何使用spark ml进行线性回归，不涉及线性回归的原理。 1、数据格式1.1 普通标签格式1.1.1 格式为：1标签,特征值1 特征值2 特征值3... 12345671,1.92,3.13,43.5,4.454,5.029,9.97-2,-0.98 1.1.2 spark 读取1、Rdd旧版（mllib）的线性回归要求传入的参数类型为RDD[LabeledPoint]">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-04-27T16:52:40.276Z">
+<meta property="og:updated_time" content="2018-07-05T09:01:44.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark ML算法之线性回归使用">
 <meta name="twitter:description" content="前言本文是讲如何使用spark ml进行线性回归，不涉及线性回归的原理。 1、数据格式1.1 普通标签格式1.1.1 格式为：1标签,特征值1 特征值2 特征值3... 12345671,1.92,3.13,43.5,4.454,5.029,9.97-2,-0.98 1.1.2 spark 读取1、Rdd旧版（mllib）的线性回归要求传入的参数类型为RDD[LabeledPoint]">
@@ -80,6 +80,8 @@
 	        
 				<li><a href="/archives/">博客</a></li>
 	        
+				<li><a href="/contactme/contactme.html">加我交流</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -132,6 +134,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -143,12 +147,14 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/archives/">博客</a></li>
+					<li style="width: 33.333333333333336%"><a href="/archives/">博客</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/contactme/contactme.html">加我交流</a></li>
 		        
 				</ul>
 			</nav>
@@ -188,7 +194,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -362,8 +368,8 @@
     </a>
   
   
-    <a href="/2018/04/05/centosInitialConf/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CentOS 初始环境配置</div>
+    <a href="/2018/04/05/hadoopClusterConf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">centos7 hadoop 集群安装配置</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -565,6 +571,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
@@ -577,15 +587,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,11 +631,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -642,10 +652,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,11 +679,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
