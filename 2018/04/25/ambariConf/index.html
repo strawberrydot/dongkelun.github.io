@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fqp20xhixnj21am0i5401.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fqpc4ytg3ij20vm08haag.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fqpujavdpmj21dy0plq6b.jpg">
-<meta property="og:updated_time" content="2018-07-10T02:05:02.860Z">
+<meta property="og:updated_time" content="2018-07-10T14:54:14.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署">
 <meta name="twitter:description" content="前言本文是讲如何在centos7（64位） 安装ambari+hdp,如果在装有原生hadoop等集群的机器上安装，需要先将集群服务停掉，然后将不需要的环境变量注释掉即可，如果不注释掉，后面虽然可以安装成功，但是在启动某些服务的时候可能会有异常，比如最后提到的hive启动异常。本文适合系统： RedHat7、CentOS7、Oracle Linux7(都是64位)注意:centos7中文系统有bu">
@@ -292,7 +292,8 @@
 <h3 id="5-3，设置集群名称"><a href="#5-3，设置集群名称" class="headerlink" title="5.3，设置集群名称"></a>5.3，设置集群名称</h3><p><img src="//wx3.sinaimg.cn/large/e44344dcly1fqp20qou0qj21920jcjsn.jpg" alt=""></p>
 <h3 id="5-4-配置本地源"><a href="#5-4-配置本地源" class="headerlink" title="5.4 配置本地源"></a>5.4 配置本地源</h3><p>其中HDP-GPL较小,用默认的即可<br><img src="//wx2.sinaimg.cn/large/e44344dcly1fqp20r1fmlj21f00sxdit.jpg" alt=""></p>
 <h3 id="5-5-设置host"><a href="#5-5-设置host" class="headerlink" title="5.5 设置host"></a>5.5 设置host</h3><p>其中下面的为master上ssh的私钥（~/.ssh/id_rsa）<br><img src="//wx3.sinaimg.cn/large/e44344dcly1fqp20rkdcrj21av0petau.jpg" alt=""></p>
-<h3 id="5-6-Host确认"><a href="#5-6-Host确认" class="headerlink" title="5.6 Host确认"></a>5.6 Host确认</h3><p>如果失败或者卡住不动可根据日志解决，如果warn根据提示信息解决，直到全部为Success才可以进行下一步。<br>注：我一般根据/var/log/ambari-server/ambari-server.log 查看ambari的日志，根据里面的异常解决问题，如果没有异常，再查看ambari的其他日志文件<br><img src="//wx2.sinaimg.cn/large/e44344dcly1fqp20ryrqkj21ap0m8wg8.jpg" alt=""><br><img src="//wx2.sinaimg.cn/large/e44344dcly1fqp20say4uj21bc0naq51.jpg" alt=""></p>
+<h3 id="5-6-Host确认"><a href="#5-6-Host确认" class="headerlink" title="5.6 Host确认"></a>5.6 Host确认</h3><p>如果失败或者卡住不动可根据日志解决，如果warn根据提示信息解决，直到全部为Success才可以进行下一步。<br>注：我一般根据/var/log/ambari-server/ambari-server.log 查看ambari的日志，根据里面的异常解决问题，如果没有异常，再查看ambari的其他日志文件。<br>下面两个是我在使用ambari时碰到的异常，可以参考：<a href="https://dongkelun.com/2018/07/10/HadoopException/">HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</a>和<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a></p>
+<p><img src="//wx2.sinaimg.cn/large/e44344dcly1fqp20ryrqkj21ap0m8wg8.jpg" alt=""><br><img src="//wx2.sinaimg.cn/large/e44344dcly1fqp20say4uj21bc0naq51.jpg" alt=""></p>
 <h3 id="5-7-选择要安装的服务"><a href="#5-7-选择要安装的服务" class="headerlink" title="5.7 选择要安装的服务"></a>5.7 选择要安装的服务</h3><p><img src="//wx3.sinaimg.cn/large/e44344dcly1fqp20t3g81j21bs0svgou.jpg" alt=""><br><img src="//wx1.sinaimg.cn/large/e44344dcly1fqp20tfk42j21am0otjtt.jpg" alt=""></p>
 <p>如果有依赖其他组件选择ok即可，如安装hive依赖tez，pig等<br><img src="//wx1.sinaimg.cn/large/e44344dcly1fqp20tyfu7j219s0n0di8.jpg" alt=""></p>
 <h3 id="5-8-设置各个服务Master"><a href="#5-8-设置各个服务Master" class="headerlink" title="5.8 设置各个服务Master"></a>5.8 设置各个服务Master</h3><p><img src="//wx2.sinaimg.cn/large/e44344dcly1fqp20ucf6yj21dc0scade.jpg" alt=""></p>
@@ -623,10 +624,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -643,15 +640,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,6 +664,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -671,11 +676,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,14 +689,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,11 +704,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,19 +748,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
