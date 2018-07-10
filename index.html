@@ -169,6 +169,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ambariExceptions" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/10/ambariExceptions/" class="archive-article-date">
+  	<time datetime="2018-07-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
+</a>
+        
+      </header>
+	    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文总结在使用ambari时产生的异常，以及如何解决的。<br>如果发生了异常，在界面上不能直观的看出异常的原因，那么我一般通过查看日志的方法解决。<br>通过下面的命令查看<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /var/<span class="built_in">log</span>/ambari-server/ambari-server.log</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>若该日志文件没有异常信息，可在其他日志文件里查找<h2 id="1、异常一"><a href="#1、异常一" class="headerlink" title="1、异常一"></a>1、异常一</h2>异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发现异常信息：<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-1-具体的异常"><a href="#1-1-具体的异常" class="headerlink" title="1.1 具体的异常"></a>1.1 具体的异常</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">339</span>  INFO [ambari-client-thread-<span class="number">22654</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts ambari.slave1.<span class="keyword">com</span>:</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">340</span>  INFO [Thread-<span class="number">4609</span>] BSRunner:<span class="number">189</span> - Kicking off the scheduler <span class="keyword">for</span> polling <span class="keyword">on</span> logs in /var/run/ambari-server/bootstrap/<span class="number">3</span></span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">340</span>  INFO [Thread-<span class="number">4609</span>] BSRunner:<span class="number">372</span> - Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">343</span> ERROR [Thread-<span class="number">4609</span>] BSRunner:<span class="number">441</span> - java.io.FileNotFoundException: /var/run/ambari-server/bootstrap/<span class="number">3</span>/ambari.slave1.<span class="keyword">com</span>.done (没有那个文件或目录)</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">344</span>  WARN [Thread-<span class="number">4609</span>] BSRunner:<span class="number">401</span> - File does not exis<span class="variable">t:</span> /var/run/ambari-server/bootstrap/<span class="number">3</span>/sshKey</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">033</span>  INFO [ambari-client-thread-<span class="number">22676</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts amabri.slave1.<span class="keyword">com</span>:</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">034</span>  INFO [Thread-<span class="number">4635</span>] BSRunner:<span class="number">189</span> - Kicking off the scheduler <span class="keyword">for</span> polling <span class="keyword">on</span> logs in /var/run/ambari-server/bootstrap/<span class="number">4</span></span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">035</span>  INFO [Thread-<span class="number">4635</span>] BSRunner:<span class="number">372</span> - Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">036</span> ERROR [Thread-<span class="number">4635</span>] BSRunner:<span class="number">441</span> - java.io.FileNotFoundException: /var/run/ambari-server/bootstrap/<span class="number">4</span>/amabri.slave1.<span class="keyword">com</span>.done (没有那个文件或目录)</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">037</span>  WARN [Thread-<span class="number">4635</span>] BSRunner:<span class="number">401</span> - File does not exis<span class="variable">t:</span> /var/run/ambari-server/bootstrap/<span class="number">4</span>/sshKey</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">44</span>:<span class="number">02</span>,<span class="number">863</span>  INFO [ambari-client-thread-<span class="number">22659</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts ambari.slave1.<span class="keyword">com</span>:</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-解决办法"><a href="#1-2-解决办法" class="headerlink" title="1.2 解决办法"></a>1.2 解决办法</h3><p>通过查看，/var/run/ambari-server目录下确实没有bootstrap文件夹，手动添加即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bootstrap</span><br></pre></td></tr></table></figure></p>
+<p>但是，如果只创建该文件夹的话，ambari依然报错，大概是没有权限相关的</p>
+<p>为ambari用户添加权限即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R ambari:ambari /var/run/ambari-server/bootstrap/</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-解决添加host时给出的警告"><a href="#1-3-解决添加host时给出的警告" class="headerlink" title="1.3 解决添加host时给出的警告"></a>1.3 解决添加host时给出的警告</h3><p>在添加host时，如果没有异常，最后会检查该host相关的配置，最后会给出警告，点击警告的详细信息，会看到下面的界面<br><img src="http://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg" alt=""><br>根绝他的提示，在对应的host上执行下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py --silent --skip=users</span><br></pre></td></tr></table></figure></p>
+<p>在重新检查一下，可能还有警告，且警告为，该host存在一些用户，根据界面上的提示，将–skip=users去掉，即可删除这些用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py</span><br></pre></td></tr></table></figure></p>
+<h2 id="2、异常二"><a href="#2、异常二" class="headerlink" title="2、异常二"></a>2、异常二</h2><p>异常体现在，添加完host，选择要安装的组件的时候，next为灰色，不能点击，检查网页源代码为disabled(不可用)，重试几次发现结果一样，然后尝试修改界面上的代码disabled删掉，然后next按钮可用，点击next，但是依然会卡住，确定不是ambari的bug<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1ft4j423gwvj20wk0efq3s.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix0xr37j21gc0pjjug.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix19ng2j218e0nmacb.jpg" alt=""></p>
+<h3 id="2-1-具体的异常"><a href="#2-1-具体的异常" class="headerlink" title="2.1 具体的异常"></a>2.1 具体的异常</h3><p>然后在浏览器的console发现ambari打印出了异常，大概是哪个目录或地址找不到，没有截图保存~，发现ambari报了异常之后，继续在ambari-server.log查看，发现确实有异常，且该异常和第一个异常类似<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.apache.ambari.server.api.services.stackadvisor.StackAdvisorException: Error occured during stack advisor command invocation: Cannot create /var/run/ambari-server/stack-recommendations</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-解决办法"><a href="#2-2-解决办法" class="headerlink" title="2.2 解决办法"></a>2.2 解决办法</h3><p>和第一个异常解决方法一样<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/run/ambari-server</span><br><span class="line">mkdir stack-recommendations</span><br><span class="line">chown -R ambari:ambari /var/run/ambari-server/stack-recommendations/</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、3-重新添加host"><a href="#2、3-重新添加host" class="headerlink" title="2、3 重新添加host"></a>2、3 重新添加host</h3><p>重新执行添加host的操作，到这一步，就可以点击next继续后面的操作了！</p>
+
+      
+
+      
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+	   
+		  
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+		  
+
+	  
+	 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/10/ambariExceptions/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-sparkSubmitException1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -518,91 +615,6 @@
 
 
   
-    <article id="post-modifyKafkaOffsetTime" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/21/modifyKafkaOffsetTime/">通过offsets.retention.minutes设置kafka offset的过期时间</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/21/modifyKafkaOffsetTime/" class="archive-article-date">
-  	<time datetime="2018-06-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-21</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文记录博主如何设置kafka的offset过期时间并测试其效果</p>
-<h2 id="1、offsets-retention-minutes"><a href="#1、offsets-retention-minutes" class="headerlink" title="1、offsets.retention.minutes"></a>1、offsets.retention.minutes</h2><p>通过修改offsets.retention.minutes的值即可改变kafka offset的过期时间，单位为分钟，改完之后需要重启kafka。具体的配置文件为$KAFKA_HOME/config/server.properties,原生的kafka配置文件里可能没有这个配置项，自己添加上即可，比如设置过期时间为一小时，那么按如下配置即可<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">offsets.retention.minutes=<span class="number">60</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="2、官方文档"><a href="#2、官方文档" class="headerlink" title="2、官方文档"></a>2、官方文档</h2><p>网上有的博客说官网文档对于这个配置的说明有点错误，将offsets.retention.minutes错写成了offsets.topic.retention.minutes，但是我查看了一下，官方文档上并没有写错，可能是之前的版本写错了，而且很多博客按之前的版本写的，大家注意一下。官网文档地址<a href="http://kafka.apache.org/documentation/" target="_blank" rel="noopener">http://kafka.apache.org/documentation/</a></p>
-<h2 id="3、ambari的bug"><a href="#3、ambari的bug" class="headerlink" title="3、ambari的bug"></a>3、ambari的bug</h2><p>因本人用ambari管理大数据集群的各个组件，所以在界面上直接修改kafka的配置，在界面上查看kafka的配置offsets.retention.minutes为86400000，因为kafka offset默认过期时间为一天，那么根据这个86400000来看offsets.retention.minutes的单位为毫秒才对，所以一开始误认为单位为毫秒，所以修改配置后的时间设置的很大，导致一开始测试不成功，经过一点点的验证，发现单位实际上为分钟，而ambari上显示的86400000应该是个bug，因为kafka默认的配置文件里是没有这个配置项的，所以我估计ambari一开始也没有配置只是搜索的时候将其显示为86400000，而并没有真正的生效，只有将这个配置项修改之后，才会生效，并且单位为分钟（看了一下ambari的大部分默认时间单位都是毫秒~）。<br>后来在官网上看到offsets.retention.minutes的default为1440也证实了这一点。</p>
-<h2 id="4、测试效果"><a href="#4、测试效果" class="headerlink" title="4、测试效果"></a>4、测试效果</h2><p>虽然本人的需求是将默认的一天的时间改长一点，但是时间长了测试太慢，所以将时间改短一点测试效果即可，测试代码见<a href="https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/">Spark Streamming+Kafka提交offset实现有且仅有一次</a>,经过多次测试，得出结论，在修改重启之后，不管是新增加的topic还是之前的topic，只要是新保存的offset都会生效，而之前保存的offset，比如之前是一天才会删除，那么修改重启后，之前保存的offset还是会一天后才能删掉。<br>
-        
-          <a class="article-more-a" href="/2018/06/21/modifyKafkaOffsetTime/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Kafka</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/21/modifyKafkaOffsetTime/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -749,15 +761,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -773,6 +785,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -781,27 +797,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -813,7 +813,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -837,6 +837,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
@@ -857,15 +861,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">

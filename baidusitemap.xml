@@ -4,6 +4,44 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/07/10/ambariExceptions/</loc>
+    <lastmod>2018-07-10T02:05:33.005Z</lastmod>
+    <data>
+        <display>
+        <title>ambari 异常总结及解决办法</title>
+        <pubTime>2018-07-09T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>ambari</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/04/25/ambariConf/</loc>
+    <lastmod>2018-07-10T02:05:02.860Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
+        <pubTime>2018-04-24T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>ambari</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/07/06/sparkSubmitException1/</loc>
     <lastmod>2018-07-08T13:01:12.157Z</lastmod>
     <data>
@@ -233,25 +271,6 @@
         <tag>Spark</tag>
          
         <tag>ml</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/04/25/ambariConf/</loc>
-    <lastmod>2018-07-05T09:01:03.100Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
-        <pubTime>2018-04-24T16:00:00.000Z</pubTime>
-        
-        <tag>centos7</tag>
-         
-        <tag>ambari</tag>
          
          
            
@@ -778,9 +797,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>spark-submit</tag>
-         
         <tag>Spark Streamming</tag>
+         
+        <tag>spark-submit</tag>
          
          
            
