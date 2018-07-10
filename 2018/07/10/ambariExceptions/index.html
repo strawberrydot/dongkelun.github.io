@@ -9,7 +9,7 @@
   <title>ambari 异常总结及解决办法 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言本文总结在使用ambari时产生的异常，以及如何解决的。如果发生了异常，在界面上不能直观的看出异常的原因，那么我一般通过查看日志的方法解决。通过下面的命令查看1vim /var/log/ambari-server/ambari-server.log  若该日志文件没有异常信息，可在其他日志文件里查找1、异常一异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发">
-<meta name="keywords" content="centos7,ambari">
+<meta name="keywords" content="ambari,centos7">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ambari 异常总结及解决办法">
 <meta property="og:url" content="https://dongkelun.com/2018/07/10/ambariExceptions/index.html">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1ft4j423gwvj20wk0efq3s.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix0xr37j21gc0pjjug.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix19ng2j218e0nmacb.jpg">
-<meta property="og:updated_time" content="2018-07-10T02:05:33.005Z">
+<meta property="og:updated_time" content="2018-07-10T02:15:50.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ambari 异常总结及解决办法">
 <meta name="twitter:description" content="前言本文总结在使用ambari时产生的异常，以及如何解决的。如果发生了异常，在界面上不能直观的看出异常的原因，那么我一般通过查看日志的方法解决。通过下面的命令查看1vim /var/log/ambari-server/ambari-server.log  若该日志文件没有异常信息，可在其他日志文件里查找1、异常一异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发">
@@ -199,11 +199,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
         		</li>
       		
 		</ul>
@@ -222,9 +222,10 @@
 <li>若该日志文件没有异常信息，可在其他日志文件里查找<h2 id="1、异常一"><a href="#1、异常一" class="headerlink" title="1、异常一"></a>1、异常一</h2>异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发现异常信息：<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<a id="more"></a>
 <h3 id="1-1-具体的异常"><a href="#1-1-具体的异常" class="headerlink" title="1.1 具体的异常"></a>1.1 具体的异常</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">339</span>  INFO [ambari-client-thread-<span class="number">22654</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts ambari.slave1.<span class="keyword">com</span>:</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">340</span>  INFO [Thread-<span class="number">4609</span>] BSRunner:<span class="number">189</span> - Kicking off the scheduler <span class="keyword">for</span> polling <span class="keyword">on</span> logs in /var/run/ambari-server/bootstrap/<span class="number">3</span></span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">340</span>  INFO [Thread-<span class="number">4609</span>] BSRunner:<span class="number">372</span> - Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">343</span> ERROR [Thread-<span class="number">4609</span>] BSRunner:<span class="number">441</span> - java.io.FileNotFoundException: /var/run/ambari-server/bootstrap/<span class="number">3</span>/ambari.slave1.<span class="keyword">com</span>.done (没有那个文件或目录)</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">344</span>  WARN [Thread-<span class="number">4609</span>] BSRunner:<span class="number">401</span> - File does not exis<span class="variable">t:</span> /var/run/ambari-server/bootstrap/<span class="number">3</span>/sshKey</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">033</span>  INFO [ambari-client-thread-<span class="number">22676</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts amabri.slave1.<span class="keyword">com</span>:</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">034</span>  INFO [Thread-<span class="number">4635</span>] BSRunner:<span class="number">189</span> - Kicking off the scheduler <span class="keyword">for</span> polling <span class="keyword">on</span> logs in /var/run/ambari-server/bootstrap/<span class="number">4</span></span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">035</span>  INFO [Thread-<span class="number">4635</span>] BSRunner:<span class="number">372</span> - Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">036</span> ERROR [Thread-<span class="number">4635</span>] BSRunner:<span class="number">441</span> - java.io.FileNotFoundException: /var/run/ambari-server/bootstrap/<span class="number">4</span>/amabri.slave1.<span class="keyword">com</span>.done (没有那个文件或目录)</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">037</span>  WARN [Thread-<span class="number">4635</span>] BSRunner:<span class="number">401</span> - File does not exis<span class="variable">t:</span> /var/run/ambari-server/bootstrap/<span class="number">4</span>/sshKey</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">44</span>:<span class="number">02</span>,<span class="number">863</span>  INFO [ambari-client-thread-<span class="number">22659</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts ambari.slave1.<span class="keyword">com</span>:</span><br></pre></td></tr></table></figure>
 <h3 id="1-2-解决办法"><a href="#1-2-解决办法" class="headerlink" title="1.2 解决办法"></a>1.2 解决办法</h3><p>通过查看，/var/run/ambari-server目录下确实没有bootstrap文件夹，手动添加即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bootstrap</span><br></pre></td></tr></table></figure></p>
-<p>但是，如果只创建该文件夹的话，ambari依然报错，大概是没有权限相关的</p>
+<p>但是，如果只创建该文件夹的话，ambari依然报错，大概是没有权限相关的，就不贴出详细的异常了</p>
 <p>为ambari用户添加权限即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R ambari:ambari /var/run/ambari-server/bootstrap/</span><br></pre></td></tr></table></figure></p>
 <h3 id="1-3-解决添加host时给出的警告"><a href="#1-3-解决添加host时给出的警告" class="headerlink" title="1.3 解决添加host时给出的警告"></a>1.3 解决添加host时给出的警告</h3><p>在添加host时，如果没有异常，最后会检查该host相关的配置，最后会给出警告，点击警告的详细信息，会看到下面的界面<br><img src="http://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg" alt=""><br>根绝他的提示，在对应的host上执行下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py --silent --skip=users</span><br></pre></td></tr></table></figure></p>
 <p>在重新检查一下，可能还有警告，且警告为，该host存在一些用户，根据界面上的提示，将–skip=users去掉，即可删除这些用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py</span><br></pre></td></tr></table></figure></p>
@@ -352,6 +353,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/07/10/HadoopException/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          HDFS DataNode启动异常 /opt/jdk1.8.0_151/bin/java 权限不够
+        
+      </div>
+    </a>
   
   
     <a href="/2018/07/06/sparkSubmitException1/" id="article-nav-older" class="article-nav-link-wrap">
@@ -533,6 +543,18 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -545,11 +567,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,10 +576,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,10 +591,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -589,11 +599,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -605,11 +631,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,23 +655,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,23 +671,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,11 +679,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
             
             <div class="clearfix"></div>

@@ -169,6 +169,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-HadoopException" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/HadoopException/">HDFS DataNode启动异常 /opt/jdk1.8.0_151/bin/java 权限不够</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/10/HadoopException/" class="archive-article-date">
+  	<time datetime="2018-07-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
+</a>
+        
+      </header>
+	    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个异常是在在ambari里启动DataNode产生的，其实这个问题很久就发现了，只是没时间去处理，所以之前把发生问题的slave1节点给移除了，现在有时间处理，就又把slave1加上了，所以就有了<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>里面的问题，这个java权限不够的问题，在添加slave1之后，并安装datanode和nodemanager之后启动服务依然报错。</p>
+<p>异常信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro:行317: /opt/jdk1.8.0_151/bin/java: 权限不够</span><br><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro: 第 317 行:exec: /opt/jdk1.8.0_151/bin/java: 无法执行: 权限不够</span><br></pre></td></tr></table></figure></p>
+<p>这个问题在网上找也找不到对应的解决办法，所以有必要单独记录一下，没有放在<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>，且我认为即使不用ambari，该问题依然可能会发生。</p>
+<h2 id="1、详细异常信息"><a href="#1、详细异常信息" class="headerlink" title="1、详细异常信息"></a>1、详细异常信息</h2><p>部分截图<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1ft4wbrmbwsj20v109o752.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1ft4wbsl6vej20uw0iojsn.jpg" alt=""></p>
+<h2 id="2、解决思路"><a href="#2、解决思路" class="headerlink" title="2、解决思路"></a>2、解决思路</h2><p>首先确定java是否有问题，经过简单的测试，没发现问题，然后在/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro查看第317行的内容，发现hdfs命令实际调用的java命令，但是一开始并不知道怎么解决这个问题，通过查看ambari的日志也并没有解决问题，最后回到jdk目录的权限问题。<br>首先有问题的时候<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su - hdfs </span><br><span class="line">hdfs -ls</span><br></pre></td></tr></table></figure></p>
+<p>执行上面的命令也是会报同样的问题，所以就不用在ambari里启动datanode服务就可以测试有没有问题了</p>
+<h2 id="3、解决办法"><a href="#3、解决办法" class="headerlink" title="3、解决办法"></a>3、解决办法</h2><h3 id="3-1-改变-opt的所有者给hdfs（只将jdk目录的给hdfs没有解决问题，没有深究其原因，可能因为还有其他目录和jdk有关联）"><a href="#3-1-改变-opt的所有者给hdfs（只将jdk目录的给hdfs没有解决问题，没有深究其原因，可能因为还有其他目录和jdk有关联）" class="headerlink" title="3.1 改变/opt的所有者给hdfs（只将jdk目录的给hdfs没有解决问题，没有深究其原因，可能因为还有其他目录和jdk有关联）"></a>3.1 改变/opt的所有者给hdfs（只将jdk目录的给hdfs没有解决问题，没有深究其原因，可能因为还有其他目录和jdk有关联）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R hdfs:hdfs /opt/</span><br></pre></td></tr></table></figure>
+<p>然后用hdfs -ls测试，发现没有上面的异常，这样就可以在在ambari里启动datanode了，启动成功！</p>
+<h3 id="3-2-启动nodemanager报错"><a href="#3-2-启动nodemanager报错" class="headerlink" title="3.2 启动nodemanager报错"></a>3.2 启动nodemanager报错</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/hdp/<span class="number">2.6</span>.<span class="number">4.0</span>-<span class="number">91</span>//hadoop-yarn/bin/yarn.distro:行<span class="number">376</span>: /<span class="keyword">opt</span>/jdk1.<span class="number">8.0</span>_151/bin/jav<span class="variable">a:</span> 权限不够</span><br><span class="line">/usr/hdp/<span class="number">2.6</span>.<span class="number">4.0</span>-<span class="number">91</span>//hadoop-yarn/bin/yarn.distro: 第 <span class="number">376</span> 行:exec: /<span class="keyword">opt</span>/jdk1.<span class="number">8.0</span>_151/bin/jav<span class="variable">a:</span> 无法执行: 权限不够</span><br></pre></td></tr></table></figure>
+<p>异常信息一样，只是文件名不一样，同样的方法解决<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R yarn:yarn /opt/</span><br></pre></td></tr></table></figure></p>
+<p>启动nodemanager成功！<br>然后重启ambari所有服务，看一下是否还有问题，结果slave1启动datanode时报了同样的错误，问了一下同事，发现我对chown -R上面的命令有所误解，我开始认为是让hdfs拥有opt的权限，只想上面两步后，hdfs和yarn都有了opt的权限，但是其实该命令是更改opt的所有者，执行上面的两步之后，只有yarn拥有opt的权限了，也就是将hdfs覆盖了。</p>
+<p><img src="https://wx4.sinaimg.cn/large/e44344dcly1ft4wbt0nzsj20ul0c1dgo.jpg" alt=""></p>
+<h3 id="3-3-让hadoop组都拥有opt的权限"><a href="#3-3-让hadoop组都拥有opt的权限" class="headerlink" title="3.3 让hadoop组都拥有opt的权限"></a>3.3 让hadoop组都拥有opt的权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown -R yarn:hadoop /opt/</span><br><span class="line">chmod -R 770 /opt</span><br></pre></td></tr></table></figure>
+<p>大概解释一下上面的命令，首先更改opt的所有者为hadoop组下面的yarn用户（yarn和hdfs都属于hadoop组）<br>然后770的意思是用户和用户组对opt目录具有rwx的权限，其他用户没有任何权限，这样hdfs用户也有opt的权限了，这样重启ambari的所有服务就会成功了！</p>
+<h3 id="3-4-最后的方法"><a href="#3-4-最后的方法" class="headerlink" title="3.4 最后的方法"></a>3.4 最后的方法</h3><p>上面命令是同事帮忙操作的，然后发现自己对Linux权限不太了解，就大概查了一下权限相关的资料，因为之前已经把opt的权限弄乱了，所以最后先这样解决（测试环境，且opt目录一般就我们几个人用）<br>首先将opt的所有者改回为root<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R root:root /opt/</span><br></pre></td></tr></table></figure></p>
+<p>然后更改opt的权限为755<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 755 /opt</span><br></pre></td></tr></table></figure></p>
+<p>755的意思为用户的权限为rwx,用户组和其他人的权限均为r-x,即没有写权限，一般文件权限也是755（应该也是默认的，可以自己新建一个文件夹进行测试）,然后这样重启ambari的所有服务也是没有问题的<br>因为-R是递归的，这样其实不好，因为有些txt,readme的权限也改了，所以我将opt下面的jdk目录删除并重新解压了一份。<br>opt各目录权限截图：</p>
+<p><img src="https://wx4.sinaimg.cn/large/e44344dcly1ft4wbtykh3j206108j0st.jpg" alt=""></p>
+<p>权限问题参考：<a href="http://justcode.ikeepstudying.com/2016/08/linux-chmod-和-chown用法小结/" target="_blank" rel="noopener">http://justcode.ikeepstudying.com/2016/08/linux-chmod-和-chown用法小结/</a></p>
+<h2 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h2><p>其实该问题只修改jdk相关的目录的权限即可，但是之前已经递归修改opt的目录，所以暂时只能按照3.4的办法解决。该异常出现的原因应该是才平时的操作中，误修改了jdk的权限，为了防止出现这种问题，平时在操作中关于chmod -R等相关的操作一定要慎用。</p>
+
+      
+
+      
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+	   
+		  
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+		  
+
+	  
+	 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/10/HadoopException/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ambariExceptions" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -195,17 +297,9 @@
 <li>若该日志文件没有异常信息，可在其他日志文件里查找<h2 id="1、异常一"><a href="#1、异常一" class="headerlink" title="1、异常一"></a>1、异常一</h2>异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发现异常信息：<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="1-1-具体的异常"><a href="#1-1-具体的异常" class="headerlink" title="1.1 具体的异常"></a>1.1 具体的异常</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">339</span>  INFO [ambari-client-thread-<span class="number">22654</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts ambari.slave1.<span class="keyword">com</span>:</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">340</span>  INFO [Thread-<span class="number">4609</span>] BSRunner:<span class="number">189</span> - Kicking off the scheduler <span class="keyword">for</span> polling <span class="keyword">on</span> logs in /var/run/ambari-server/bootstrap/<span class="number">3</span></span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">340</span>  INFO [Thread-<span class="number">4609</span>] BSRunner:<span class="number">372</span> - Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">343</span> ERROR [Thread-<span class="number">4609</span>] BSRunner:<span class="number">441</span> - java.io.FileNotFoundException: /var/run/ambari-server/bootstrap/<span class="number">3</span>/ambari.slave1.<span class="keyword">com</span>.done (没有那个文件或目录)</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">29</span>:<span class="number">08</span>,<span class="number">344</span>  WARN [Thread-<span class="number">4609</span>] BSRunner:<span class="number">401</span> - File does not exis<span class="variable">t:</span> /var/run/ambari-server/bootstrap/<span class="number">3</span>/sshKey</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">033</span>  INFO [ambari-client-thread-<span class="number">22676</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts amabri.slave1.<span class="keyword">com</span>:</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">034</span>  INFO [Thread-<span class="number">4635</span>] BSRunner:<span class="number">189</span> - Kicking off the scheduler <span class="keyword">for</span> polling <span class="keyword">on</span> logs in /var/run/ambari-server/bootstrap/<span class="number">4</span></span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">035</span>  INFO [Thread-<span class="number">4635</span>] BSRunner:<span class="number">372</span> - Error executing bootstrap Cannot create /var/run/ambari-server/bootstrap</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">036</span> ERROR [Thread-<span class="number">4635</span>] BSRunner:<span class="number">441</span> - java.io.FileNotFoundException: /var/run/ambari-server/bootstrap/<span class="number">4</span>/amabri.slave1.<span class="keyword">com</span>.done (没有那个文件或目录)</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">40</span>:<span class="number">28</span>,<span class="number">037</span>  WARN [Thread-<span class="number">4635</span>] BSRunner:<span class="number">401</span> - File does not exis<span class="variable">t:</span> /var/run/ambari-server/bootstrap/<span class="number">4</span>/sshKey</span><br><span class="line"><span class="number">09</span> 七月 <span class="number">2018</span> <span class="number">14</span>:<span class="number">44</span>:<span class="number">02</span>,<span class="number">863</span>  INFO [ambari-client-thread-<span class="number">22659</span>] BootStrapImp<span class="variable">l:108</span> - BootStrapping hosts ambari.slave1.<span class="keyword">com</span>:</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-解决办法"><a href="#1-2-解决办法" class="headerlink" title="1.2 解决办法"></a>1.2 解决办法</h3><p>通过查看，/var/run/ambari-server目录下确实没有bootstrap文件夹，手动添加即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bootstrap</span><br></pre></td></tr></table></figure></p>
-<p>但是，如果只创建该文件夹的话，ambari依然报错，大概是没有权限相关的</p>
-<p>为ambari用户添加权限即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R ambari:ambari /var/run/ambari-server/bootstrap/</span><br></pre></td></tr></table></figure></p>
-<h3 id="1-3-解决添加host时给出的警告"><a href="#1-3-解决添加host时给出的警告" class="headerlink" title="1.3 解决添加host时给出的警告"></a>1.3 解决添加host时给出的警告</h3><p>在添加host时，如果没有异常，最后会检查该host相关的配置，最后会给出警告，点击警告的详细信息，会看到下面的界面<br><img src="http://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg" alt=""><br>根绝他的提示，在对应的host上执行下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py --silent --skip=users</span><br></pre></td></tr></table></figure></p>
-<p>在重新检查一下，可能还有警告，且警告为，该host存在一些用户，根据界面上的提示，将–skip=users去掉，即可删除这些用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py</span><br></pre></td></tr></table></figure></p>
-<h2 id="2、异常二"><a href="#2、异常二" class="headerlink" title="2、异常二"></a>2、异常二</h2><p>异常体现在，添加完host，选择要安装的组件的时候，next为灰色，不能点击，检查网页源代码为disabled(不可用)，重试几次发现结果一样，然后尝试修改界面上的代码disabled删掉，然后next按钮可用，点击next，但是依然会卡住，确定不是ambari的bug<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1ft4j423gwvj20wk0efq3s.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix0xr37j21gc0pjjug.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix19ng2j218e0nmacb.jpg" alt=""></p>
-<h3 id="2-1-具体的异常"><a href="#2-1-具体的异常" class="headerlink" title="2.1 具体的异常"></a>2.1 具体的异常</h3><p>然后在浏览器的console发现ambari打印出了异常，大概是哪个目录或地址找不到，没有截图保存~，发现ambari报了异常之后，继续在ambari-server.log查看，发现确实有异常，且该异常和第一个异常类似<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.apache.ambari.server.api.services.stackadvisor.StackAdvisorException: Error occured during stack advisor command invocation: Cannot create /var/run/ambari-server/stack-recommendations</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-2-解决办法"><a href="#2-2-解决办法" class="headerlink" title="2.2 解决办法"></a>2.2 解决办法</h3><p>和第一个异常解决方法一样<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/run/ambari-server</span><br><span class="line">mkdir stack-recommendations</span><br><span class="line">chown -R ambari:ambari /var/run/ambari-server/stack-recommendations/</span><br></pre></td></tr></table></figure></p>
-<h3 id="2、3-重新添加host"><a href="#2、3-重新添加host" class="headerlink" title="2、3 重新添加host"></a>2、3 重新添加host</h3><p>重新执行添加host的操作，到这一步，就可以点击next继续后面的操作了！</p>
-
+        
+          <a class="article-more-a" href="/2018/07/10/ambariExceptions/#more">more >></a>
+        
       
 
       
@@ -220,11 +314,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
         		</li>
       		
 		</ul>
@@ -523,98 +617,6 @@
 
 
   
-    <article id="post-KafkaUV" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/25/KafkaUV/">SparkStreaming+Kafka 实现统计基于缓存的实时uv</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/25/KafkaUV/" class="archive-article-date">
-  	<time datetime="2018-06-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-25</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文利用SparkStreaming+Kafka实现实时的统计uv，即独立访客，一个用户一天内访问多次算一次，这个看起来要对用户去重，其实只要按照WordCount的思路，最后输出key的数量即可，所以可以利用<a href="https://dongkelun.com/2018/06/14/updateStateBykeyWordCount/">SparkStreaming+Kafka 实现基于缓存的实时wordcount程序</a>，这里稍加改动，如果uv数量增加的话就打印uv的数量(key的数量)。</p>
-<h2 id="1、数据"><a href="#1、数据" class="headerlink" title="1、数据"></a>1、数据</h2><p>数据是我随机在kafka里生产的几条，用户以空格区分开（因为用的之前单词统计的程序）</p>
-<h2 id="2、kafka-topic"><a href="#2、kafka-topic" class="headerlink" title="2、kafka topic"></a>2、kafka topic</h2><p>首先在kafka建一个程序用到topic:KafkaUV<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic KafkaUV</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、创建checkpoint的hdfs目录"><a href="#3、创建checkpoint的hdfs目录" class="headerlink" title="3、创建checkpoint的hdfs目录"></a>3、创建checkpoint的hdfs目录</h2><p>我的目录为：/spark/dkl/kafka/UV_checkpoint<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir -p /spark/dkl/kafka/UV_checkpoint</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2018/06/25/KafkaUV/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SparkStreaming</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Kafka</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/25/KafkaUV/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -741,6 +743,18 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -753,11 +767,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -766,10 +776,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -785,10 +791,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -797,11 +799,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -813,11 +831,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -833,23 +855,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -861,23 +871,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -885,11 +879,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
             
             <div class="clearfix"></div>
