@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fq263vg3qnj20g602a3yd.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fq263wn8q9j20ld01v744.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fq263w3pe3j20hr01tjr7.jpg">
-<meta property="og:updated_time" content="2018-07-05T09:00:47.129Z">
+<meta property="og:updated_time" content="2018-07-11T07:22:07.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 hadoop 集群安装配置">
 <meta name="twitter:description" content="前言：本文安装配置的hadoop为分布式的集群，单机配置见：centos7 hadoop 单机模式安装配置我用的三个centos7, 先将常用环境配置好（CentOS 初始环境配置），设置的ip分别为：192.168.44.138、192.168.44.139，192.168.44.140，分别对应别名master、slave1、slave2 1、首先安装配置jdk（我安装的1.8）2、给每个虚拟">
@@ -246,18 +246,18 @@
 <h3 id="6-6-配置mapred-site-xml"><a href="#6-6-配置mapred-site-xml" class="headerlink" title="6.6 配置mapred-site.xml"></a>6.6 配置mapred-site.xml</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop-2.7.5/etc/hadoop/</span><br><span class="line">cp mapred-site.xml.template mapred-site.xml</span><br><span class="line">vim mapred-site.xml</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="6-7-将上述配置的文件传到其他节点的-opt-hadoop-2-7-5-etc-hadoop-目录中"><a href="#6-7-将上述配置的文件传到其他节点的-opt-hadoop-2-7-5-etc-hadoop-目录中" class="headerlink" title="6.7 将上述配置的文件传到其他节点的/opt/hadoop-2.7.5/etc/hadoop/目录中"></a>6.7 将上述配置的文件传到其他节点的/opt/hadoop-2.7.5/etc/hadoop/目录中</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r slaves hadoop-env.sh core-site.xml  hdfs-site.xml yarn-site.xml hdfs-site.xml root@slave1:/opt/hadoop-2.7.5/etc/hadoop/</span><br><span class="line">scp -r slaves hadoop-env.sh core-site.xml  hdfs-site.xml yarn-site.xml hdfs-site.xml root@slave2:/opt/hadoop-2.7.5/etc/hadoop/</span><br></pre></td></tr></table></figure>
-<p><img src="//wx2.sinaimg.cn/large/e44344dcly1fq263swsiaj20x506m0ta.jpg" alt=""></p>
+<p><img src="https://wx2.sinaimg.cn/large/e44344dcly1fq263swsiaj20x506m0ta.jpg" alt=""></p>
 <h2 id="7、启动与停止（仅master）"><a href="#7、启动与停止（仅master）" class="headerlink" title="7、启动与停止（仅master）"></a>7、启动与停止（仅master）</h2><h3 id="7-1-hdfs启动与停止"><a href="#7-1-hdfs启动与停止" class="headerlink" title="7.1 hdfs启动与停止"></a>7.1 hdfs启动与停止</h3><p>第一次启动hdfs需要先格式化：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop-2.7.5</span><br><span class="line">./bin/hdfs namenode -format</span><br></pre></td></tr></table></figure></p>
 <p>启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sbin/start-dfs.sh</span><br></pre></td></tr></table></figure></p>
 <p>停止：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sbin/stop-dfs.sh</span><br></pre></td></tr></table></figure></p>
-<p><img src="//wx3.sinaimg.cn/large/e44344dcly1fq263te315j20ms034t8u.jpg" alt=""></p>
+<p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fq263te315j20ms034t8u.jpg" alt=""></p>
 <p>验证，浏览器输入：<a href="http://192.168.44.138:50070" target="_blank" rel="noopener">http://192.168.44.138:50070</a></p>
-<p><img src="//wx1.sinaimg.cn/large/e44344dcly1fq263tw8s6j21aw0s4tb1.jpg" alt=""></p>
+<p><img src="https://wx1.sinaimg.cn/large/e44344dcly1fq263tw8s6j21aw0s4tb1.jpg" alt=""></p>
 <p>简单的验证hadoop命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir /<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
-<p>在浏览器查看，出现如下图所示，即为成功<br><img src="//wx1.sinaimg.cn/large/e44344dcly1fpnoev27ouj217a0didgl.jpg" alt=""></p>
+<p>在浏览器查看，出现如下图所示，即为成功<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fpnoev27ouj217a0didgl.jpg" alt=""></p>
 <h3 id="7-2-yarn启动与停止"><a href="#7-2-yarn启动与停止" class="headerlink" title="7.2 yarn启动与停止"></a>7.2 yarn启动与停止</h3><p>启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/hadoop-2.7.5</span><br><span class="line">./sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sbin/stop-yarn.sh</span><br></pre></td></tr></table></figure>
-<p>浏览器查看：<a href="http://192.168.44.138:8088" target="_blank" rel="noopener">http://192.168.44.138:8088</a><br><img src="//wx1.sinaimg.cn/large/e44344dcly1fq263v33xrj21gr0e540x.jpg" alt=""><br>jps查看进程<br>master:<br><img src="//wx3.sinaimg.cn/large/e44344dcly1fq263vg3qnj20g602a3yd.jpg" alt=""><br>slave1:<br><img src="//wx2.sinaimg.cn/large/e44344dcly1fq263wn8q9j20ld01v744.jpg" alt=""><br>slave2:<br><img src="//wx4.sinaimg.cn/large/e44344dcly1fq263w3pe3j20hr01tjr7.jpg" alt=""></p>
+<p>浏览器查看：<a href="http://192.168.44.138:8088" target="_blank" rel="noopener">http://192.168.44.138:8088</a><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fq263v33xrj21gr0e540x.jpg" alt=""><br>jps查看进程<br>master:<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fq263vg3qnj20g602a3yd.jpg" alt=""><br>slave1:<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fq263wn8q9j20ld01v744.jpg" alt=""><br>slave2:<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fq263w3pe3j20hr01tjr7.jpg" alt=""></p>
 <p>若各节点的进程均如图所示，那么hadoop集群就配置成功！</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://www.powerxing.com/install-hadoop-cluster/" target="_blank" rel="noopener">http://www.powerxing.com/install-hadoop-cluster/</a></p>
 
@@ -381,18 +381,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/05/sshConf/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/04/09/sparkMlLinearRegressionUsing/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          linux ssh 免密登录
+          spark ML算法之线性回归使用
         
       </div>
     </a>
   
   
-    <a href="/2018/04/01/scalaMapAdd/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">scala 两个map合并，key相同时value相加</div>
+    <a href="/2018/04/05/sshConf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux ssh 免密登录</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -590,15 +590,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,10 +618,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -630,11 +626,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,11 +642,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,11 +654,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,11 +674,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -698,10 +698,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
@@ -710,11 +706,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,6 +719,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
               </li>
             
             <div class="clearfix"></div>

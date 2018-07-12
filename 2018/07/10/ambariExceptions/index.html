@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言本文总结在使用ambari时产生的异常，以及如何解决的。如果发生了异常，在界面上不能直观的看出异常的原因，那么我一般通过查看日志的方法解决。通过下面的命令查看1vim /var/log/ambari-server/ambari-server.log  若该日志文件没有异常信息，可在其他日志文件里查找1、异常一异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="http://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1ft4j423gwvj20wk0efq3s.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix0xr37j21gc0pjjug.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix19ng2j218e0nmacb.jpg">
-<meta property="og:updated_time" content="2018-07-10T02:15:50.561Z">
+<meta property="og:updated_time" content="2018-07-11T07:37:42.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ambari 异常总结及解决办法">
 <meta name="twitter:description" content="前言本文总结在使用ambari时产生的异常，以及如何解决的。如果发生了异常，在界面上不能直观的看出异常的原因，那么我一般通过查看日志的方法解决。通过下面的命令查看1vim /var/log/ambari-server/ambari-server.log  若该日志文件没有异常信息，可在其他日志文件里查找1、异常一异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发">
-<meta name="twitter:image" content="http://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg">
+<meta name="twitter:image" content="https://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -227,7 +227,7 @@
 <h3 id="1-2-解决办法"><a href="#1-2-解决办法" class="headerlink" title="1.2 解决办法"></a>1.2 解决办法</h3><p>通过查看，/var/run/ambari-server目录下确实没有bootstrap文件夹，手动添加即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bootstrap</span><br></pre></td></tr></table></figure></p>
 <p>但是，如果只创建该文件夹的话，ambari依然报错，大概是没有权限相关的，就不贴出详细的异常了</p>
 <p>为ambari用户添加权限即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R ambari:ambari /var/run/ambari-server/bootstrap/</span><br></pre></td></tr></table></figure></p>
-<h3 id="1-3-解决添加host时给出的警告"><a href="#1-3-解决添加host时给出的警告" class="headerlink" title="1.3 解决添加host时给出的警告"></a>1.3 解决添加host时给出的警告</h3><p>在添加host时，如果没有异常，最后会检查该host相关的配置，最后会给出警告，点击警告的详细信息，会看到下面的界面<br><img src="http://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg" alt=""><br>根绝他的提示，在对应的host上执行下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py --silent --skip=users</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-3-解决添加host时给出的警告"><a href="#1-3-解决添加host时给出的警告" class="headerlink" title="1.3 解决添加host时给出的警告"></a>1.3 解决添加host时给出的警告</h3><p>在添加host时，如果没有异常，最后会检查该host相关的配置，最后会给出警告，点击警告的详细信息，会看到下面的界面<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1ft4ix0a6arj20f90c20ti.jpg" alt=""><br>根绝他的提示，在对应的host上执行下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py --silent --skip=users</span><br></pre></td></tr></table></figure></p>
 <p>在重新检查一下，可能还有警告，且警告为，该host存在一些用户，根据界面上的提示，将–skip=users去掉，即可删除这些用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanup.py</span><br></pre></td></tr></table></figure></p>
 <h2 id="2、异常二"><a href="#2、异常二" class="headerlink" title="2、异常二"></a>2、异常二</h2><p>异常体现在，添加完host，选择要安装的组件的时候，next为灰色，不能点击，检查网页源代码为disabled(不可用)，重试几次发现结果一样，然后尝试修改界面上的代码disabled删掉，然后next按钮可用，点击next，但是依然会卡住，确定不是ambari的bug<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1ft4j423gwvj20wk0efq3s.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix0xr37j21gc0pjjug.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1ft4ix19ng2j218e0nmacb.jpg" alt=""></p>
 <h3 id="2-1-具体的异常"><a href="#2-1-具体的异常" class="headerlink" title="2.1 具体的异常"></a>2.1 具体的异常</h3><p>然后在浏览器的console发现ambari打印出了异常，大概是哪个目录或地址找不到，没有截图保存~，发现ambari报了异常之后，继续在ambari-server.log查看，发现确实有异常，且该异常和第一个异常类似<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.apache.ambari.server.api.services.stackadvisor.StackAdvisorException: Error occured during stack advisor command invocation: Cannot create /var/run/ambari-server/stack-recommendations</span><br></pre></td></tr></table></figure></p>
@@ -563,15 +563,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,10 +591,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -603,11 +599,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,11 +615,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -631,11 +627,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,11 +647,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -671,10 +671,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
@@ -683,11 +679,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,6 +692,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
               </li>
             
             <div class="clearfix"></div>

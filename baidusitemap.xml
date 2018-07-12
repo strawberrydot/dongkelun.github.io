@@ -4,8 +4,29 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/05/17/sparkKafka/</loc>
+    <lastmod>2018-07-12T13:31:38.877Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Streaming连接Kafka入门教程</title>
+        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>kafka</tag>
+         
+        <tag>spark streaming</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/07/10/HadoopException/</loc>
-    <lastmod>2018-07-10T14:56:18.492Z</lastmod>
+    <lastmod>2018-07-11T07:38:14.718Z</lastmod>
     <data>
         <display>
         <title>HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</title>
@@ -23,46 +44,8 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/04/25/ambariConf/</loc>
-    <lastmod>2018-07-10T14:54:14.856Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
-        <pubTime>2018-04-24T16:00:00.000Z</pubTime>
-        
-        <tag>ambari</tag>
-         
-        <tag>centos7</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/09/sparkArchitecturePrinciples/</loc>
-    <lastmod>2018-07-10T08:18:31.941Z</lastmod>
-    <data>
-        <display>
-        <title>Spark架构原理</title>
-        <pubTime>2018-06-08T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>原理</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://dongkelun.com/2018/07/10/ambariExceptions/</loc>
-    <lastmod>2018-07-10T02:15:50.561Z</lastmod>
+    <lastmod>2018-07-11T07:37:42.077Z</lastmod>
     <data>
         <display>
         <title>ambari 异常总结及解决办法</title>
@@ -80,8 +63,360 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/04/25/ambariConf/</loc>
+    <lastmod>2018-07-11T07:22:29.669Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
+        <pubTime>2018-04-24T16:00:00.000Z</pubTime>
+        
+        <tag>ambari</tag>
+         
+        <tag>centos7</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
+    <lastmod>2018-07-11T07:22:07.233Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 hadoop 集群安装配置</title>
+        <pubTime>2018-04-04T16:00:00.000Z</pubTime>
+        
+        <tag>centos</tag>
+         
+        <tag>hadoop</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/03/23/hadoopConf/</loc>
+    <lastmod>2018-07-11T07:22:02.483Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 hadoop 单机模式安装配置</title>
+        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
+        
+        <tag>centos</tag>
+         
+        <tag>hadoop</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/03/24/hiveConf/</loc>
+    <lastmod>2018-07-11T07:21:53.714Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 hive 单机模式安装配置</title>
+        <pubTime>2018-03-23T16:00:00.000Z</pubTime>
+        
+        <tag>centos</tag>
+         
+        <tag>hive</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/05/20/hiveQueryException/</loc>
+    <lastmod>2018-07-11T07:21:48.311Z</lastmod>
+    <data>
+        <display>
+        <title>hive查询报错:java.io.IOException:org.apache.parquet.io.ParquetDecodingException</title>
+        <pubTime>2018-05-19T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>hive</tag>
+         
+        <tag>异常解决</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/05/21/kafkaConf/</loc>
+    <lastmod>2018-07-11T07:21:38.800Z</lastmod>
+    <data>
+        <display>
+        <title>Kafka安装启动入门教程</title>
+        <pubTime>2018-05-20T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/06/25/KafkaUV/</loc>
+    <lastmod>2018-07-11T07:21:31.453Z</lastmod>
+    <data>
+        <display>
+        <title>SparkStreaming+Kafka 实现统计基于缓存的实时uv</title>
+        <pubTime>2018-06-24T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>SparkStreaming</tag>
+         
+        <tag>Kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
+    <lastmod>2018-07-11T07:21:12.913Z</lastmod>
+    <data>
+        <display>
+        <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
+        <pubTime>2018-05-22T16:00:00.000Z</pubTime>
+        
+        <tag>kafka</tag>
+         
+        <tag>ogg</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/05/05/oracleConf/</loc>
+    <lastmod>2018-07-11T07:21:07.315Z</lastmod>
+    <data>
+        <display>
+        <title>centos7 安装oracle11</title>
+        <pubTime>2018-05-04T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>oracle</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
+    <lastmod>2018-07-11T07:21:01.475Z</lastmod>
+    <data>
+        <display>
+        <title>旧版spark（1.6版本） 将rdd动态转为dataframe</title>
+        <pubTime>2018-05-10T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>DataFrame</tag>
+         
+        <tag>Rdd</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/06/09/sparkArchitecturePrinciples/</loc>
+    <lastmod>2018-07-11T07:20:39.026Z</lastmod>
+    <data>
+        <display>
+        <title>Spark架构原理</title>
+        <pubTime>2018-06-08T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>原理</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/06/28/sparkGetPartitionId/</loc>
+    <lastmod>2018-07-11T07:20:16.259Z</lastmod>
+    <data>
+        <display>
+        <title>Spark获取当前分区的partitionId</title>
+        <pubTime>2018-06-27T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/05/30/sparkGZ/</loc>
+    <lastmod>2018-07-11T07:20:09.688Z</lastmod>
+    <data>
+        <display>
+        <title>Spark读取压缩文件</title>
+        <pubTime>2018-05-29T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>压缩文件</tag>
+         
+        <tag>编码问题</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/03/25/sparkHive/</loc>
+    <lastmod>2018-07-11T07:19:29.259Z</lastmod>
+    <data>
+        <display>
+        <title>spark连接hive（spark-shell和eclipse两种方式）</title>
+        <pubTime>2018-03-24T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>hive</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
+    <lastmod>2018-07-11T07:19:06.159Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Sql 连接mysql</title>
+        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>scala</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/04/11/sparkNewUV/</loc>
+    <lastmod>2018-07-11T07:19:00.288Z</lastmod>
+    <data>
+        <display>
+        <title>spark 统计每天新增用户数</title>
+        <pubTime>2018-04-10T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>scala</tag>
+         
+        <tag>面试题</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/04/16/sparkOnYarnConf/</loc>
+    <lastmod>2018-07-11T07:18:54.184Z</lastmod>
+    <data>
+        <display>
+        <title>spark on yarn 配置及异常解决</title>
+        <pubTime>2018-04-15T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>yarn</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
+    <lastmod>2018-07-11T07:18:48.561Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Streamming+Kafka提交offset实现有且仅有一次</title>
+        <pubTime>2018-06-19T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>Kafka</tag>
+         
+        <tag>Spark Streamming</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/07/06/sparkSubmitException1/</loc>
-    <lastmod>2018-07-08T13:01:12.157Z</lastmod>
+    <lastmod>2018-07-11T07:18:31.520Z</lastmod>
     <data>
         <display>
         <title>spark-submit报错:Application application_1529650293575_0148 finished with failed status</title>
@@ -90,6 +425,80 @@
         <tag>Spark</tag>
          
         <tag>spark-submit</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/04/05/sshConf/</loc>
+    <lastmod>2018-07-11T07:18:08.468Z</lastmod>
+    <data>
+        <display>
+        <title>linux ssh 免密登录</title>
+        <pubTime>2018-04-04T16:00:00.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/06/14/updateStateBykeyWordCount/</loc>
+    <lastmod>2018-07-11T07:17:19.109Z</lastmod>
+    <data>
+        <display>
+        <title>SparkStreaming+Kafka 实现基于缓存的实时wordcount程序</title>
+        <pubTime>2018-06-13T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>SparkStreaming</tag>
+         
+        <tag>Kafka</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/01/16/vmwareSetFixIP/</loc>
+    <lastmod>2018-07-11T07:17:01.257Z</lastmod>
+    <data>
+        <display>
+        <title>vmware centos7 设置固定ip</title>
+        <pubTime>2018-01-15T16:00:00.000Z</pubTime>
+        
+        <tag>vmware</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/03/15/winSparkConf/</loc>
+    <lastmod>2018-07-11T07:16:32.414Z</lastmod>
+    <data>
+        <display>
+        <title>win10 spark+scala+eclipse+sbt 安装配置</title>
+        <pubTime>2018-03-14T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>scala</tag>
          
          
            
@@ -107,9 +516,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>scala</tag>
-         
         <tag>转载</tag>
+         
+        <tag>scala</tag>
          
          
            
@@ -318,215 +727,6 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/03/23/hadoopConf/</loc>
-    <lastmod>2018-07-05T09:00:57.499Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 hadoop 单机模式安装配置</title>
-        <pubTime>2018-03-22T16:00:00.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-        <tag>hadoop</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/04/05/hadoopClusterConf/</loc>
-    <lastmod>2018-07-05T09:00:47.129Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 hadoop 集群安装配置</title>
-        <pubTime>2018-04-04T16:00:00.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-        <tag>hadoop</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/03/24/hiveConf/</loc>
-    <lastmod>2018-07-05T09:00:39.354Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 hive 单机模式安装配置</title>
-        <pubTime>2018-03-23T16:00:00.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-        <tag>hive</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/04/11/sparkNewUV/</loc>
-    <lastmod>2018-07-05T09:00:33.772Z</lastmod>
-    <data>
-        <display>
-        <title>spark 统计每天新增用户数</title>
-        <pubTime>2018-04-10T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>scala</tag>
-         
-        <tag>面试题</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/04/16/sparkOnYarnConf/</loc>
-    <lastmod>2018-07-05T09:00:27.080Z</lastmod>
-    <data>
-        <display>
-        <title>spark on yarn 配置及异常解决</title>
-        <pubTime>2018-04-15T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>yarn</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/04/05/sshConf/</loc>
-    <lastmod>2018-07-05T09:00:20.473Z</lastmod>
-    <data>
-        <display>
-        <title>linux ssh 免密登录</title>
-        <pubTime>2018-04-04T16:00:00.000Z</pubTime>
-        
-        <tag>linux</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/01/16/vmwareSetFixIP/</loc>
-    <lastmod>2018-07-05T09:00:15.034Z</lastmod>
-    <data>
-        <display>
-        <title>vmware centos7 设置固定ip</title>
-        <pubTime>2018-01-15T16:00:00.000Z</pubTime>
-        
-        <tag>vmware</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/03/15/winSparkConf/</loc>
-    <lastmod>2018-07-05T09:00:09.769Z</lastmod>
-    <data>
-        <display>
-        <title>win10 spark+scala+eclipse+sbt 安装配置</title>
-        <pubTime>2018-03-14T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>scala</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/05/20/hiveQueryException/</loc>
-    <lastmod>2018-07-05T09:00:03.771Z</lastmod>
-    <data>
-        <display>
-        <title>hive查询报错:java.io.IOException:org.apache.parquet.io.ParquetDecodingException</title>
-        <pubTime>2018-05-19T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>hive</tag>
-         
-        <tag>异常解决</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/05/05/oracleConf/</loc>
-    <lastmod>2018-07-05T08:59:56.497Z</lastmod>
-    <data>
-        <display>
-        <title>centos7 安装oracle11</title>
-        <pubTime>2018-05-04T16:00:00.000Z</pubTime>
-        
-        <tag>centos7</tag>
-         
-        <tag>oracle</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/05/21/kafkaConf/</loc>
-    <lastmod>2018-07-05T08:59:51.205Z</lastmod>
-    <data>
-        <display>
-        <title>Kafka安装启动入门教程</title>
-        <pubTime>2018-05-20T16:00:00.000Z</pubTime>
-        
-        <tag>centos7</tag>
-         
-        <tag>kafka</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://dongkelun.com/2018/05/27/sparkDelFirstNLines/</loc>
     <lastmod>2018-07-05T08:59:46.018Z</lastmod>
     <data>
@@ -588,128 +788,6 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
-    <lastmod>2018-07-05T08:59:26.406Z</lastmod>
-    <data>
-        <display>
-        <title>利用ogg实现oracle到kafka的增量数据实时同步</title>
-        <pubTime>2018-05-22T16:00:00.000Z</pubTime>
-        
-        <tag>kafka</tag>
-         
-        <tag>ogg</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/05/30/sparkGZ/</loc>
-    <lastmod>2018-07-05T08:59:20.328Z</lastmod>
-    <data>
-        <display>
-        <title>Spark读取压缩文件</title>
-        <pubTime>2018-05-29T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>压缩文件</tag>
-         
-        <tag>编码问题</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/03/25/sparkHive/</loc>
-    <lastmod>2018-07-05T08:59:15.453Z</lastmod>
-    <data>
-        <display>
-        <title>spark连接hive（spark-shell和eclipse两种方式）</title>
-        <pubTime>2018-03-24T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>hive</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/14/updateStateBykeyWordCount/</loc>
-    <lastmod>2018-07-05T08:59:04.405Z</lastmod>
-    <data>
-        <display>
-        <title>SparkStreaming+Kafka 实现基于缓存的实时wordcount程序</title>
-        <pubTime>2018-06-13T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>SparkStreaming</tag>
-         
-        <tag>Kafka</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/05/17/sparkKafka/</loc>
-    <lastmod>2018-07-05T08:58:59.257Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Streaming连接Kafka入门教程</title>
-        <pubTime>2018-05-16T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>kafka</tag>
-         
-        <tag>spark streaming</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
-    <lastmod>2018-07-05T08:58:52.642Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Streamming+Kafka提交offset实现有且仅有一次</title>
-        <pubTime>2018-06-19T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>Kafka</tag>
-         
-        <tag>Spark Streamming</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://dongkelun.com/2018/06/21/modifyKafkaOffsetTime/</loc>
     <lastmod>2018-07-05T08:58:47.676Z</lastmod>
     <data>
@@ -718,84 +796,6 @@
         <pubTime>2018-06-20T16:00:00.000Z</pubTime>
         
         <tag>Kafka</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/25/KafkaUV/</loc>
-    <lastmod>2018-07-05T08:58:42.454Z</lastmod>
-    <data>
-        <display>
-        <title>SparkStreaming+Kafka 实现统计基于缓存的实时uv</title>
-        <pubTime>2018-06-24T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>SparkStreaming</tag>
-         
-        <tag>Kafka</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/28/sparkGetPartitionId/</loc>
-    <lastmod>2018-07-05T08:58:36.279Z</lastmod>
-    <data>
-        <display>
-        <title>Spark获取当前分区的partitionId</title>
-        <pubTime>2018-06-27T16:00:00.000Z</pubTime>
-        
-        <tag>Spark</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
-    <lastmod>2018-07-05T08:58:30.283Z</lastmod>
-    <data>
-        <display>
-        <title>旧版spark（1.6版本） 将rdd动态转为dataframe</title>
-        <pubTime>2018-05-10T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>DataFrame</tag>
-         
-        <tag>Rdd</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
-    <lastmod>2018-07-05T08:58:24.583Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Sql 连接mysql</title>
-        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>scala</tag>
          
          
            
@@ -816,9 +816,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>spark-submit</tag>
-         
         <tag>Spark Streamming</tag>
+         
+        <tag>spark-submit</tag>
          
          
            
