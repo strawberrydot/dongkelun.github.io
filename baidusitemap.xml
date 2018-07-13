@@ -165,9 +165,9 @@
         <title>hive查询报错:java.io.IOException:org.apache.parquet.io.ParquetDecodingException</title>
         <pubTime>2018-05-19T16:00:00.000Z</pubTime>
         
-        <tag>spark</tag>
-         
         <tag>hive</tag>
+         
+        <tag>spark</tag>
          
         <tag>异常解决</tag>
          
@@ -342,9 +342,9 @@
         <title>spark连接hive（spark-shell和eclipse两种方式）</title>
         <pubTime>2018-03-24T16:00:00.000Z</pubTime>
         
-        <tag>spark</tag>
-         
         <tag>hive</tag>
+         
+        <tag>spark</tag>
          
          
            
@@ -835,9 +835,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>spark-submit</tag>
-         
         <tag>Spark Streamming</tag>
+         
+        <tag>spark-submit</tag>
          
          
            
