@@ -197,7 +197,7 @@
 <li>业务人员没有权限通过命令行连接hive</li>
 <li>领导喜欢在界面工具上查看hive里的数据</li>
 </ul>
-<h2 id="2、为什么使用DBeaver"><a href="#2、为什么使用DBeaver" class="headerlink" title="2、为什么使用DBeaver"></a>2、为什么使用DBeaver</h2><p>其实在网上搜一下，连接hive的工具还有很多，使用DBeaver的原因是因为我之前连接关系型数据库使用的就是DBeaver，正好DBeaver支持连接hive，且个人认为DBeaver确实挺好用的，支持各种关系型数据库，如连接Oracle数据库不需要像plsql那样自己配置连接文件，只需要在界面上输入url、用户名、密码即可。</p>
+<h2 id="2、为什么使用DBeaver"><a href="#2、为什么使用DBeaver" class="headerlink" title="2、为什么使用DBeaver"></a>2、为什么使用DBeaver</h2><p>其实在网上搜一下，连接hive的工具还有很多，使用DBeaver的原因是因为我之前连接关系型数据库使用的就是DBeaver，正好DBeaver支持连接hive，且个人认为DBeaver确实挺好用的，支持各种关系型数据库，如连接Oracle数据库不需要像plsql那样自己配置连接文件，只需要在界面上输入url、用户名、密码即可，还有就是DBeaver的快捷键和Eclipse是一样的，比如注释、删除一行、复制一行到下一行等。</p>
 <h2 id="3、DBeaver下载、安装"><a href="#3、DBeaver下载、安装" class="headerlink" title="3、DBeaver下载、安装"></a>3、DBeaver下载、安装</h2><p>之前我一直用的旧版的，现在在官网上下载了最新版的DBeaver，发现界面功能比旧版好用了很多，亲测连hive没有问题。<br>下载地址：<a href="https://dbeaver.io/download/" target="_blank" rel="noopener">https://dbeaver.io/download/</a><br>我下载的免安装版（不带jre），windows64位，大家可以根据自己情况下载对应版本。<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1ft8b8k50qrj20sv0koq4j.jpg" alt=""><br>
         
           <a class="article-more-a" href="/2018/07/13/dbeaverConnectHive/#more">more >></a>
@@ -233,6 +233,94 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/07/13/dbeaverConnectHive/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-HadoopException" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/HadoopException/">HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/10/HadoopException/" class="archive-article-date">
+  	<time datetime="2018-07-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
+</a>
+        
+      </header>
+	    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个异常是在在ambari里启动DataNode产生的，其实这个问题很久就发现了，只是没时间去处理，所以之前把发生问题的slave1节点给移除了，现在有时间处理，就又把slave1加上了，所以就有了<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>里面的问题，这个java权限不够的问题，在添加slave1之后，并安装datanode和nodemanager之后启动服务依然报错。</p>
+<p>异常信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro:行317: /opt/jdk1.8.0_151/bin/java: 权限不够</span><br><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro: 第 317 行:exec: /opt/jdk1.8.0_151/bin/java: 无法执行: 权限不够</span><br></pre></td></tr></table></figure></p>
+<p>这个问题在网上找也找不到对应的解决办法，所以有必要单独记录一下，没有放在<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>，且我认为即使不用ambari，该问题依然可能会发生。</p>
+<h2 id="1、详细异常信息"><a href="#1、详细异常信息" class="headerlink" title="1、详细异常信息"></a>1、详细异常信息</h2><p>部分截图:<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1ft4wbrmbwsj20v109o752.jpg" alt=""><br>
+        
+          <a class="article-more-a" href="/2018/07/10/HadoopException/#more">more >></a>
+        
+      
+
+      
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+	   
+		  
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+		  
+
+	  
+	 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/10/HadoopException/">展开全文 >></a>
         </p>
       
 
@@ -305,11 +393,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
         		</li>
       		
 		</ul>
@@ -322,94 +410,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/07/10/ambariExceptions/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HadoopException" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/10/HadoopException/">HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/10/HadoopException/" class="archive-article-date">
-  	<time datetime="2018-07-09T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个异常是在在ambari里启动DataNode产生的，其实这个问题很久就发现了，只是没时间去处理，所以之前把发生问题的slave1节点给移除了，现在有时间处理，就又把slave1加上了，所以就有了<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>里面的问题，这个java权限不够的问题，在添加slave1之后，并安装datanode和nodemanager之后启动服务依然报错。</p>
-<p>异常信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro:行317: /opt/jdk1.8.0_151/bin/java: 权限不够</span><br><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro: 第 317 行:exec: /opt/jdk1.8.0_151/bin/java: 无法执行: 权限不够</span><br></pre></td></tr></table></figure></p>
-<p>这个问题在网上找也找不到对应的解决办法，所以有必要单独记录一下，没有放在<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>，且我认为即使不用ambari，该问题依然可能会发生。</p>
-<h2 id="1、详细异常信息"><a href="#1、详细异常信息" class="headerlink" title="1、详细异常信息"></a>1、详细异常信息</h2><p>部分截图:<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1ft4wbrmbwsj20v109o752.jpg" alt=""><br>
-        
-          <a class="article-more-a" href="/2018/07/10/HadoopException/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/10/HadoopException/">展开全文 >></a>
         </p>
       
 
@@ -740,6 +740,38 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -752,39 +784,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -796,27 +800,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -832,7 +820,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -852,7 +840,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -864,15 +868,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
