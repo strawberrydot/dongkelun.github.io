@@ -259,7 +259,9 @@
 </tbody>
 </table>
 <p>&emsp;&emsp;尽管Spark 的textFile() 方法可以处理压缩过的输入，但即使输入数据被以可分割读取的方式压缩，Spark 也不会打开splittable。因此，如果你要读取单个压缩过的输入，最好不要考虑使用Spark 的封装，而是使用newAPIHadoopFile 或者hadoopFile，并指定正确的压缩编解码器。</p>
-<p>关于上面一段话的个人测试：选取一个大文件txt，大小为1.5G，写spark程序读取hdfs上的该文件然后写入hive，经测试在多个分区的情况下，txt执行时间最短，因为在多个机器并行执行，而gz文件是不可分割的，即使指定分区数目，但依然是一个分区，一个task，即在一个机器上执行，bzip2格式的文件虽然是可分割的，即可以按照指定的分区分为不同的task在多个机器上执行，但是执行时间长，比gz时间还长，经过四次改变bzip2的分区，发现最快的时间和gz时间是一样的，如果指定一个分区的话，比gz要慢很多，我想这样就可以更好的理解：”尽管Spark 的textFile() 方法可以处理压缩过的输入，但即使输入数据被以可分割读取的方式压缩，Spark 也不会打开splittable”这句话了。<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fs1d22zvxqj20xj06374z.jpg" alt=""><br>
+<p>关于上面一段话的个人测试：选取一个大文件txt，大小为1.5G，写spark程序读取hdfs上的该文件然后写入hive，经测试在多个分区的情况下，txt执行时间最短，因为在多个机器并行执行，而gz文件是不可分割的，即使指定分区数目，但依然是一个分区，一个task，即在一个机器上执行，bzip2格式的文件虽然是可分割的，即可以按照指定的分区分为不同的task在多个机器上执行，但是执行时间长，比gz时间还长，经过四次改变bzip2的分区，发现最快的时间和gz时间是一样的，如果指定一个分区的话，比gz要慢很多，我想这样就可以更好的理解：”尽管Spark 的textFile() 方法可以处理压缩过的输入，但即使输入数据被以可分割读取的方式压缩，Spark 也不会打开splittable”这句话了。</p>
+<ul>
+<li>注：上面主要证明不管是可分割的bzip2还是不可分割的gz都比txt慢，至于bzip2比gz慢的原因，是因为我分配的Executor数量较少，经后续测试，根据集群的cpu合理分配executor的个数的情况下，txt的时间缩短到1分钟，bzip2缩短到1.3分钟，而对gz重新分区(reparation)缩短到2分钟，可以看到在合理分配资源的情况下，bzip2比gz快不少，但依然赶不上txt，当然这也的结果可能受文件大小和集群资源的限制，所以根据自己的实际需求测试再决定用哪个即可。<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fs1d22zvxqj20xj06374z.jpg" alt="">
         
           <a class="article-more-a" href="/2018/05/30/sparkGZ/#more">more >></a>
         
@@ -662,11 +664,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -838,14 +840,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -878,15 +872,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -898,7 +888,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -906,15 +904,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -926,7 +924,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -946,6 +948,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
@@ -958,11 +968,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -970,15 +976,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UDF</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -986,7 +984,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -994,7 +992,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UDF</a>
               </li>
              
               <li class="article-tag-list-item">
