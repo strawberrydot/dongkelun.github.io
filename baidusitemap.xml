@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</loc>
+    <lastmod>2018-08-13T03:39:01.663Z</lastmod>
+    <data>
+        <display>
+        <title>Spark 创建RDD,DataFrame各种情况的默认分区数</title>
+        <pubTime>2018-08-12T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+        <tag>面试题</tag>
+         
+        <tag>Scala</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/05/30/sparkGZ/</loc>
     <lastmod>2018-08-07T01:58:23.976Z</lastmod>
     <data>
@@ -32,9 +53,9 @@
         <title>Spark UDF使用详解及代码示例</title>
         <pubTime>2018-08-01T16:00:00.000Z</pubTime>
         
-        <tag>DataFrame</tag>
-         
         <tag>Spark</tag>
+         
+        <tag>DataFrame</tag>
          
         <tag>UDF</tag>
          
@@ -53,9 +74,9 @@
         <title>通过数据库客户端界面工具DBeaver连接Hive</title>
         <pubTime>2018-07-12T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>界面工具</tag>
+         
+        <tag>hive</tag>
          
          
            
@@ -717,9 +738,9 @@
         <title>spark 将DataFrame所有的列类型改为double</title>
         <pubTime>2018-04-26T16:00:00.000Z</pubTime>
         
-        <tag>DataFrame</tag>
-         
         <tag>Spark</tag>
+         
+        <tag>DataFrame</tag>
          
          
            
@@ -856,9 +877,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>spark-submit</tag>
-         
         <tag>Spark Streamming</tag>
+         
+        <tag>spark-submit</tag>
          
          
            
@@ -875,9 +896,9 @@
         <title>Spark DataFrame按某列降序排序</title>
         <pubTime>2018-07-03T16:00:00.000Z</pubTime>
         
-        <tag>DataFrame</tag>
-         
         <tag>Spark</tag>
+         
+        <tag>DataFrame</tag>
          
          
            
