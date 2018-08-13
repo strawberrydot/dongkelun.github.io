@@ -4,7 +4,14 @@
   <url>
     <loc>https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</loc>
     
-    <lastmod>2018-08-13T06:24:21.152Z</lastmod>
+    <lastmod>2018-08-13T11:39:03.982Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dongkelun.com/2018/06/28/sparkGetPartitionId/</loc>
+    
+    <lastmod>2018-08-13T06:28:30.143Z</lastmod>
     
   </url>
   
@@ -124,13 +131,6 @@
     <loc>https://dongkelun.com/2018/06/09/sparkArchitecturePrinciples/</loc>
     
     <lastmod>2018-07-11T07:20:39.026Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/06/28/sparkGetPartitionId/</loc>
-    
-    <lastmod>2018-07-11T07:20:16.259Z</lastmod>
     
   </url>
   

@@ -9,7 +9,7 @@
   <title>Spark获取当前分区的partitionId | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言本文讲解Spark如何获取当前分区的partitionId，这是一位群友提出的问题，其实只要通过TaskContext.get.partitionId（我是在官网上看到的），下面给出一些示例。 1、代码下面的代码主要测试SparkSession，SparkContext创建的rdd和df是否都支持。123456789101112131415161718192021222324252627282">
-<meta name="keywords" content="Spark">
+<meta name="keywords" content="Spark,Partition">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark获取当前分区的partitionId">
 <meta property="og:url" content="https://dongkelun.com/2018/06/28/sparkGetPartitionId/index.html">
@@ -17,7 +17,7 @@
 <meta property="og:description" content="前言本文讲解Spark如何获取当前分区的partitionId，这是一位群友提出的问题，其实只要通过TaskContext.get.partitionId（我是在官网上看到的），下面给出一些示例。 1、代码下面的代码主要测试SparkSession，SparkContext创建的rdd和df是否都支持。123456789101112131415161718192021222324252627282">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fsqwda7mi9j21ej0pkq5r.jpg">
-<meta property="og:updated_time" content="2018-07-11T07:20:16.259Z">
+<meta property="og:updated_time" content="2018-08-13T06:28:30.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark获取当前分区的partitionId">
 <meta name="twitter:description" content="前言本文讲解Spark如何获取当前分区的partitionId，这是一位群友提出的问题，其实只要通过TaskContext.get.partitionId（我是在官网上看到的），下面给出一些示例。 1、代码下面的代码主要测试SparkSession，SparkContext创建的rdd和df是否都支持。123456789101112131415161718192021222324252627282">
@@ -197,6 +197,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Partition</a>
         		</li>
       		
 		</ul>
@@ -532,10 +536,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -548,7 +548,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,6 +557,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,11 +676,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
