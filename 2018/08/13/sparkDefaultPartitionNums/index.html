@@ -36,10 +36,11 @@
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu7udeqjhwj20p009wwf0.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu7ugxl4a1j20p00k9jso.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu7uu5rhekj20p00b774u.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu81ltmyg6j20p004gt8v.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7ws7b0v5j20p008fdg9.jpg">
-<meta property="og:updated_time" content="2018-08-13T05:55:46.020Z">
+<meta property="og:updated_time" content="2018-08-13T06:12:30.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 创建RDD、DataFrame各种情况的默认分区数">
 <meta name="twitter:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
@@ -248,7 +249,7 @@
 <h2 id="2、关于sc-defaultParallelism"><a href="#2、关于sc-defaultParallelism" class="headerlink" title="2、关于sc.defaultParallelism"></a>2、关于sc.defaultParallelism</h2><h3 id="2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值"><a href="#2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值" class="headerlink" title="2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值"></a>2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值</h3><a id="more"></a>
 <h4 id="2-1-1-在文件中配置"><a href="#2-1-1-在文件中配置" class="headerlink" title="2.1.1 在文件中配置"></a>2.1.1 在文件中配置</h4><p>在文件spark-defaults.conf添加一行（这里用的我的windows环境）</p>
 <ul>
-<li>spark.default.parallelism=20<br>验证：<br>在spark-shell里输入sc.defaultParallelism，输出结果为20<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu6zira6xoj20qu0at74w.jpg" alt=""><h4 id="2-1-2-在代码里配置"><a href="#2-1-2-在代码里配置" class="headerlink" title="2.1.2 在代码里配置"></a>2.1.2 在代码里配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val spark = SparkSession.builder()</span><br><span class="line">  .appName(&quot;TestPartitionNums&quot;)</span><br><span class="line">  .master(&quot;local&quot;)</span><br><span class="line">  .config(&quot;spark.default.parallelism&quot;, 20)</span><br><span class="line">  .getOrCreate()</span><br><span class="line"></span><br><span class="line">val sc = spark.sparkContext</span><br><span class="line">println(sc.defaultParallelism)</span><br><span class="line"></span><br><span class="line">spark.stop</span><br></pre></td></tr></table></figure>
+<li>spark.default.parallelism=20<br>验证：<br>在spark-shell里输入sc.defaultParallelism，输出结果为20<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu6zira6xoj20qu0at74w.jpg" alt=""><h4 id="2-1-2-在代码里配置"><a href="#2-1-2-在代码里配置" class="headerlink" title="2.1.2 在代码里配置"></a>2.1.2 在代码里配置</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder()</span><br><span class="line">  .appName(<span class="string">"TestPartitionNums"</span>)</span><br><span class="line">  .master(<span class="string">"local"</span>)</span><br><span class="line">  .config(<span class="string">"spark.default.parallelism"</span>, <span class="number">20</span>)</span><br><span class="line">  .getOrCreate()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line">println(sc.defaultParallelism)</span><br><span class="line"></span><br><span class="line">spark.stop</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu6zudcdknj20vk0g3jse.jpg" alt=""></p>
@@ -288,7 +289,7 @@
 <p>当用参数指定分区数时，本以为分区数为指定的参数值，结果经测试，当参数值在一定的范围内分区数确实为指定的参数值，当参数值大于某个数值时，分区数实际比参数值大一点，不知道是不是Spark的bug还是有自己的策略，如下图：</p>
 <p><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu7ugxl4a1j20p00k9jso.jpg" alt=""></p>
 <h3 id="4-2-spark-read-csv"><a href="#4-2-spark-read-csv" class="headerlink" title="4.2 spark.read.csv()"></a>4.2 spark.read.csv()</h3><p>默认分区数为1<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7uu5rhekj20p00b774u.jpg" alt=""></p>
-<h2 id="5、关系型数据库"><a href="#5、关系型数据库" class="headerlink" title="5、关系型数据库"></a>5、关系型数据库</h2><p>从关系型数据库表读取的df的分区数为1，以mysql为例，我这里拿一张1000万条数据的表进行测试<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg" alt=""></p>
+<h2 id="5、关系型数据库"><a href="#5、关系型数据库" class="headerlink" title="5、关系型数据库"></a>5、关系型数据库</h2><p>从关系型数据库表读取的df的分区数为1，以mysql为例，我这里拿一张1000万条数据的表进行测试<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu81ltmyg6j20p004gt8v.jpg" alt=""><br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg" alt=""><br>Spark连接mysql的代码可以参考<a href="https://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a></p>
 <h2 id="6、从代码里的内部数据集创建"><a href="#6、从代码里的内部数据集创建" class="headerlink" title="6、从代码里的内部数据集创建"></a>6、从代码里的内部数据集创建</h2><h3 id="6-1-sc-parallelize-创建RDD"><a href="#6-1-sc-parallelize-创建RDD" class="headerlink" title="6.1 sc.parallelize()创建RDD"></a>6.1 sc.parallelize()创建RDD</h3><p>默认分区数等于sc.defaultParallelism，指定参数时分区数值等于参数值。</p>
 <h3 id="6-2-spark-createDataFrame-data-创建DataFrame"><a href="#6-2-spark-createDataFrame-data-创建DataFrame" class="headerlink" title="6.2 spark.createDataFrame(data)创建DataFrame"></a>6.2 spark.createDataFrame(data)创建DataFrame</h3><p>当data的长度小于sc.defaultParallelism，分区数等于data长度，否则分区数等于sc.defaultParallelism</p>
 <p>如图：<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg" alt=""></p>
@@ -622,6 +623,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
@@ -634,15 +643,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -651,10 +656,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,7 +671,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,7 +679,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,15 +723,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,15 +743,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">

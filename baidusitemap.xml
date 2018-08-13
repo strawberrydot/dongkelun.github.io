@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</loc>
-    <lastmod>2018-08-13T05:55:46.020Z</lastmod>
+    <lastmod>2018-08-13T06:12:30.439Z</lastmod>
     <data>
         <display>
         <title>Spark 创建RDD、DataFrame各种情况的默认分区数</title>
@@ -209,9 +209,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
