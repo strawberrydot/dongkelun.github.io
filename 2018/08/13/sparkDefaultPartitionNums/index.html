@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu8b2p5crkj20p004r74j.jpg">
-<meta property="og:updated_time" content="2018-08-13T11:39:03.982Z">
+<meta property="og:updated_time" content="2018-08-13T11:39:41.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 创建RDD、DataFrame各种情况的默认分区数">
 <meta name="twitter:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
@@ -301,7 +301,7 @@
 <h2 id="6、其他改变分区数的算子"><a href="#6、其他改变分区数的算子" class="headerlink" title="6、其他改变分区数的算子"></a>6、其他改变分区数的算子</h2><h3 id="6-1-分区数为1"><a href="#6-1-分区数为1" class="headerlink" title="6.1 分区数为1"></a>6.1 分区数为1</h3><p>上面已经讲过几个分区数为1（当默认的并行度大于1时）的情况：<br>1、spark.read.csv()读取本地文件<br>2、读取关系型数据库表<br>上面是从外部数据源加载进来就为1的情况，还有就是对df或rdd进行转换操作之后的分区数为1的情况：<br>1、df.limit(n)</p>
 <h3 id="6-2-分区数不为1的情况"><a href="#6-2-分区数不为1的情况" class="headerlink" title="6.2 分区数不为1的情况"></a>6.2 分区数不为1的情况</h3><p>df.distinct()分区数为200</p>
 <p>如图：<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu8b2p5crkj20p004r74j.jpg" alt=""></p>
-<h2 id="7、合理的设置分区数"><a href="#7、合理的设置分区数" class="headerlink" title="7、合理的设置分区数"></a>7、合理的设置分区数</h2><p>根据自己集群的情况和数据大小等合理设置分区的数目，对于Spark性能调优很有必要，根绝前面讲的可知，可通过配置spark.default.parallelism、传参设置分区数，遇到那些分区数为1的特殊算子可以利用repartition()进行重新分区即可。</p>
+<h2 id="7、合理的设置分区数"><a href="#7、合理的设置分区数" class="headerlink" title="7、合理的设置分区数"></a>7、合理的设置分区数</h2><p>根据自己集群的情况和数据大小等合理设置分区的数目，对于Spark性能调优很有必要，根据前面讲的可知，可通过配置spark.default.parallelism、传参设置分区数，遇到那些分区数为1的特殊算子可以利用repartition()进行重新分区即可。</p>
 <h2 id="8、总结"><a href="#8、总结" class="headerlink" title="8、总结"></a>8、总结</h2><p>本文首先讲了各种情况下的sc.defaultParallelism，defaultMinPartitions，然后讲了各种情况下创建以及转化RDD、DataFrame的分区数，因为Spark的外部数据源很多，创建以及转化RDD、DataFrame的方法和算子也很多，所以主要是讲了我个人常用的各种情况，并不能包含所有情况，至于其他情况，大家可以自己测试总结。还有一点就是本文并没有从源码的层次去分析，只是总结一些规律，对于前面提到的一些还不太清楚的规律，以后如果有时间的话可以从源码的层次去分析为什么~</p>
 
       
@@ -628,15 +628,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
