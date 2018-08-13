@@ -5,10 +5,10 @@
     
   <url>
     <loc>https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</loc>
-    <lastmod>2018-08-13T03:39:01.663Z</lastmod>
+    <lastmod>2018-08-13T05:55:46.020Z</lastmod>
     <data>
         <display>
-        <title>Spark 创建RDD,DataFrame各种情况的默认分区数</title>
+        <title>Spark 创建RDD、DataFrame各种情况的默认分区数</title>
         <pubTime>2018-08-12T16:00:00.000Z</pubTime>
         
         <tag>Spark</tag>

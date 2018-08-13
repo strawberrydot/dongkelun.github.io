@@ -6,15 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Spark 创建RDD,DataFrame各种情况的默认分区数 | 伦少的博客</title>
+  <title>Spark 创建RDD、DataFrame各种情况的默认分区数 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD,DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
+  <meta name="description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
 <meta name="keywords" content="Spark,面试题,Scala">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark 创建RDD,DataFrame各种情况的默认分区数">
+<meta property="og:title" content="Spark 创建RDD、DataFrame各种情况的默认分区数">
 <meta property="og:url" content="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD,DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
+<meta property="og:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu6zira6xoj20qu0at74w.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu6zudcdknj20vk0g3jse.jpg">
@@ -39,10 +39,10 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7ws7b0v5j20p008fdg9.jpg">
-<meta property="og:updated_time" content="2018-08-13T03:39:01.663Z">
+<meta property="og:updated_time" content="2018-08-13T05:55:46.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark 创建RDD,DataFrame各种情况的默认分区数">
-<meta name="twitter:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD,DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
+<meta name="twitter:title" content="Spark 创建RDD、DataFrame各种情况的默认分区数">
+<meta name="twitter:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
 <meta name="twitter:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu6zira6xoj20qu0at74w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
@@ -200,7 +200,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spark 创建RDD,DataFrame各种情况的默认分区数
+      Spark 创建RDD、DataFrame各种情况的默认分区数
     </h1>
   
 
@@ -240,11 +240,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD,DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。</p>
 <ul>
-<li>如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executor很多，而实际执行的Executor只有1个，如果数据很大的话，那么任务执行的就很慢，好像是卡死了~，所以熟悉各种情况下默认的分区数对应Spark调用就很有必要了，特别是执行完算子返回的结果分区数为1的情况，更需要特别注意，我就被被坑过（我已经分配了足够多的Executor、默认的并行度、以及执行之前的数据集分区数）</li>
+<li>如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executor很多，而实际执行的Executor只有1个，如果数据很大的话，那么任务执行的就很慢，好像是卡死了~，所以熟悉各种情况下默认的分区数对于Spark调优就很有必要了，特别是执行完算子返回的结果分区数为1的情况，更需要特别注意。（我就被坑过，我已经分配了足够多的Executor、默认的并行度、以及执行之前的数据集分区数，但分区数依然为1）</li>
 </ul>
-<h2 id="1、关于-sc-defaultMinPartitions"><a href="#1、关于-sc-defaultMinPartitions" class="headerlink" title="1、关于 sc.defaultMinPartitions"></a>1、关于 sc.defaultMinPartitions</h2><p>sc.defaultMinPartitions=min(sc.defaultParallelism,2)<br>也就是sc.defaultMinPartitions只有两个值1和2，当sc.defaultParallelism&gt;1时值为2，当sc.defaultParallelism=1时，值为1<br>上面的公式实在源码定义的（均在类SparkContext里）：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">defaultMinPartitions</span></span>: <span class="type">Int</span> = math.min(defaultParallelism, <span class="number">2</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">defaultParallelism</span></span>: <span class="type">Int</span> = &#123;</span><br><span class="line">    assertNotStopped()</span><br><span class="line">    taskScheduler.defaultParallelism</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="1、关于-sc-defaultMinPartitions"><a href="#1、关于-sc-defaultMinPartitions" class="headerlink" title="1、关于 sc.defaultMinPartitions"></a>1、关于 sc.defaultMinPartitions</h2><p>sc.defaultMinPartitions=min(sc.defaultParallelism,2)<br>也就是sc.defaultMinPartitions只有两个值1和2，当sc.defaultParallelism&gt;1时值为2，当sc.defaultParallelism=1时，值为1<br>上面的公式是在源码里定义的（均在类SparkContext里）：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">defaultMinPartitions</span></span>: <span class="type">Int</span> = math.min(defaultParallelism, <span class="number">2</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">defaultParallelism</span></span>: <span class="type">Int</span> = &#123;</span><br><span class="line">    assertNotStopped()</span><br><span class="line">    taskScheduler.defaultParallelism</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="2、关于sc-defaultParallelism"><a href="#2、关于sc-defaultParallelism" class="headerlink" title="2、关于sc.defaultParallelism"></a>2、关于sc.defaultParallelism</h2><h3 id="2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值"><a href="#2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值" class="headerlink" title="2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值"></a>2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值</h3><a id="more"></a>
 <h4 id="2-1-1-在文件中配置"><a href="#2-1-1-在文件中配置" class="headerlink" title="2.1.1 在文件中配置"></a>2.1.1 在文件中配置</h4><p>在文件spark-defaults.conf添加一行（这里用的我的windows环境）</p>
 <ul>
@@ -264,7 +264,7 @@
 <li>因为yarn模式时使用的cpu核数为虚拟的cpu核数，和实际cpu的核数有偏差，具体应该和yarn的配置有关，而且根据结果，每次申请的实际的cpu核数不完全一样，这里没有去深究原因<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7amy6mebj20fw03baa6.jpg" alt=""><h4 id="2-2-5-Standalone、其他集群模式"><a href="#2-2-5-Standalone、其他集群模式" class="headerlink" title="2.2.5 Standalone、其他集群模式"></a>2.2.5 Standalone、其他集群模式</h4>因本人工作用yarn模式，Standalone和其他模式没法在这里截图验证了，根据网上的资料，应该和yarn模式默认值是一样的。</li>
 </ul>
 <h2 id="3、HDFS文件的默认分区"><a href="#3、HDFS文件的默认分区" class="headerlink" title="3、HDFS文件的默认分区"></a>3、HDFS文件的默认分区</h2><p>这里及后面讨论的是rdd和dataframe的分区，也就是读取hdfs文件并不会改变前面讲的sc.defaultParallelism和sc.defaultMinPartitions的值。</p>
-<h3 id="3-1-测试用HDSF上得txt文件创建的RDD的分区数"><a href="#3-1-测试用HDSF上得txt文件创建的RDD的分区数" class="headerlink" title="3.1 测试用HDSF上得txt文件创建的RDD的分区数"></a>3.1 测试用HDSF上得txt文件创建的RDD的分区数</h3><p>这里我上传了一个1.52G的txt到hdfs上用来测试，这里每个block的大小为默认的128M，那么该文件有13个分区</p>
+<h3 id="3-1-测试用HDSF上得txt文件创建的RDD的分区数"><a href="#3-1-测试用HDSF上得txt文件创建的RDD的分区数" class="headerlink" title="3.1 测试用HDSF上得txt文件创建的RDD的分区数"></a>3.1 测试用HDSF上得txt文件创建的RDD的分区数</h3><p>这里我上传了一个1.52G的txt到hdfs上用来测试，其中每个block的大小为默认的128M，那么该文件有13个分区</p>
 <ul>
 <li>1.52*1024/128=12.16<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs2vs4yj20zg0a0dg7.jpg" alt=""><br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs3aw1gj20wz0fot9h.jpg" alt=""></li>
 </ul>
@@ -288,7 +288,7 @@
 <p>当用参数指定分区数时，本以为分区数为指定的参数值，结果经测试，当参数值在一定的范围内分区数确实为指定的参数值，当参数值大于某个数值时，分区数实际比参数值大一点，不知道是不是Spark的bug还是有自己的策略，如下图：</p>
 <p><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu7ugxl4a1j20p00k9jso.jpg" alt=""></p>
 <h3 id="4-2-spark-read-csv"><a href="#4-2-spark-read-csv" class="headerlink" title="4.2 spark.read.csv()"></a>4.2 spark.read.csv()</h3><p>默认分区数为1<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7uu5rhekj20p00b774u.jpg" alt=""></p>
-<h2 id="5-关系型数据库"><a href="#5-关系型数据库" class="headerlink" title="5.关系型数据库"></a>5.关系型数据库</h2><p>从关系型数据库表读取的df的分区数为1，以mysql为例，我这里拿一张1000万条数据的表进行测试<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg" alt=""></p>
+<h2 id="5、关系型数据库"><a href="#5、关系型数据库" class="headerlink" title="5、关系型数据库"></a>5、关系型数据库</h2><p>从关系型数据库表读取的df的分区数为1，以mysql为例，我这里拿一张1000万条数据的表进行测试<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg" alt=""></p>
 <h2 id="6、从代码里的内部数据集创建"><a href="#6、从代码里的内部数据集创建" class="headerlink" title="6、从代码里的内部数据集创建"></a>6、从代码里的内部数据集创建</h2><h3 id="6-1-sc-parallelize-创建RDD"><a href="#6-1-sc-parallelize-创建RDD" class="headerlink" title="6.1 sc.parallelize()创建RDD"></a>6.1 sc.parallelize()创建RDD</h3><p>默认分区数等于sc.defaultParallelism，指定参数时分区数值等于参数值。</p>
 <h3 id="6-2-spark-createDataFrame-data-创建DataFrame"><a href="#6-2-spark-createDataFrame-data-创建DataFrame" class="headerlink" title="6.2 spark.createDataFrame(data)创建DataFrame"></a>6.2 spark.createDataFrame(data)创建DataFrame</h3><p>当data的长度小于sc.defaultParallelism，分区数等于data长度，否则分区数等于sc.defaultParallelism</p>
 <p>如图：<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg" alt=""></p>
@@ -296,7 +296,7 @@
 <h2 id="6、其他改变分区数的算子"><a href="#6、其他改变分区数的算子" class="headerlink" title="6、其他改变分区数的算子"></a>6、其他改变分区数的算子</h2><h3 id="6-1-分区数为1"><a href="#6-1-分区数为1" class="headerlink" title="6.1 分区数为1"></a>6.1 分区数为1</h3><p>上面已经讲过几个分区数为1（这里只当默认的并行度大于1时）的情况：<br>1、spark.read.csv()读取本地文件<br>2、读取关系型数据库表<br>上面是从外部数据源加载进来就为1的情况，还有就是对df或rdd进行转换操作之后的分区数为1的情况<br>1、df.limit(n)</p>
 <h3 id="6-2-分区数不为1的情况"><a href="#6-2-分区数不为1的情况" class="headerlink" title="6.2 分区数不为1的情况"></a>6.2 分区数不为1的情况</h3><p>df.distinct()分区数为200</p>
 <p>如图：<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7ws7b0v5j20p008fdg9.jpg" alt=""></p>
-<h2 id="7、总结"><a href="#7、总结" class="headerlink" title="7、总结"></a>7、总结</h2><p>本文首先讲了各种情况下的sc.defaultParallelism，defaultMinPartitions，然后讲了各种情况下创建以及转化RDD、DataFrame的分区数，因为Spark的外部数据源很多，创建以及转化RDD、DataFrame的方法和算子也很多，所以主要是讲了我个人常用的各种情况，并不能包含所有情况，至于其他情况，大家可以自己测试总结。还有一些本文并没有从源码的层次去分析，只是总结一些规律，对于前面提到的一些还不太清楚的规律，以后如果有时间的话可以从源码的层次去分析为什么~</p>
+<h2 id="7、总结"><a href="#7、总结" class="headerlink" title="7、总结"></a>7、总结</h2><p>本文首先讲了各种情况下的sc.defaultParallelism，defaultMinPartitions，然后讲了各种情况下创建以及转化RDD、DataFrame的分区数，因为Spark的外部数据源很多，创建以及转化RDD、DataFrame的方法和算子也很多，所以主要是讲了我个人常用的各种情况，并不能包含所有情况，至于其他情况，大家可以自己测试总结。还有一点就是本文并没有从源码的层次去分析，只是总结一些规律，对于前面提到的一些还不太清楚的规律，以后如果有时间的话可以从源码的层次去分析为什么~</p>
 
       
 
@@ -340,7 +340,7 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/">Spark 创建RDD,DataFrame各种情况的默认分区数</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/">Spark 创建RDD、DataFrame各种情况的默认分区数</a> </p>
  
  <p>本文链接：<a href="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/">https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</a></p>
  <p>--------------------</p>
@@ -447,7 +447,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、关于-sc-defaultMinPartitions"><span class="toc-number">2.</span> <span class="toc-text">1、关于 sc.defaultMinPartitions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、关于sc-defaultParallelism"><span class="toc-number">3.</span> <span class="toc-text">2、关于sc.defaultParallelism</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-在文件中配置"><span class="toc-number">3.1.1.</span> <span class="toc-text">2.1.1 在文件中配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-在代码里配置"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.1.2 在代码里配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-没有配置spark-default-parallelism时的默认值"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 没有配置spark.default.parallelism时的默认值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-spark-shell"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.2.1 spark-shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-指定master为local"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2.2 指定master为local</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-master为local-和不指定master-2-2-1-一样，都为cpu核数"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.2.3 master为local[*]和不指定master(2.2.1)一样，都为cpu核数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-master为yarn"><span class="toc-number">3.2.4.</span> <span class="toc-text">2.2.4 master为yarn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-Standalone、其他集群模式"><span class="toc-number">3.2.5.</span> <span class="toc-text">2.2.5 Standalone、其他集群模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、HDFS文件的默认分区"><span class="toc-number">4.</span> <span class="toc-text">3、HDFS文件的默认分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-测试用HDSF上得txt文件创建的RDD的分区数"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 测试用HDSF上得txt文件创建的RDD的分区数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-测试读取hive表创建的DataFrame的分区数"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 测试读取hive表创建的DataFrame的分区数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、非HDFS文件的默认分区（本地文件）"><span class="toc-number">5.</span> <span class="toc-text">4、非HDFS文件的默认分区（本地文件）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-sc-textFile"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 sc.textFile()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-spark-read-csv"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 spark.read.csv()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-关系型数据库"><span class="toc-number">6.</span> <span class="toc-text">5.关系型数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、从代码里的内部数据集创建"><span class="toc-number">7.</span> <span class="toc-text">6、从代码里的内部数据集创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-sc-parallelize-创建RDD"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 sc.parallelize()创建RDD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-spark-createDataFrame-data-创建DataFrame"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 spark.createDataFrame(data)创建DataFrame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3代码"><span class="toc-number">7.3.</span> <span class="toc-text">6.3代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、其他改变分区数的算子"><span class="toc-number">8.</span> <span class="toc-text">6、其他改变分区数的算子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-分区数为1"><span class="toc-number">8.1.</span> <span class="toc-text">6.1 分区数为1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-分区数不为1的情况"><span class="toc-number">8.2.</span> <span class="toc-text">6.2 分区数不为1的情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、总结"><span class="toc-number">9.</span> <span class="toc-text">7、总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、关于-sc-defaultMinPartitions"><span class="toc-number">2.</span> <span class="toc-text">1、关于 sc.defaultMinPartitions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、关于sc-defaultParallelism"><span class="toc-number">3.</span> <span class="toc-text">2、关于sc.defaultParallelism</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-在文件中配置"><span class="toc-number">3.1.1.</span> <span class="toc-text">2.1.1 在文件中配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-在代码里配置"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.1.2 在代码里配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-没有配置spark-default-parallelism时的默认值"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 没有配置spark.default.parallelism时的默认值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-spark-shell"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.2.1 spark-shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-指定master为local"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2.2 指定master为local</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-master为local-和不指定master-2-2-1-一样，都为cpu核数"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.2.3 master为local[*]和不指定master(2.2.1)一样，都为cpu核数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-master为yarn"><span class="toc-number">3.2.4.</span> <span class="toc-text">2.2.4 master为yarn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-Standalone、其他集群模式"><span class="toc-number">3.2.5.</span> <span class="toc-text">2.2.5 Standalone、其他集群模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、HDFS文件的默认分区"><span class="toc-number">4.</span> <span class="toc-text">3、HDFS文件的默认分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-测试用HDSF上得txt文件创建的RDD的分区数"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 测试用HDSF上得txt文件创建的RDD的分区数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-测试读取hive表创建的DataFrame的分区数"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 测试读取hive表创建的DataFrame的分区数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、非HDFS文件的默认分区（本地文件）"><span class="toc-number">5.</span> <span class="toc-text">4、非HDFS文件的默认分区（本地文件）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-sc-textFile"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 sc.textFile()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-spark-read-csv"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 spark.read.csv()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、关系型数据库"><span class="toc-number">6.</span> <span class="toc-text">5、关系型数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、从代码里的内部数据集创建"><span class="toc-number">7.</span> <span class="toc-text">6、从代码里的内部数据集创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-sc-parallelize-创建RDD"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 sc.parallelize()创建RDD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-spark-createDataFrame-data-创建DataFrame"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 spark.createDataFrame(data)创建DataFrame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3代码"><span class="toc-number">7.3.</span> <span class="toc-text">6.3代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、其他改变分区数的算子"><span class="toc-number">8.</span> <span class="toc-text">6、其他改变分区数的算子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-分区数为1"><span class="toc-number">8.1.</span> <span class="toc-text">6.1 分区数为1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-分区数不为1的情况"><span class="toc-number">8.2.</span> <span class="toc-text">6.2 分区数不为1的情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、总结"><span class="toc-number">9.</span> <span class="toc-text">7、总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -626,7 +626,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -638,11 +642,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,15 +670,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,15 +722,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,10 +742,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
@@ -754,11 +750,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">UDF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
