@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>spark 将DataFrame所有的列类型改为double | 伦少的博客</title>
+  <title>Spark创建空的DataFrame | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言由于spark机器学习要求输入的DataFrame类型为数值类型，所以如果原始数据读进来的列为string类型，需要一一转化，而如果列很多的情况下一个转化很麻烦，所以能不能一个循环或者一个函数去解决呢。 1、单列转化方法123456import org.apache.spark.sql.types._val data = Array((&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;), (&quot;6">
-<meta name="keywords" content="Spark,DataFrame">
+  <meta name="description" content="前言本文主要给出Spark创建空的DataFrame的代码示例，这里讲的空的DataFrame主要指有列名（可以自己随意指定），但是没有行的DataFrame，因为自己在开发过程中有这个需求，之前并不知道怎么创建，就查了一下，发现资料并不多，不知道因为太简单还是用的人少~，至于具体什么需求就不阐述了，主要给有这方面需求的小伙伴参考一下。还有另一种空的DataFrame就是没有任何行任何列的Data">
+<meta name="keywords" content="Spark,Partition">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spark 将DataFrame所有的列类型改为double">
-<meta property="og:url" content="https://dongkelun.com/2018/04/27/dfChangeAllColDatatypes/index.html">
+<meta property="og:title" content="Spark创建空的DataFrame">
+<meta property="og:url" content="https://dongkelun.com/2018/08/14/sparkEmptyDataFrame/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言由于spark机器学习要求输入的DataFrame类型为数值类型，所以如果原始数据读进来的列为string类型，需要一一转化，而如果列很多的情况下一个转化很麻烦，所以能不能一个循环或者一个函数去解决呢。 1、单列转化方法123456import org.apache.spark.sql.types._val data = Array((&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;), (&quot;6">
+<meta property="og:description" content="前言本文主要给出Spark创建空的DataFrame的代码示例，这里讲的空的DataFrame主要指有列名（可以自己随意指定），但是没有行的DataFrame，因为自己在开发过程中有这个需求，之前并不知道怎么创建，就查了一下，发现资料并不多，不知道因为太简单还是用的人少~，至于具体什么需求就不阐述了，主要给有这方面需求的小伙伴参考一下。还有另一种空的DataFrame就是没有任何行任何列的Data">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-07-05T09:01:33.582Z">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu9jfj9oc5j21ab0pkdhz.jpg">
+<meta property="og:updated_time" content="2018-08-14T13:13:56.479Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spark 将DataFrame所有的列类型改为double">
-<meta name="twitter:description" content="前言由于spark机器学习要求输入的DataFrame类型为数值类型，所以如果原始数据读进来的列为string类型，需要一一转化，而如果列很多的情况下一个转化很麻烦，所以能不能一个循环或者一个函数去解决呢。 1、单列转化方法123456import org.apache.spark.sql.types._val data = Array((&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;), (&quot;6">
+<meta name="twitter:title" content="Spark创建空的DataFrame">
+<meta name="twitter:description" content="前言本文主要给出Spark创建空的DataFrame的代码示例，这里讲的空的DataFrame主要指有列名（可以自己随意指定），但是没有行的DataFrame，因为自己在开发过程中有这个需求，之前并不知道怎么创建，就查了一下，发现资料并不多，不知道因为太简单还是用的人少~，至于具体什么需求就不阐述了，主要给有这方面需求的小伙伴参考一下。还有另一种空的DataFrame就是没有任何行任何列的Data">
+<meta name="twitter:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu9jfj9oc5j21ab0pkdhz.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -169,20 +171,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-dfChangeAllColDatatypes" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sparkEmptyDataFrame" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      spark 将DataFrame所有的列类型改为double
+      Spark创建空的DataFrame
     </h1>
   
 
         
-        <a href="/2018/04/27/dfChangeAllColDatatypes/" class="archive-article-date">
-  	<time datetime="2018-04-26T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
+        <a href="/2018/08/14/sparkEmptyDataFrame/" class="archive-article-date">
+  	<time datetime="2018-08-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-14</time>
 </a>
         
       </header>
@@ -198,7 +200,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DataFrame</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Partition</a>
         		</li>
       		
 		</ul>
@@ -212,18 +214,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于spark机器学习要求输入的DataFrame类型为数值类型，所以如果原始数据读进来的列为string类型，需要一一转化，而如果列很多的情况下一个转化很麻烦，所以能不能一个循环或者一个函数去解决呢。</p>
-<h2 id="1、单列转化方法"><a href="#1、单列转化方法" class="headerlink" title="1、单列转化方法"></a>1、单列转化方法</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types._</span><br><span class="line"><span class="keyword">val</span> data = <span class="type">Array</span>((<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>), (<span class="string">"6"</span>, <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"10"</span>))</span><br><span class="line"><span class="keyword">val</span> df = spark.createDataFrame(data).toDF(<span class="string">"col1"</span>, <span class="string">"col2"</span>, <span class="string">"col3"</span>, <span class="string">"col4"</span>, <span class="string">"col5"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line">df.select(col(<span class="string">"col1"</span>).cast(<span class="type">DoubleType</span>)).show()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+</span><br><span class="line">|col1|</span><br><span class="line">+----+</span><br><span class="line">| 1.0|</span><br><span class="line">| 6.0|</span><br><span class="line">+----+</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="2、循环转变"><a href="#2、循环转变" class="headerlink" title="2、循环转变"></a>2、循环转变</h2><p>然后就想能不能用这个方法循环把每一列转成double，但没想到怎么实现，可以用withColumn循环实现。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> colNames = df.columns</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> df1 = df</span><br><span class="line"><span class="keyword">for</span> (colName &lt;- colNames) &#123;</span><br><span class="line">  df1 = df1.withColumn(colName, col(colName).cast(<span class="type">DoubleType</span>))</span><br><span class="line">&#125;</span><br><span class="line">df1.show()</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+----+----+----+----+</span><br><span class="line">|col1|col2|col3|col4|col5|</span><br><span class="line">+----+----+----+----+----+</span><br><span class="line">| 1.0| 2.0| 3.0| 4.0| 5.0|</span><br><span class="line">| 6.0| 7.0| 8.0| 9.0|10.0|</span><br><span class="line">+----+----+----+----+----+</span><br></pre></td></tr></table></figure>
-<h2 id="3、通过"><a href="#3、通过" class="headerlink" title="3、通过:_*"></a>3、通过:_*</h2><p>但是上面这个方法效率比较低，然后问了一下别人，发现scala 有array:_*这样传参这种语法，而df的select方法也支持这样传，于是最终可以按下面的这样写</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> cols = colNames.map(f =&gt; col(f).cast(<span class="type">DoubleType</span>))</span><br><span class="line">df.select(cols: _*).show()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+----+----+----+----+</span><br><span class="line">|col1|col2|col3|col4|col5|</span><br><span class="line">+----+----+----+----+----+</span><br><span class="line">| 1.0| 2.0| 3.0| 4.0| 5.0|</span><br><span class="line">| 6.0| 7.0| 8.0| 9.0|10.0|</span><br><span class="line">+----+----+----+----+----+</span><br></pre></td></tr></table></figure>
-<p>这样就可以很方便的查询指定多列和转变指定列的类型了：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> name = <span class="string">"col1,col3,col5"</span></span><br><span class="line">df.select(name.split(<span class="string">","</span>).map(name =&gt; col(name)): _*).show()</span><br><span class="line">df.select(name.split(<span class="string">","</span>).map(name =&gt; col(name).cast(<span class="type">DoubleType</span>)): _*).show()</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">+----+----+----+</span><br><span class="line">|col1|col3|col5|</span><br><span class="line">+----+----+----+</span><br><span class="line">|   1|   3|   5|</span><br><span class="line">|   6|   8|  10|</span><br><span class="line">+----+----+----+</span><br><span class="line"></span><br><span class="line">+----+----+----+</span><br><span class="line">|col1|col3|col5|</span><br><span class="line">+----+----+----+</span><br><span class="line">| 1.0| 3.0| 5.0|</span><br><span class="line">| 6.0| 8.0|10.0|</span><br><span class="line">+----+----+----+</span><br></pre></td></tr></table></figure>
-<p>附完整代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.test</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types._</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">DataFrame</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DfDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"DfDemo"</span>).master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line">    <span class="keyword">import</span> org.apache.spark.sql.types._</span><br><span class="line">    <span class="keyword">val</span> data = <span class="type">Array</span>((<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>), (<span class="string">"6"</span>, <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"10"</span>))</span><br><span class="line">    <span class="keyword">val</span> df = spark.createDataFrame(data).toDF(<span class="string">"col1"</span>, <span class="string">"col2"</span>, <span class="string">"col3"</span>, <span class="string">"col4"</span>, <span class="string">"col5"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> org.apache.spark.sql.functions._</span><br><span class="line">    df.select(col(<span class="string">"col1"</span>).cast(<span class="type">DoubleType</span>)).show()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> colNames = df.columns</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> df1 = df</span><br><span class="line">    <span class="keyword">for</span> (colName &lt;- colNames) &#123;</span><br><span class="line">      df1 = df1.withColumn(colName, col(colName).cast(<span class="type">DoubleType</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    df1.show()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> cols = colNames.map(f =&gt; col(f).cast(<span class="type">DoubleType</span>))</span><br><span class="line">    df.select(cols: _*).show()</span><br><span class="line">    <span class="keyword">val</span> name = <span class="string">"col1,col3,col5"</span></span><br><span class="line">    df.select(name.split(<span class="string">","</span>).map(name =&gt; col(name)): _*).show()</span><br><span class="line">    df.select(name.split(<span class="string">","</span>).map(name =&gt; col(name).cast(<span class="type">DoubleType</span>)): _*).show()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要给出Spark创建空的DataFrame的代码示例，这里讲的空的DataFrame主要指有列名（可以自己随意指定），但是没有行的DataFrame，因为自己在开发过程中有这个需求，之前并不知道怎么创建，就查了一下，发现资料并不多，不知道因为太简单还是用的人少~，至于具体什么需求就不阐述了，主要给有这方面需求的小伙伴参考一下。还有另一种空的DataFrame就是没有任何行任何列的DataFrame，不知道有什么用，反正贴在代码里，万一有人用呢~</p>
+<h2 id="1、代码"><a href="#1、代码" class="headerlink" title="1、代码"></a>1、代码</h2><p>代码较简单，如下<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.df</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.types._</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">Row</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.rdd.<span class="type">EmptyRDD</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Spark创建空DataFrame示例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">EmptyDataFrame</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder().appName(<span class="string">"EmptyDataFrame"</span>).master(<span class="string">"local"</span>).getOrCreate()</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建一个空的DataFrame，代表用户</span></span><br><span class="line"><span class="comment">     * 有四列，分别代表ID、名字、年龄、生日</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">val</span> colNames = <span class="type">Array</span>(<span class="string">"id"</span>, <span class="string">"name"</span>, <span class="string">"age"</span>, <span class="string">"birth"</span>)</span><br><span class="line">    <span class="comment">//为了简单起见，字段类型都为String</span></span><br><span class="line">    <span class="keyword">val</span> schema = <span class="type">StructType</span>(colNames.map(fieldName =&gt; <span class="type">StructField</span>(fieldName, <span class="type">StringType</span>, <span class="literal">true</span>)))</span><br><span class="line">    <span class="comment">//主要是利用了spark.sparkContext.emptyRDD</span></span><br><span class="line">    <span class="keyword">val</span> emptyDf = spark.createDataFrame(spark.sparkContext.emptyRDD[<span class="type">Row</span>], schema)</span><br><span class="line"></span><br><span class="line">    emptyDf.show</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 也可以给每列指定相对应的类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">val</span> schema1 = <span class="type">StructType</span>(</span><br><span class="line">      <span class="type">Seq</span>(</span><br><span class="line">        <span class="type">StructField</span>(<span class="string">"id"</span>, <span class="type">IntegerType</span>, <span class="literal">true</span>),</span><br><span class="line">        <span class="type">StructField</span>(<span class="string">"name"</span>, <span class="type">StringType</span>, <span class="literal">true</span>),</span><br><span class="line">        <span class="type">StructField</span>(<span class="string">"age"</span>, <span class="type">IntegerType</span>, <span class="literal">true</span>),</span><br><span class="line">        <span class="type">StructField</span>(<span class="string">"birth"</span>, <span class="type">StringType</span>, <span class="literal">true</span>)))</span><br><span class="line">    <span class="keyword">val</span> emptyDf1 = spark.createDataFrame(spark.sparkContext.emptyRDD[<span class="type">Row</span>], schema1)</span><br><span class="line">    emptyDf1.show</span><br><span class="line"></span><br><span class="line">    <span class="comment">//还有一种空的DataFrame，没有任何行任何列</span></span><br><span class="line">    spark.emptyDataFrame.show</span><br><span class="line"></span><br><span class="line">    spark.stop()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2、结果"><a href="#2、结果" class="headerlink" title="2、结果"></a>2、结果</h2><p><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu9jfj9oc5j21ab0pkdhz.jpg" alt=""></p>
 
       
 
@@ -267,9 +260,9 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2018/04/27/dfChangeAllColDatatypes/">spark 将DataFrame所有的列类型改为double</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/08/14/sparkEmptyDataFrame/">Spark创建空的DataFrame</a> </p>
  
- <p>本文链接：<a href="https://dongkelun.com/2018/04/27/dfChangeAllColDatatypes/">https://dongkelun.com/2018/04/27/dfChangeAllColDatatypes/</a></p>
+ <p>本文链接：<a href="https://dongkelun.com/2018/08/14/sparkEmptyDataFrame/">https://dongkelun.com/2018/08/14/sparkEmptyDataFrame/</a></p>
  <p>--------------------</p>
  <p>作者联系方式：</p>
  <p>QQ：1412359494</p>
@@ -331,7 +324,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/04/27/dfChangeAllColDatatypes/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/08/14/sparkEmptyDataFrame/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -345,18 +338,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/05/oracleConf/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          centos7 安装oracle11
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/25/ambariConf/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</div>
+    <a href="/2018/08/13/sparkDefaultPartitionNums/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark 创建RDD、DataFrame各种情况的默认分区数</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -383,7 +367,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、单列转化方法"><span class="toc-number">2.</span> <span class="toc-text">1、单列转化方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、循环转变"><span class="toc-number">3.</span> <span class="toc-text">2、循环转变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、通过"><span class="toc-number">4.</span> <span class="toc-text">3、通过:_*</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、代码"><span class="toc-number">2.</span> <span class="toc-text">1、代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、结果"><span class="toc-number">3.</span> <span class="toc-text">2、结果</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -399,7 +383,7 @@
   
 
   
-  <div id="SOHUCS" sid="dfChangeAllColDatatypes" ></div> 
+  <div id="SOHUCS" sid="sparkEmptyDataFrame" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
