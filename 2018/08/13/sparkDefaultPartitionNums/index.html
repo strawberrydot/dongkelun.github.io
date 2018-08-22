@@ -57,7 +57,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu8b2p5crkj20p004r74j.jpg">
-<meta property="og:updated_time" content="2018-08-22T11:49:12.817Z">
+<meta property="og:updated_time" content="2018-08-22T12:17:08.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 创建RDD、DataFrame各种情况的默认分区数">
 <meta name="twitter:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
@@ -331,7 +331,7 @@
 <p><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7uu5rhekj20p00b774u.jpg" alt=""></p>
 <h2 id="5、关系型数据库"><a href="#5、关系型数据库" class="headerlink" title="5、关系型数据库"></a>5、关系型数据库</h2><p>从关系型数据库表读取的df的分区数为1，以mysql为例，我这里拿一张1000万条数据的表进行测试<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu81ltmyg6j20p004gt8v.jpg" alt=""><br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg" alt=""><br>Spark连接mysql的代码都可以参考<a href="https://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a></p>
 <ul>
-<li>设置读取mysql时，设置获取到的df的默认分区数也可以参考<a href="https://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a></li>
+<li>设置df的默认分区数也可以参考<a href="https://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a></li>
 </ul>
 <h2 id="6、从代码里的内部数据集创建"><a href="#6、从代码里的内部数据集创建" class="headerlink" title="6、从代码里的内部数据集创建"></a>6、从代码里的内部数据集创建</h2><h3 id="6-1-sc-parallelize-创建RDD"><a href="#6-1-sc-parallelize-创建RDD" class="headerlink" title="6.1 sc.parallelize()创建RDD"></a>6.1 sc.parallelize()创建RDD</h3><p>默认分区数等于sc.defaultParallelism，指定参数时分区数值等于参数值。</p>
 <h3 id="6-2-spark-createDataFrame-data-创建DataFrame"><a href="#6-2-spark-createDataFrame-data-创建DataFrame" class="headerlink" title="6.2 spark.createDataFrame(data)创建DataFrame"></a>6.2 spark.createDataFrame(data)创建DataFrame</h3><p>当data的长度小于sc.defaultParallelism，分区数等于data长度，否则分区数等于sc.defaultParallelism</p>
@@ -652,6 +652,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -664,27 +672,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,6 +689,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,10 +732,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
@@ -744,11 +740,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -4,27 +4,8 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
-    <lastmod>2018-08-22T12:13:41.059Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Sql 连接mysql</title>
-        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>scala</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</loc>
-    <lastmod>2018-08-22T11:49:12.817Z</lastmod>
+    <lastmod>2018-08-22T12:17:08.680Z</lastmod>
     <data>
         <display>
         <title>Spark 创建RDD、DataFrame各种情况的默认分区数</title>
@@ -37,6 +18,25 @@
         <tag>Rdd</tag>
          
         <tag>Partition</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
+    <lastmod>2018-08-22T12:13:41.059Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Sql 连接mysql</title>
+        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>scala</tag>
          
          
            
