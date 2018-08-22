@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb942xfj20vz09z0tj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb9pmnmj213v0o1tbo.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmba88iyj215n07r0t8.jpg">
-<meta property="og:updated_time" content="2018-08-22T11:52:51.413Z">
+<meta property="og:updated_time" content="2018-08-22T12:13:41.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Sql 连接mysql">
 <meta name="twitter:description" content="1、基本概念和用法（摘自spark官方文档中文版）Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Pyth">
@@ -276,7 +276,7 @@
 <li>只要在2.3.1的代码里用.option(key,value)即可</li>
 </ul>
 <h2 id="5、关于读取mysql的分区设置（更新于2018-08-22）"><a href="#5、关于读取mysql的分区设置（更新于2018-08-22）" class="headerlink" title="5、关于读取mysql的分区设置（更新于2018.08.22）"></a>5、关于读取mysql的分区设置（更新于2018.08.22）</h2><p>按照2.3.1的代码读取的DataFrame的分区数为1，若想改变分区数，一种方法是重分区<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.repartition(numPartitions)</span><br></pre></td></tr></table></figure></p>
-<p>另一种是在读的时候设置分区数，在第一部分可以看到，通过numPartitions可以设置分区数，但是注意partitionColumn, lowerBound, upperBound, numPartitions需要同时设置<br>如：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> jdbcDF = spark.read</span><br><span class="line">     .format(<span class="string">"jdbc"</span>)</span><br><span class="line">     .option(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://192.168.44.128:3306/hive?useUnicode=true&amp;characterEncoding=utf-8"</span>)</span><br><span class="line">     .option(<span class="string">"dbtable"</span>, <span class="string">"USER_T"</span>)</span><br><span class="line">     .option(<span class="string">"user"</span>, <span class="string">"root"</span>)</span><br><span class="line">     .option(<span class="string">"password"</span>, <span class="string">"Root-123456"</span>)</span><br><span class="line">	 .option(<span class="string">"numPartitions"</span>, <span class="string">"160"</span>)</span><br><span class="line">	 .option(<span class="string">"partitionColumn"</span>, <span class="string">"ID"</span>)</span><br><span class="line">	 .option(<span class="string">"lowerBound"</span>, <span class="string">"1"</span>)</span><br><span class="line">	 .option(<span class="string">"upperBound"</span>, <span class="string">"1000"</span>)</span><br><span class="line">     .load()</span><br></pre></td></tr></table></figure></p>
+<p>另一种是在读的时候设置分区数，在第一部分可以看到，通过numPartitions可以设置分区数，但是注意partitionColumn, lowerBound, upperBound, numPartitions需要同时设置<br>如：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> jdbcDF = spark.read</span><br><span class="line">     .format(<span class="string">"jdbc"</span>)</span><br><span class="line">     .option(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://192.168.44.128:3306/hive?useUnicode=true&amp;characterEncoding=utf-8"</span>)</span><br><span class="line">     .option(<span class="string">"dbtable"</span>, <span class="string">"USER_T"</span>)</span><br><span class="line">     .option(<span class="string">"user"</span>, <span class="string">"root"</span>)</span><br><span class="line">     .option(<span class="string">"password"</span>, <span class="string">"Root-123456"</span>)</span><br><span class="line">     .option(<span class="string">"numPartitions"</span>, <span class="string">"160"</span>)</span><br><span class="line">     .option(<span class="string">"partitionColumn"</span>, <span class="string">"ID"</span>)</span><br><span class="line">     .option(<span class="string">"lowerBound"</span>, <span class="string">"1"</span>)</span><br><span class="line">     .option(<span class="string">"upperBound"</span>, <span class="string">"1000"</span>)</span><br><span class="line">     .load()</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -587,14 +587,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -607,6 +599,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
@@ -615,19 +615,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
