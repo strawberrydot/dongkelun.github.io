@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb942xfj20vz09z0tj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb9pmnmj213v0o1tbo.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmba88iyj215n07r0t8.jpg">
-<meta property="og:updated_time" content="2018-07-11T07:19:06.159Z">
+<meta property="og:updated_time" content="2018-08-22T11:43:57.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Sql 连接mysql">
 <meta name="twitter:description" content="1、基本概念和用法（摘自spark官方文档中文版）Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Pyth">
@@ -243,7 +243,7 @@
 </tr>
 <tr>
 <td>partitionColumn, lowerBound, upperBound, numPartitions</td>
-<td style="text-align:center">这几个选项，若有一个被配置，则必须全部配置。它们描述了当从多个 worker 中并行的读取表时，如何对它分区。partitionColumn 必须时所查询表的一个数值字段。注意，lowerBound 和 upperBound 都只是用于决定分区跨度的，而不是过滤表中的行。因此，表中的所有行将被分区并返回。</td>
+<td style="text-align:center">这几个选项，若有一个被配置，则必须全部配置。它们描述了当从多个 worker 中并行的读取表时，如何对它分区。partitionColumn 必须是所查询表的一个数值字段。注意，lowerBound 和 upperBound 都只是用于决定分区跨度的，而不是过滤表中的行。因此，表中的所有行将被分区并返回。</td>
 </tr>
 <tr>
 <td>fetchSize</td>
@@ -251,8 +251,11 @@
 </tr>
 </tbody>
 </table>
-<a id="more"></a>
-<h2 id="2、scala代码实现连接mysql"><a href="#2、scala代码实现连接mysql" class="headerlink" title="2、scala代码实现连接mysql"></a>2、scala代码实现连接mysql</h2><h3 id="2-1-添加mysql-依赖"><a href="#2-1-添加mysql-依赖" class="headerlink" title="2.1 添加mysql 依赖"></a>2.1 添加mysql 依赖</h3><p>在sbt 配置文件里添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;mysql&quot; % &quot;mysql-connector-java&quot; % &quot;6.0.6&quot;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>其实该部分翻译自Spark官方文档，所以对于翻译有疑问的可直接看官方文档<a id="more"></a>
+<h2 id="2、scala代码实现连接mysql"><a href="#2、scala代码实现连接mysql" class="headerlink" title="2、scala代码实现连接mysql"></a>2、scala代码实现连接mysql</h2><h3 id="2-1-添加mysql-依赖"><a href="#2-1-添加mysql-依赖" class="headerlink" title="2.1 添加mysql 依赖"></a>2.1 添加mysql 依赖</h3>在sbt 配置文件里添加：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;mysql&quot; % &quot;mysql-connector-java&quot; % &quot;6.0.6&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>然后执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbt eclipse</span><br></pre></td></tr></table></figure></p>
 <h3 id="2-2-建表并初始化数据"><a href="#2-2-建表并初始化数据" class="headerlink" title="2.2 建表并初始化数据"></a>2.2 建表并初始化数据</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`USER_T`</span>;  </span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`USER_T`</span> (  </span><br><span class="line">  <span class="string">`ID`</span> <span class="built_in">INT</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,  </span><br><span class="line">  <span class="string">`USER_NAME`</span> <span class="built_in">VARCHAR</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,  </span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`ID`</span>)  </span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span>  <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=UTF8;</span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span>  <span class="keyword">INTO</span> <span class="string">`USER_T`</span>(<span class="string">`ID`</span>,<span class="string">`USER_NAME`</span>) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">'测试1'</span>);</span><br><span class="line"><span class="keyword">INSERT</span>  <span class="keyword">INTO</span> <span class="string">`USER_T`</span>(<span class="string">`ID`</span>,<span class="string">`USER_NAME`</span>) <span class="keyword">VALUES</span> (<span class="number">2</span>,<span class="string">'测试2'</span>);</span><br></pre></td></tr></table></figure>
@@ -264,10 +267,16 @@
 <p><img src="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb9pmnmj213v0o1tbo.jpg" alt=""></p>
 <p>再查询一次，就会发现表里多了几条数据</p>
 <p><img src="https://wx4.sinaimg.cn/large/e44344dcly1fpqmba88iyj215n07r0t8.jpg" alt=""></p>
-<h2 id="3、注意"><a href="#3、注意" class="headerlink" title="3、注意"></a>3、注意</h2><p>上面的代码在本地eclipse运行是没有问题的,如果放在服务器上用spark-submit提交的话，可能会报异常<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.sql.<span class="type">SQLException</span>:<span class="type">No</span> suitable driver</span><br></pre></td></tr></table></figure></p>
+<h2 id="3、注意（更新）"><a href="#3、注意（更新）" class="headerlink" title="3、注意（更新）"></a>3、注意（更新）</h2><p>上面的代码在本地eclipse运行是没有问题的,如果放在服务器上用spark-submit提交的话，可能会报异常<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.sql.<span class="type">SQLException</span>:<span class="type">No</span> suitable driver</span><br></pre></td></tr></table></figure></p>
 <p>解决方法是在代码里添加<br>mysql:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.option(<span class="string">"driver"</span>, <span class="string">"com.mysql.jdbc.Driver"</span>)</span><br></pre></td></tr></table></figure></p>
 <p>oracle:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.option(<span class="string">"driver"</span>, <span class="string">"oracle.jdbc.driver.OracleDriver"</span>)</span><br></pre></td></tr></table></figure></p>
 <p>具体可参考我的另一篇博客：<a href="https://dongkelun.com/2018/05/06/sparkSubmitException/">spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable driver</a></p>
+<h2 id="4、其他读取mysql的方法（更新于2018-08-22）"><a href="#4、其他读取mysql的方法（更新于2018-08-22）" class="headerlink" title="4、其他读取mysql的方法（更新于2018.08.22）"></a>4、其他读取mysql的方法（更新于2018.08.22）</h2><p>发现还有Spark还有其他读取mysql的方法，其实只是上面讲的快捷方式（2.3.1），只附上用法，具体看以看api或参考其他博客，如<a href="https://blog.csdn.net/liuzongxi/article/details/51764104" target="_blank" rel="noopener">spark：scala读取mysql的4种方法</a><br>(我就是在这篇博客看到的，该博客是Spark1.x的写法，若用Spark2.x将sqlContext改为本文的spark即可)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spark.read.jdbc(url, table, columnName, lowerBound, upperBound, numPartitions, connectionProperties)</span><br><span class="line">spark.read.jdbc(url, table, predicates, connectionProperties)</span><br><span class="line">spark.read.jdbc(url, table, properties)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>只要在2.3.1的代码里用.option(key,value)即可</li>
+</ul>
+<h2 id="5、关于读取mysql的分区设置（更新于2018-08-22）"><a href="#5、关于读取mysql的分区设置（更新于2018-08-22）" class="headerlink" title="5、关于读取mysql的分区设置（更新于2018.08.22）"></a>5、关于读取mysql的分区设置（更新于2018.08.22）</h2><p>按照2.3.1的代码读取的DataFrame的分区数为1，若想改变分区数，一种方法是重分区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.repartition(numPartitions)</span><br></pre></td></tr></table></figure></p>
+<p>另一种是在读的时候设置分区数，在第一部分可以看到，通过numPartitions可以设置分区数，但是注意partitionColumn, lowerBound, upperBound, numPartitions需要同时设置<br>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">val jdbcDF = spark.read</span><br><span class="line">     .format(&quot;jdbc&quot;)</span><br><span class="line">     .option(&quot;url&quot;, &quot;jdbc:mysql://192.168.44.128:3306/hive?useUnicode=true&amp;characterEncoding=utf-8&quot;)</span><br><span class="line">     .option(&quot;dbtable&quot;, &quot;USER_T&quot;)</span><br><span class="line">     .option(&quot;user&quot;, &quot;root&quot;)</span><br><span class="line">     .option(&quot;password&quot;, &quot;Root-123456&quot;)</span><br><span class="line">	 .option(&quot;numPartitions&quot;, &quot;160&quot;)</span><br><span class="line">	 .option(&quot;partitionColumn&quot;, &quot;ID&quot;)</span><br><span class="line">	 .option(&quot;lowerBound&quot;, &quot;1&quot;)</span><br><span class="line">	 .option(&quot;upperBound&quot;, &quot;1000&quot;)</span><br><span class="line">     .load()</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -427,7 +436,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、基本概念和用法（摘自spark官方文档中文版）"><span class="toc-number">1.</span> <span class="toc-text">1、基本概念和用法（摘自spark官方文档中文版）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、scala代码实现连接mysql"><span class="toc-number">2.</span> <span class="toc-text">2、scala代码实现连接mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加mysql-依赖"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 添加mysql 依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-建表并初始化数据"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 建表并初始化数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-代码"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-查询"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-插入数据"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 插入数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、注意"><span class="toc-number">3.</span> <span class="toc-text">3、注意</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、基本概念和用法（摘自spark官方文档中文版）"><span class="toc-number">1.</span> <span class="toc-text">1、基本概念和用法（摘自spark官方文档中文版）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、scala代码实现连接mysql"><span class="toc-number">2.</span> <span class="toc-text">2、scala代码实现连接mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-添加mysql-依赖"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 添加mysql 依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-建表并初始化数据"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 建表并初始化数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-代码"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-查询"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-插入数据"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 插入数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、注意（更新）"><span class="toc-number">3.</span> <span class="toc-text">3、注意（更新）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、其他读取mysql的方法（更新于2018-08-22）"><span class="toc-number">4.</span> <span class="toc-text">4、其他读取mysql的方法（更新于2018.08.22）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、关于读取mysql的分区设置（更新于2018-08-22）"><span class="toc-number">5.</span> <span class="toc-text">5、关于读取mysql的分区设置（更新于2018.08.22）</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -578,7 +587,7 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -598,7 +607,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,7 +623,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,14 +632,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -638,31 +647,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -674,7 +667,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -690,11 +695,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,19 +715,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,6 +732,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
