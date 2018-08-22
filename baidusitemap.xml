@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
+    <lastmod>2018-08-22T11:52:51.413Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Sql 连接mysql</title>
+        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>scala</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</loc>
     <lastmod>2018-08-22T11:49:12.817Z</lastmod>
     <data>
@@ -18,25 +37,6 @@
         <tag>Rdd</tag>
          
         <tag>Partition</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
-    <lastmod>2018-08-22T11:43:57.218Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Sql 连接mysql</title>
-        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>scala</tag>
          
          
            
@@ -152,9 +152,9 @@
         <title>通过数据库客户端界面工具DBeaver连接Hive</title>
         <pubTime>2018-07-12T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>界面工具</tag>
+         
+        <tag>hive</tag>
          
          
            
@@ -192,9 +192,9 @@
         <title>HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>ambari</tag>
-         
         <tag>Hadoop</tag>
+         
+        <tag>ambari</tag>
          
          
            
@@ -211,9 +211,9 @@
         <title>ambari 异常总结及解决办法</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>centos7</tag>
-         
         <tag>ambari</tag>
+         
+        <tag>centos7</tag>
          
          
            
@@ -230,9 +230,9 @@
         <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
         <pubTime>2018-04-24T16:00:00.000Z</pubTime>
         
-        <tag>centos7</tag>
-         
         <tag>ambari</tag>
+         
+        <tag>centos7</tag>
          
          
            
@@ -619,9 +619,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>转载</tag>
-         
         <tag>scala</tag>
+         
+        <tag>转载</tag>
          
          
            
