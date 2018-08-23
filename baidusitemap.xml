@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/08/20/sparkDfAddComments/</loc>
+    <lastmod>2018-08-23T09:06:13.584Z</lastmod>
+    <data>
+        <display>
+        <title>Spark通过修改DataFrame的schema给表字段添加注释</title>
+        <pubTime>2018-08-19T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+        <tag>DataFrame</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</loc>
     <lastmod>2018-08-22T12:17:08.680Z</lastmod>
     <data>
@@ -37,25 +56,6 @@
         <tag>spark</tag>
          
         <tag>scala</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/08/20/sparkDfAddComments/</loc>
-    <lastmod>2018-08-20T02:50:16.582Z</lastmod>
-    <data>
-        <display>
-        <title>Spark通过修改DataFrame的schema给表字段添加注释</title>
-        <pubTime>2018-08-19T16:00:00.000Z</pubTime>
-        
-        <tag>Spark</tag>
-         
-        <tag>DataFrame</tag>
          
          
            
@@ -287,9 +287,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
