@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Spark Streamming+Kafka提交offset实现有且仅有一次 | 伦少的博客</title>
+  <title>Spark Streaming+Kafka提交offset实现有且仅有一次 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言本文讲Spark Streamming使用Direct方式读取Kafka，并在输出（存储）操作之后提交offset到Kafka里实现程序读写操作有且仅有一次，即程序重启之后之前消费并且输出过的数据不再重复消费，接着上次消费的位置继续消费Kafka里的数据。Spark Streamming+Kafka官方文档：http://spark.apache.org/docs/latest/streami">
 <meta name="keywords" content="spark,Kafka,Spark Streamming">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark Streamming+Kafka提交offset实现有且仅有一次">
+<meta property="og:title" content="Spark Streaming+Kafka提交offset实现有且仅有一次">
 <meta property="og:url" content="https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言本文讲Spark Streamming使用Direct方式读取Kafka，并在输出（存储）操作之后提交offset到Kafka里实现程序读写操作有且仅有一次，即程序重启之后之前消费并且输出过的数据不再重复消费，接着上次消费的位置继续消费Kafka里的数据。Spark Streamming+Kafka官方文档：http://spark.apache.org/docs/latest/streami">
@@ -20,9 +20,9 @@
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fshpnmxnjgj21f00ow77c.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fshpnoqlnwj20la04rmxa.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fshpnoc9yuj21g00pp0vw.jpg">
-<meta property="og:updated_time" content="2018-07-11T07:18:48.561Z">
+<meta property="og:updated_time" content="2018-08-23T09:41:13.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark Streamming+Kafka提交offset实现有且仅有一次">
+<meta name="twitter:title" content="Spark Streaming+Kafka提交offset实现有且仅有一次">
 <meta name="twitter:description" content="前言本文讲Spark Streamming使用Direct方式读取Kafka，并在输出（存储）操作之后提交offset到Kafka里实现程序读写操作有且仅有一次，即程序重启之后之前消费并且输出过的数据不再重复消费，接着上次消费的位置继续消费Kafka里的数据。Spark Streamming+Kafka官方文档：http://spark.apache.org/docs/latest/streami">
 <meta name="twitter:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fshpnnheigj20ld02jglj.jpg">
   
@@ -181,7 +181,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spark Streamming+Kafka提交offset实现有且仅有一次
+      Spark Streaming+Kafka提交offset实现有且仅有一次
     </h1>
   
 
@@ -281,7 +281,7 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/">Spark Streamming+Kafka提交offset实现有且仅有一次</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/">Spark Streaming+Kafka提交offset实现有且仅有一次</a> </p>
  
  <p>本文链接：<a href="https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/">https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</a></p>
  <p>--------------------</p>
@@ -548,14 +548,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -568,15 +560,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,11 +580,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,15 +596,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,15 +616,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,11 +624,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,19 +672,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,11 +688,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
