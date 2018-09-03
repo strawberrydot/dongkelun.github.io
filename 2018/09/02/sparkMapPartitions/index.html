@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fuw66omqy6j20p0057jrp.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fuwf38qctxj20p00kwt99.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fuwkza9ih7j20p00jk0uw.jpg">
-<meta property="og:updated_time" content="2018-09-03T11:38:12.709Z">
+<meta property="og:updated_time" content="2018-09-03T11:53:33.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark基于分区进行操作">
 <meta name="twitter:description" content="前言（摘自Spark快速大数据分析）基于分区对数据进行操作可以让我们避免为每个数据元素进行重复的配置工作。诸如打开数据库连接或创建随机数生成器等操作，都是我们应当尽量避免为每个元素都配置一次的工作。Spark 提供基于分区的map 和foreach，让你的部分代码只对RDD 的每个分区运行一次，这样可以帮助降低这些操作的代价。当基于分区操作RDD 时，Spark 会为函数提供该分区中的元素的迭代器">
@@ -284,14 +284,15 @@
 </ul>
 <p>根据上面的代码，看到用这种方式的缺点是每一个元素都要创建一个数据库连接，这样频繁创建连接、关闭连接，在数据量很大的情况下，势必会对性能产生影响，但是优点是不用担心内存不够。</p>
 <h4 id="4-2-2-第二种"><a href="#4-2-2-第二种" class="headerlink" title="4.2.2 第二种"></a>4.2.2 第二种</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conn = <span class="type">DriverManager</span>.getConnection(database_url, user, password)</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">val</span> statement = conn.createStatement(<span class="type">ResultSet</span>.<span class="type">TYPE_FORWARD_ONLY</span>, <span class="type">ResultSet</span>.<span class="type">CONCUR_READ_ONLY</span>)</span><br><span class="line">  <span class="keyword">val</span> prep = conn.prepareStatement(<span class="string">s"update test set isDeal=1 where id=?"</span>)</span><br><span class="line"></span><br><span class="line">  df.select(<span class="string">"id"</span>).collect().foreach(row =&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> id = row.getAs[<span class="type">Int</span>](<span class="string">"id"</span>)</span><br><span class="line">    prep.setInt(<span class="number">1</span>, id)</span><br><span class="line">    prep.executeUpdate</span><br><span class="line"></span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> e: <span class="type">Exception</span> =&gt; e.printStackTrace</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这种方式的缺点是把要操作的数据全部转成scala数组，仅在Driver端执行，但是如果数据量很大的话，可能因为Driver内存不够大而抛出异常，优点是只建立一次数据库连接，我觉得如果数据量比较小的话，可以采取这种方式。</p>
+<p>这种方式的缺点是把要操作的数据全部转成scala数组，仅在Driver端执行，但是如果数据量很大的话，可能因为Driver内存不够大而抛出异常，优点是只建立一次数据库连接，在数据量不是特别大，且确定Driver的内存足够的时候，可以采取这种方式。</p>
 <h3 id="4-3-基于分区的方式"><a href="#4-3-基于分区的方式" class="headerlink" title="4.3 基于分区的方式"></a>4.3 基于分区的方式</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">df.rdd.foreachPartition(it =&gt; &#123;</span><br><span class="line">  <span class="keyword">val</span> conn = <span class="type">DriverManager</span>.getConnection(database_url, user, password)</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> statement = conn.createStatement(<span class="type">ResultSet</span>.<span class="type">TYPE_FORWARD_ONLY</span>, <span class="type">ResultSet</span>.<span class="type">CONCUR_READ_ONLY</span>)</span><br><span class="line">    <span class="keyword">val</span> prep = conn.prepareStatement(<span class="string">s"update test set isDeal=1 where id=?"</span>)</span><br><span class="line">    it.foreach(row =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> id = row.getAs[<span class="type">Int</span>](<span class="string">"id"</span>)</span><br><span class="line">      prep.setInt(<span class="number">1</span>, id)</span><br><span class="line">      prep.executeUpdate</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">  &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> e: <span class="type">Exception</span> =&gt; e.printStackTrace</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    conn.close()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>这种方式就结合了上面两种方式的优点，基于分区的方式使得创建连接的次数不会那么多，然后每个分区的数据也可以平均分到每个节点的executor上，避免了内存不足产生的异常，当然前提是要合理的分配分区数，既不能让分区数太多，也不能让每个分区的数据太多，还有要注意数据倾斜的问题，因为当数据倾斜造成某个分区数据量太大意义造成OOM（内存溢出）。</p>
-<h3 id="4-4-其他"><a href="#4-4-其他" class="headerlink" title="4.4 其他"></a>4.4 其他</h3><p>上面只是列举了一个例子，且只是在foreach这样的action算子里体现的，当然肯定也有需求需要在transformation里进行比如数据库的连接操作，大家可类比的使用mapPartitions即可</p>
-<h2 id="5、其他优点（未证实）"><a href="#5、其他优点（未证实）" class="headerlink" title="5、其他优点（未证实）"></a>5、其他优点（未证实）</h2><p>网上有很多博客提到mapPartitions还有其他优点，就是mapPartitions比map快，性能高，原因是因为map的function会执行rdd.count次，而mapPartitions的function则执行rdd.numPartitions次。<br>但我并这么认为，因mapPartitions的function和map的function是不一样，mapPartitions里的迭代器的每个元素还是都要执行一遍的，实际上也是执行rdd.count次。<br>下面以其中一篇博客举例（只列出有点，大部分博客上的写的都一样的，应该出自同一篇博客吧~）<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fuwkza9ih7j20p00jk0uw.jpg" alt=""><br>博客地址：<a href="https://blog.csdn.net/tian_qing_lei/article/details/77940504" target="_blank" rel="noopener">Spark—算子调优之MapPartitions提升Map类操作性能</a></p>
+<p>这种方式就结合了上面两种方式的优点，基于分区的方式使得创建连接的次数不会那么多，然后每个分区的数据也可以平均分到每个节点的executor上，避免了内存不足产生的异常，当然前提是要合理的分配分区数，既不能让分区数太多，也不能让每个分区的数据太多，还有要注意数据倾斜的问题，因为当数据倾斜造成某个分区数据量太大同样造成OOM（内存溢出）。</p>
+<h3 id="4-4-其他"><a href="#4-4-其他" class="headerlink" title="4.4 其他"></a>4.4 其他</h3><p>上面只是列举了一个例子，且只是在foreach这样的action算子里体现的，当然肯定也有需求需是在transformation里进行如数据库的连接这样的操作，大家可类比的使用mapPartitions即可</p>
+<h2 id="5、其他优点（未证实）"><a href="#5、其他优点（未证实）" class="headerlink" title="5、其他优点（未证实）"></a>5、其他优点（未证实）</h2><p>网上有很多博客提到mapPartitions还有其他优点，就是mapPartitions比map快，性能高，原因是因为map的function会执行rdd.count次，而mapPartitions的function则执行rdd.numPartitions次。<br>但我并这么认为，因mapPartitions的function和map的function是不一样的，mapPartitions里的迭代器的每个元素还是都要执行一遍的，实际上也是执行rdd.count次。<br>下面以其中一篇博客举例（只列出优点，大部分博客上的写的都一样的，应该出自同一篇博客吧~）<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fuwkza9ih7j20p00jk0uw.jpg" alt=""><br>博客地址：<a href="https://blog.csdn.net/tian_qing_lei/article/details/77940504" target="_blank" rel="noopener">Spark—算子调优之MapPartitions提升Map类操作性能</a></p>
 <ul>
 <li>至于mapPartitions是否真的比map处理速度快,如果我有时间验证得到结果的话，我再更新一下这个地方~<h2 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h2></li>
 <li><a href="https://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a></li>
+<li><a href="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/">Spark 创建RDD、DataFrame各种情况的默认分区数</a></li>
 </ul>
 
       
@@ -622,19 +623,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,15 +663,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,11 +755,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
