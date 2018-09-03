@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://dongkelun.com/2018/09/02/sparkMapPartitions/</loc>
-    <lastmod>2018-09-03T08:11:00.859Z</lastmod>
+    <lastmod>2018-09-03T11:38:12.709Z</lastmod>
     <data>
         <display>
         <title>Spark基于分区进行操作</title>
@@ -215,9 +215,9 @@
         <title>通过数据库客户端界面工具DBeaver连接Hive</title>
         <pubTime>2018-07-12T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>界面工具</tag>
+         
+        <tag>hive</tag>
          
          
            
@@ -961,9 +961,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>Spark Streamming</tag>
-         
         <tag>spark-submit</tag>
+         
+        <tag>Spark Streamming</tag>
          
          
            
