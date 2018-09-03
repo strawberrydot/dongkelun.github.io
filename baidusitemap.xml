@@ -5,15 +5,17 @@
     
   <url>
     <loc>https://dongkelun.com/2018/09/02/sparkMapPartitions/</loc>
-    <lastmod>2018-09-03T11:53:33.124Z</lastmod>
+    <lastmod>2018-09-03T12:11:42.102Z</lastmod>
     <data>
         <display>
-        <title>Spark基于分区进行操作</title>
+        <title>Spark性能优化：基于分区进行操作</title>
         <pubTime>2018-09-01T16:00:00.000Z</pubTime>
         
         <tag>Spark</tag>
          
         <tag>Partitions</tag>
+         
+        <tag>性能优化</tag>
          
          
            

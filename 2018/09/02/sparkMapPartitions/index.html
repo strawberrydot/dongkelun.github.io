@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Spark基于分区进行操作 | 伦少的博客</title>
+  <title>Spark性能优化：基于分区进行操作 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言（摘自Spark快速大数据分析）基于分区对数据进行操作可以让我们避免为每个数据元素进行重复的配置工作。诸如打开数据库连接或创建随机数生成器等操作，都是我们应当尽量避免为每个元素都配置一次的工作。Spark 提供基于分区的map 和foreach，让你的部分代码只对RDD 的每个分区运行一次，这样可以帮助降低这些操作的代价。当基于分区操作RDD 时，Spark 会为函数提供该分区中的元素的迭代器">
-<meta name="keywords" content="Spark,Partitions">
+<meta name="keywords" content="Spark,Partitions,性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark基于分区进行操作">
+<meta property="og:title" content="Spark性能优化：基于分区进行操作">
 <meta property="og:url" content="https://dongkelun.com/2018/09/02/sparkMapPartitions/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言（摘自Spark快速大数据分析）基于分区对数据进行操作可以让我们避免为每个数据元素进行重复的配置工作。诸如打开数据库连接或创建随机数生成器等操作，都是我们应当尽量避免为每个元素都配置一次的工作。Spark 提供基于分区的map 和foreach，让你的部分代码只对RDD 的每个分区运行一次，这样可以帮助降低这些操作的代价。当基于分区操作RDD 时，Spark 会为函数提供该分区中的元素的迭代器">
@@ -20,9 +20,9 @@
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fuw66omqy6j20p0057jrp.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fuwf38qctxj20p00kwt99.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fuwkza9ih7j20p00jk0uw.jpg">
-<meta property="og:updated_time" content="2018-09-03T11:53:33.124Z">
+<meta property="og:updated_time" content="2018-09-03T12:11:42.102Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark基于分区进行操作">
+<meta name="twitter:title" content="Spark性能优化：基于分区进行操作">
 <meta name="twitter:description" content="前言（摘自Spark快速大数据分析）基于分区对数据进行操作可以让我们避免为每个数据元素进行重复的配置工作。诸如打开数据库连接或创建随机数生成器等操作，都是我们应当尽量避免为每个元素都配置一次的工作。Spark 提供基于分区的map 和foreach，让你的部分代码只对RDD 的每个分区运行一次，这样可以帮助降低这些操作的代价。当基于分区操作RDD 时，Spark 会为函数提供该分区中的元素的迭代器">
 <meta name="twitter:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fuw4revx5lj214a0gtq4i.jpg">
   
@@ -181,7 +181,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spark基于分区进行操作
+      Spark性能优化：基于分区进行操作
     </h1>
   
 
@@ -204,6 +204,10 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Partitions</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
         		</li>
       		
 		</ul>
@@ -337,7 +341,7 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2018/09/02/sparkMapPartitions/">Spark基于分区进行操作</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/09/02/sparkMapPartitions/">Spark性能优化：基于分区进行操作</a> </p>
  
  <p>本文链接：<a href="https://dongkelun.com/2018/09/02/sparkMapPartitions/">https://dongkelun.com/2018/09/02/sparkMapPartitions/</a></p>
  <p>--------------------</p>
@@ -615,19 +619,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -636,6 +632,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,15 +667,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -683,11 +687,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -727,11 +731,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,11 +771,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UDF</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">UDF</a>
               </li>
              
               <li class="article-tag-list-item">
