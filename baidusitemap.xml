@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
+    <lastmod>2018-09-07T07:36:17.364Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Sql 连接mysql</title>
+        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>scala</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/09/02/sparkMapPartitions/</loc>
     <lastmod>2018-09-03T12:11:42.102Z</lastmod>
     <data>
@@ -102,25 +121,6 @@
         <tag>Rdd</tag>
          
         <tag>Partition</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
-    <lastmod>2018-08-22T12:13:41.059Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Sql 连接mysql</title>
-        <pubTime>2018-03-20T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>scala</tag>
          
          
            
@@ -257,9 +257,9 @@
         <title>HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>Hadoop</tag>
-         
         <tag>ambari</tag>
+         
+        <tag>Hadoop</tag>
          
          
            
@@ -276,9 +276,9 @@
         <title>ambari 异常总结及解决办法</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>ambari</tag>
-         
         <tag>centos7</tag>
+         
+        <tag>ambari</tag>
          
          
            
@@ -295,9 +295,9 @@
         <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
         <pubTime>2018-04-24T16:00:00.000Z</pubTime>
         
-        <tag>ambari</tag>
-         
         <tag>centos7</tag>
+         
+        <tag>ambari</tag>
          
          
            
@@ -352,9 +352,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>centos</tag>
+         
+        <tag>hive</tag>
          
          
            
