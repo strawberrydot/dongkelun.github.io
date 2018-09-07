@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb942xfj20vz09z0tj.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmb9pmnmj213v0o1tbo.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fpqmba88iyj215n07r0t8.jpg">
-<meta property="og:updated_time" content="2018-09-07T07:36:17.364Z">
+<meta property="og:updated_time" content="2018-09-07T07:38:58.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Sql 连接mysql">
 <meta name="twitter:description" content="1、基本概念和用法（摘自spark官方文档中文版）Spark SQL 还有一个能够使用 JDBC 从其他数据库读取数据的数据源。当使用 JDBC 访问其它数据库时，应该首选 JdbcRDD。这是因为结果是以数据框（DataFrame）返回的，且这样 Spark SQL操作轻松或便于连接其它数据源。因为这种 JDBC 数据源不需要用户提供 ClassTag，所以它也更适合使用 Java 或 Pyth">
@@ -280,7 +280,7 @@
 <h2 id="6、关于partitionColumn、lowerBound、upperBound（更新于2018-09-07）"><a href="#6、关于partitionColumn、lowerBound、upperBound（更新于2018-09-07）" class="headerlink" title="6、关于partitionColumn、lowerBound、upperBound（更新于2018.09.07）"></a>6、关于partitionColumn、lowerBound、upperBound（更新于2018.09.07）</h2><p>一般只有当关系型数据库表数据量很大时，才会通过设置上面的参数设置分区，否则读进来再repartition即可，设置分区数的目的是可以使Spark读取数据库更快一点，经验证，合理的设置分区，Spark是可以并行的读取关系型数据库的。</p>
 <ul>
 <li>partitionColumn是用于进行分区的字段，一般最好是表的索引字段，且要求为字段类型为数字，并最好是连续的，这样分区才不会数据倾斜，也就是每个并行的任务读取的数量级差不多，才会更快的读取大表。</li>
-<li>lowerBound upperBound官网说是用来决定分区跨度的，对于这个说法我一开始理解的不太准确，它的值为partitionColumn在表里具体的范围，比如partitionColumn为ID，ID的范围为[1,1000]，lowerBound、upperBound分别为1 100，numPartitions为10，那么可以分为10个并行的任务去读，比如第二个分区的认为的sql大概是这样过滤的”where ID&gt;=11 and ID&lt;10”。每个分区的ID的范围如下：0: 1-10 ,1:11-20,2:21-30,3:31；40，4：41-50，5：51-60，6：61-70，7：71-80，8：81-90，9：91-1000，需要注意的是Spark会把lowerBound、upperBound范围的数据按照ID等比例（按ID区间）分到每个分区上，而小于lowerBound的部分被分到了第一个分区，大于upperBound的部分则被分到了最后一个分区，大家可以自己写程序测试下，这里就不贴程序了。</li>
+<li>lowerBound upperBound官网说是用来决定分区跨度的，对于这个说法我一开始理解的不太准确，它的值为partitionColumn在表里具体的范围，比如partitionColumn为ID，ID的范围为[1,1000]，lowerBound、upperBound分别为1 100，numPartitions为10，那么可以分为10个并行的任务去读，比如第二个分区的认为的sql大概是这样过滤的”where ID&gt;=11 and ID&lt;10”。每个分区的ID的范围如下：0: 1-10 ,1:11-20,2:21-30,3:31；40，4：41-50，5：51-60，6：61-70，7：71-80，8：81-90，9：91-1000，需要注意的是Spark会把lowerBound、upperBound范围的数据按照ID等比例（按ID区间）分到每个分区上，而小于lowerBound的部分被分到了第一个分区，大于upperBound的部分则被分到了最后一个分区（大概sql就是第一个分区的过滤条件没有下限，最后一个没有上限~），大家可以自己写程序测试下，这里就不贴程序了。</li>
 <li>另numPartitions应该小于等于upperBound-lowerBound</li>
 </ul>
 
@@ -593,14 +593,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -617,11 +609,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,11 +637,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,11 +649,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,7 +681,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,7 +713,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,18 +733,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ogg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
@@ -737,31 +741,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UDF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,6 +754,22 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UDF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
