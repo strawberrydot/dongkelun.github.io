@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
+    <lastmod>2018-09-15T04:46:40.103Z</lastmod>
+    <data>
+        <display>
+        <title>Spark Streaming+Kafka提交offset实现有且仅有一次(exactly-once)</title>
+        <pubTime>2018-06-19T16:00:00.000Z</pubTime>
+        
+        <tag>spark</tag>
+         
+        <tag>Kafka</tag>
+         
+        <tag>Spark Streamming</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+  <url>
     <loc>https://dongkelun.com/2018/03/21/sparkMysql/</loc>
     <lastmod>2018-09-07T07:38:58.946Z</lastmod>
     <data>
@@ -58,27 +81,6 @@
         <tag>Oracle</tag>
          
         <tag>Hive</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
-    <lastmod>2018-08-23T09:41:13.937Z</lastmod>
-    <data>
-        <display>
-        <title>Spark Streaming+Kafka提交offset实现有且仅有一次</title>
-        <pubTime>2018-06-19T16:00:00.000Z</pubTime>
-        
-        <tag>spark</tag>
-         
-        <tag>Kafka</tag>
-         
-        <tag>Spark Streamming</tag>
          
          
            
@@ -217,9 +219,9 @@
         <title>通过数据库客户端界面工具DBeaver连接Hive</title>
         <pubTime>2018-07-12T16:00:00.000Z</pubTime>
         
-        <tag>界面工具</tag>
-         
         <tag>hive</tag>
+         
+        <tag>界面工具</tag>
          
          
            
@@ -963,9 +965,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>spark-submit</tag>
-         
         <tag>Spark Streamming</tag>
+         
+        <tag>spark-submit</tag>
          
          
            
@@ -992,6 +994,10 @@
     </data>
     </url>
 
+    
+    
+    
+    
     
     
     
