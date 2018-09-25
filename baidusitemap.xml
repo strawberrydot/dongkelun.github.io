@@ -3,6 +3,7 @@
 
 
     
+    
   <url>
     <loc>https://dongkelun.com/2018/06/20/sparkStreamingOffsetOnlyOnce/</loc>
     <lastmod>2018-09-15T04:46:40.103Z</lastmod>
@@ -23,7 +24,6 @@
     </data>
     </url>
 
-    
     
     
   <url>
@@ -219,9 +219,9 @@
         <title>通过数据库客户端界面工具DBeaver连接Hive</title>
         <pubTime>2018-07-12T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>界面工具</tag>
+         
+        <tag>hive</tag>
          
          
            
@@ -965,9 +965,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>Spark Streamming</tag>
-         
         <tag>spark-submit</tag>
+         
+        <tag>Spark Streamming</tag>
          
          
            
