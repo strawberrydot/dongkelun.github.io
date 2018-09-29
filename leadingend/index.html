@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="(function() { var myChart = echarts.init(document.getElementById(&apos;main&apos;)); 	var option =  				{ 					tooltip: { 						trigger: &apos;item&apos;, 						formatter: &quot;{a} {b}: {c} ({d}%)&quot;">
+  <meta name="description" content=".box{ 	position:absolute; 	width:47%; 	height:47%; 	border: 1px #2E4852 solid; 	background-color: #292E34; 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(41, 46, 52,0.34)),">
 <meta property="og:type" content="website">
 <meta property="og:title" content="伦少的博客">
 <meta property="og:url" content="https://dongkelun.com/leadingend/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="(function() { var myChart = echarts.init(document.getElementById(&apos;main&apos;)); 	var option =  				{ 					tooltip: { 						trigger: &apos;item&apos;, 						formatter: &quot;{a} {b}: {c} ({d}%)&quot;">
+<meta property="og:description" content=".box{ 	position:absolute; 	width:47%; 	height:47%; 	border: 1px #2E4852 solid; 	background-color: #292E34; 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(41, 46, 52,0.34)),">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-09-25T02:12:28.856Z">
+<meta property="og:updated_time" content="2018-09-29T06:37:17.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="伦少的博客">
-<meta name="twitter:description" content="(function() { var myChart = echarts.init(document.getElementById(&apos;main&apos;)); 	var option =  				{ 					tooltip: { 						trigger: &apos;item&apos;, 						formatter: &quot;{a} {b}: {c} ({d}%)&quot;">
+<meta name="twitter:description" content=".box{ 	position:absolute; 	width:47%; 	height:47%; 	border: 1px #2E4852 solid; 	background-color: #292E34; 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(41, 46, 52,0.34)),">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -181,15 +181,120 @@
       
         
 
-	<script src="//echarts.baidu.com/examples/vendors/echarts/echarts.min.js?_v_=1526486305040"></script>
+<script src="//echarts.baidu.com/examples/vendors/echarts/echarts.min.js?_v_=1526486305040"></script>
 
-<div class="input-group">
-       
-	<div id="main" style="width: 600px;height:400px;"></div>
+<style>
+
+
+
+.box{
+	position:absolute;
+	width:47%;
+	height:47%;
+	border: 1px #2E4852 solid;
+	background-color: #292E34;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(41, 46, 52,0.34)), to(rgba(1,13,34,0.34)));
+    background-image: -webkit-linear-gradient(rgba(41, 46, 52,0.34), rgba(1,13,34,0.34));
+    background-image: -moz-linear-gradient(rgba(41, 46, 52,0.34), rgba(1,13,34,0.34));
+    background-image: -o-linear-gradient(rgba(41, 46, 52,0.34), rgba(1,13,34,0.34));
+    background-image: linear-gradient(rgba(41, 46, 52,0.34), rgba(1,13,34,0.34));
+}
+
+.title-img{
+	position: absolute;
+	width: 6px;
+	height: 18px;
+	background-color: #2EB4FD;
+	border-radius:2px;
+	top:10px;
+	left:15px;
+}
+.title{
+	position: absolute;
+	top:7px;
+	left:30px;
+	font-size: 18px;
+	background: linear-gradient(to right, #0AE9FE, #fff);
+        -webkit-background-clip: text;
+        color: transparent;
+         text-shadow:0 0 0.8em #0AE9FE;
+               /*  -0 -0 0.9em #0AE9FE; */
+}
+
+.article-entry{
+	height:calc(100vh - 60px) !important;
+	background-color:#1D2027 !important;
+	position: relative;
+}
+
+.chart{
+	position: relative;
+	height: 90%;
+	top:10%;
+}
+#upleft{
+	left:2%;
+	top:2%;
 	
+}#lowleft{
+	left:2%;
+	bottom: 2%;
+}
+#upright{
+	top:2%;
+	right:2%;
+}
+#lowright{
+	bottom: 2%;
+	right:2%;
+}
+</style>
+
+
+<div id="upleft" class="box">
+	<div class="title-img"></div>
+	<div class="title">自动切换饼图</div>
+	<div id="upleftChart" class="chart"></div>
+</div>
+<div id="lowleft" class="box">
+	<div class="title-img"></div>
+	<div class="title">完成率</div>
+	<div id="lowleftChart" class="chart"></div>
+</div>
+<div id="upright" class="box">
+	<div class="title-img"></div>
+	<div class="title"></div>
+	<div id="uprightChart" class="chart"></div>
+</div>       
+<div id="lowright" class="box">
+	<div class="title-img"></div>
+	<div class="title"></div>
+	<div id="lowrightChart" class="chart"></div>
+</div>       
+		
 <script>
   (function() {
-var myChart = echarts.init(document.getElementById('main'));
+	legendData = ['直达','邮件营销','联盟广告','视频广告','百度','谷歌','必应','其他']
+	        data=[
+			{value:335, name:legendData[0]},
+			{value:310, name:legendData[1]},
+			{value:234, name:legendData[2]},
+			{value:135, name:legendData[3]},
+			{value:1048, name:legendData[4]},
+			{value:251, name:legendData[5]},
+			{value:147, name:legendData[6]},
+			{value:102, name:legendData[7]}
+			]
+	        leftChart('upleftChart',data,legendData)
+        	data = [{value: 68, name: '完成率'}]
+	    	leftlowcenter('lowleftChart',data)
+	    	data = [{value: 83, name: '占比'}]
+	    	leftlowcenter('uprightChart',data)
+
+  })()
+  
+  
+  function leftChart(divid,data,legendData){
 	var option = 
 				{
 					tooltip: {
@@ -197,28 +302,30 @@ var myChart = echarts.init(document.getElementById('main'));
 						formatter: "{a} <br/>{b}: {c} ({d}%)"
 					},
 					legend: {
-						show:false,
-						// orient: 'vertical',
-						// x: 'right',
-						// y: 'center',
-						// data:['内贸企业','内资企业','内投企业','外贸企业','外资企业','外投企业'],
-						// textStyle:{
-						// 	color:'#ffffff'
-						// }
+						show:true,
+						 orient: 'vertical',
+						 y: 'center',
+						 right:15,
+						 icon: 'diamond',
+						 data:legendData,
+						 textStyle:{
+						 	color:'white'
+						 }
 					},
-					color:['rgb(120,131,195)','rgb(124,200,84)','rgb(250,231,26)'],
+					color:['#ADACA8','#FE5C97','#00C0E7','#BE9538','#40EDDF','#6DB554','#1F90FF','#24E288'],
 					series: [
 						{
 							name:'',
 							type:'pie',
 							radius: ['60%', '30%'],
 							avoidLabelOverlap: false,
-							center: ['50%', '50%'],
+							center: ['40%', '50%'],
 							selectedMode:"single",
 							label: {
 								normal: {
 									show: false,
-									position: 'center'
+									position: 'center',
+										color:'white'
 								},
 								emphasis: {
 									show: true,
@@ -226,7 +333,9 @@ var myChart = echarts.init(document.getElementById('main'));
 										fontSize: '14',
 										fontWeight: 'normal'
 									},
-									formatter:'{b}\n{d}%'
+									formatter:'{b}\n{d}%',
+									color:'white'
+								
 								}
 							},
 							labelLine: {
@@ -237,53 +346,268 @@ var myChart = echarts.init(document.getElementById('main'));
 							tooltip:{
 								show:false
 							},
-							data:[
-									{value:335, name:'直达'},
-									{value:310, name:'邮件营销'},
-									{value:234, name:'联盟广告'},
-									{value:135, name:'视频广告'},
-									{value:1048, name:'百度'},
-									{value:251, name:'谷歌'},
-									{value:147, name:'必应'},
-									{value:102, name:'其他'}
-								]
+							data:data
 						}
 					]
 				};
 			
-				var chart = echarts.init(document.getElementById('main'));
+	var myChart = echarts.init(document.getElementById(divid));
 				
-				chart.setOption(option);
+	myChart.setOption(option);
 				
 				var length = option.series[0].data.length;
 				var cur = 0;
 				var last = -1;
-				chart.dispatchAction({type: 'highlight',dataIndex: cur});
+				myChart.dispatchAction({type: 'highlight',dataIndex: cur});
 				setInterval(function(){
 					cur++;
 					cur = cur < length ? cur : 0;
 					last = cur - 1 < 0 ? length-1 : cur - 1;
 	
-					chart.dispatchAction({type: 'downplay',dataIndex: last});
-					chart.dispatchAction({type: 'highlight',dataIndex: cur});
+					myChart.dispatchAction({type: 'downplay',dataIndex: last});
+					myChart.dispatchAction({type: 'highlight',dataIndex: cur});
 				},2000);
-				 chart.on('click', function (params) {
-				 alert(params.name);
-				  });	
-  })()
-</script>
-	<script>
- 
-</script>
+}
 
-  	
-<script>
+
+function leftlowcenter(divid,data){
+	var option = {
+		    tooltip : {
+		        formatter: "{a} <br/>{b} : {c}%"
+		    },
+		    toolbox: {
+				show:false
+			},
+		    series: [
+		        {
+		            name: '业务指标',
+		            type: 'gauge',
+		            splitNumber:5 ,
+		            axisLine: {            // 坐标轴线
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    width: 10
+		                }
+		            },
+		            splitLine: {           // 分隔线
+		                length :15,         // 属性length控制线长
+		                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+		                    width:2,
+		                    color: '#fff',
+		                    shadowColor : '#fff', //默认透明
+		                    shadowBlur: 10
+		                }
+		            },
+		            title : {
+		            	offsetCenter: [0, '-35%'], 
+		                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+		                    fontWeight: 'bolder',
+		                       
+		                    fontSize: 12,
+		                    fontStyle: 'italic',
+		                    color: '#fff',
+		                    shadowColor : '#fff', //默认透明
+		                    shadowBlur: 5,
+		                    top:30
+		                }
+		            },
+		            axisLine: {            // 坐标轴线
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    color: [[0.09, 'lime'],[0.82, '#1e90ff'],[1, '#ff4500']],
+		                    width: 3,
+		                    shadowColor : '#00D4ED', //默认透明
+		                    shadowBlur: 10
+		                }
+		            },
+		            pointer: {
+		                width:5,
+		                shadowColor : '#fff', //默认透明
+		                shadowBlur: 5
+		            },
+		            detail: {
+		            	formatter:'{value}%',
+		            	offsetCenter: [0, '23%'],   
+		            	textStyle: {       
+		                    fontWeight: 'bolder',
+		                    fontSize:18
+		                }
+		            	},
+		            data: data
+		        }
+		    ]
+		};
+
+	var myChart = echarts.init(document.getElementById(divid));
+	myChart.setOption(option);
+}
+
+function line(divid,text,unit,data,xdata,legendData,color){
+	var option = {
+			
+			title : {  
+				text: text,  
+				x:'center',  
+				y:0,  
+				textStyle:{  
+					fontSize: 18,  
+					fontFamily:'微软雅黑',
+					fontWeight:'normal',
+					color:'white',
+				}  
+			}, 
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'line',
+					crossStyle: {
+						color: 'green'
+					},
+					shadowStyle:{
+						opacity:0,
+					}
+				},
+				textStyle:{
+					fontSize:14
+				}
+			},
+			legend: [
+			         {
+			        	 
+			        	 data:[legendData],
+			        	 top:'5%',
+			        	 right:'10%',
+			        	 textStyle:{  
+			        		 fontSize: 14,  
+			        		 color: '#fff'  
+			        	 } ,
+			         }
+			         ],
+			         xAxis: [
+			                 {
+			                	 type: 'category',
+			                	 data: xdata,
+			                	 boundaryGap: false,
+			                	 axisPointer: {
+			                		 type: 'shadow'
+			                	 } ,
+			                	 axisLabel: {
+			                		 textStyle:{  
+			                			 fontSize: 14,  
+			                			 color: '#fff'  
+			                		 } ,
+			                		 align:'center',
+			                		 verticalAlign: 'center',
+			                		 interval:0,
+			                		 margin:20
+			                		 
+			                	 },
+			                	 axisTick:{
+			                		 show:true,
+			                		 lineStyle:{  
+			                			 color: '#4D6A83'  
+			                		 } ,
+			                	 },
+			                	 axisLine: {
+			                		 show:true,
+			                		 lineStyle:{  
+			                			 color: '#4D6A83'  
+			                		 } ,
+			                	 },
+			                	 
+			                	 
+			                 }
+			                 ],
+			                 yAxis: [
+			                         
+			                         {
+			                        	 type: 'value',
+			                        	 name: '单位：'+unit,
+			                        	 nameTextStyle:{
+			                        		 fontSize: 14,  
+			                        		 color: '#fff'  
+			                        	 },
+			                        	 axisLabel: {
+			                        		 formatter: '{value} ',
+			                        		 textStyle:{  
+			                        			 fontSize: 14,  
+			                        			 color: '#fff' ,
+			                        			 interval:20,
+			                        		 } ,
+			                        	 }, 
+			                        	 axisTick:{
+			                        		 show:false,
+			                        	 },
+			                        	 splitNumber:3,
+			                        	 axisLine: {
+			                        		 show:true,
+			                        		 lineStyle:{  
+			                        			 color: '#4D6A83'  
+			                        		 } ,
+			                        	 }, 
+			                        	 splitLine:{
+			                        		 show:false,
+			                        		 lineStyle: {
+			                        			 color: '#294071'
+			                        		 }
+			                        	 },
+			                        	 
+			                         },
+			                         
+			                         
+			                         ],
+			                         
+			                         series: [
+			                                  {
+			                                	  animationDuration: 3000,
+			                                	  animationDurationUpdate:3000,
+			                                	  name:legendData,
+			                                	  type:'line',
+			                                	  data:data,
+			                                	  barWidth:24,
+			                                	  smooth: true,
+			                                	  areaStyle:{
+			                                		  opacity:0.4,
+			                                		  color: {
+			                                			  type: 'linear',
+			                                			  x: 0,
+			                                			  y: 0,
+			                                			  x2: 0,
+			                                			  y2: 1,
+			                                			  colorStops: [{
+			                                				  offset: 0, color: color // 0% 处的颜色
+			                                			  }, {
+			                                				  offset: 1, color: '#335078' // 100% 处的颜色
+			                                			  }],
+			                                			  globalCoord: false // 缺省为 false
+			                                		  }
+			                                	  },
+			                      	            markLine: {
+			                    	                data: [
+			                    	                    {type: 'average', name: '平均值'}
+			                    	                ]
+			                    	            }
+			                                  
+			                                  
+			                                  }
+			                                  
+			                                  ],
+			                                  toolbox:{
+			                                	  show:false,
+			                                  },
+			                                  grid:{
+			                                	  show:false,
+			                                	  borderColor:'#49597A',
+			                                	  top:'30%',
+			                                	  left:'15%'
+			                                  },
+			                                  color:color,
+	};
+	var myChart = echarts.init(document.getElementById(divid));
+	myChart.setOption(option);
 	
-	
-
-
+}
 </script>
-</div>
+
+
       
 
       
@@ -512,14 +836,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
@@ -529,6 +845,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -584,11 +908,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,15 +928,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,11 +1000,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spark Streamming</a>
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
