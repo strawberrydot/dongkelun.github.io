@@ -45,6 +45,9 @@
     </url>
 
     
+    
+    
+    
   <url>
     <loc>https://dongkelun.com/2018/09/02/sparkMapPartitions/</loc>
     <lastmod>2018-09-03T12:11:42.102Z</lastmod>
@@ -259,9 +262,9 @@
         <title>HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>Hadoop</tag>
-         
         <tag>ambari</tag>
+         
+        <tag>Hadoop</tag>
          
          
            
@@ -278,9 +281,9 @@
         <title>ambari 异常总结及解决办法</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>ambari</tag>
-         
         <tag>centos7</tag>
+         
+        <tag>ambari</tag>
          
          
            
@@ -297,9 +300,9 @@
         <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
         <pubTime>2018-04-24T16:00:00.000Z</pubTime>
         
-        <tag>ambari</tag>
-         
         <tag>centos7</tag>
+         
+        <tag>ambari</tag>
          
          
            
@@ -354,9 +357,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
@@ -373,9 +376,9 @@
         <title>hive查询报错:java.io.IOException:org.apache.parquet.io.ParquetDecodingException</title>
         <pubTime>2018-05-19T16:00:00.000Z</pubTime>
         
-        <tag>spark</tag>
-         
         <tag>hive</tag>
+         
+        <tag>spark</tag>
          
         <tag>异常解决</tag>
          
@@ -512,9 +515,9 @@
         <title>spark连接hive（spark-shell和eclipse两种方式）</title>
         <pubTime>2018-03-24T16:00:00.000Z</pubTime>
         
-        <tag>spark</tag>
-         
         <tag>hive</tag>
+         
+        <tag>spark</tag>
          
          
            
