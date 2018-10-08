@@ -23,14 +23,10 @@
 }
 .box .title{
 	position: absolute;
-	top:7px;
+	top:5px;
 	left:30px;
 	font-size: 18px;
-	background: linear-gradient(to right, #0AE9FE, #fff);
-        -webkit-background-clip: text;
-        color: transparent;
-         text-shadow:0 0 0.8em #0AE9FE;
-               /*  -0 -0 0.9em #0AE9FE; */
+        color: #0AE9FE;
 }
 
 .article-entry{
