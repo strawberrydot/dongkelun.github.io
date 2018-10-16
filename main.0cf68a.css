@@ -49,4 +49,6 @@ div.article-footer-copyright{
 	font-size: 100%;
 }
 
-
+#pop_ad{
+	display:none;
+}
