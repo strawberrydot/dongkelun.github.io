@@ -48,7 +48,7 @@ div.article-footer-copyright{
 	margin: 10px;
 	font-size: 100%;
 }
-
+/*去掉畅言的广告*/
 #pop_ad{
 	display:none;
 }

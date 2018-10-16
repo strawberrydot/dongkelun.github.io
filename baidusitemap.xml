@@ -355,9 +355,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
@@ -966,9 +966,9 @@
          
         <tag>Kafka</tag>
          
-        <tag>spark-submit</tag>
-         
         <tag>Spark Streamming</tag>
+         
+        <tag>spark-submit</tag>
          
          
            
