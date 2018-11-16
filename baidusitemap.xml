@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/11/15/sparkSubmitLogLevel/</loc>
-    <lastmod>2018-11-16T07:10:02.288Z</lastmod>
+    <loc>https://dongkelun.com/2018/11/16/sparkSubmitLogLevel/</loc>
+    <lastmod>2018-11-16T07:15:27.094Z</lastmod>
     <data>
         <display>
         <title>Spark 通过 spark-submit 设置日志级别</title>
-        <pubTime>2018-11-14T16:00:00.000Z</pubTime>
+        <pubTime>2018-11-15T16:00:00.000Z</pubTime>
         
         <tag>Spark</tag>
          
@@ -133,9 +133,9 @@
         <title>Kafka安装启动入门教程</title>
         <pubTime>2018-05-20T16:00:00.000Z</pubTime>
         
-        <tag>centos7</tag>
-         
         <tag>Kafka</tag>
+         
+        <tag>centos7</tag>
          
          
            
@@ -257,9 +257,9 @@
         
         <tag>Spark</tag>
          
-        <tag>Kafka</tag>
-         
         <tag>SparkStreaming</tag>
+         
+        <tag>Kafka</tag>
          
          
            
@@ -413,9 +413,9 @@
         
         <tag>Spark</tag>
          
-        <tag>Kafka</tag>
-         
         <tag>SparkStreaming</tag>
+         
+        <tag>Kafka</tag>
          
          
            

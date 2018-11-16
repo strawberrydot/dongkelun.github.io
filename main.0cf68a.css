@@ -52,3 +52,8 @@ div.article-footer-copyright{
 #pop_ad{
 	display:none;
 }
+
+/*去掉左侧的大写*/
+.left-col #header .header-menu {
+    text-transform: none;
+}
