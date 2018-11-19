@@ -6,62 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Spark 创建RDD、DataFrame各种情况的默认分区数 | 伦少的博客</title>
+  <title>通过Vue CLI 快速创建Vue项目并部署到tomcat | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
-<meta name="keywords" content="Spark,DataFrame,Rdd,Partition">
+  <meta name="description" content="前言最近一直在写前端，用的是JSP，但是很多人都说JSP已经过时了。既然做了几个月的前端，那就把前端学的好一点，学点新技术，跟上潮流。感觉Vue挺火的，所以这几天学了一下Vue，开始看的官方文档，然后直接用GitHub上比较火的项目进行学习，本地跑起来，看看效果、源码和代码结构，学习相关的插件等，并部署了其中一个项目到我的二级域名下：vue.dongkelun.com（感觉这个项目里的东西挺全的）">
+<meta name="keywords" content="Vue,Vue CLI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark 创建RDD、DataFrame各种情况的默认分区数">
-<meta property="og:url" content="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/index.html">
+<meta property="og:title" content="通过Vue CLI 快速创建Vue项目并部署到tomcat">
+<meta property="og:url" content="https://dongkelun.com/2018/11/19/vueCliCreateProject/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
+<meta property="og:description" content="前言最近一直在写前端，用的是JSP，但是很多人都说JSP已经过时了。既然做了几个月的前端，那就把前端学的好一点，学点新技术，跟上潮流。感觉Vue挺火的，所以这几天学了一下Vue，开始看的官方文档，然后直接用GitHub上比较火的项目进行学习，本地跑起来，看看效果、源码和代码结构，学习相关的插件等，并部署了其中一个项目到我的二级域名下：vue.dongkelun.com（感觉这个项目里的东西挺全的）">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu6zira6xoj20qu0at74w.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu6zudcdknj20vk0g3jse.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu707fpx4vj21180gctad.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu70bv8xvwj20gj09174m.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu70m82mtej20j00g7q3m.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu715648uuj20hi089aaa.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu7amy6mebj20fw03baa6.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs2vs4yj20zg0a0dg7.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs3aw1gj20wz0fot9h.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs3kwr2j20rq0bwaap.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs3u9epj20s30bumxs.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7cs49eihj20we052dg9.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu8bqtgi9xj210y0jzjsg.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu8btskf5uj20xp0fsgmj.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu8c2dwsqqj20pm03imxe.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu8c2ety4pj20pm03iglu.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu8c86lsc0j20vt074q3i.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu8z9exssuj20xc0830t7.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu8z9fbalej20xc0g9gmy.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu8zyfqphgj20p003njrm.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu8zyfcv7fj20p003r3yr.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu900bmxyrj20xa06zglz.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu8zyezclpj20p003n74l.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu7sxeyqfcj210t0gawfj.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu7dajriddj20j30b1aal.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu7dak28tgj20im0b9gm5.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7dake0i2j20is0ayt98.jpg">
-<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/e44344dcly1fu8dblxrtbj20p001a3yl.jpg">
-<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/e44344dcly1fu8d86ayurj20p007f74s.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu7udeqjhwj20p009wwf0.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu7udf64y5j20p009w3z1.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fu7ugxl4a1j20p00k9jso.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu90ofk91kj20p0027jrk.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu90oex5ksj20p003ndg2.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu90of8q6wj20p003d0sx.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu90ofxsimj20p0039glu.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu7uu5rhekj20p00b774u.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu81ltmyg6j20p004gt8v.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu8b2p5crkj20p004r74j.jpg">
-<meta property="og:updated_time" content="2018-08-22T12:17:08.680Z">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxdflm4228j21h50n4myf.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fxdflmf39hj20yq0mnmyg.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fxdflmri0zj20yq0rljti.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxdflo421uj20yq0acwez.jpg">
+<meta property="og:updated_time" content="2018-11-19T10:03:48.585Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark 创建RDD、DataFrame各种情况的默认分区数">
-<meta name="twitter:description" content="前言熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。  如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executo">
-<meta name="twitter:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fu6zira6xoj20qu0at74w.jpg">
+<meta name="twitter:title" content="通过Vue CLI 快速创建Vue项目并部署到tomcat">
+<meta name="twitter:description" content="前言最近一直在写前端，用的是JSP，但是很多人都说JSP已经过时了。既然做了几个月的前端，那就把前端学的好一点，学点新技术，跟上潮流。感觉Vue挺火的，所以这几天学了一下Vue，开始看的官方文档，然后直接用GitHub上比较火的项目进行学习，本地跑起来，看看效果、源码和代码结构，学习相关的插件等，并部署了其中一个项目到我的二级域名下：vue.dongkelun.com（感觉这个项目里的东西挺全的）">
+<meta name="twitter:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxdflm4228j21h50n4myf.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -229,20 +192,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sparkDefaultPartitionNums" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vueCliCreateProject" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Spark 创建RDD、DataFrame各种情况的默认分区数
+      通过Vue CLI 快速创建Vue项目并部署到tomcat
     </h1>
   
 
         
-        <a href="/2018/08/13/sparkDefaultPartitionNums/" class="archive-article-date">
-  	<time datetime="2018-08-12T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-13</time>
+        <a href="/2018/11/19/vueCliCreateProject/" class="archive-article-date">
+  	<time datetime="2018-11-18T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
 </a>
         
       </header>
@@ -254,19 +217,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DataFrame</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Rdd</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Partition</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Vue CLI</a>
         		</li>
       		
 		</ul>
@@ -280,86 +235,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>熟悉Spark的分区对于Spark性能调优很重要，本文总结Spark通过各种函数创建RDD、DataFrame时默认的分区数，其中主要和sc.defaultParallelism、sc.defaultMinPartitions以及HDFS文件的Block数量有关，还有很坑的某些情况的默认分区数为1。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近一直在写前端，用的是JSP，但是很多人都说JSP已经过时了。既然做了几个月的前端，那就把前端学的好一点，学点新技术，跟上潮流。感觉Vue挺火的，所以这几天学了一下Vue，开始看的官方文档，然后直接用GitHub上比较火的项目进行学习，本地跑起来，看看效果、源码和代码结构，学习相关的插件等，并部署了其中一个项目到我的二级域名下：<a href="http://vue.dongkelun.com" target="_blank" rel="noopener">vue.dongkelun.com</a>（感觉这个项目里的东西挺全的）。</p>
+<p>因为一直用的github上别人搭建好的项目进行学习，担心和用Vue CLI创建的项目的代码结构有区别，所以就看了一下Vue CLI的官方文档，进行简单搭建，看看到底有什么区别，做到心中有数。</p>
 <ul>
-<li>如果分区数少，那么并行执行的task就少，特别情况下，分区数为1，即使你分配的Executor很多，而实际执行的Executor只有1个，如果数据很大的话，那么任务执行的就很慢，好像是卡死了~，所以熟悉各种情况下默认的分区数对于Spark调优就很有必要了，特别是执行完算子返回的结果分区数为1的情况，更需要特别注意。（我就被坑过，我已经分配了足够多的Executor、默认的并行度、以及执行之前的数据集分区数，但分区数依然为1）</li>
+<li>本文的环境：win10</li>
+<li>Vue CLI官方文档：<a href="https://cli.vuejs.org/zh/" target="_blank" rel="noopener">https://cli.vuejs.org/zh/</a></li>
+<li>这个链接<a href="https://mp.weixin.qq.com/s/RsbpLgcXSENFfR34lGam_Q" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/RsbpLgcXSENFfR34lGam_Q</a>有一张我用jsp做的前端界面的图片~</li>
 </ul>
-<h2 id="1、关于-sc-defaultMinPartitions"><a href="#1、关于-sc-defaultMinPartitions" class="headerlink" title="1、关于 sc.defaultMinPartitions"></a>1、关于 sc.defaultMinPartitions</h2><p>sc.defaultMinPartitions=min(sc.defaultParallelism,2)<br>也就是sc.defaultMinPartitions只有两个值1和2，当sc.defaultParallelism&gt;1时值为2，当sc.defaultParallelism=1时，值为1<br>上面的公式是在源码里定义的（均在类SparkContext里）：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">defaultMinPartitions</span></span>: <span class="type">Int</span> = math.min(defaultParallelism, <span class="number">2</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">defaultParallelism</span></span>: <span class="type">Int</span> = &#123;</span><br><span class="line">    assertNotStopped()</span><br><span class="line">    taskScheduler.defaultParallelism</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="2、关于sc-defaultParallelism"><a href="#2、关于sc-defaultParallelism" class="headerlink" title="2、关于sc.defaultParallelism"></a>2、关于sc.defaultParallelism</h2><h3 id="2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值"><a href="#2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值" class="headerlink" title="2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值"></a>2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值</h3><a id="more"></a>
-<h4 id="2-1-1-在文件中配置"><a href="#2-1-1-在文件中配置" class="headerlink" title="2.1.1 在文件中配置"></a>2.1.1 在文件中配置</h4><p>在文件spark-defaults.conf添加一行（这里用的我的windows环境）</p>
-<ul>
-<li>spark.default.parallelism=20<br>验证：<br>在spark-shell里输入sc.defaultParallelism，输出结果为20<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu6zira6xoj20qu0at74w.jpg" alt=""><h4 id="2-1-2-在代码里配置"><a href="#2-1-2-在代码里配置" class="headerlink" title="2.1.2 在代码里配置"></a>2.1.2 在代码里配置</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder()</span><br><span class="line">  .appName(<span class="string">"TestPartitionNums"</span>)</span><br><span class="line">  .master(<span class="string">"local"</span>)</span><br><span class="line">  .config(<span class="string">"spark.default.parallelism"</span>, <span class="number">20</span>)</span><br><span class="line">  .getOrCreate()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line">println(sc.defaultParallelism)</span><br><span class="line"></span><br><span class="line">spark.stop</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="1、前提"><a href="#1、前提" class="headerlink" title="1、前提"></a>1、前提</h2><p>首先你要安装好<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a>和<a href="https://www.yarnpkg.com/zh-Hans/" target="_blank" rel="noopener">yarn</a>,直接在官网下载安装包，一键安装即可，不需要什么环境配置，我安装的是最新版本（node-v10.13.0、yarn-1.12.3）</p>
+<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><ul>
+<li>同时写Vue CLI 3和Vue CLI 2 的原因是官方默认的是3，而自己学习的GitHub上的项目为2~<h3 id="2-1-新版本-Vue-CLI-3"><a href="#2-1-新版本-Vue-CLI-3" class="headerlink" title="2.1 新版本 Vue CLI 3"></a>2.1 新版本 Vue CLI 3</h3></li>
+<li>写这篇文章的时候官网默认的为Vue CLI 3<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">yarn global add @vue/cli</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu6zudcdknj20vk0g3jse.jpg" alt=""></p>
-<h4 id="2-1-3-spark-submit配置"><a href="#2-1-3-spark-submit配置" class="headerlink" title="2.1.3 spark-submit配置"></a>2.1.3 spark-submit配置</h4><p>通过–conf spark.default.parallelism=20即可<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --conf spark.<span class="keyword">default</span>.parallelism=<span class="number">160</span> ...</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-2-没有配置spark-default-parallelism时的默认值"><a href="#2-2-没有配置spark-default-parallelism时的默认值" class="headerlink" title="2.2 没有配置spark.default.parallelism时的默认值"></a>2.2 没有配置spark.default.parallelism时的默认值</h3><h4 id="2-2-1-spark-shell"><a href="#2-2-1-spark-shell" class="headerlink" title="2.2.1 spark-shell"></a>2.2.1 spark-shell</h4><p>spark-shell里的值等于cpu的核数，比如我的windows的cpu的核数为4<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu707fpx4vj21180gctad.jpg" alt=""><br>再比如测试机的核数为8<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu70bv8xvwj20gj09174m.jpg" alt=""></p>
-<h4 id="2-2-2-指定master为local"><a href="#2-2-2-指定master为local" class="headerlink" title="2.2.2 指定master为local"></a>2.2.2 指定master为local</h4><ul>
-<li><p>注：在spark-shell里通过–master local和在代码里通过.master(“local”)的结果是一样的，这里以spark-shell为例<br>当master为local时，值为1，当master为local[n]时，值为n<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu70m82mtej20j00g7q3m.jpg" alt=""></p>
-<h4 id="2-2-3-master为local-和不指定master-2-2-1-一样，都为cpu核数"><a href="#2-2-3-master为local-和不指定master-2-2-1-一样，都为cpu核数" class="headerlink" title="2.2.3 master为local[*]和不指定master(2.2.1)一样，都为cpu核数"></a>2.2.3 master为local[*]和不指定master(2.2.1)一样，都为cpu核数</h4><p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu715648uuj20hi089aaa.jpg" alt=""></p>
-<h4 id="2-2-4-master为yarn"><a href="#2-2-4-master为yarn" class="headerlink" title="2.2.4 master为yarn"></a>2.2.4 master为yarn</h4><p>master为yarn模式时为分配的所有的Executor的cpu核数的总和或者2，两者取最大值，将2.1.2的代码的master注释掉并打包，然后用下面的脚本执行测试<br>test.sh</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --num-executors $1 --executor-cores 1 --executor-memory 640M --master yarn   --class  com.dkl.leanring.spark.TestPartitionNums   spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之所用这种方式不用spark-shell是因为这种方式截图的话，占得空间比较小</p>
-</li>
-<li>因为yarn模式时使用的cpu核数为虚拟的cpu核数，和实际cpu的核数有偏差，具体应该和yarn的配置有关，而且根据结果，每次申请的实际的cpu核数不完全一样，这里没有去深究原因<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7amy6mebj20fw03baa6.jpg" alt=""><h4 id="2-2-5-Standalone、其他集群模式"><a href="#2-2-5-Standalone、其他集群模式" class="headerlink" title="2.2.5 Standalone、其他集群模式"></a>2.2.5 Standalone、其他集群模式</h4>因本人工作用yarn模式，Standalone和其他模式没法在这里截图验证了，根据网上的资料，应该和yarn模式默认值是一样的。</li>
-</ul>
-<h2 id="3、HDFS文件的默认分区"><a href="#3、HDFS文件的默认分区" class="headerlink" title="3、HDFS文件的默认分区"></a>3、HDFS文件的默认分区</h2><p>这里及后面讨论的是rdd和dataframe的分区，也就是读取hdfs文件并不会改变前面讲的sc.defaultParallelism和sc.defaultMinPartitions的值。</p>
-<h3 id="3-1-sc-textFile"><a href="#3-1-sc-textFile" class="headerlink" title="3.1 sc.textFile()"></a>3.1 sc.textFile()</h3><p>rdd的分区数 = max(hdfs文件的block数目, sc.defaultMinPartitions)</p>
-<h4 id="3-1-1-测试大文件（block的数量大于2）"><a href="#3-1-1-测试大文件（block的数量大于2）" class="headerlink" title="3.1.1 测试大文件（block的数量大于2）"></a>3.1.1 测试大文件（block的数量大于2）</h4><p>这里我上传了一个1.52G的txt到hdfs上用来测试，其中每个block的大小为默认的128M，那么该文件有13个分区</p>
+<h3 id="2-2-旧版本-Vue-CLI-2"><a href="#2-2-旧版本-Vue-CLI-2" class="headerlink" title="2.2 旧版本 Vue CLI 2"></a>2.2 旧版本 Vue CLI 2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli-init</span><br><span class="line"><span class="comment"># `vue init` 的运行效果将会跟 `vue-cli@2.x` 相同</span></span><br></pre></td></tr></table></figure>
+<h2 id="3、创建项目"><a href="#3、创建项目" class="headerlink" title="3、创建项目"></a>3、创建项目</h2><p>Vue CLI 3:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create hello-world</span><br></pre></td></tr></table></figure></p>
+<p>Vue CLI 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack my-project</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>1.52*1024/128=12.16<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs2vs4yj20zg0a0dg7.jpg" alt=""><br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs3aw1gj20wz0fot9h.jpg" alt=""></li>
-</ul>
-<p>用下面代码可以测试读取hdfs文件的分区数<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> rdd = sc.textFile(<span class="string">"hdfs://ambari.master.com/data/egaosu/txt/20180416.txt"</span>)</span><br><span class="line">rdd.rdd.getNumPartitions</span><br></pre></td></tr></table></figure></p>
-<p>这种方式无论是sc.defaultParallelism大于block数还是sc.defaultParallelism小于block数，rdd的默认分区数都为block数</p>
-<ul>
-<li>注：之所以说是默认分区，因为textFile可以指定分区数，sc.textFile(path, minPartitions)，通过第二个参数可以指定分区数<br>sc.defaultMinPartitions大于block数<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs3kwr2j20rq0bwaap.jpg" alt=""></li>
-</ul>
-<p>sc.defaultMinPartitions小于block数<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7cs3u9epj20s30bumxs.jpg" alt=""></p>
-<p>当用参数指定分区数时，有两种情况，当参数大于block数时，则rdd的分区数为指定的参数值，否则分区数为block数<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7cs49eihj20we052dg9.jpg" alt=""></p>
-<h4 id="3-1-2-测试小文件（block数量等于1）"><a href="#3-1-2-测试小文件（block数量等于1）" class="headerlink" title="3.1.2 测试小文件（block数量等于1）"></a>3.1.2 测试小文件（block数量等于1）</h4><p>这种情况的默认分区数为sc.defaultMinPartitions，下面是对应的hdfs文件：<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu8bqtgi9xj210y0jzjsg.jpg" alt=""><br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu8btskf5uj20xp0fsgmj.jpg" alt=""></p>
-<p>将上面的hdfs路径改为：hdfs://ambari.master.com/tmp/dkl/data.txt，结果：<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu8c2dwsqqj20pm03imxe.jpg" alt=""><br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu8c2ety4pj20pm03iglu.jpg" alt=""></p>
-<p>当用参数指定分区数时，rdd的分区数大于等于参数值，本次测试为等于参数值或参数值+1<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu8c86lsc0j20vt074q3i.jpg" alt=""></p>
-<h3 id="3-2-spark-read-csv"><a href="#3-2-spark-read-csv" class="headerlink" title="3.2 spark.read.csv()"></a>3.2 spark.read.csv()</h3><p>大文件（block较多）：df的分区数 = max(hdfs文件的block数目, sc.defaultParallelism)<br>小文件（本次测试的block为1）：df的分区数=1，也就是和sc.defaultParallelism无关(一般小文件也没必要用很多分区，一个分区很快就可以处理完成)</p>
-<h4 id="3-2-1-大文件"><a href="#3-2-1-大文件" class="headerlink" title="3.2.1 大文件"></a>3.2.1 大文件</h4><p>文件大小8.98G,block数为72<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu8z9exssuj20xc0830t7.jpg" alt=""><br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu8z9fbalej20xc0g9gmy.jpg" alt=""><br>读取代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> df = spark.read.option(<span class="string">"header"</span>, <span class="string">"true"</span>).csv(<span class="string">"hdfs://ambari.master.com//data/etc_t/etc_t_consumewaste201801.csv"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>分区数<br>1、当sc.defaultParallelism小于block，分区数默认为block数：72<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu8zyfqphgj20p003njrm.jpg" alt=""><br>2、当sc.defaultParallelism大于于block，分区数默认为sc.defaultParallelism<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu8zyfcv7fj20p003r3yr.jpg" alt=""></p>
-<h4 id="3-2-2-小文件（1个block）"><a href="#3-2-2-小文件（1个block）" class="headerlink" title="3.2.2 小文件（1个block）"></a>3.2.2 小文件（1个block）</h4><p>分区数为1<br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu900bmxyrj20xa06zglz.jpg" alt=""><br>读取代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> df = spark.read.option(<span class="string">"header"</span>, <span class="string">"true"</span>).csv(<span class="string">"hdfs://ambari.master.com//data/etc_t/etc_sale_desc.csv"</span>)</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu8zyezclpj20p003n74l.jpg" alt=""></p>
-<h3 id="3-3-测试读取hive表创建的DataFrame的分区数"><a href="#3-3-测试读取hive表创建的DataFrame的分区数" class="headerlink" title="3.3 测试读取hive表创建的DataFrame的分区数"></a>3.3 测试读取hive表创建的DataFrame的分区数</h3><p>下面是该表的hdfs路径，从下面的图可以看出该表对应的hdfs文件的block的数目为10（2*5）<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7sxeyqfcj210t0gawfj.jpg" alt=""></p>
-<p>用下面的代码测试：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//切换数据库</span></span><br><span class="line">spark.sql(<span class="string">"use route_analysis"</span>)</span><br><span class="line"><span class="comment">//读取该数据库下的egaosu表为df</span></span><br><span class="line"><span class="keyword">val</span> df = spark.table(<span class="string">"egaosu"</span>)</span><br><span class="line"><span class="comment">//打印df对应的rdd的分区数</span></span><br><span class="line">df.rdd.getNumPartitions</span><br></pre></td></tr></table></figure></p>
-<p>测试发现，当sc.defaultParallelism大于block时，df的分区是等于sc.defaultParallelism，当小于block时，df的分区数介于sc.defaultParallelism和block之间，至于详细的分配策略，我还没有查到~<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7dajriddj20j30b1aal.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu7dak28tgj20im0b9gm5.jpg" alt=""><br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7dake0i2j20is0ayt98.jpg" alt=""></p>
-<ul>
-<li><p>用spark.sql(“select * from egaosu”)这种方式得到df和上面的分区数是一样的</p>
-</li>
-<li><p>上面讲的是我经常使用的几种读取hdfs文件的方法，至于利用其他方法读取hdfs文件的默认的分区，大家可以自己测试（比如json文件，因我没有比较大的hdfs文件就不做测试了）</p>
-<h2 id="4、非HDFS文件的默认分区（本地文件）"><a href="#4、非HDFS文件的默认分区（本地文件）" class="headerlink" title="4、非HDFS文件的默认分区（本地文件）"></a>4、非HDFS文件的默认分区（本地文件）</h2></li>
-<li><p>实际工作中用到本地文件的情况很少，一般都是hdfs、关系型数据库和代码里的集合</p>
-<h3 id="4-1-sc-textFile"><a href="#4-1-sc-textFile" class="headerlink" title="4.1 sc.textFile()"></a>4.1 sc.textFile()</h3><h4 id="4-1-1-大文件"><a href="#4-1-1-大文件" class="headerlink" title="4.1.1 大文件"></a>4.1.1 大文件</h4><p>文件大小为1142M，经测试本地文件也会像hdfs一样进行类似于block的划分，固定按32M来分片（这里的32M参考<a href="https://www.jianshu.com/p/4b7d07e754fa" target="_blank" rel="noopener">Spark RDD的默认分区数：（spark 2.1.0）</a>）<br><img src="http://wx1.sinaimg.cn/mw690/e44344dcly1fu8dblxrtbj20p001a3yl.jpg" alt=""><br>所以应该默认有36个分区（1142/32=35.6875）<br>当用参数值指定时，参数小于block时，分区数为block的数目，大于block时，分区数为参数值，即分区数 = max(本地文件的block数目, 参数值)<br>读取代码：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> rdd = sc.textFile(<span class="string">"file:///root/dkl/170102.txt"</span>)</span><br></pre></td></tr></table></figure>
+<li>一直按回车为默认选项，手动设置请参考<a href="https://cli.vuejs.org/zh/" target="_blank" rel="noopener">官方文档</a><h2 id="4、运行项目"><a href="#4、运行项目" class="headerlink" title="4、运行项目"></a>4、运行项目</h2>Vue CLI 3:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> hello-world</span><br><span class="line">yarn serve</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><img src="http://wx1.sinaimg.cn/mw690/e44344dcly1fu8d86ayurj20p007f74s.jpg" alt=""></p>
-<h4 id="4-1-2-小文件"><a href="#4-1-2-小文件" class="headerlink" title="4.1.2 小文件"></a>4.1.2 小文件</h4><p>默认的分区数为sc.defaultMinPartitions<br>新建一个测试文件text.txt,内容自己造几行<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7udeqjhwj20p009wwf0.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu7udf64y5j20p009w3z1.jpg" alt=""></p>
-<p>当用参数指定分区数时，本以为分区数为指定的参数值，结果经测试，当参数值在一定的范围内分区数确实为指定的参数值，当参数值大于某个数值时，分区数实际比参数值大一点，不知道是不是Spark的bug还是有自己的策略。<br>读取代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> rdd = sc.textFile(<span class="string">"file:///root/dkl/sh/test/test.txt"</span>)</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://wx1.sinaimg.cn/large/e44344dcly1fu7ugxl4a1j20p00k9jso.jpg" alt=""></p>
-<h3 id="4-2-spark-read-csv"><a href="#4-2-spark-read-csv" class="headerlink" title="4.2 spark.read.csv()"></a>4.2 spark.read.csv()</h3><p>规律和HDFS文件是一样的（见3.2），且按128M来分block，这里和上面讲的txt不一样，txt是按32M</p>
-<h4 id="4-2-1-大文件"><a href="#4-2-1-大文件" class="headerlink" title="4.2.1 大文件"></a>4.2.1 大文件</h4><p>1081M，那么block为9（1081/128），分区数 = max(本地文件的block数目, sc.defaultParallelism)<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu90ofk91kj20p0027jrk.jpg" alt=""><br>读取代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> df = spark.read.option(<span class="string">"header"</span>, <span class="string">"true"</span>).csv(<span class="string">"file:///root/dir/etc_t/etc_t_consumewaste20180614-0616.csv"</span>)</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu90oex5ksj20p003ndg2.jpg" alt=""><br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu90of8q6wj20p003d0sx.jpg" alt=""></p>
-<h4 id="4-2-2-小文件"><a href="#4-2-2-小文件" class="headerlink" title="4.2.2 小文件"></a>4.2.2 小文件</h4><p>大小6K，block为1，分区数为1<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu90ofxsimj20p0039glu.jpg" alt=""><br>读取代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> df = spark.read.option(<span class="string">"header"</span>, <span class="string">"true"</span>).csv(<span class="string">"file:///root/dkl/sh/test/test.csv"</span>)</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu7uu5rhekj20p00b774u.jpg" alt=""></p>
-<h2 id="5、关系型数据库"><a href="#5、关系型数据库" class="headerlink" title="5、关系型数据库"></a>5、关系型数据库</h2><p>从关系型数据库表读取的df的分区数为1，以mysql为例，我这里拿一张1000万条数据的表进行测试<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu81ltmyg6j20p004gt8v.jpg" alt=""><br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fu7v9lgszpj210j0mxq4l.jpg" alt=""><br>Spark连接mysql的代码都可以参考<a href="https://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a></p>
+<p>Vue CLI 2:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> my-project/</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure></p>
+<h2 id="5、验证"><a href="#5、验证" class="headerlink" title="5、验证"></a>5、验证</h2><p>在浏览器输入<a href="http://localhost:8080" target="_blank" rel="noopener">localhost:8080</a>，看见下图图所示的效果即为成功<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fxdflm4228j21h50n4myf.jpg" alt=""><br><img src="https://wx4.sinaimg.cn/large/e44344dcly1fxdflmf39hj20yq0mnmyg.jpg" alt=""><br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fxdflmri0zj20yq0rljti.jpg" alt=""><br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fxdflo421uj20yq0acwez.jpg" alt=""></p>
+<h2 id="6、构建"><a href="#6、构建" class="headerlink" title="6、构建"></a>6、构建</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn build</span><br><span class="line"># OR</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<p>会生成一个dist文件夹</p>
+<h2 id="7、部署"><a href="#7、部署" class="headerlink" title="7、部署"></a>7、部署</h2><h3 id="7-1-本地预览"><a href="#7-1-本地预览" class="headerlink" title="7.1 本地预览"></a>7.1 本地预览</h3><p>dist 目录需要启动一个 HTTP 服务器来访问 (除非你已经将 baseUrl 配置为了一个相对的值)，所以以 file:// 协议直接打开 dist/index.html 是不会工作的。在本地预览生产环境构建最简单的方式就是使用一个 Node.js 静态文件服务器，例如 <a href="https://github.com/zeit/serve" target="_blank" rel="noopener">serve</a></p>
+<p>安装serve：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g serve</span><br></pre></td></tr></table></figure></p>
+<p>启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serve -s dist</span><br><span class="line">INFO: Accepting connections at http://localhost:5000</span><br></pre></td></tr></table></figure></p>
+<p>预览：<a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a></p>
+<h3 id="7-2-部署到tomcat"><a href="#7-2-部署到tomcat" class="headerlink" title="7.2 部署到tomcat"></a>7.2 部署到tomcat</h3><p>默认的配置直接部署到tomcat，是有错误的(在浏览器检查里发现是找不到对应的静态文件，原因是路径不对)，需要修改一下配置，版本2和版本3的配置也不一样</p>
+<p>Vue CLI 3:<br>在hello-world新建vue.config.js，并添加如下内容<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  baseUrl: process.env.NODE_ENV === <span class="string">'production'</span></span><br><span class="line">    ? <span class="string">'/hello-world/'</span></span><br><span class="line">    : <span class="string">'/'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里参考官方文档：<a href="https://cli.vuejs.org/zh/guide/deployment.html#platform-guides" target="_blank" rel="noopener">https://cli.vuejs.org/zh/guide/deployment.html#platform-guides</a><br>Vue CLI 2:<br>找到my-project/config/index.js文件中build对应的assetsPublicPath键值，将其修改为<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assetsPublicPath: <span class="string">'./'</span>,</span><br></pre></td></tr></table></figure></p>
+<p>这里参考：<a href="https://blog.csdn.net/Dear_Mr/article/details/72871919" target="_blank" rel="noopener">https://blog.csdn.net/Dear_Mr/article/details/72871919</a></p>
+<p>重新build，将生成的dist文件夹复制到tomcat目录下的webapps文件夹下，可以将dist文件夹改名为hello-world，那么访问路径就为<br>ip/hello-world,也可以不改名那么访问路径就为ip/dist,效果查看<a href="http://vue.dongkelun.com/hello-world" target="_blank" rel="noopener">vue.dongkelun.com/hello-world</a>、<a href="http://vue.dongkelun.com/dist" target="_blank" rel="noopener">vue.dongkelun.com/dist</a></p>
+<h2 id="8、其他问题"><a href="#8、其他问题" class="headerlink" title="8、其他问题"></a>8、其他问题</h2><h3 id="8-1-npm-run-dev启动后，用Ctrl-c，关闭不了对应的进程"><a href="#8-1-npm-run-dev启动后，用Ctrl-c，关闭不了对应的进程" class="headerlink" title="8.1 npm run dev启动后，用Ctrl+c，关闭不了对应的进程"></a>8.1 npm run dev启动后，用Ctrl+c，关闭不了对应的进程</h3><p>原因是在Git Bash Here里执行的命令，一种方法是在windows 的shell里执行命令（输入cmd进入），另一种办法是如果不想放弃git的命令行的话，每次启动完用tskill node杀死进程。</p>
+<h3 id="8-2-依然想用-npm-run-dev-启动上面的hello-world程序"><a href="#8-2-依然想用-npm-run-dev-启动上面的hello-world程序" class="headerlink" title="8.2 依然想用 npm run dev 启动上面的hello world程序"></a>8.2 依然想用 npm run dev 启动上面的hello world程序</h3><p>办法是修改package.json文件，找到scripts下的”serve”: “vue-cli-service serve”,复制这一行到下一行将key（serve）改为dev即可</p>
 <ul>
-<li>设置df的默认分区数也可以参考<a href="https://dongkelun.com/2018/03/21/sparkMysql/">Spark Sql 连接mysql</a></li>
+<li>自己可以对比一下，两个版本的package.json文件的差异，多尝试一下就了解了<h2 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h2></li>
+<li><a href="https://dongkelun.com/2018/10/23/tomcatConf/">Centos7 Tomcat9 安装笔记</a></li>
 </ul>
-<h2 id="6、从代码里的内部数据集创建"><a href="#6、从代码里的内部数据集创建" class="headerlink" title="6、从代码里的内部数据集创建"></a>6、从代码里的内部数据集创建</h2><h3 id="6-1-sc-parallelize-创建RDD"><a href="#6-1-sc-parallelize-创建RDD" class="headerlink" title="6.1 sc.parallelize()创建RDD"></a>6.1 sc.parallelize()创建RDD</h3><p>默认分区数等于sc.defaultParallelism，指定参数时分区数值等于参数值。</p>
-<h3 id="6-2-spark-createDataFrame-data-创建DataFrame"><a href="#6-2-spark-createDataFrame-data-创建DataFrame" class="headerlink" title="6.2 spark.createDataFrame(data)创建DataFrame"></a>6.2 spark.createDataFrame(data)创建DataFrame</h3><p>当data的长度小于sc.defaultParallelism，分区数等于data长度，否则分区数等于sc.defaultParallelism</p>
-<p>如图：<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1fu7vwdmzt5j218y0ovdi3.jpg" alt=""></p>
-<h3 id="6-3-代码"><a href="#6-3-代码" class="headerlink" title="6.3 代码"></a>6.3 代码</h3><p>下面是上面图中的代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestPartitionNums</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span>.builder()</span><br><span class="line">      .appName(<span class="string">"TestPartitionNums"</span>)</span><br><span class="line">      .master(<span class="string">"local"</span>)</span><br><span class="line">      .config(<span class="string">"spark.default.parallelism"</span>, <span class="number">8</span>)</span><br><span class="line">      .getOrCreate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> sc = spark.sparkContext</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"默认的并行度: "</span> + sc.defaultParallelism)</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"sc.parallelize 默认分区："</span> + sc.parallelize(<span class="number">1</span> to <span class="number">30</span>).getNumPartitions)</span><br><span class="line">    println(<span class="string">"sc.parallelize 参数指定，参数大于sc.defaultParallelism时："</span> + sc.parallelize(<span class="number">1</span> to <span class="number">30</span>, <span class="number">100</span>).getNumPartitions)</span><br><span class="line">    println(<span class="string">"sc.parallelize  参数指定，参数小于sc.defaultParallelism时："</span> + sc.parallelize(<span class="number">1</span> to <span class="number">30</span>, <span class="number">3</span>).getNumPartitions)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> data = <span class="type">Seq</span>((<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"spark.createDataFrame data的长度小于sc.defaultParallelism时，长度："</span> + data.length + <span class="string">" 分区数："</span> + spark.createDataFrame(data).rdd.getNumPartitions)</span><br><span class="line">    data = <span class="type">Seq</span>((<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">    println(<span class="string">"spark.createDataFrame data的长度大于sc.defaultParallelism时，长度："</span> + data.length + <span class="string">" 分区数："</span> + spark.createDataFrame(data).rdd.getNumPartitions)</span><br><span class="line"></span><br><span class="line">    spark.stop</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="7、其他改变分区数的算子"><a href="#7、其他改变分区数的算子" class="headerlink" title="7、其他改变分区数的算子"></a>7、其他改变分区数的算子</h2><h3 id="7-1-分区数为1"><a href="#7-1-分区数为1" class="headerlink" title="7.1 分区数为1"></a>7.1 分区数为1</h3><p>上面已经讲过几个分区数为1（当默认的并行度大于1时）的情况：<br>1、spark.read.csv()读取本地文件<br>2、读取关系型数据库表<br>上面是从外部数据源加载进来就为1的情况，还有就是对df或rdd进行转换操作之后的分区数为1的情况：<br>1、df.limit(n)</p>
-<h3 id="7-2-分区数不为1的情况"><a href="#7-2-分区数不为1的情况" class="headerlink" title="7.2 分区数不为1的情况"></a>7.2 分区数不为1的情况</h3><p>df.distinct()分区数为200</p>
-<p>如图：<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fu8b2p5crkj20p004r74j.jpg" alt=""></p>
-<h2 id="8、合理的设置分区数"><a href="#8、合理的设置分区数" class="headerlink" title="8、合理的设置分区数"></a>8、合理的设置分区数</h2><p>根据自己集群的情况和数据大小等合理设置分区的数目，对于Spark性能调优很有必要，根据前面讲的可知，可通过配置spark.default.parallelism、传参设置分区数，遇到那些分区数为1的特殊算子可以利用repartition()进行重新分区即可。</p>
-<h2 id="9、总结"><a href="#9、总结" class="headerlink" title="9、总结"></a>9、总结</h2><p>本文首先讲了各种情况下的sc.defaultParallelism，defaultMinPartitions，然后讲了各种情况下创建以及转化RDD、DataFrame的分区数，因为Spark的外部数据源很多，创建以及转化RDD、DataFrame的方法和算子也很多，所以主要是讲了我个人常用的各种情况，并不能包含所有情况，至于其他情况，大家可以自己测试总结。还有一点就是本文并没有从源码的层次去分析，只是总结一些规律，对于前面提到的一些还不太清楚的规律，以后如果有时间的话可以从源码的层次去分析为什么~</p>
 
       
 
@@ -403,9 +318,9 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/">Spark 创建RDD、DataFrame各种情况的默认分区数</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/11/19/vueCliCreateProject/">通过Vue CLI 快速创建Vue项目并部署到tomcat</a> </p>
  
- <p>本文链接：<a href="https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/">https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/</a></p>
+ <p>本文链接：<a href="https://dongkelun.com/2018/11/19/vueCliCreateProject/">https://dongkelun.com/2018/11/19/vueCliCreateProject/</a></p>
  <p>--------------------</p>
  <p>作者联系方式：</p>
  <p>QQ：1412359494</p>
@@ -467,7 +382,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/08/13/sparkDefaultPartitionNums/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/11/19/vueCliCreateProject/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -481,18 +396,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/08/14/sparkEmptyDataFrame/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spark创建空的DataFrame
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/08/02/sparkUDF/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spark UDF使用详解及代码示例</div>
+    <a href="/2018/11/16/sparkSubmitLogLevel/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark 通过 spark-submit 设置日志级别</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -519,7 +425,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、关于-sc-defaultMinPartitions"><span class="toc-number">2.</span> <span class="toc-text">1、关于 sc.defaultMinPartitions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、关于sc-defaultParallelism"><span class="toc-number">3.</span> <span class="toc-text">2、关于sc.defaultParallelism</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-首先可通过spark-default-parallelism设置sc-defaultParallelism的值"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 首先可通过spark.default.parallelism设置sc.defaultParallelism的值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-在文件中配置"><span class="toc-number">3.1.1.</span> <span class="toc-text">2.1.1 在文件中配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-在代码里配置"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.1.2 在代码里配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-spark-submit配置"><span class="toc-number">3.1.3.</span> <span class="toc-text">2.1.3 spark-submit配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-没有配置spark-default-parallelism时的默认值"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 没有配置spark.default.parallelism时的默认值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-spark-shell"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.2.1 spark-shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-指定master为local"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2.2 指定master为local</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-master为local-和不指定master-2-2-1-一样，都为cpu核数"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.2.3 master为local[*]和不指定master(2.2.1)一样，都为cpu核数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-master为yarn"><span class="toc-number">3.2.4.</span> <span class="toc-text">2.2.4 master为yarn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-Standalone、其他集群模式"><span class="toc-number">3.2.5.</span> <span class="toc-text">2.2.5 Standalone、其他集群模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、HDFS文件的默认分区"><span class="toc-number">4.</span> <span class="toc-text">3、HDFS文件的默认分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-sc-textFile"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 sc.textFile()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-测试大文件（block的数量大于2）"><span class="toc-number">4.1.1.</span> <span class="toc-text">3.1.1 测试大文件（block的数量大于2）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-测试小文件（block数量等于1）"><span class="toc-number">4.1.2.</span> <span class="toc-text">3.1.2 测试小文件（block数量等于1）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-spark-read-csv"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 spark.read.csv()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-大文件"><span class="toc-number">4.2.1.</span> <span class="toc-text">3.2.1 大文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-小文件（1个block）"><span class="toc-number">4.2.2.</span> <span class="toc-text">3.2.2 小文件（1个block）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-测试读取hive表创建的DataFrame的分区数"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 测试读取hive表创建的DataFrame的分区数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、非HDFS文件的默认分区（本地文件）"><span class="toc-number">5.</span> <span class="toc-text">4、非HDFS文件的默认分区（本地文件）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-sc-textFile"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 sc.textFile()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-大文件"><span class="toc-number">5.1.1.</span> <span class="toc-text">4.1.1 大文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-小文件"><span class="toc-number">5.1.2.</span> <span class="toc-text">4.1.2 小文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-spark-read-csv"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 spark.read.csv()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-大文件"><span class="toc-number">5.2.1.</span> <span class="toc-text">4.2.1 大文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-小文件"><span class="toc-number">5.2.2.</span> <span class="toc-text">4.2.2 小文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、关系型数据库"><span class="toc-number">6.</span> <span class="toc-text">5、关系型数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、从代码里的内部数据集创建"><span class="toc-number">7.</span> <span class="toc-text">6、从代码里的内部数据集创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-sc-parallelize-创建RDD"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 sc.parallelize()创建RDD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-spark-createDataFrame-data-创建DataFrame"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 spark.createDataFrame(data)创建DataFrame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-代码"><span class="toc-number">7.3.</span> <span class="toc-text">6.3 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、其他改变分区数的算子"><span class="toc-number">8.</span> <span class="toc-text">7、其他改变分区数的算子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-分区数为1"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 分区数为1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-分区数不为1的情况"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 分区数不为1的情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、合理的设置分区数"><span class="toc-number">9.</span> <span class="toc-text">8、合理的设置分区数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、总结"><span class="toc-number">10.</span> <span class="toc-text">9、总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、前提"><span class="toc-number">2.</span> <span class="toc-text">1、前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、安装"><span class="toc-number">3.</span> <span class="toc-text">2、安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-新版本-Vue-CLI-3"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 新版本 Vue CLI 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-旧版本-Vue-CLI-2"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 旧版本 Vue CLI 2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、创建项目"><span class="toc-number">4.</span> <span class="toc-text">3、创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、运行项目"><span class="toc-number">5.</span> <span class="toc-text">4、运行项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、验证"><span class="toc-number">6.</span> <span class="toc-text">5、验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、构建"><span class="toc-number">7.</span> <span class="toc-text">6、构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、部署"><span class="toc-number">8.</span> <span class="toc-text">7、部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-本地预览"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 本地预览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-部署到tomcat"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 部署到tomcat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、其他问题"><span class="toc-number">9.</span> <span class="toc-text">8、其他问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-npm-run-dev启动后，用Ctrl-c，关闭不了对应的进程"><span class="toc-number">9.1.</span> <span class="toc-text">8.1 npm run dev启动后，用Ctrl+c，关闭不了对应的进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-依然想用-npm-run-dev-启动上面的hello-world程序"><span class="toc-number">9.2.</span> <span class="toc-text">8.2 依然想用 npm run dev 启动上面的hello world程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关阅读"><span class="toc-number">10.</span> <span class="toc-text">相关阅读</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -535,7 +441,7 @@
   
 
   
-  <div id="SOHUCS" sid="sparkDefaultPartitionNums" ></div> 
+  <div id="SOHUCS" sid="vueCliCreateProject" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
