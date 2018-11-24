@@ -6,14 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Spark Streaming连接Kafka入门教程 | 伦少的博客</title>
+  <title>Spark Streaming连接Kafka入门教程 | 伦少</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考Kafka安装启动入门教程和centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好">
 <meta name="keywords" content="Spark,Kafka,Spark Streaming">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark Streaming连接Kafka入门教程">
 <meta property="og:url" content="https://dongkelun.com/2018/05/17/sparkKafka/index.html">
-<meta property="og:site_name" content="伦少的博客">
+<meta property="og:site_name" content="伦少">
 <meta property="og:description" content="前言首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考Kafka安装启动入门教程和centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
@@ -24,7 +24,7 @@
 <meta name="twitter:description" content="前言首先要安装好kafka,这里不做kafka安装的介绍(这里用的是ambari安装的kafka),若想了解如何安装可参考Kafka安装启动入门教程和centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署,本文是Spark Streaming入门教程，只是简单的介绍如何利用spark 连接kafka，并消费数据，由于博主也是才学，所以其中代码以实现为主，可能并不是最好">
 <meta name="twitter:image" content="https://wx3.sinaimg.cn/large/e44344dcly1freg6rccy3j20nm028a9x.jpg">
   
-    <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="伦少" type="application/atom+xml">
   
   
     <link rel="icon" href="//wx3.sinaimg.cn/large/e44344dcly1fpkwens4otj20hs0hs753.jpg">
@@ -81,7 +81,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/archives/">博客</a></li>
+				<li><a href="/archives/">所有文章</a></li>
 	        
 				<li><a href="/tags/Spark/">Spark</a></li>
 	        
@@ -95,10 +95,6 @@
     		
     			
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">搜索</a>
-    			
-            
-    			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
     			
             
     			
@@ -164,7 +160,7 @@
 				
 					<li style="width: 20%"><a href="/">主页</a></li>
 		        
-					<li style="width: 20%"><a href="/archives/">博客</a></li>
+					<li style="width: 20%"><a href="/archives/">所有文章</a></li>
 		        
 					<li style="width: 20%"><a href="/tags/Spark/">Spark</a></li>
 		        
@@ -475,7 +471,8 @@
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
-	<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+	<p><a href="//www.miitbeian.gov.cn" style="font-weight: bold">鲁ICP备16000268号-1</a>|Hosted by <a href="https://pages.coding.me" style="font-weight: bold;">Coding Pages</a></p>
+	
   </div>
 </footer>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -528,25 +525,17 @@ var _hmt = _hmt || [];
       
       
     
-      
-      
-      
-    
     
 
     <ul style="width: 70%">
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索</a></li>
       
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
-      
-        
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
@@ -595,11 +584,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,11 +596,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,11 +636,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,86 +786,6 @@ var _hmt = _hmt || [];
     	</section>
     
 
-    
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="https://scalafiddle.io/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>浏览器中运行scala代码</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://cwiki.apachecn.org/pages/viewpage.action?pageId=2883613" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>spark中文官方文档</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://hongjiang.info/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>王宏江</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://my.oschina.net/joymufeng/blog" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>joymufeng</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://www.playscala.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>PlayScala社区</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://www.runoob.com/scala/scala-tutorial.html" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Scala 教程</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://fengyijia.top/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>余温blog&#39;s</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://www.520kn.xyz/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>顶尖博客</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://www.zhyd.me" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>张亚东博客</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://investguider.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>美股指南</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://www.54tianzhisheng.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>志声的博客</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://blog.rare0716.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Rare的博客</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://www.codesheep.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>王 帅</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://www.wmathor.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>mathor</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://weijunzii.github.io/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>伪君子</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://iphper.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>沈唁志</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://zhangyue.xin" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>张高兴的博客</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="https://blog.jiasm.org/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>贾顺名(Jarvis)</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
     
 
     
