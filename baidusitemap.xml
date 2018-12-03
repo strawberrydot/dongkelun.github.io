@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/12/03/hiveInternalAndExternalTables/</loc>
+    <lastmod>2018-12-03T08:42:49.378Z</lastmod>
+    <data>
+        <display>
+        <title>Hive内部表和外部表</title>
+        <pubTime>2018-12-02T16:00:00.000Z</pubTime>
+        
+        <tag>Hive</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/12/02/hivePartitionTable/</loc>
     <lastmod>2018-12-03T08:29:02.486Z</lastmod>
     <data>
@@ -14,23 +31,6 @@
         <tag>Hive</tag>
          
         <tag>Partition</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/12/03/hiveInternalAndExternalTables/</loc>
-    <lastmod>2018-12-03T08:28:24.473Z</lastmod>
-    <data>
-        <display>
-        <title>Hive内部表和外部表</title>
-        <pubTime>2018-12-02T16:00:00.000Z</pubTime>
-        
-        <tag>Hive</tag>
          
          
            

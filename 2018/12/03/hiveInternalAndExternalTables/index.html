@@ -17,7 +17,7 @@
 <meta property="og:description" content="前言总结一下Hive的内部表和外部表以及两者的区别。 1、建表语句1.1 内部表平时创建的普通表为内部表123456create table `test_internal` (id string comment &apos;ID&apos;, name string comment &apos;名字&apos;)comment &apos;测试内部表&apos;ROW FORMAT DELIMITED FIELDS TERMINATED BY &apos;,&apos; ;">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fxtmahp2bij20yq052mxp.jpg">
-<meta property="og:updated_time" content="2018-12-03T08:28:24.473Z">
+<meta property="og:updated_time" content="2018-12-03T08:42:49.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive内部表和外部表">
 <meta name="twitter:description" content="前言总结一下Hive的内部表和外部表以及两者的区别。 1、建表语句1.1 内部表平时创建的普通表为内部表123456create table `test_internal` (id string comment &apos;ID&apos;, name string comment &apos;名字&apos;)comment &apos;测试内部表&apos;ROW FORMAT DELIMITED FIELDS TERMINATED BY &apos;,&apos; ;">
@@ -242,15 +242,15 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir -p /tmp/dkl/internal_location</span><br><span class="line">hadoop fs -mkdir -p /tmp/dkl/external_location</span><br><span class="line">hadoop fs -put data.txt /tmp/dkl/internal_location</span><br><span class="line">hadoop fs -put data.txt /tmp/dkl/external_location</span><br></pre></td></tr></table></figure>
 <h3 id="2-2-建表"><a href="#2-2-建表" class="headerlink" title="2.2 建表"></a>2.2 建表</h3><h4 id="2-2-1-内部表"><a href="#2-2-1-内部表" class="headerlink" title="2.2.1 内部表"></a>2.2.1 内部表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_internal_location (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试内部表location'</span></span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> </span><br><span class="line">location <span class="string">'/tmp/dkl/internal_location'</span>;</span><br></pre></td></tr></table></figure>
 <h4 id="2-2-2-外部表"><a href="#2-2-2-外部表" class="headerlink" title="2.2.2 外部表"></a>2.2.2 外部表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> test_external_location (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试外部表location'</span></span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> </span><br><span class="line">location <span class="string">'/tmp/dkl/external_location'</span>;</span><br></pre></td></tr></table></figure>
-<p>这样查询的时候就可以把data.txt里的数据查出来了，这时在往对应的HDFS路径下put数据，Hive表也会对应增加。</p>
+<p>这样查询的时候就可以把data.txt里的数据查出来了，这时再往对应的HDFS路径下put数据，Hive表也会对应增加。</p>
 <blockquote>
-<p>说明：hdfs 文件夹及对应下的数据和建表语句没有先后顺序，建表在前和在后都可以把数据加载出来，如果先建表的话，对应的没有该文件夹，则会自动建立文件夹。</p>
+<p>说明：hdfs 文件夹及对应下的数据和建表语句没有先后顺序，建表在前和在后都可以把数据加载出来，如果先建表的话，对应的文件夹如果不存在，则会自动建立文件夹。</p>
 </blockquote>
 <h2 id="3、删除表"><a href="#3、删除表" class="headerlink" title="3、删除表"></a>3、删除表</h2><p>内部表和外部表的区别主要体现在删除表，将上面建立的四个表都删掉。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> test_internal;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> test_external;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> test_internal_location;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> test_external_location;</span><br></pre></td></tr></table></figure></p>
 <p>看一下对应的hdfs路径有啥变化<br>hadoop命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -ls /apps/hive/warehouse/dkl.db</span><br><span class="line">hadoop fs -ls /tmp/dkl</span><br></pre></td></tr></table></figure></p>
 <p>发现外部表test_external文件夹和external_location文件夹都存在，而内部表的两个文件夹都没了，这也就是内部表和外部表的区别：</p>
 <blockquote>
-<p>内部表删除表时，对应的hdfs的路径下的文件也会删掉；外部表删除表时，对应的HDFS的路径下的文件不会删掉，无论是建表是指定location还是不指定location</p>
+<p>内部表删除表时，对应的hdfs的路径下的文件会删掉；外部表删除表时，对应的HDFS的路径下的文件则不会删掉，无论是建表是指定location还是不指定location</p>
 </blockquote>
 <p><img src="https://wx2.sinaimg.cn/large/e44344dcly1fxtmahp2bij20yq052mxp.jpg" alt=""></p>
 <h2 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h2><ul>
@@ -561,6 +561,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -570,14 +578,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -597,15 +597,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,11 +621,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -645,15 +645,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
