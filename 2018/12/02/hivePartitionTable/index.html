@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fxsi6f3j0wg20sy0flu0x.gif">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsn6bsd3hg20sy0fl7wh.gif">
-<meta property="og:updated_time" content="2018-12-02T11:51:48.027Z">
+<meta property="og:updated_time" content="2018-12-03T01:43:40.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive分区表学习总结">
 <meta name="twitter:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table `test_partition` (`id`">
@@ -269,7 +269,7 @@
 <p>首先创建没有分区的表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`test`</span> (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span>,</span><br><span class="line"><span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试'</span></span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure></p>
 <p>先将数据load进test表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
 <p>然后从表test，动态分区插入test_partition中<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>)  <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
-<p>如果后面select具体字段的话，需要保证顺序一致，把分区字段放在最后。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into table test_partition partition(year)  select id,name,year from test;</span><br></pre></td></tr></table></figure></p>
+<p>如果后面select具体字段的话，需要保证顺序一致，把分区字段放在最后。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>)  <span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>,<span class="keyword">year</span> <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
 <h2 id="3、查看分区信息"><a href="#3、查看分区信息" class="headerlink" title="3、查看分区信息"></a>3、查看分区信息</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span>  <span class="keyword">partitions</span> test_partition;</span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; show  partitions test_partition;</span><br><span class="line">OK</span><br><span class="line">year=2017</span><br><span class="line">year=2018</span><br><span class="line">Time taken: 0.719 seconds, Fetched: 2 row(s)</span><br></pre></td></tr></table></figure>
 <h2 id="4、添加分区字段"><a href="#4、添加分区字段" class="headerlink" title="4、添加分区字段"></a>4、添加分区字段</h2><blockquote>
@@ -614,15 +614,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,23 +654,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -674,7 +670,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,6 +683,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,11 +706,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,15 +742,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,11 +770,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">

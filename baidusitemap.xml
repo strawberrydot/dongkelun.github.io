@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://dongkelun.com/2018/12/02/hivePartitionTable/</loc>
-    <lastmod>2018-12-02T11:51:48.027Z</lastmod>
+    <lastmod>2018-12-03T01:43:40.301Z</lastmod>
     <data>
         <display>
         <title>Hive分区表学习总结</title>
@@ -14,6 +14,27 @@
         <tag>Hive</tag>
          
         <tag>Partition</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/04/09/sparkMlLinearRegressionUsing/</loc>
+    <lastmod>2018-12-02T14:20:36.911Z</lastmod>
+    <data>
+        <display>
+        <title>spark ML算法之线性回归使用</title>
+        <pubTime>2018-04-08T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+        <tag>ml</tag>
+         
+        <tag>算法</tag>
          
          
            
@@ -610,9 +631,9 @@
         
         <tag>Spark</tag>
          
-        <tag>DataFrame</tag>
-         
         <tag>Hive</tag>
+         
+        <tag>DataFrame</tag>
          
         <tag>Oracle</tag>
          
@@ -652,9 +673,9 @@
         
         <tag>Spark</tag>
          
-        <tag>DataFrame</tag>
-         
         <tag>Partition</tag>
+         
+        <tag>DataFrame</tag>
          
         <tag>Rdd</tag>
          
@@ -789,9 +810,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
@@ -968,27 +989,6 @@
         <pubTime>2018-03-31T16:00:00.000Z</pubTime>
         
         <tag>scala</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/04/09/sparkMlLinearRegressionUsing/</loc>
-    <lastmod>2018-07-05T09:01:44.011Z</lastmod>
-    <data>
-        <display>
-        <title>spark ML算法之线性回归使用</title>
-        <pubTime>2018-04-08T16:00:00.000Z</pubTime>
-        
-        <tag>Spark</tag>
-         
-        <tag>ml</tag>
-         
-        <tag>算法</tag>
          
          
            
