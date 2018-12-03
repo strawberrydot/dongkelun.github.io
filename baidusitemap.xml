@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://dongkelun.com/2018/12/02/hivePartitionTable/</loc>
-    <lastmod>2018-12-03T03:13:36.013Z</lastmod>
+    <lastmod>2018-12-03T08:29:02.486Z</lastmod>
     <data>
         <display>
         <title>Hive分区表学习总结</title>
@@ -14,6 +14,23 @@
         <tag>Hive</tag>
          
         <tag>Partition</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/12/03/hiveInternalAndExternalTables/</loc>
+    <lastmod>2018-12-03T08:28:24.473Z</lastmod>
+    <data>
+        <display>
+        <title>Hive内部表和外部表</title>
+        <pubTime>2018-12-02T16:00:00.000Z</pubTime>
+        
+        <tag>Hive</tag>
          
          
            
@@ -109,9 +126,9 @@
         <title>centos7 ambari2.6.1.5+hdp2.6.4.0 大数据集群安装部署</title>
         <pubTime>2018-04-24T16:00:00.000Z</pubTime>
         
-        <tag>centos7</tag>
-         
         <tag>ambari</tag>
+         
+        <tag>centos7</tag>
          
          
            
@@ -186,9 +203,9 @@
         <title>centos7 hadoop 单机模式安装配置</title>
         <pubTime>2018-03-22T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>Hadoop</tag>
+         
+        <tag>centos</tag>
          
          
            
@@ -205,9 +222,9 @@
         <title>centos7 hadoop 集群安装配置</title>
         <pubTime>2018-04-04T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>Hadoop</tag>
+         
+        <tag>centos</tag>
          
          
            
@@ -772,9 +789,9 @@
         <title>HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>ambari</tag>
-         
         <tag>Hadoop</tag>
+         
+        <tag>ambari</tag>
          
          
            
@@ -791,9 +808,9 @@
         <title>ambari 异常总结及解决办法</title>
         <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
-        <tag>centos7</tag>
-         
         <tag>ambari</tag>
+         
+        <tag>centos7</tag>
          
          
            

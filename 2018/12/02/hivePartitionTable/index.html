@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>Hive分区表学习总结 | 伦少</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table `test_partition` (`id`">
+  <meta name="description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
 <meta name="keywords" content="Hive,Partition">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hive分区表学习总结">
 <meta property="og:url" content="https://dongkelun.com/2018/12/02/hivePartitionTable/index.html">
 <meta property="og:site_name" content="伦少">
-<meta property="og:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table `test_partition` (`id`">
+<meta property="og:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fxsi6f3j0wg20sy0flu0x.gif">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsn6bsd3hg20sy0fl7wh.gif">
-<meta property="og:updated_time" content="2018-12-03T03:13:36.013Z">
+<meta property="og:updated_time" content="2018-12-03T08:29:02.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive分区表学习总结">
-<meta name="twitter:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table `test_partition` (`id`">
+<meta name="twitter:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
 <meta name="twitter:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少" type="application/atom+xml">
@@ -238,7 +238,7 @@
 <li>Hive分区分为静态分区和动态分区</li>
 </ul>
 </blockquote>
-<h2 id="1、建表语句"><a href="#1、建表语句" class="headerlink" title="1、建表语句"></a>1、建表语句</h2><p>先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`test_partition`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="string">`name`</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试分区'</span></span><br><span class="line">partitioned <span class="keyword">by</span> (<span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure></p>
+<h2 id="1、建表语句"><a href="#1、建表语句" class="headerlink" title="1、建表语句"></a>1、建表语句</h2><p>先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_partition (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试分区'</span></span><br><span class="line">partitioned <span class="keyword">by</span> (<span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <h2 id="2、插入语句"><a href="#2、插入语句" class="headerlink" title="2、插入语句"></a>2、插入语句</h2><blockquote>
 <p>静态分区和动态分区的插入数据的语句是不一样的，所以分开</p>
@@ -265,11 +265,11 @@
 <blockquote>
 <p>注：上面的命令是临时生效，退出hive重新进hive需要重新执行上面的命令，才能动态分区</p>
 </blockquote>
-<h3 id="2-2-2-load-data"><a href="#2-2-2-load-data" class="headerlink" title="2.2.2 load data"></a>2.2.2 load data</h3><p>不能使用load进行动态分区插入<br>data.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四,2015</span><br><span class="line">003,王五,2014</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-2-load-data"><a href="#2-2-2-load-data" class="headerlink" title="2.2.2 load data"></a>2.2.2 load data</h3><p>不能使用load data进行动态分区插入<br>data.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四,2015</span><br><span class="line">003,王五,2014</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span>);</span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; load data local inpath '/root/dkl/data/data.txt' into table test_partition partition (year);</span><br><span class="line">FAILED: NullPointerException null</span><br></pre></td></tr></table></figure>
 <p>可以使用另一种方法解决</p>
-<p>首先创建没有分区的表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`test`</span> (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span>,</span><br><span class="line"><span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试'</span></span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure></p>
+<p>首先创建没有分区的表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">test</span> (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span>,</span><br><span class="line"><span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试'</span></span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure></p>
 <p>先将数据load进test表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
 <p>然后从表test，动态分区插入test_partition中<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>)  <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
 <p>如果后面select具体字段的话，需要保证顺序一致，把分区字段放在最后。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>)  <span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>,<span class="keyword">year</span> <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
@@ -293,7 +293,7 @@
 </li>
 </ul>
 <h2 id="5、多个分区字段"><a href="#5、多个分区字段" class="headerlink" title="5、多个分区字段"></a>5、多个分区字段</h2><p>以两个分区字段为例</p>
-<h3 id="5-1-建表"><a href="#5-1-建表" class="headerlink" title="5.1 建表"></a>5.1 建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="string">`test_partition2`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="string">`name`</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试两个分区'</span></span><br><span class="line">partitioned <span class="keyword">by</span> (<span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span>,<span class="keyword">month</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'月'</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure>
+<h3 id="5-1-建表"><a href="#5-1-建表" class="headerlink" title="5.1 建表"></a>5.1 建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_partition2 (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试两个分区'</span></span><br><span class="line">partitioned <span class="keyword">by</span> (<span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span>,<span class="keyword">month</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'月'</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure>
 <h3 id="5-2-HDFS存储格式"><a href="#5-2-HDFS存储格式" class="headerlink" title="5.2 HDFS存储格式"></a>5.2 HDFS存储格式</h3><p>看一下多个分区的的表如何在HDFS上存储的，用静态分区的形式插入一条记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition2 <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>,<span class="keyword">month</span>=<span class="number">12</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>);</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/apps/hive/warehouse/dkl.db/test_partition2/year=2018/month=12</span><br></pre></td></tr></table></figure>
 <p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fxsn6bsd3hg20sy0fl7wh.gif" alt=""></p>
@@ -430,6 +430,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/12/03/hiveInternalAndExternalTables/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hive内部表和外部表
+        
+      </div>
+    </a>
   
   
     <a href="/2018/11/27/echartsChinaMap/" id="article-nav-older" class="article-nav-link-wrap">
@@ -616,7 +625,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,15 +633,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,6 +646,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,11 +673,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -688,6 +697,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
@@ -696,15 +709,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
