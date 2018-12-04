@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dongkelun.com/2018/12/04/sparkHivePatition/</loc>
+    
+    <lastmod>2018-12-04T13:51:30.896Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dongkelun.com/2018/03/25/sparkHive/</loc>
+    
+    <lastmod>2018-12-04T13:49:30.472Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dongkelun.com/2018/12/02/hivePartitionTable/</loc>
     
     <lastmod>2018-12-04T03:58:04.747Z</lastmod>
@@ -33,13 +47,6 @@
     <loc>https://dongkelun.com/2018/07/06/sparkSubmitException1/</loc>
     
     <lastmod>2018-11-30T01:08:49.533Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/03/25/sparkHive/</loc>
-    
-    <lastmod>2018-11-29T08:30:26.288Z</lastmod>
     
   </url>
   
