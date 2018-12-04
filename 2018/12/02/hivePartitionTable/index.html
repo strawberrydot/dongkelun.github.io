@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg">
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fxsi6f3j0wg20sy0flu0x.gif">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsn6bsd3hg20sy0fl7wh.gif">
-<meta property="og:updated_time" content="2018-12-03T08:29:02.486Z">
+<meta property="og:updated_time" content="2018-12-04T03:58:04.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive分区表学习总结">
 <meta name="twitter:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
@@ -308,6 +308,7 @@
 <li><a href="https://blog.csdn.net/weixin_41122339/article/details/81584110" target="_blank" rel="noopener">hive分区表详细介绍</a></li>
 <li><a href="https://www.cnblogs.com/chitin1027/p/bcd9d024876b21b2c7d1fe7f5177fbc4.html" target="_blank" rel="noopener">hive分区表添加字段问题</a></li>
 </ul>
+<h2 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h2><p><a href="https://dongkelun.com/2018/12/03/hiveInternalAndExternalTables/">Hive内部表和外部表</a></p>
 
       
 
@@ -469,7 +470,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、建表语句"><span class="toc-number">2.</span> <span class="toc-text">1、建表语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、插入语句"><span class="toc-number">3.</span> <span class="toc-text">2、插入语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-静态分区"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 静态分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-insert-into"><span class="toc-number">3.1.1.</span> <span class="toc-text">2.1.1 insert into</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-load-data"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.1.2 load data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-查询及结果"><span class="toc-number">3.1.3.</span> <span class="toc-text">2.1.3 查询及结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-hdfs存储形式"><span class="toc-number">3.1.4.</span> <span class="toc-text">2.1.4 hdfs存储形式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-动态分区"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 动态分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-insert-into"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.2.1 insert into</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-load-data"><span class="toc-number">3.3.</span> <span class="toc-text">2.2.2 load data</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、查看分区信息"><span class="toc-number">4.</span> <span class="toc-text">3、查看分区信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、添加分区字段"><span class="toc-number">5.</span> <span class="toc-text">4、添加分区字段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-添加新分区"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 添加新分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-添加非分区字段"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 添加非分区字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、多个分区字段"><span class="toc-number">6.</span> <span class="toc-text">5、多个分区字段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-建表"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-HDFS存储格式"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 HDFS存储格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、删除分区"><span class="toc-number">7.</span> <span class="toc-text">6、删除分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-单分区表"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 单分区表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-多分区表"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 多分区表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-删除year-2018-month-12"><span class="toc-number">7.2.1.</span> <span class="toc-text">6.2.1 删除year=2018,month=12</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-删除year-2018"><span class="toc-number">7.2.2.</span> <span class="toc-text">6.2.2 删除year=2018</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-3-删除month-10"><span class="toc-number">7.2.3.</span> <span class="toc-text">6.2.3 删除month=10</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、建表语句"><span class="toc-number">2.</span> <span class="toc-text">1、建表语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、插入语句"><span class="toc-number">3.</span> <span class="toc-text">2、插入语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-静态分区"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 静态分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-insert-into"><span class="toc-number">3.1.1.</span> <span class="toc-text">2.1.1 insert into</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-load-data"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.1.2 load data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-查询及结果"><span class="toc-number">3.1.3.</span> <span class="toc-text">2.1.3 查询及结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-hdfs存储形式"><span class="toc-number">3.1.4.</span> <span class="toc-text">2.1.4 hdfs存储形式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-动态分区"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 动态分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-insert-into"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.2.1 insert into</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-load-data"><span class="toc-number">3.3.</span> <span class="toc-text">2.2.2 load data</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、查看分区信息"><span class="toc-number">4.</span> <span class="toc-text">3、查看分区信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、添加分区字段"><span class="toc-number">5.</span> <span class="toc-text">4、添加分区字段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-添加新分区"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 添加新分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-添加非分区字段"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 添加非分区字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、多个分区字段"><span class="toc-number">6.</span> <span class="toc-text">5、多个分区字段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-建表"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-HDFS存储格式"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 HDFS存储格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、删除分区"><span class="toc-number">7.</span> <span class="toc-text">6、删除分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-单分区表"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 单分区表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-多分区表"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 多分区表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-删除year-2018-month-12"><span class="toc-number">7.2.1.</span> <span class="toc-text">6.2.1 删除year=2018,month=12</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-删除year-2018"><span class="toc-number">7.2.2.</span> <span class="toc-text">6.2.2 删除year=2018</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-3-删除month-10"><span class="toc-number">7.2.3.</span> <span class="toc-text">6.2.3 删除month=10</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关阅读"><span class="toc-number">9.</span> <span class="toc-text">相关阅读</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -613,14 +614,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -633,11 +626,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -654,10 +659,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">front-end</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,15 +698,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">

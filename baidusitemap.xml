@@ -4,14 +4,16 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/12/03/hiveInternalAndExternalTables/</loc>
-    <lastmod>2018-12-03T08:42:49.378Z</lastmod>
+    <loc>https://dongkelun.com/2018/12/02/hivePartitionTable/</loc>
+    <lastmod>2018-12-04T03:58:04.747Z</lastmod>
     <data>
         <display>
-        <title>Hive内部表和外部表</title>
-        <pubTime>2018-12-02T16:00:00.000Z</pubTime>
+        <title>Hive分区表学习总结</title>
+        <pubTime>2018-12-01T16:00:00.000Z</pubTime>
         
         <tag>Hive</tag>
+         
+        <tag>Partition</tag>
          
          
            
@@ -21,16 +23,14 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/12/02/hivePartitionTable/</loc>
-    <lastmod>2018-12-03T08:29:02.486Z</lastmod>
+    <loc>https://dongkelun.com/2018/12/03/hiveInternalAndExternalTables/</loc>
+    <lastmod>2018-12-03T08:42:49.378Z</lastmod>
     <data>
         <display>
-        <title>Hive分区表学习总结</title>
-        <pubTime>2018-12-01T16:00:00.000Z</pubTime>
+        <title>Hive内部表和外部表</title>
+        <pubTime>2018-12-02T16:00:00.000Z</pubTime>
         
         <tag>Hive</tag>
-         
-        <tag>Partition</tag>
          
          
            
