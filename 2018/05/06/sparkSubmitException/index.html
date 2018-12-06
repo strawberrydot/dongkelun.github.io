@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少">
 <meta property="og:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-07-05T09:01:24.923Z">
+<meta property="og:updated_time" content="2018-12-06T14:46:46.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark-submit报错:Exception in thread &quot;main&quot; java.sql.SQLException:No suitable driver">
 <meta name="twitter:description" content="前言最近写了一个用spark连接oracle,然后将mysql所有的表保存到hive中的程序，在本地eclipse里运行没有问题，想在集群上跑一下，看看在集群上性能如何，但是用spark-submit 提交程序时抛出一个异常Exception in thread “main” java.sql.SQLException: No suitable driver，一开始以为spark-submit提交">
@@ -82,11 +82,13 @@
 	        
 				<li><a href="/tags/Spark/">Spark</a></li>
 	        
+				<li><a href="/contactme/contactme.html">加我交流</a></li>
+	        
 				<li><a href="/leadingend/">前端</a></li>
 	        
 				<li><a href="http://vue.dongkelun.com">Vue</a></li>
 	        
-				<li><a href="/contactme/contactme.html">加我交流</a></li>
+				<li><a href="/photo">相册</a></li>
 	        
 			</ul>
 		</nav>
@@ -145,6 +147,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -159,17 +163,19 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
+					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/archives/">所有文章</a></li>
+					<li style="width: 14.285714285714286%"><a href="/archives/">所有文章</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/Spark/">Spark</a></li>
+					<li style="width: 14.285714285714286%"><a href="/tags/Spark/">Spark</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/leadingend/">前端</a></li>
+					<li style="width: 14.285714285714286%"><a href="/contactme/contactme.html">加我交流</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="http://vue.dongkelun.com">Vue</a></li>
+					<li style="width: 14.285714285714286%"><a href="/leadingend/">前端</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/contactme/contactme.html">加我交流</a></li>
+					<li style="width: 14.285714285714286%"><a href="http://vue.dongkelun.com">Vue</a></li>
+		        
+					<li style="width: 14.285714285714286%"><a href="/photo">相册</a></li>
 		        
 				</ul>
 			</nav>
@@ -248,7 +254,7 @@
 <p>但是这样lib下只能一个jar,两个jar就会报错，不知道什么原因~</p>
 <h3 id="4-5"><a href="#4-5" class="headerlink" title="4.5"></a>4.5</h3><p>将oracle驱动拷贝到$SPARK_HOME/jars,就可以不在代码里指定driver选项了，而且也不用通过–jars添加oracle驱动，一劳永逸.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp ojdbc5-11.2.0.3.jar <span class="variable">$SPARK_HOME</span>/jars</span><br><span class="line">spark-submit --class com.dkl.leanring.spark.sql.Oracle2HiveDemo  spark-scala_2.11-1.0.jar</span><br></pre></td></tr></table></figure></p>
 <p>具体这样设置可根据实际情况和偏好习惯使用。</p>
-<h2 id="附完整代码（测试用）"><a href="#附完整代码（测试用）" class="headerlink" title="附完整代码（测试用）"></a>附完整代码（测试用）</h2><p>比较简单就不加注释~<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.leanring.spark.sql</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Oracle2HiveDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span></span><br><span class="line">      .builder()</span><br><span class="line">      .appName(<span class="string">"Oracle2HiveDemo"</span>)</span><br><span class="line">      .master(<span class="string">"local"</span>)</span><br><span class="line">      .enableHiveSupport()</span><br><span class="line">      .getOrCreate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> allTablesDF = spark.read</span><br><span class="line">      .format(<span class="string">"jdbc"</span>)</span><br><span class="line">      .option(<span class="string">"url"</span>, <span class="string">"jdbc:oracle:thin:@192.168.44.128:1521:orcl"</span>)</span><br><span class="line">      .option(<span class="string">"dbtable"</span>, <span class="string">"(select table_name,owner from all_tables where  owner  in('BIGDATA'))a"</span>)</span><br><span class="line">      .option(<span class="string">"user"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">      .option(<span class="string">"password"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">      .option(<span class="string">"driver"</span>, <span class="string">"oracle.jdbc.driver.OracleDriver"</span>)</span><br><span class="line">      .load()</span><br><span class="line">    <span class="keyword">import</span> spark.implicits._</span><br><span class="line">    <span class="keyword">import</span> spark.sql</span><br><span class="line">    sql(<span class="string">"use oracle_test"</span>)</span><br><span class="line">    allTablesDF.rdd.collect().foreach(row =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> tableName: <span class="type">String</span> = row(<span class="number">0</span>).toString()</span><br><span class="line">      <span class="keyword">val</span> dataBase: <span class="type">String</span> = row(<span class="number">1</span>).toString()</span><br><span class="line"></span><br><span class="line">      println(dataBase + <span class="string">"."</span> + tableName)</span><br><span class="line">      <span class="keyword">val</span> df = spark.read</span><br><span class="line">        .format(<span class="string">"jdbc"</span>)</span><br><span class="line">        .option(<span class="string">"url"</span>, <span class="string">"jdbc:oracle:thin:@192.168.44.128:1521:orcl"</span>)</span><br><span class="line">        .option(<span class="string">"dbtable"</span>, dataBase + <span class="string">"."</span> + tableName)</span><br><span class="line">        .option(<span class="string">"user"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">        .option(<span class="string">"password"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">        .option(<span class="string">"driver"</span>, <span class="string">"oracle.jdbc.driver.OracleDriver"</span>)</span><br><span class="line">        .load()</span><br><span class="line">      df.write.mode(<span class="string">"overwrite"</span>).saveAsTable(tableName)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    spark.stop</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="附完整代码（测试用）"><a href="#附完整代码（测试用）" class="headerlink" title="附完整代码（测试用）"></a>附完整代码（测试用）</h2><p>比较简单就不加注释~<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.blog.spark.oracle</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.sql.<span class="type">SparkSession</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Oracle2HiveDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> spark = <span class="type">SparkSession</span></span><br><span class="line">      .builder()</span><br><span class="line">      .appName(<span class="string">"Oracle2HiveDemo"</span>)</span><br><span class="line">      .master(<span class="string">"local"</span>)</span><br><span class="line">      .enableHiveSupport()</span><br><span class="line">      .getOrCreate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> allTablesDF = spark.read</span><br><span class="line">      .format(<span class="string">"jdbc"</span>)</span><br><span class="line">      .option(<span class="string">"url"</span>, <span class="string">"jdbc:oracle:thin:@192.168.44.128:1521:orcl"</span>)</span><br><span class="line">      .option(<span class="string">"dbtable"</span>, <span class="string">"(select table_name,owner from all_tables where  owner  in('BIGDATA'))a"</span>)</span><br><span class="line">      .option(<span class="string">"user"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">      .option(<span class="string">"password"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">      .option(<span class="string">"driver"</span>, <span class="string">"oracle.jdbc.driver.OracleDriver"</span>)</span><br><span class="line">      .load()</span><br><span class="line">    <span class="keyword">import</span> spark.implicits._</span><br><span class="line">    <span class="keyword">import</span> spark.sql</span><br><span class="line">    sql(<span class="string">"use oracle_test"</span>)</span><br><span class="line">    allTablesDF.rdd.collect().foreach(row =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> tableName: <span class="type">String</span> = row(<span class="number">0</span>).toString()</span><br><span class="line">      <span class="keyword">val</span> dataBase: <span class="type">String</span> = row(<span class="number">1</span>).toString()</span><br><span class="line"></span><br><span class="line">      println(dataBase + <span class="string">"."</span> + tableName)</span><br><span class="line">      <span class="keyword">val</span> df = spark.read</span><br><span class="line">        .format(<span class="string">"jdbc"</span>)</span><br><span class="line">        .option(<span class="string">"url"</span>, <span class="string">"jdbc:oracle:thin:@192.168.44.128:1521:orcl"</span>)</span><br><span class="line">        .option(<span class="string">"dbtable"</span>, dataBase + <span class="string">"."</span> + tableName)</span><br><span class="line">        .option(<span class="string">"user"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">        .option(<span class="string">"password"</span>, <span class="string">"bigdata"</span>)</span><br><span class="line">        .option(<span class="string">"driver"</span>, <span class="string">"oracle.jdbc.driver.OracleDriver"</span>)</span><br><span class="line">        .load()</span><br><span class="line">      df.write.mode(<span class="string">"overwrite"</span>).saveAsTable(tableName)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    spark.stop</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -578,15 +584,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,15 +624,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,23 +676,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,6 +741,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">UDF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
               </li>
              
               <li class="article-tag-list-item">

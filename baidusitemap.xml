@@ -3,6 +3,26 @@
 
 
     
+  <url>
+    <loc>https://dongkelun.com/2018/05/06/sparkSubmitException/</loc>
+    <lastmod>2018-12-06T14:46:46.148Z</lastmod>
+    <data>
+        <display>
+        <title>spark-submit报错:Exception in thread "main" java.sql.SQLException:No suitable driver</title>
+        <pubTime>2018-05-05T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+        <tag>spark-submit</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
     
   <url>
     <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
@@ -867,9 +887,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>centos</tag>
+         
+        <tag>hive</tag>
          
          
            
@@ -1055,25 +1075,6 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2018/05/06/sparkSubmitException/</loc>
-    <lastmod>2018-07-05T09:01:24.923Z</lastmod>
-    <data>
-        <display>
-        <title>spark-submit报错:Exception in thread "main" java.sql.SQLException:No suitable driver</title>
-        <pubTime>2018-05-05T16:00:00.000Z</pubTime>
-        
-        <tag>Spark</tag>
-         
-        <tag>spark-submit</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://dongkelun.com/2018/05/17/sparkMlFeatureProcessing1/</loc>
     <lastmod>2018-07-05T09:01:14.056Z</lastmod>
     <data>
@@ -1146,7 +1147,6 @@
     </data>
     </url>
 
-    
     
     
     
