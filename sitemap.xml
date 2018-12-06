@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dongkelun.com/contactme/contactme.html</loc>
+    
+    <lastmod>2018-12-06T01:04:47.211Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
+    
+    <lastmod>2018-12-05T12:53:10.662Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dongkelun.com/2018/04/27/dfChangeAllColDatatypes/</loc>
+    
+    <lastmod>2018-12-05T03:20:42.111Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dongkelun.com/2018/12/04/sparkHivePatition/</loc>
     
     <lastmod>2018-12-04T13:51:30.896Z</lastmod>
@@ -68,13 +89,6 @@
     <loc>https://dongkelun.com/2018/11/20/getAllHDFSFileNames/</loc>
     
     <lastmod>2018-11-27T03:25:54.472Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/contactme/contactme.html</loc>
-    
-    <lastmod>2018-11-24T03:44:08.759Z</lastmod>
     
   </url>
   
@@ -180,13 +194,6 @@
     <loc>https://dongkelun.com/2018/05/27/sparkDelFirstNLines/</loc>
     
     <lastmod>2018-11-16T01:54:22.727Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/05/11/rdd2df/</loc>
-    
-    <lastmod>2018-11-16T01:52:19.776Z</lastmod>
     
   </url>
   
@@ -397,13 +404,6 @@
     <loc>https://dongkelun.com/2018/04/01/scalaMapAdd/</loc>
     
     <lastmod>2018-07-05T09:02:05.520Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/04/27/dfChangeAllColDatatypes/</loc>
-    
-    <lastmod>2018-07-05T09:01:33.582Z</lastmod>
     
   </url>
   
