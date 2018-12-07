@@ -9,7 +9,7 @@
   <title>ambari 异常总结及解决办法 | 伦少</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言本文总结在使用ambari时产生的异常，以及如何解决的。如果发生了异常，在界面上不能直观的看出异常的原因，那么我一般通过查看日志的方法解决。通过下面的命令查看1vim /var/log/ambari-server/ambari-server.log  若该日志文件没有异常信息，可在其他日志文件里查找1、异常一异常发生在add host并confirm host的时候，会卡住不动，然后看日志会发">
-<meta name="keywords" content="ambari,centos7">
+<meta name="keywords" content="centos7,ambari">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ambari 异常总结及解决办法">
 <meta property="og:url" content="https://dongkelun.com/2018/07/10/ambariExceptions/index.html">
@@ -89,9 +89,11 @@
 	        
 				<li><a href="/contactme/contactme.html">加我交流</a></li>
 	        
-				<li><a href="/leadingend/">前端</a></li>
+				<li><a href="http://front-end.dongkelun.com/echarts-map/">Echarts</a></li>
 	        
 				<li><a href="http://vue.dongkelun.com">Vue</a></li>
+	        
+				<li><a href="/leadingend/">前端</a></li>
 	        
 				<li><a href="/photo">相册</a></li>
 	        
@@ -154,6 +156,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -168,19 +172,21 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
+					<li style="width: 12.5%"><a href="/">主页</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/archives/">所有文章</a></li>
+					<li style="width: 12.5%"><a href="/archives/">所有文章</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/tags/Spark/">Spark</a></li>
+					<li style="width: 12.5%"><a href="/tags/Spark/">Spark</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/contactme/contactme.html">加我交流</a></li>
+					<li style="width: 12.5%"><a href="/contactme/contactme.html">加我交流</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/leadingend/">前端</a></li>
+					<li style="width: 12.5%"><a href="http://front-end.dongkelun.com/echarts-map/">Echarts</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="http://vue.dongkelun.com">Vue</a></li>
+					<li style="width: 12.5%"><a href="http://vue.dongkelun.com">Vue</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/photo">相册</a></li>
+					<li style="width: 12.5%"><a href="/leadingend/">前端</a></li>
+		        
+					<li style="width: 12.5%"><a href="/photo">相册</a></li>
 		        
 				</ul>
 			</nav>
@@ -220,11 +226,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ambari</a>
         		</li>
       		
 		</ul>
@@ -377,18 +383,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/07/13/dbeaverConnectHive/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/07/10/HadoopException/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          通过数据库客户端界面工具DBeaver连接Hive
+          HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够
         
       </div>
     </a>
   
   
-    <a href="/2018/07/10/HadoopException/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HDFS DataNode启动异常:/opt/jdk1.8.0_151/bin/java:权限不够</div>
+    <a href="/2018/07/06/sparkSubmitException1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spark-submit报错:Application application_1529650293575_0148 finished with failed status</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -559,14 +565,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -583,6 +581,18 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
@@ -595,7 +605,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,14 +633,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -631,19 +641,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,11 +661,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,11 +681,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,10 +717,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
@@ -715,11 +725,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,7 +737,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,15 +749,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">UDF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
               </li>
              
               <li class="article-tag-list-item">
