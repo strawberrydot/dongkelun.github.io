@@ -5,13 +5,15 @@
     
   <url>
     <loc>https://dongkelun.com/2018/12/07/hiveBucketTable/</loc>
-    <lastmod>2018-12-08T09:58:30.605Z</lastmod>
+    <lastmod>2018-12-09T04:24:43.422Z</lastmod>
     <data>
         <display>
         <title>Hive分桶表学习总结</title>
         <pubTime>2018-12-06T16:00:00.000Z</pubTime>
         
         <tag>Hive</tag>
+         
+        <tag>bucket</tag>
          
          
            
@@ -995,9 +997,9 @@
         <title>scala 下划线使用指南</title>
         <pubTime>2018-03-28T16:00:00.000Z</pubTime>
         
-        <tag>scala</tag>
-         
         <tag>转载</tag>
+         
+        <tag>scala</tag>
          
          
            
