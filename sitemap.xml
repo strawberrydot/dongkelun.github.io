@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dongkelun.com/2018/05/05/oracleConf/</loc>
+    
+    <lastmod>2018-12-09T14:23:59.217Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dongkelun.com/2018/12/07/hiveBucketTable/</loc>
     
     <lastmod>2018-12-09T04:24:43.422Z</lastmod>
@@ -362,13 +369,6 @@
     <loc>https://dongkelun.com/2018/03/24/hiveConf/</loc>
     
     <lastmod>2018-07-11T07:21:53.715Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/05/05/oracleConf/</loc>
-    
-    <lastmod>2018-07-11T07:21:07.316Z</lastmod>
     
   </url>
   

@@ -6,14 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>打印（获取）HDFS路径下所有的文件名（包括子目录下的） | 伦少</title>
+  <title>打印（获取）HDFS路径下所有的文件名（包括子目录下的） | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言自己有个需求，如题，需要获取HDFS路径下所有的文件名，然后根据文件名用Spark进行后续操作。想了一下用Spark好像不太容易获取到，还要递归的去获取子目录下的文件名，于是查了一下，最后用Hadoop的API搞定，这里记录下，方便以后会用到。 1、数据测试路径：/tmp/dkl，全路径名hdfs://ambari.master.com:8020/tmp/dkl 用hadoop的命令查看一下，">
 <meta name="keywords" content="Scala,HDFS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="打印（获取）HDFS路径下所有的文件名（包括子目录下的）">
 <meta property="og:url" content="https://dongkelun.com/2018/11/20/getAllHDFSFileNames/index.html">
-<meta property="og:site_name" content="伦少">
+<meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言自己有个需求，如题，需要获取HDFS路径下所有的文件名，然后根据文件名用Spark进行后续操作。想了一下用Spark好像不太容易获取到，还要递归的去获取子目录下的文件名，于是查了一下，最后用Hadoop的API搞定，这里记录下，方便以后会用到。 1、数据测试路径：/tmp/dkl，全路径名hdfs://ambari.master.com:8020/tmp/dkl 用hadoop的命令查看一下，">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fxej9rvh4zj20yq0avt9p.jpg">
@@ -24,7 +24,7 @@
 <meta name="twitter:description" content="前言自己有个需求，如题，需要获取HDFS路径下所有的文件名，然后根据文件名用Spark进行后续操作。想了一下用Spark好像不太容易获取到，还要递归的去获取子目录下的文件名，于是查了一下，最后用Hadoop的API搞定，这里记录下，方便以后会用到。 1、数据测试路径：/tmp/dkl，全路径名hdfs://ambari.master.com:8020/tmp/dkl 用hadoop的命令查看一下，">
 <meta name="twitter:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fxej9rvh4zj20yq0avt9p.jpg">
   
-    <link rel="alternative" href="/atom.xml" title="伦少" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
   
     <link rel="icon" href="//wx3.sinaimg.cn/large/e44344dcly1fpkwens4otj20hs0hs753.jpg">
@@ -101,6 +101,10 @@
     		
     			
     			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">搜索</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
     			
             
     			
@@ -524,17 +528,25 @@ var _hmt = _hmt || [];
       
       
     
+      
+      
+      
+    
     
 
     <ul style="width: 70%">
     
     
       
-      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">搜索</a></li>
       
         
       
-      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
+      
+        
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
@@ -555,6 +567,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -567,27 +587,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,6 +600,18 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,14 +639,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Scala</a>
               </li>
              
@@ -643,7 +647,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,15 +667,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,7 +687,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,14 +704,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -711,7 +723,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,19 +739,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,7 +759,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,6 +809,86 @@ var _hmt = _hmt || [];
     	</section>
     
 
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="https://scalafiddle.io/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>浏览器中运行scala代码</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://cwiki.apachecn.org/pages/viewpage.action?pageId=2883613" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>spark中文官方文档</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://hongjiang.info/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>王宏江</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://my.oschina.net/joymufeng/blog" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>joymufeng</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.playscala.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>PlayScala社区</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.runoob.com/scala/scala-tutorial.html" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Scala 教程</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://fengyijia.top/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>余温blog&#39;s</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.520kn.xyz/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>顶尖博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://www.zhyd.me" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>张亚东博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://investguider.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>美股指南</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.54tianzhisheng.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>志声的博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://blog.rare0716.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Rare的博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.codesheep.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>王 帅</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://www.wmathor.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>mathor</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://weijunzii.github.io/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>伪君子</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://iphper.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>沈唁志</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://zhangyue.xin" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>张高兴的博客</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="https://blog.jiasm.org/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>贾顺名(Jarvis)</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
     
 
     
