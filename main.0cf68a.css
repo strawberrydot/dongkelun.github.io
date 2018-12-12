@@ -49,9 +49,8 @@ div.article-footer-copyright{
 	font-size: 100%;
 }
 /*去掉畅言的广告*/
-#pop_ad{
-	display:none;
-}
+#pop_ad { margin-top: -250px!important; transform: scale(0)!important; z-index: -999!important; }
+#feedAv { margin-top: -250px!important; transform: scale(0)!important; z-index: -999!important; } 
 
 /*去掉左侧的大写*/
 .left-col #header .header-menu {
