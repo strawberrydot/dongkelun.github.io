@@ -4,6 +4,45 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/12/26/sparkSqlOptimize/</loc>
+    <lastmod>2018-12-27T03:42:05.057Z</lastmod>
+    <data>
+        <display>
+        <title>Spark SQL 优化笔记</title>
+        <pubTime>2018-12-25T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+        <tag>SQL</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/11/20/getAllHDFSFileNames/</loc>
+    <lastmod>2018-12-26T09:23:55.242Z</lastmod>
+    <data>
+        <display>
+        <title>打印（获取）HDFS路径下所有的文件名（包括子目录下的）</title>
+        <pubTime>2018-11-19T16:00:00.000Z</pubTime>
+        
+        <tag>Scala</tag>
+         
+        <tag>HDFS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>https://dongkelun.com/2018/12/14/scalaLearningNotes/</loc>
     <lastmod>2018-12-14T07:57:32.018Z</lastmod>
     <data>
@@ -258,7 +297,6 @@
     </url>
 
     
-    
   <url>
     <loc>https://dongkelun.com/2018/07/06/sparkSubmitException1/</loc>
     <lastmod>2018-11-30T01:08:49.533Z</lastmod>
@@ -308,25 +346,6 @@
         <tag>ambari</tag>
          
         <tag>centos7</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/11/20/getAllHDFSFileNames/</loc>
-    <lastmod>2018-11-27T03:25:54.472Z</lastmod>
-    <data>
-        <display>
-        <title>打印（获取）HDFS路径下所有的文件名（包括子目录下的）</title>
-        <pubTime>2018-11-19T16:00:00.000Z</pubTime>
-        
-        <tag>Scala</tag>
-         
-        <tag>HDFS</tag>
          
          
            
