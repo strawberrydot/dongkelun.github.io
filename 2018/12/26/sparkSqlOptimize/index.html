@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言记录自己在工作开发中遇到的SQL优化问题 1、避免用in 和 not in解决方案： 用exists 和 not exists代替 用join代替  not exists示例not in:1select stepId,province_code,polyline from route_step where stepId not in (select stepId from stepIds) n">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-12-27T03:42:05.057Z">
+<meta property="og:updated_time" content="2018-12-27T03:49:14.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark SQL 优化笔记">
 <meta name="twitter:description" content="前言记录自己在工作开发中遇到的SQL优化问题 1、避免用in 和 not in解决方案： 用exists 和 not exists代替 用join代替  not exists示例not in:1select stepId,province_code,polyline from route_step where stepId not in (select stepId from stepIds) n">
@@ -264,7 +264,7 @@
 <li><a href="https://blog.csdn.net/zxu_1995/article/details/82388395" target="_blank" rel="noopener">SQL优化——避免使用Not IN</a></li>
 <li><a href="https://blog.csdn.net/qq_26937525/article/details/53930498" target="_blank" rel="noopener">嵌套查询：相关子查询和非相关子查询</a></li>
 </ul>
-<h2 id="in-会导致数据倾斜"><a href="#in-会导致数据倾斜" class="headerlink" title="in 会导致数据倾斜"></a>in 会导致数据倾斜</h2><p>longitudeAndLatitudes和lineIds都有160个分区，且数据平衡（每个分区的数目差不多），但是下面的语句则有问题<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> longitudeAndLatitudes <span class="keyword">where</span> lineId  <span class="keyword">in</span> (<span class="keyword">select</span> lineId <span class="keyword">from</span> lineIds)</span><br></pre></td></tr></table></figure></p>
+<h2 id="2、in-会导致数据倾斜"><a href="#2、in-会导致数据倾斜" class="headerlink" title="2、in 会导致数据倾斜"></a>2、in 会导致数据倾斜</h2><p>longitudeAndLatitudes和lineIds都有160个分区，且数据平衡（每个分区的数目差不多），但是下面的语句则有问题<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> longitudeAndLatitudes <span class="keyword">where</span> lineId  <span class="keyword">in</span> (<span class="keyword">select</span> lineId <span class="keyword">from</span> lineIds)</span><br></pre></td></tr></table></figure></p>
 <p>虽然分区数还是160，但是只有两三个分区有数，其他分区的数量都为0，这样就导致数据倾斜，程序执行很慢，如果非要用in的话，那么需要repartition一下</p>
 
       
@@ -418,7 +418,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、避免用in-和-not-in"><span class="toc-number">2.</span> <span class="toc-text">1、避免用in 和 not in</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案："><span class="toc-number">2.1.</span> <span class="toc-text">解决方案：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#not-exists示例"><span class="toc-number">2.2.</span> <span class="toc-text">not exists示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自己遇到的问题"><span class="toc-number">2.3.</span> <span class="toc-text">自己遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#效率"><span class="toc-number">2.4.</span> <span class="toc-text">效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考博客："><span class="toc-number">2.5.</span> <span class="toc-text">参考博客：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#in-会导致数据倾斜"><span class="toc-number">3.</span> <span class="toc-text">in 会导致数据倾斜</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、避免用in-和-not-in"><span class="toc-number">2.</span> <span class="toc-text">1、避免用in 和 not in</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案："><span class="toc-number">2.1.</span> <span class="toc-text">解决方案：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#not-exists示例"><span class="toc-number">2.2.</span> <span class="toc-text">not exists示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自己遇到的问题"><span class="toc-number">2.3.</span> <span class="toc-text">自己遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#效率"><span class="toc-number">2.4.</span> <span class="toc-text">效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考博客："><span class="toc-number">2.5.</span> <span class="toc-text">参考博客：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、in-会导致数据倾斜"><span class="toc-number">3.</span> <span class="toc-text">2、in 会导致数据倾斜</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -615,14 +615,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
               </li>
              
@@ -631,7 +623,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,7 +643,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -651,19 +655,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,14 +747,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
               </li>
              
@@ -763,11 +755,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
