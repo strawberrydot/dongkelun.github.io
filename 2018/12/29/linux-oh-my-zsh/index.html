@@ -6,24 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Hive分区表学习总结 | 伦少的博客</title>
+  <title>Linux 安装 oh-my-zsh | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
-<meta name="keywords" content="Hive,Partition">
+  <meta name="description" content="前言之前在大三实习的时候，用的纯Linux（Ubuntu）开发，然后Linux上装了oh-my-zsh。优点：1、界面比默认的好看一些2、敲命令是提示、自动补全、搜索等比较方便好用  Zsh和bash一样，是一种Unix shell，但大多数Linux发行版本都默认使用bash shell。但Zsh有强大的自动补全参数、文件名、等功能和强大的自定义配置功能摘自https://blog.csdn.n">
+<meta name="keywords" content="Linux,zsh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hive分区表学习总结">
-<meta property="og:url" content="https://dongkelun.com/2018/12/02/hivePartitionTable/index.html">
+<meta property="og:title" content="Linux 安装 oh-my-zsh">
+<meta property="og:url" content="https://dongkelun.com/2018/12/29/linux-oh-my-zsh/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
+<meta property="og:description" content="前言之前在大三实习的时候，用的纯Linux（Ubuntu）开发，然后Linux上装了oh-my-zsh。优点：1、界面比默认的好看一些2、敲命令是提示、自动补全、搜索等比较方便好用  Zsh和bash一样，是一种Unix shell，但大多数Linux发行版本都默认使用bash shell。但Zsh有强大的自动补全参数、文件名、等功能和强大的自定义配置功能摘自https://blog.csdn.n">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/e44344dcly1fxsi6f3j0wg20sy0flu0x.gif">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsn6bsd3hg20sy0fl7wh.gif">
-<meta property="og:updated_time" content="2018-12-04T03:58:04.747Z">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fynfxg4fhlj20yq00wgli.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fynfxftgnvj20yq00x3yd.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fynfxggo5oj20yq02a74a.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/e44344dcly1fynfxgr2cmj218g07jgmo.jpg">
+<meta property="og:updated_time" content="2018-12-29T03:12:10.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hive分区表学习总结">
-<meta name="twitter:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
-<meta name="twitter:image" content="https://wx3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg">
+<meta name="twitter:title" content="Linux 安装 oh-my-zsh">
+<meta name="twitter:description" content="前言之前在大三实习的时候，用的纯Linux（Ubuntu）开发，然后Linux上装了oh-my-zsh。优点：1、界面比默认的好看一些2、敲命令是提示、自动补全、搜索等比较方便好用  Zsh和bash一样，是一种Unix shell，但大多数Linux发行版本都默认使用bash shell。但Zsh有强大的自动补全参数、文件名、等功能和强大的自定义配置功能摘自https://blog.csdn.n">
+<meta name="twitter:image" content="https://wx2.sinaimg.cn/large/e44344dcly1fynfxg4fhlj20yq00wgli.jpg">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -208,20 +209,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hivePartitionTable" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-linux-oh-my-zsh" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hive分区表学习总结
+      Linux 安装 oh-my-zsh
     </h1>
   
 
         
-        <a href="/2018/12/02/hivePartitionTable/" class="archive-article-date">
-  	<time datetime="2018-12-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
+        <a href="/2018/12/29/linux-oh-my-zsh/" class="archive-article-date">
+  	<time datetime="2018-12-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-29</time>
 </a>
         
       </header>
@@ -233,11 +234,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hive</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Partition</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">zsh</a>
         		</li>
       		
 		</ul>
@@ -251,84 +252,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前在大三实习的时候，用的纯Linux（Ubuntu）开发，然后Linux上装了oh-my-zsh。<br>优点：<br>1、界面比默认的好看一些<br>2、敲命令是提示、自动补全、搜索等比较方便好用</p>
 <blockquote>
-<ul>
-<li>分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。</li>
-<li>Hive分区分为静态分区和动态分区</li>
-</ul>
+<p>Zsh和bash一样，是一种Unix shell，但大多数Linux发行版本都默认使用bash shell。但Zsh有强大的自动补全参数、文件名、等功能和强大的自定义配置功能<br>摘自<a href="https://blog.csdn.net/aoshilang2249/article/details/48681849" target="_blank" rel="noopener">https://blog.csdn.net/aoshilang2249/article/details/48681849</a></p>
 </blockquote>
-<h2 id="1、建表语句"><a href="#1、建表语句" class="headerlink" title="1、建表语句"></a>1、建表语句</h2><p>先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_partition (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试分区'</span></span><br><span class="line">partitioned <span class="keyword">by</span> (<span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>因为之前用的Ubuntu，现在用的Centos，所以都写一下</p>
+<h3 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h3><p>zsh:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install zsh -y</span><br></pre></td></tr></table></figure></p>
+<p>git:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git -y</span><br></pre></td></tr></table></figure></p>
+<h3 id="Centos"><a href="#Centos" class="headerlink" title="Centos"></a>Centos</h3><p>zsh:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install zsh -y</span><br></pre></td></tr></table></figure></p>
+<p>git:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install git -y</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<h2 id="2、插入语句"><a href="#2、插入语句" class="headerlink" title="2、插入语句"></a>2、插入语句</h2><blockquote>
-<p>静态分区和动态分区的插入数据的语句是不一样的，所以分开</p>
-</blockquote>
-<h3 id="2-1-静态分区"><a href="#2-1-静态分区" class="headerlink" title="2.1 静态分区"></a>2.1 静态分区</h3><blockquote>
-<p>静态分区是在语句中指定分区字段为某个固定值，多次重复插入数据是为了看看数据如何在hdfs上存储的。</p>
-</blockquote>
-<h4 id="2-1-1-insert-into"><a href="#2-1-1-insert-into" class="headerlink" title="2.1.1 insert into"></a>2.1.1 insert into</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>) <span class="keyword">values</span> (<span class="string">'002'</span>,<span class="string">'李四'</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="2-1-2-load-data"><a href="#2-1-2-load-data" class="headerlink" title="2.1.2 load data"></a>2.1.2 load data</h4><p>data.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四</span><br><span class="line">003,王五</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span> =<span class="number">2018</span>);</span><br><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span> =<span class="number">2018</span>);</span><br><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span> =<span class="number">2017</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="2-1-3-查询及结果"><a href="#2-1-3-查询及结果" class="headerlink" title="2.1.3 查询及结果"></a>2.1.3 查询及结果</h4><p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg" alt=""></p>
-<h4 id="2-1-4-hdfs存储形式"><a href="#2-1-4-hdfs存储形式" class="headerlink" title="2.1.4 hdfs存储形式"></a>2.1.4 hdfs存储形式</h4><p><img src="https://wx4.sinaimg.cn/large/e44344dcly1fxsi6f3j0wg20sy0flu0x.gif" alt=""></p>
-<p>分区2018的路径为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/apps/hive/warehouse/dkl.db/test_partition/year=2018</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>/apps/hive/warehouse 为hive的仓库路径</li>
-<li>dkl.db dkl为数据库名称</li>
-<li>test_partition为表名</li>
-<li>year为分区字段名</li>
-</ul>
-<h3 id="2-2-动态分区"><a href="#2-2-动态分区" class="headerlink" title="2.2 动态分区"></a>2.2 动态分区</h3><h4 id="2-2-1-insert-into"><a href="#2-2-1-insert-into" class="headerlink" title="2.2.1 insert into"></a>2.2.1 insert into</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>,<span class="number">2016</span>);</span><br></pre></td></tr></table></figure>
-<p>动态分区默认不开启，执行上面的语句会报错：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>,<span class="number">2016</span>);</span><br><span class="line">FAILED: SemanticException [Error 10096]: Dynamic partition strict mode requires at least one static partition column. To turn this off <span class="keyword">set</span> hive.exec.dynamic.partition.mode=nonstrict</span><br></pre></td></tr></table></figure></p>
-<p>开启：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.exec.dynamic.partition.mode=nonstrict;</span><br></pre></td></tr></table></figure></p>
-<p>然后再执行就可以了</p>
+<h3 id="下面的Ubuntu和Centos是一样的"><a href="#下面的Ubuntu和Centos是一样的" class="headerlink" title="下面的Ubuntu和Centos是一样的"></a>下面的Ubuntu和Centos是一样的</h3><h4 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh</span><br></pre></td></tr></table></figure>
+<h4 id="备份原来的zshrc，如果文件存在的话"><a href="#备份原来的zshrc，如果文件存在的话" class="headerlink" title="备份原来的zshrc，如果文件存在的话"></a>备份原来的zshrc，如果文件存在的话</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ~/.zshrc ~/.zshrc.bak</span><br></pre></td></tr></table></figure>
+<h4 id="创建一个新的zsh配置文件"><a href="#创建一个新的zsh配置文件" class="headerlink" title="创建一个新的zsh配置文件"></a>创建一个新的zsh配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
+<h4 id="改变默认的Shell"><a href="#改变默认的Shell" class="headerlink" title="改变默认的Shell"></a>改变默认的Shell</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<h4 id="重启系统"><a href="#重启系统" class="headerlink" title="重启系统"></a>重启系统</h4><p>这时已经安装好了，在终端命令行里验证一下（这里用的xhsell远程连接）</p>
+<p>默认的：<br><img src="https://wx2.sinaimg.cn/large/e44344dcly1fynfxg4fhlj20yq00wgli.jpg" alt=""></p>
+<p>修改后默认的主题：<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fynfxftgnvj20yq00x3yd.jpg" alt=""></p>
+<h4 id="修改主题"><a href="#修改主题" class="headerlink" title="修改主题"></a>修改主题</h4><p>我喜欢ys主题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim .zshrc</span><br><span class="line"><span class="comment">#找到ZSH_THEME并修改为如下</span></span><br><span class="line">ZSH_THEME=<span class="string">"ys"</span></span><br></pre></td></tr></table></figure>
+<p>重新打开终端命令行，发现已经改变了，效果如下</p>
+<p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fynfxggo5oj20yq02a74a.jpg" alt=""></p>
+<p>可修改的主题：<br><img src="https://wx1.sinaimg.cn/large/e44344dcly1fynfxgr2cmj218g07jgmo.jpg" alt=""></p>
 <blockquote>
-<p>注：上面的命令是临时生效，退出hive重新进hive需要重新执行上面的命令，才能动态分区</p>
+<p>之后可以在使用中可以发现很多便捷地方，比如，历史命令查找，查找以ps开头的命令，先输入ps,在看上下键查找即可</p>
 </blockquote>
-<h3 id="2-2-2-load-data"><a href="#2-2-2-load-data" class="headerlink" title="2.2.2 load data"></a>2.2.2 load data</h3><p>不能使用load data进行动态分区插入<br>data.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四,2015</span><br><span class="line">003,王五,2014</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; load data local inpath '/root/dkl/data/data.txt' into table test_partition partition (year);</span><br><span class="line">FAILED: NullPointerException null</span><br></pre></td></tr></table></figure>
-<p>可以使用另一种方法解决</p>
-<p>首先创建没有分区的表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">test</span> (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span>,</span><br><span class="line"><span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试'</span></span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure></p>
-<p>先将数据load进test表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然后从表test，动态分区插入test_partition中<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>)  <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
-<p>如果后面select具体字段的话，需要保证顺序一致，把分区字段放在最后。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>)  <span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>,<span class="keyword">year</span> <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、查看分区信息"><a href="#3、查看分区信息" class="headerlink" title="3、查看分区信息"></a>3、查看分区信息</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span>  <span class="keyword">partitions</span> test_partition;</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; show  partitions test_partition;</span><br><span class="line">OK</span><br><span class="line">year=2017</span><br><span class="line">year=2018</span><br><span class="line">Time taken: 0.719 seconds, Fetched: 2 row(s)</span><br></pre></td></tr></table></figure>
-<h2 id="4、添加分区字段"><a href="#4、添加分区字段" class="headerlink" title="4、添加分区字段"></a>4、添加分区字段</h2><blockquote>
-<p>查了一下，不能添加新的分区字段</p>
-</blockquote>
-<h3 id="4-1-添加新分区"><a href="#4-1-添加新分区" class="headerlink" title="4.1 添加新分区"></a>4.1 添加新分区</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition <span class="keyword">add</span>  <span class="keyword">partition</span> (<span class="keyword">year</span>=<span class="number">2012</span>);</span><br></pre></td></tr></table></figure>
-<p>这样就会新建对应的hdfs路径下一个year=2012的文件夹</p>
-<blockquote>
-<p>当然也可以指定localtion,这样就不会在默认的路径下建立文件夹了<br> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition <span class="keyword">add</span>  <span class="keyword">partition</span> (<span class="keyword">year</span>=<span class="number">2010</span>) location <span class="string">'/tmp/dkl'</span>;</span><br></pre></td></tr></table></figure></p>
-<p>这样如果/tmp/dkl文件夹不存在的话就会新建文件夹，如果存在就会把该文件夹下的所有的文件加载到Hive表，有一点需要注意，如果删除该分区的话，对应的文件夹也会删掉，删除语法请参考后面的第6部分。</p>
-</blockquote>
-<h3 id="4-2-添加非分区字段"><a href="#4-2-添加非分区字段" class="headerlink" title="4.2 添加非分区字段"></a>4.2 添加非分区字段</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition <span class="keyword">add</span> <span class="keyword">columns</span>(age <span class="built_in">int</span>);</span><br></pre></td></tr></table></figure>
-<p>这样新加的字段是在非分区字段的最后，在分区字段之前</p>
-<p>不过这里有一个bug，就是往表里新插入数据后，新增的age字段查询全部显示为NULL（其实数据已经存在）：</p>
-<ul>
-<li>新增加的分区是不存在这个bug的，比如之前没有year=2011这个分区，那么新增的话不会存在bug</li>
-<li>分区在添加age字段之前已存在（即使该分区下没有任何数据），bug存在<br>解决方法：<br>对已存在的分区执行下面的sql即可,以分区2018为例<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>) <span class="keyword">add</span> <span class="keyword">columns</span>(age <span class="built_in">int</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="5、多个分区字段"><a href="#5、多个分区字段" class="headerlink" title="5、多个分区字段"></a>5、多个分区字段</h2><p>以两个分区字段为例</p>
-<h3 id="5-1-建表"><a href="#5-1-建表" class="headerlink" title="5.1 建表"></a>5.1 建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_partition2 (</span><br><span class="line"><span class="keyword">id</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'ID'</span>, </span><br><span class="line"><span class="keyword">name</span> <span class="keyword">string</span> <span class="keyword">comment</span> <span class="string">'名字'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">comment</span> <span class="string">'测试两个分区'</span></span><br><span class="line">partitioned <span class="keyword">by</span> (<span class="keyword">year</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'年'</span>,<span class="keyword">month</span> <span class="built_in">int</span> <span class="keyword">comment</span> <span class="string">'月'</span>)</span><br><span class="line"><span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELDS</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> ;</span><br></pre></td></tr></table></figure>
-<h3 id="5-2-HDFS存储格式"><a href="#5-2-HDFS存储格式" class="headerlink" title="5.2 HDFS存储格式"></a>5.2 HDFS存储格式</h3><p>看一下多个分区的的表如何在HDFS上存储的，用静态分区的形式插入一条记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition2 <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>,<span class="keyword">month</span>=<span class="number">12</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>);</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/apps/hive/warehouse/dkl.db/test_partition2/year=2018/month=12</span><br></pre></td></tr></table></figure>
-<p><img src="https://wx3.sinaimg.cn/large/e44344dcly1fxsn6bsd3hg20sy0fl7wh.gif" alt=""></p>
-<h2 id="6、删除分区"><a href="#6、删除分区" class="headerlink" title="6、删除分区"></a>6、删除分区</h2><blockquote>
-<p>只能删除某个分区，如删除分区2018，而不能删除整个分区year字段。</p>
-</blockquote>
-<h3 id="6-1-单分区表"><a href="#6-1-单分区表" class="headerlink" title="6.1 单分区表"></a>6.1 单分区表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition <span class="keyword">drop</span> <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="6-2-多分区表"><a href="#6-2-多分区表" class="headerlink" title="6.2 多分区表"></a>6.2 多分区表</h3><h4 id="6-2-1-删除year-2018-month-12"><a href="#6-2-1-删除year-2018-month-12" class="headerlink" title="6.2.1 删除year=2018,month=12"></a>6.2.1 删除year=2018,month=12</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition2 <span class="keyword">drop</span> <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>,<span class="keyword">month</span>=<span class="number">12</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="6-2-2-删除year-2018"><a href="#6-2-2-删除year-2018" class="headerlink" title="6.2.2 删除year=2018"></a>6.2.2 删除year=2018</h4><p>year=2018所有的月份都会删除<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition2 <span class="keyword">drop</span> <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>);</span><br></pre></td></tr></table></figure></p>
-<h4 id="6-2-3-删除month-10"><a href="#6-2-3-删除month-10" class="headerlink" title="6.2.3 删除month=10"></a>6.2.3 删除month=10</h4><p>所有月份等于10的分区都会删除，无论year=2018,还是year=2017…<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test_partition2 <span class="keyword">drop</span> <span class="keyword">partition</span>(<span class="keyword">month</span>=<span class="number">10</span>);</span><br></pre></td></tr></table></figure></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://blog.csdn.net/weixin_41122339/article/details/81584110" target="_blank" rel="noopener">hive分区表详细介绍</a></li>
-<li><a href="https://www.cnblogs.com/chitin1027/p/bcd9d024876b21b2c7d1fe7f5177fbc4.html" target="_blank" rel="noopener">hive分区表添加字段问题</a></li>
-</ul>
-<h2 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h2><p><a href="https://dongkelun.com/2018/12/03/hiveInternalAndExternalTables/">Hive内部表和外部表</a></p>
 
       
 
@@ -372,9 +320,9 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2018/12/02/hivePartitionTable/">Hive分区表学习总结</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2018/12/29/linux-oh-my-zsh/">Linux 安装 oh-my-zsh</a> </p>
  
- <p>本文链接：<a href="https://dongkelun.com/2018/12/02/hivePartitionTable/">https://dongkelun.com/2018/12/02/hivePartitionTable/</a></p>
+ <p>本文链接：<a href="https://dongkelun.com/2018/12/29/linux-oh-my-zsh/">https://dongkelun.com/2018/12/29/linux-oh-my-zsh/</a></p>
  <p>--------------------</p>
  <p>作者联系方式：</p>
  <p>QQ：1412359494</p>
@@ -438,7 +386,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/12/02/hivePartitionTable/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://dongkelun.com/2018/12/29/linux-oh-my-zsh/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -452,18 +400,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/12/03/hiveInternalAndExternalTables/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hive内部表和外部表
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/27/echartsChinaMap/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Echarts中国地图三级钻取</div>
+    <a href="/2018/12/26/sparkSqlOptimize/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark SQL 优化笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -490,7 +429,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、建表语句"><span class="toc-number">2.</span> <span class="toc-text">1、建表语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、插入语句"><span class="toc-number">3.</span> <span class="toc-text">2、插入语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-静态分区"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 静态分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-insert-into"><span class="toc-number">3.1.1.</span> <span class="toc-text">2.1.1 insert into</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-load-data"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.1.2 load data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-查询及结果"><span class="toc-number">3.1.3.</span> <span class="toc-text">2.1.3 查询及结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-hdfs存储形式"><span class="toc-number">3.1.4.</span> <span class="toc-text">2.1.4 hdfs存储形式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-动态分区"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 动态分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-insert-into"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.2.1 insert into</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-load-data"><span class="toc-number">3.3.</span> <span class="toc-text">2.2.2 load data</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、查看分区信息"><span class="toc-number">4.</span> <span class="toc-text">3、查看分区信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、添加分区字段"><span class="toc-number">5.</span> <span class="toc-text">4、添加分区字段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-添加新分区"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 添加新分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-添加非分区字段"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 添加非分区字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、多个分区字段"><span class="toc-number">6.</span> <span class="toc-text">5、多个分区字段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-建表"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-HDFS存储格式"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 HDFS存储格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、删除分区"><span class="toc-number">7.</span> <span class="toc-text">6、删除分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-单分区表"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 单分区表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-多分区表"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 多分区表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-删除year-2018-month-12"><span class="toc-number">7.2.1.</span> <span class="toc-text">6.2.1 删除year=2018,month=12</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-删除year-2018"><span class="toc-number">7.2.2.</span> <span class="toc-text">6.2.2 删除year=2018</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-3-删除month-10"><span class="toc-number">7.2.3.</span> <span class="toc-text">6.2.3 删除month=10</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关阅读"><span class="toc-number">9.</span> <span class="toc-text">相关阅读</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu"><span class="toc-number">2.1.</span> <span class="toc-text">Ubuntu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Centos"><span class="toc-number">2.2.</span> <span class="toc-text">Centos</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下面的Ubuntu和Centos是一样的"><span class="toc-number">2.3.</span> <span class="toc-text">下面的Ubuntu和Centos是一样的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#克隆仓库"><span class="toc-number">2.3.1.</span> <span class="toc-text">克隆仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#备份原来的zshrc，如果文件存在的话"><span class="toc-number">2.3.2.</span> <span class="toc-text">备份原来的zshrc，如果文件存在的话</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个新的zsh配置文件"><span class="toc-number">2.3.3.</span> <span class="toc-text">创建一个新的zsh配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#改变默认的Shell"><span class="toc-number">2.3.4.</span> <span class="toc-text">改变默认的Shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重启系统"><span class="toc-number">2.3.5.</span> <span class="toc-text">重启系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改主题"><span class="toc-number">2.3.6.</span> <span class="toc-text">修改主题</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -506,7 +445,7 @@
   
 
   
-  <div id="SOHUCS" sid="hivePartitionTable" ></div> 
+  <div id="SOHUCS" sid="linux-oh-my-zsh" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
