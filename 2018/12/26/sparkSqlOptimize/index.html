@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言记录自己在工作开发中遇到的SQL优化问题 1、避免用in 和 not in解决方案： 用exists 和 not exists代替 用join代替  not exists示例not in:1select stepId,province_code,polyline from route_step where stepId not in (select stepId from stepIds) n">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-01-03T08:39:46.788Z">
+<meta property="og:updated_time" content="2019-01-03T09:23:06.952Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark SQL 优化笔记">
 <meta name="twitter:description" content="前言记录自己在工作开发中遇到的SQL优化问题 1、避免用in 和 not in解决方案： 用exists 和 not exists代替 用join代替  not exists示例not in:1select stepId,province_code,polyline from route_step where stepId not in (select stepId from stepIds) n">
@@ -283,12 +283,15 @@
 <p>查看阈值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val threshold =  spark.conf.get(&quot;spark.sql.autoBroadcastJoinThreshold&quot;).toInt</span><br><span class="line">threshold / 1024 / 1024</span><br></pre></td></tr></table></figure></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://blog.csdn.net/u010834071/article/details/80670097" target="_blank" rel="noopener">SparkSQL之broadcast join</a></li>
-<li><a href="https://blog.csdn.net/ChaosJ/article/details/52964436" target="_blank" rel="noopener">Spark-sql Join优化=&gt;(cache+BroadCast)</a><h2 id="写MySQL慢"><a href="#写MySQL慢" class="headerlink" title="写MySQL慢"></a>写MySQL慢</h2>Spark df批量写MySQL很慢，如我900万条数据写需要5-10个小时<br>解决办法:在url后面加上<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;rewriteBatchedStatements=true</span><br></pre></td></tr></table></figure>
+<li><a href="https://blog.csdn.net/ChaosJ/article/details/52964436" target="_blank" rel="noopener">Spark-sql Join优化=&gt;(cache+BroadCast)</a><h2 id="4、写MySQL慢"><a href="#4、写MySQL慢" class="headerlink" title="4、写MySQL慢"></a>4、写MySQL慢</h2>Spark df批量写MySQL很慢，如我900万条数据写需要5-10个小时<br>解决办法:在url后面加上<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;rewriteBatchedStatements=true</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>加上之后，写数据10分钟左右，快很多。</p>
 <blockquote>
 <p>个人环境经验：MySQL不用加就没问题，MariaDB需要加，也就是不同的MySQL版本不一样</p>
+</blockquote>
+<h2 id="5、run-at-ThreadPoolExecutor-java-1149"><a href="#5、run-at-ThreadPoolExecutor-java-1149" class="headerlink" title="5、run at ThreadPoolExecutor.java:1149"></a>5、run at ThreadPoolExecutor.java:1149</h2><blockquote>
+<p>之前就在Spark Web UI经常看到这个描述，但不知道是干啥，现在在总结上面的broadcast join发现了规律:当两个表join，如果为BroadcastHashJoin则有这个描述，如果为SortMergeJoin则没有。<br>BroadcastHashJoin 用ThreadPool进行异步广播 源码见:<a href="https://github.com/apache/spark/blob/master/sql/core/src/main/scala/org/apache/spark/sql/execution/joins/BroadcastHashJoinExec.scala#L67" target="_blank" rel="noopener">BroadcastHashJoinExec</a>和<a href="https://github.com/apache/spark/blob/master/sql/core/src/main/scala/org/apache/spark/sql/execution/exchange/BroadcastExchangeExec.scala?utf8=%E2%9C%93#L66" target="_blank" rel="noopener">BroadcastExchangeExec</a><br>参考：<a href="https://stackoverflow.com/questions/40852622/what-are-threadpoolexecutors-jobs-in-web-uis-spark-jobs" target="_blank" rel="noopener">What are ThreadPoolExecutors jobs in web UI’s Spark Jobs?</a></p>
 </blockquote>
 
       
@@ -451,7 +454,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、避免用in-和-not-in"><span class="toc-number">2.</span> <span class="toc-text">1、避免用in 和 not in</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案："><span class="toc-number">2.1.</span> <span class="toc-text">解决方案：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#not-exists示例"><span class="toc-number">2.2.</span> <span class="toc-text">not exists示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自己遇到的问题"><span class="toc-number">2.3.</span> <span class="toc-text">自己遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#效率"><span class="toc-number">2.4.</span> <span class="toc-text">效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考博客："><span class="toc-number">2.5.</span> <span class="toc-text">参考博客：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、in-会导致数据倾斜"><span class="toc-number">3.</span> <span class="toc-text">2、in 会导致数据倾斜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、大表join小表"><span class="toc-number">4.</span> <span class="toc-text">3、大表join小表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#具体操作"><span class="toc-number">4.1.</span> <span class="toc-text">具体操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.2.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写MySQL慢"><span class="toc-number">5.</span> <span class="toc-text">写MySQL慢</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、避免用in-和-not-in"><span class="toc-number">2.</span> <span class="toc-text">1、避免用in 和 not in</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案："><span class="toc-number">2.1.</span> <span class="toc-text">解决方案：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#not-exists示例"><span class="toc-number">2.2.</span> <span class="toc-text">not exists示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自己遇到的问题"><span class="toc-number">2.3.</span> <span class="toc-text">自己遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#效率"><span class="toc-number">2.4.</span> <span class="toc-text">效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考博客："><span class="toc-number">2.5.</span> <span class="toc-text">参考博客：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、in-会导致数据倾斜"><span class="toc-number">3.</span> <span class="toc-text">2、in 会导致数据倾斜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、大表join小表"><span class="toc-number">4.</span> <span class="toc-text">3、大表join小表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#具体操作"><span class="toc-number">4.1.</span> <span class="toc-text">具体操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.2.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、写MySQL慢"><span class="toc-number">5.</span> <span class="toc-text">4、写MySQL慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、run-at-ThreadPoolExecutor-java-1149"><span class="toc-number">6.</span> <span class="toc-text">5、run at ThreadPoolExecutor.java:1149</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -628,11 +631,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,6 +683,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -724,6 +735,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
@@ -745,14 +760,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,19 +791,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -809,10 +816,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">UDF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
