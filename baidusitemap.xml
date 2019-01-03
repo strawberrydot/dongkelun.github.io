@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/12/26/sparkSqlOptimize/</loc>
+    <lastmod>2019-01-03T03:17:16.547Z</lastmod>
+    <data>
+        <display>
+        <title>Spark SQL 优化笔记</title>
+        <pubTime>2018-12-25T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+        <tag>SQL</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/12/29/linux-oh-my-zsh/</loc>
     <lastmod>2018-12-29T03:12:10.639Z</lastmod>
     <data>
@@ -14,25 +33,6 @@
         <tag>Linux</tag>
          
         <tag>zsh</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/12/26/sparkSqlOptimize/</loc>
-    <lastmod>2018-12-27T03:49:14.078Z</lastmod>
-    <data>
-        <display>
-        <title>Spark SQL 优化笔记</title>
-        <pubTime>2018-12-25T16:00:00.000Z</pubTime>
-        
-        <tag>Spark</tag>
-         
-        <tag>SQL</tag>
          
          
            
