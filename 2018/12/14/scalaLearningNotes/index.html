@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言之前看Scala编程思想学习Scala，只看完了一半多，就没再继续深入学习，导致一些Scala基础知识还不知道，而且过去这么长时间了，之前学过的也遗忘了，所以这里主要记录自己学习Scala时容易遗忘的一些点，以备自己随时查看，增加记忆。这个主要给自己用，不定时更新添加~ 1、在线文档 https://docs.scala-lang.org/zh-cn/tour/tour-of-scala.ht">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-12-14T07:57:32.018Z">
+<meta property="og:updated_time" content="2019-01-07T03:31:09.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala学习笔记">
 <meta name="twitter:description" content="前言之前看Scala编程思想学习Scala，只看完了一半多，就没再继续深入学习，导致一些Scala基础知识还不知道，而且过去这么长时间了，之前学过的也遗忘了，所以这里主要记录自己学习Scala时容易遗忘的一些点，以备自己随时查看，增加记忆。这个主要给自己用，不定时更新添加~ 1、在线文档 https://docs.scala-lang.org/zh-cn/tour/tour-of-scala.ht">
@@ -272,6 +272,13 @@
 <p>结果变为：(1,10)</p>
 <p>参数b为隐式参数，调用fun时不能传参数b，首先会找隐式定义类型为Int的值，如果找到（implicitInt），则传隐式值（implicitInt），找不到传默认值，没有默认值且没有隐式值，会报错:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">◾could not find <span class="keyword">implicit</span> value <span class="keyword">for</span> parameter b: <span class="type">Int</span></span><br><span class="line">◾not enough arguments <span class="keyword">for</span> method fun: (<span class="keyword">implicit</span> b: <span class="type">Int</span>)<span class="type">Unit</span>. <span class="type">Unspecified</span> value parameter b.</span><br></pre></td></tr></table></figure></p>
 <p>不能有多个相同类型的隐式值，否则，调用fun函数时，会报冲突的异常：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">◾ambiguous <span class="keyword">implicit</span> values: both value implicitInt in <span class="class"><span class="keyword">object</span> <span class="title">ImplicitTest</span> <span class="title">of</span> <span class="title">type</span> <span class="title">⇒</span> <span class="title">Int</span> <span class="title">and</span> <span class="title">value</span> <span class="title">implicitInt2</span> <span class="title">in</span> <span class="title">object</span> <span class="title">ImplicitTest</span> <span class="title">of</span> <span class="title">type</span> <span class="title">⇒</span> <span class="title">Int</span> <span class="title">match</span> <span class="title">expected</span> <span class="title">type</span> <span class="title">Int</span>...</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="transient"><a href="#transient" class="headerlink" title="@transient"></a>@transient</h3><blockquote>
+<p>这个注解一般用于序列化的时候，标识某个字段不用被序列化。</p>
+</blockquote>
+<p>SerializationDemo.scala<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.scalabasic</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.<span class="type">FileOutputStream</span></span><br><span class="line"><span class="keyword">import</span> java.io.<span class="type">ObjectOutputStream</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hippie</span>(<span class="params">val name: <span class="type">String</span>, @transient val age: <span class="type">Int</span></span>) <span class="keyword">extends</span> <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">/**</span></span></span><br><span class="line"><span class="class"> <span class="title">*</span> <span class="title">序列化，测试@transient</span></span></span><br><span class="line"><span class="class"> <span class="title">*/</span></span></span><br><span class="line"><span class="class"><span class="title">object</span> <span class="title">SerializationDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> fos = <span class="keyword">new</span> <span class="type">FileOutputStream</span>(<span class="string">"hippie.txt"</span>)</span><br><span class="line">    <span class="keyword">val</span> oos = <span class="keyword">new</span> <span class="type">ObjectOutputStream</span>(fos)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> p1 = <span class="keyword">new</span> <span class="type">Hippie</span>(<span class="string">"zml"</span>, <span class="number">34</span>)</span><br><span class="line">    oos.writeObject(p1)</span><br><span class="line">    oos.close()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>DeserializationDemo.scala<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dkl.scalabasic</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.<span class="type">FileInputStream</span></span><br><span class="line"><span class="keyword">import</span> java.io.<span class="type">ObjectInputStream</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反序列化，测试@transient</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DeserializationDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> fis = <span class="keyword">new</span> <span class="type">FileInputStream</span>(<span class="string">"hippie.txt"</span>)</span><br><span class="line">    <span class="keyword">val</span> ois = <span class="keyword">new</span> <span class="type">ObjectInputStream</span>(fis)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> hippy = ois.readObject.asInstanceOf[<span class="type">Hippie</span>]</span><br><span class="line">    println(hippy.name)</span><br><span class="line">    println(hippy.age)</span><br><span class="line">    ois.close()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zml</span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<p>由于age被标记为@transient，在反序列化的时候，就获取不到原始值了所以被赋值为默认值。<br>出自：<a href="https://www.cnblogs.com/ppgeneve/p/6322715.html" target="_blank" rel="noopener">Scala基础之注解(annotation)</a></p>
 
       
 
@@ -433,7 +440,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、在线文档"><span class="toc-number">2.</span> <span class="toc-text">1、在线文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、一些点"><span class="toc-number">3.</span> <span class="toc-text">2、一些点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setter"><span class="toc-number">3.1.</span> <span class="toc-text">setter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法的参数"><span class="toc-number">3.2.</span> <span class="toc-text">构造方法的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特质"><span class="toc-number">3.3.</span> <span class="toc-text">特质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式参数"><span class="toc-number">3.4.</span> <span class="toc-text">隐式参数</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、在线文档"><span class="toc-number">2.</span> <span class="toc-text">1、在线文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、一些点"><span class="toc-number">3.</span> <span class="toc-text">2、一些点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setter"><span class="toc-number">3.1.</span> <span class="toc-text">setter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法的参数"><span class="toc-number">3.2.</span> <span class="toc-text">构造方法的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特质"><span class="toc-number">3.3.</span> <span class="toc-text">特质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式参数"><span class="toc-number">3.4.</span> <span class="toc-text">隐式参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transient"><span class="toc-number">3.5.</span> <span class="toc-text">@transient</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -590,14 +597,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -610,11 +609,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,7 +637,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -638,19 +653,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,15 +661,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,7 +673,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -686,15 +689,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,47 +705,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,6 +721,50 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
@@ -770,19 +777,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
               </li>
              
               <li class="article-tag-list-item">

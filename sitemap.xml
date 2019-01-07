@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dongkelun.com/2019/01/07/sparkCheckPoint/</loc>
+    
+    <lastmod>2019-01-07T06:35:27.156Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://dongkelun.com/2018/12/14/scalaLearningNotes/</loc>
+    
+    <lastmod>2019-01-07T03:31:09.161Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dongkelun.com/2018/12/26/sparkSqlOptimize/</loc>
     
     <lastmod>2019-01-03T09:23:06.952Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>https://dongkelun.com/resources/index.html</loc>
     
     <lastmod>2018-12-25T01:04:04.177Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/12/14/scalaLearningNotes/</loc>
-    
-    <lastmod>2018-12-14T07:57:32.018Z</lastmod>
     
   </url>
   
