@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>Spark Checkpoint | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言总结一下Spark Checkpoint 用法及原理，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
+  <meta name="description" content="前言总结一下Spark Checkpoint 用法及源码，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
 <meta name="keywords" content="Spark,持久化,cache,persist">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark Checkpoint">
 <meta property="og:url" content="https://dongkelun.com/2019/01/07/sparkCheckPoint/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言总结一下Spark Checkpoint 用法及原理，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
+<meta property="og:description" content="前言总结一下Spark Checkpoint 用法及源码，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-01-07T06:35:27.156Z">
+<meta property="og:updated_time" content="2019-01-07T07:07:01.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Checkpoint">
-<meta name="twitter:description" content="前言总结一下Spark Checkpoint 用法及原理，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
+<meta name="twitter:description" content="前言总结一下Spark Checkpoint 用法及源码，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -257,7 +257,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总结一下Spark Checkpoint 用法及原理，包括RDD和Spark Streaming两种。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总结一下Spark Checkpoint 用法及源码，包括RDD和Spark Streaming两种。</p>
 <h2 id="1、RDD"><a href="#1、RDD" class="headerlink" title="1、RDD"></a>1、RDD</h2><blockquote>
 <p>作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复<br>容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后Spark会重新尝试执行程序（默认三次），就需要重新从头开始执行，而如果执行了Checkpoint，那么就会直接从HDFS文件读取相关数据信息，不需要从头开始执行，节省很多时间。<br>cache和persist：有了cache和persist，还需要Checkpoint么？需要，因为cache到内存，虽然最快，但是也最不可靠，即使persist到磁盘也不如HDFS文件系统可靠，且能cache到内存最好在内存，因为这样很快，然后和Checkpoint一起用，就能既保证了速度也保证了可靠性。</p>
 <h3 id="1-1-用法"><a href="#1-1-用法" class="headerlink" title="1.1 用法"></a>1.1 用法</h3><p>代码示例<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先设置Checkpoint路径，这会在hdfs建立文件夹</span></span><br><span class="line">sc.setCheckpointDir(<span class="string">"hdfs://ambari.master.com:8020/spark/dkl/checkpoint/checkpointdemo"</span>)</span><br><span class="line"><span class="comment">//强烈建议先把rdd持久化到内存、否则保存到文件时会触发一个新的job重新计算</span></span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(<span class="number">1</span> to <span class="number">1000</span>, <span class="number">10</span>).cache</span><br><span class="line"><span class="comment">//调用checkpoint，标记该RDD要Checkpoint，将checkpointData设为ReliableRDDCheckpointData</span></span><br><span class="line"><span class="comment">//transformation操作，直到action操作才会执行，所以必须在一个action算子之前执行</span></span><br><span class="line">rdd.checkpoint()</span><br><span class="line"><span class="comment">//直到action算子触发job，才会将rdd持久化到对应的hdfs文件中</span></span><br><span class="line">println(rdd.sum)</span><br></pre></td></tr></table></figure></p>
@@ -594,6 +594,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -606,23 +614,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
+                <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,11 +630,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,11 +642,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,11 +658,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">zsh</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,15 +674,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color4">zsh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,7 +686,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,7 +706,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,10 +722,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
               </li>
              
@@ -730,7 +730,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,7 +746,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,14 +755,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -774,19 +774,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
