@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Spark基本概念（便于自己随时查阅--摘自Spark快速大数据分析） | 伦少的博客</title>
+  <title>Spark 异常总结及解决办法 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、 RDD&amp;emsp;&amp;emsp;在Spark 中，我们通过对分布式数据集的操作来表达我们的计算意图，这些计算会自动地在集群上并行进行。这样的数据集被称为弹性分布式数据集（resilient distributed dataset），简称RDD。RDD 是Spark 对分布式数据和计算的基本抽象。&amp;emsp;&amp;emsp;RDD 支持两种操作：转化操作和行动操作。RDD 的转化操作是返回一个新的R">
+  <meta name="description" content="前言总结Spark开发中遇到的异常及解决办法，之前也写过几篇，之所以不再一个异常写一篇博客，是因为现在Spark用的比较熟悉了一些，觉得没必要把异常信息写那么详细了，所以就把异常总结在一篇博客里了，这样既能备忘也方便查找。 1、之前的几篇  spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable dri">
 <meta name="keywords" content="Spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark基本概念（便于自己随时查阅--摘自Spark快速大数据分析）">
-<meta property="og:url" content="https://dongkelun.com/2018/01/23/sparkBasicConcept/index.html">
+<meta property="og:title" content="Spark 异常总结及解决办法">
+<meta property="og:url" content="https://dongkelun.com/2019/01/09/sparkExceptions/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="1、 RDD&amp;emsp;&amp;emsp;在Spark 中，我们通过对分布式数据集的操作来表达我们的计算意图，这些计算会自动地在集群上并行进行。这样的数据集被称为弹性分布式数据集（resilient distributed dataset），简称RDD。RDD 是Spark 对分布式数据和计算的基本抽象。&amp;emsp;&amp;emsp;RDD 支持两种操作：转化操作和行动操作。RDD 的转化操作是返回一个新的R">
+<meta property="og:description" content="前言总结Spark开发中遇到的异常及解决办法，之前也写过几篇，之所以不再一个异常写一篇博客，是因为现在Spark用的比较熟悉了一些，觉得没必要把异常信息写那么详细了，所以就把异常总结在一篇博客里了，这样既能备忘也方便查找。 1、之前的几篇  spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable dri">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-11-16T01:47:04.768Z">
+<meta property="og:updated_time" content="2019-01-09T09:13:22.047Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark基本概念（便于自己随时查阅--摘自Spark快速大数据分析）">
-<meta name="twitter:description" content="1、 RDD&amp;emsp;&amp;emsp;在Spark 中，我们通过对分布式数据集的操作来表达我们的计算意图，这些计算会自动地在集群上并行进行。这样的数据集被称为弹性分布式数据集（resilient distributed dataset），简称RDD。RDD 是Spark 对分布式数据和计算的基本抽象。&amp;emsp;&amp;emsp;RDD 支持两种操作：转化操作和行动操作。RDD 的转化操作是返回一个新的R">
+<meta name="twitter:title" content="Spark 异常总结及解决办法">
+<meta name="twitter:description" content="前言总结Spark开发中遇到的异常及解决办法，之前也写过几篇，之所以不再一个异常写一篇博客，是因为现在Spark用的比较熟悉了一些，觉得没必要把异常信息写那么详细了，所以就把异常总结在一篇博客里了，这样既能备忘也方便查找。 1、之前的几篇  spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable dri">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -206,20 +206,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sparkBasicConcept" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sparkExceptions" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Spark基本概念（便于自己随时查阅--摘自Spark快速大数据分析）
+      Spark 异常总结及解决办法
     </h1>
   
 
         
-        <a href="/2018/01/23/sparkBasicConcept/" class="archive-article-date">
-  	<time datetime="2018-01-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-23</time>
+        <a href="/2019/01/09/sparkExceptions/" class="archive-article-date">
+  	<time datetime="2019-01-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
 </a>
         
       </header>
@@ -245,8 +245,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1、-RDD"><a href="#1、-RDD" class="headerlink" title="1、 RDD"></a>1、 RDD</h3><p>&emsp;&emsp;在Spark 中，我们通过对分布式数据集的操作来表达我们的计算意图，这些计算会自动地在集群上并行进行。这样的数据集被称为弹性分布式数据集（resilient distributed dataset），简称RDD。RDD 是Spark 对分布式数据和计算的基本抽象。<br>&emsp;&emsp;RDD 支持两种操作：转化操作和行动操作。RDD 的转化操作是返回一个新的RDD 的操作，比如map() 和filter()，而行动操作则是向驱动器程序返回结果或把结果写入外部系统的操作，会触发实际的计算，比如count() 和first()。Spark 对待转化操作和行动操作的方式很不一样，因此理解你正在进行的操作的类型是很重要的。如果对于一个特定的函数是属于转化操作还是行动操作感到困惑，你可以看看它的返回值类型：转化操作返回的是RDD，而行动操作返回的是其他的数据类型。<br><a id="more"></a></p>
-<h3 id="2、-惰性求值"><a href="#2、-惰性求值" class="headerlink" title="2、 惰性求值"></a>2、 惰性求值</h3><p>&emsp;&emsp;Spark 使用惰性求值，这样就可以把一些操作合并到一起来减少计算数据的步骤。在类似Hadoop MapReduce 的系统中，开发者常常花费大量时间考虑如何把操作组合到一起，以减少MapReduce 的周期数。而在Spark 中，写出一个非常复杂的映射并不见得能比使用很多简单的连续操作获得好很多的性能。因此，用户可以用更小的操作来组织他们的程序，这样也使这些操作更容易管理。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总结Spark开发中遇到的异常及解决办法，之前也写过几篇，之所以不再一个异常写一篇博客，是因为现在Spark用的比较熟悉了一些，觉得没必要把异常信息写那么详细了，所以就把异常总结在一篇博客里了，这样既能备忘也方便查找。</p>
+<h2 id="1、之前的几篇"><a href="#1、之前的几篇" class="headerlink" title="1、之前的几篇"></a>1、之前的几篇</h2><blockquote>
+<ul>
+<li><a href="https://dongkelun.com/2018/05/06/sparkSubmitException/">spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable driver</a></li>
+<li><a href="https://dongkelun.com/2018/05/20/hiveQueryException/">hive查询报错:java.io.IOException:org.apache.parquet.io.ParquetDecodingException</a></li>
+<li><a href="https://dongkelun.com/2018/07/06/sparkSubmitException1/">spark-submit报错:Application application_1529650293575_0148 finished with failed status</a></li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h2 id="2、-spark-executor-memoryOverhead"><a href="#2、-spark-executor-memoryOverhead" class="headerlink" title="2、 spark.executor.memoryOverhead"></a>2、 spark.executor.memoryOverhead</h2><blockquote>
+<p>堆外内存（默认是executor内存的10%），当数据量比较大的时候，如果按默认的就会有下面的异常，导致程序崩溃</p>
+</blockquote>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Container killed by YARN <span class="keyword">for</span> exceeding memory limits. <span class="number">1.8</span> GB of <span class="number">1.8</span> GB physical memory used. Consider boosting spark.yarn.executor.memoryOverhead.</span><br></pre></td></tr></table></figure>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><blockquote>
+<p>具体值根据实际情况配置</p>
+</blockquote>
+<p>新版<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--conf spark.executor.memoryOverhead=<span class="number">2048</span></span><br></pre></td></tr></table></figure></p>
+<p>旧版<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--conf spark.yarn.executor.memoryOverhead=<span class="number">2048</span></span><br></pre></td></tr></table></figure></p>
+<p>新版如果用旧版，会:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARN SparkConf: The configuration key <span class="string">'spark.yarn.executor.memoryOverhead'</span> has been deprecated as of Spark <span class="number">2.3</span> and may be removed in the future. Please use the <span class="keyword">new</span> key <span class="string">'spark.executor.memoryOverhead'</span> instead.</span><br></pre></td></tr></table></figure>
+<h2 id="3、No-more-replicas-available-for-rdd"><a href="#3、No-more-replicas-available-for-rdd" class="headerlink" title="3、No more replicas available for rdd_"></a>3、No more replicas available for rdd_</h2><h3 id="异常-1"><a href="#异常-1" class="headerlink" title="异常"></a>异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">08</span> <span class="number">12</span>:<span class="number">36</span>:<span class="number">46</span> WARN BlockManagerMasterEndpoint: No more replicas available <span class="keyword">for</span> rdd_3250_73 !</span><br><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">08</span> <span class="number">12</span>:<span class="number">36</span>:<span class="number">46</span> WARN BlockManagerMasterEndpoint: No more replicas available <span class="keyword">for</span> rdd_12_38 !</span><br><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">08</span> <span class="number">12</span>:<span class="number">36</span>:<span class="number">46</span> WARN BlockManagerMasterEndpoint: No more replicas available <span class="keyword">for</span> rdd_3250_38 !</span><br><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">08</span> <span class="number">12</span>:<span class="number">36</span>:<span class="number">46</span> WARN BlockManagerMasterEndpoint: No more replicas available <span class="keyword">for</span> rdd_3250_148 !</span><br><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">08</span> <span class="number">12</span>:<span class="number">36</span>:<span class="number">46</span> WARN BlockManagerMasterEndpoint: No more replicas available <span class="keyword">for</span> rdd_3250_6 !</span><br><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">08</span> <span class="number">12</span>:<span class="number">36</span>:<span class="number">46</span> WARN BlockManagerMasterEndpoint: No more replicas available <span class="keyword">for</span> rdd_3250_112 !</span><br><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">08</span> <span class="number">12</span>:<span class="number">36</span>:<span class="number">46</span> WARN BlockManagerMasterEndpoint: No more replicas available <span class="keyword">for</span> rdd_12_100 !</span><br></pre></td></tr></table></figure>
+<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3><p>增大executor的内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--executor-memory 4G</span><br></pre></td></tr></table></figure></p>
+<h2 id="4、Failed-to-allocate-a-page"><a href="#4、Failed-to-allocate-a-page" class="headerlink" title="4、Failed to allocate a page"></a>4、Failed to allocate a page</h2><h3 id="异常-2"><a href="#异常-2" class="headerlink" title="异常"></a>异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">19</span>/<span class="number">01</span>/<span class="number">09</span> <span class="number">09</span>:<span class="number">12</span>:<span class="number">39</span> WARN TaskMemoryManager: <span class="function">Failed to allocate a <span class="title">page</span> <span class="params">(<span class="number">1048576</span> bytes)</span>, <span class="keyword">try</span> again.</span></span><br><span class="line"><span class="function">19/01/09 09:12:41 WARN TaskMemoryManager: Failed to allocate a <span class="title">page</span> <span class="params">(<span class="number">1048576</span> bytes)</span>, <span class="keyword">try</span> again.</span></span><br><span class="line"><span class="function">19/01/09 09:12:41 WARN NioEventLoop: Unexpected exception in the selector loop.</span></span><br><span class="line"><span class="function">java.lang.OutOfMemoryError: GC overhead limit exceeded</span></span><br><span class="line"><span class="function">        at java.lang.Integer.<span class="title">valueOf</span><span class="params">(Integer.java:<span class="number">832</span>)</span></span></span><br><span class="line"><span class="function">        at sun.nio.ch.EPollSelectorImpl.<span class="title">updateSelectedKeys</span><span class="params">(EPollSelectorImpl.java:<span class="number">120</span>)</span></span></span><br><span class="line"><span class="function">        at sun.nio.ch.EPollSelectorImpl.<span class="title">doSelect</span><span class="params">(EPollSelectorImpl.java:<span class="number">98</span>)</span></span></span><br><span class="line"><span class="function">        at sun.nio.ch.SelectorImpl.<span class="title">lockAndDoSelect</span><span class="params">(SelectorImpl.java:<span class="number">86</span>)</span></span></span><br><span class="line"><span class="function">        at sun.nio.ch.SelectorImpl.<span class="title">select</span><span class="params">(SelectorImpl.java:<span class="number">97</span>)</span></span></span><br><span class="line"><span class="function">        at io.netty.channel.nio.SelectedSelectionKeySetSelector.<span class="title">select</span><span class="params">(SelectedSelectionKeySetSelector.java:<span class="number">62</span>)</span></span></span><br><span class="line"><span class="function">        at io.netty.channel.nio.NioEventLoop.<span class="title">select</span><span class="params">(NioEventLoop.java:<span class="number">753</span>)</span></span></span><br><span class="line"><span class="function">        at io.netty.channel.nio.NioEventLoop.<span class="title">run</span><span class="params">(NioEventLoop.java:<span class="number">409</span>)</span></span></span><br><span class="line"><span class="function">        at io.netty.util.concurrent.SingleThreadEventExecutor$5.<span class="title">run</span><span class="params">(SingleThreadEventExecutor.java:<span class="number">858</span>)</span></span></span><br><span class="line"><span class="function">        at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.<span class="title">run</span><span class="params">(DefaultThreadFactory.java:<span class="number">138</span>)</span></span></span><br><span class="line"><span class="function">        at java.lang.Thread.<span class="title">run</span><span class="params">(Thread.java:<span class="number">748</span>)</span></span></span><br><span class="line"><span class="function">19/01/09 09:12:46 WARN TransportChannelHandler: Exception in connection from /172.16.29.236:47012</span></span><br><span class="line"><span class="function">java.lang.OutOfMemoryError: GC overhead limit exceeded</span></span><br><span class="line"><span class="function">19/01/09 09:12:44 WARN AbstractChannelHandlerContext: An exception 'java.lang.OutOfMemoryError: GC overhead limit exceeded' [enable DEBUG level <span class="keyword">for</span> full stacktrace] was thrown by a user handler's <span class="title">exceptionCaught</span><span class="params">()</span> method <span class="keyword">while</span> handling the following exception:</span></span><br><span class="line"><span class="function">java.lang.OutOfMemoryError: GC overhead limit exceeded</span></span><br><span class="line"><span class="function">19/01/09 09:12:42 WARN TaskMemoryManager: Failed to allocate a <span class="title">page</span> <span class="params">(<span class="number">1048576</span> bytes)</span>, <span class="keyword">try</span> again.</span></span><br><span class="line"><span class="function">Exception in thread "dispatcher-event-loop-11" java.lang.OutOfMemoryError: GC overhead limit exceeded</span></span><br><span class="line"><span class="function">19/01/09 09:12:51 WARN TaskMemoryManager: Failed to allocate a <span class="title">page</span> <span class="params">(<span class="number">1048576</span> bytes)</span>, <span class="keyword">try</span> again.</span></span><br><span class="line"><span class="function">19/01/09 09:12:53 WARN TransportChannelHandler: Exception in connection from /172.16.29.233:34226</span></span><br><span class="line"><span class="function">java.lang.OutOfMemoryError: GC overhead limit exceeded</span></span><br></pre></td></tr></table></figure>
+<h3 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h3><p>增大driver的内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--driver-memory 6G</span><br></pre></td></tr></table></figure></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.jianshu.com/p/84498665bad6" target="_blank" rel="noopener">TaskMemoryManager: Failed to allocate a page, try again</a></p>
 
       
 
@@ -290,9 +313,9 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2018/01/23/sparkBasicConcept/">Spark基本概念（便于自己随时查阅--摘自Spark快速大数据分析）</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2019/01/09/sparkExceptions/">Spark 异常总结及解决办法</a> </p>
  
- <p>本文链接：<a href="https://dongkelun.com/2018/01/23/sparkBasicConcept/">https://dongkelun.com/2018/01/23/sparkBasicConcept/</a></p>
+ <p>本文链接：<a href="https://dongkelun.com/2019/01/09/sparkExceptions/">https://dongkelun.com/2019/01/09/sparkExceptions/</a></p>
  <p>--------------------</p>
  <p>作者联系方式：</p>
  <p>QQ：1412359494</p>
@@ -356,7 +379,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://qr.liantu.com/api.php?text=https://dongkelun.com/2018/01/23/sparkBasicConcept/" alt="微信分享二维码">
+      <img src="http://qr.liantu.com/api.php?text=https://dongkelun.com/2019/01/09/sparkExceptions/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -370,18 +393,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/03/15/winSparkConf/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          win10 spark+scala+eclipse+sbt 安装配置
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/01/22/ibatisTransaction/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ibatis 事务 java</div>
+    <a href="/2019/01/07/sparkCheckPoint/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark Checkpoint</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -408,7 +422,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、-RDD"><span class="toc-number">1.</span> <span class="toc-text">1、 RDD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、-惰性求值"><span class="toc-number">2.</span> <span class="toc-text">2、 惰性求值</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、之前的几篇"><span class="toc-number">2.</span> <span class="toc-text">1、之前的几篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、-spark-executor-memoryOverhead"><span class="toc-number">3.</span> <span class="toc-text">2、 spark.executor.memoryOverhead</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常"><span class="toc-number">3.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决"><span class="toc-number">3.2.</span> <span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、No-more-replicas-available-for-rdd"><span class="toc-number">4.</span> <span class="toc-text">3、No more replicas available for rdd_</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-1"><span class="toc-number">4.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-1"><span class="toc-number">4.2.</span> <span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Failed-to-allocate-a-page"><span class="toc-number">5.</span> <span class="toc-text">4、Failed to allocate a page</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-2"><span class="toc-number">5.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-2"><span class="toc-number">5.2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.3.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -424,7 +438,7 @@
   
 
   
-  <div id="SOHUCS" sid="sparkBasicConcept" ></div> 
+  <div id="SOHUCS" sid="sparkExceptions" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
