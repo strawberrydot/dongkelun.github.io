@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://dongkelun.com/2019/01/09/sparkExceptions/</loc>
-    <lastmod>2019-01-09T09:13:22.047Z</lastmod>
+    <lastmod>2019-01-10T01:59:20.599Z</lastmod>
     <data>
         <display>
         <title>Spark 异常总结及解决办法</title>
@@ -1039,9 +1039,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
