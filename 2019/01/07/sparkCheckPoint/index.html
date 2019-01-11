@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
-  <title>Spark Checkpoint | 伦少的博客</title>
+  <title>Spark Checkpoint 使用及源码浅析 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言总结一下Spark Checkpoint 用法及源码，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
 <meta name="keywords" content="Spark,持久化,cache,persist">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark Checkpoint">
+<meta property="og:title" content="Spark Checkpoint 使用及源码浅析">
 <meta property="og:url" content="https://dongkelun.com/2019/01/07/sparkCheckPoint/index.html">
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言总结一下Spark Checkpoint 用法及源码，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-01-08T03:16:13.694Z">
+<meta property="og:updated_time" content="2019-01-10T05:38:16.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spark Checkpoint">
+<meta name="twitter:title" content="Spark Checkpoint 使用及源码浅析">
 <meta name="twitter:description" content="前言总结一下Spark Checkpoint 用法及源码，包括RDD和Spark Streaming两种。 1、RDD 作用：持久化数据-将RDD的数据保存到可靠文件系统中（一般是HDFS），以便数据恢复容错、复用：在Spark程序中，如果某个RDD因为业务逻辑比较复杂，导致Transformation很多，计算很耗时，且该RDD后面用到很多次，那么有可能因为各种原因导致数据丢失、程序失败，之后S">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
@@ -209,7 +209,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spark Checkpoint
+      Spark Checkpoint 使用及源码浅析
     </h1>
   
 
@@ -294,6 +294,9 @@
 <blockquote>
 <p>从检查点文件创建新的RDD，清除旧的依赖和分区<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Changes the dependencies of this RDD from its original parents to a new RDD (`newRDD`)</span></span><br><span class="line"><span class="comment">   * created from the checkpoint file, and forget its old dependencies and partitions.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">private</span>[spark] <span class="function"><span class="keyword">def</span> <span class="title">markCheckpointed</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    clearDependencies()</span><br><span class="line">    partitions_ = <span class="literal">null</span></span><br><span class="line">    deps = <span class="literal">null</span>    <span class="comment">// Forget the constructor argument for dependencies too</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
+<h3 id="1-2-7-读-checkpoint"><a href="#1-2-7-读-checkpoint" class="headerlink" title="1.2.7 读 checkpoint"></a>1.2.7 读 checkpoint</h3><p>当执行action算子时，会触发job，通过sc.runJob方法，将函数（action算子）以参数的形式提交job，接着划分stage、提交stage、提交task、执行task，最后在org.apache.spark.scheduler.ResultTask.runTask方法里会调用rdd.iterator来获取rdd分区数据<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">runTask</span></span>(context: <span class="type">TaskContext</span>): <span class="type">U</span> = &#123;</span><br><span class="line">    <span class="comment">// Deserialize the RDD and the func using the broadcast variables.</span></span><br><span class="line">    <span class="keyword">val</span> threadMXBean = <span class="type">ManagementFactory</span>.getThreadMXBean</span><br><span class="line">    <span class="keyword">val</span> deserializeStartTime = <span class="type">System</span>.currentTimeMillis()</span><br><span class="line">    <span class="keyword">val</span> deserializeStartCpuTime = <span class="keyword">if</span> (threadMXBean.isCurrentThreadCpuTimeSupported) &#123;</span><br><span class="line">      threadMXBean.getCurrentThreadCpuTime</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="number">0</span>L</span><br><span class="line">    <span class="keyword">val</span> ser = <span class="type">SparkEnv</span>.get.closureSerializer.newInstance()</span><br><span class="line">    <span class="keyword">val</span> (rdd, func) = ser.deserialize[(<span class="type">RDD</span>[<span class="type">T</span>], (<span class="type">TaskContext</span>, <span class="type">Iterator</span>[<span class="type">T</span>]) =&gt; <span class="type">U</span>)](</span><br><span class="line">      <span class="type">ByteBuffer</span>.wrap(taskBinary.value), <span class="type">Thread</span>.currentThread.getContextClassLoader)</span><br><span class="line">    _executorDeserializeTime = <span class="type">System</span>.currentTimeMillis() - deserializeStartTime</span><br><span class="line">    _executorDeserializeCpuTime = <span class="keyword">if</span> (threadMXBean.isCurrentThreadCpuTimeSupported) &#123;</span><br><span class="line">      threadMXBean.getCurrentThreadCpuTime - deserializeStartCpuTime</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="number">0</span>L</span><br><span class="line"></span><br><span class="line">    func(context, rdd.iterator(partition, context))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>看一下rdd.iterator<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Internal method to this RDD; will read from cache if applicable, or otherwise compute it.</span></span><br><span class="line"><span class="comment">   * This should ''not'' be called by users directly, but is available for implementors of custom</span></span><br><span class="line"><span class="comment">   * subclasses of RDD.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">final</span> <span class="function"><span class="keyword">def</span> <span class="title">iterator</span></span>(split: <span class="type">Partition</span>, context: <span class="type">TaskContext</span>): <span class="type">Iterator</span>[<span class="type">T</span>] = &#123;</span><br><span class="line">    <span class="keyword">if</span> (storageLevel != <span class="type">StorageLevel</span>.<span class="type">NONE</span>) &#123; <span class="comment">//当cache或persist时</span></span><br><span class="line">      getOrCompute(split, context)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;<span class="comment">//没有cache和persist时</span></span><br><span class="line">      computeOrReadCheckpoint(split, context)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>没有cache时调用computeOrReadCheckpoint<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Compute an RDD partition or read it from a checkpoint if the RDD is checkpointing.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">private</span>[spark] <span class="function"><span class="keyword">def</span> <span class="title">computeOrReadCheckpoint</span></span>(split: <span class="type">Partition</span>, context: <span class="type">TaskContext</span>): <span class="type">Iterator</span>[<span class="type">T</span>] =</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (isCheckpointedAndMaterialized) &#123;<span class="comment">//已经checkpoint的话</span></span><br><span class="line">      firstParent[<span class="type">T</span>].iterator(split, context)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      compute(split, context)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="2、Spark-Streaming"><a href="#2、Spark-Streaming" class="headerlink" title="2、Spark Streaming"></a>2、Spark Streaming</h2>
       
 
@@ -337,7 +340,7 @@
  <p>非商业转载请注明作者及出处。商业转载请联系作者本人。</p>
 
  
- <p>本文标题：<a href="https://dongkelun.com/2019/01/07/sparkCheckPoint/">Spark Checkpoint</a> </p>
+ <p>本文标题：<a href="https://dongkelun.com/2019/01/07/sparkCheckPoint/">Spark Checkpoint 使用及源码浅析</a> </p>
  
  <p>本文链接：<a href="https://dongkelun.com/2019/01/07/sparkCheckPoint/">https://dongkelun.com/2019/01/07/sparkCheckPoint/</a></p>
  <p>--------------------</p>
@@ -455,7 +458,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、RDD"><span class="toc-number">2.</span> <span class="toc-text">1、RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-用法"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-源码"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 源码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-setCheckpointDir"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.2.1 setCheckpointDir</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-checkpoint"><span class="toc-number">2.2.2.</span> <span class="toc-text">1.2.2 checkpoint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-action算子"><span class="toc-number">2.2.3.</span> <span class="toc-text">1.2.3 action算子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-doCheckpoint"><span class="toc-number">2.2.4.</span> <span class="toc-text">1.2.4 doCheckpoint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-5-writeRDDToCheckpointDirectory"><span class="toc-number">2.2.5.</span> <span class="toc-text">1.2.5 writeRDDToCheckpointDirectory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-6-rdd-markCheckpointed"><span class="toc-number">2.2.6.</span> <span class="toc-text">1.2.6 rdd.markCheckpointed()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Spark-Streaming"><span class="toc-number">3.</span> <span class="toc-text">2、Spark Streaming</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、RDD"><span class="toc-number">2.</span> <span class="toc-text">1、RDD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-用法"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-源码"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 源码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-setCheckpointDir"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.2.1 setCheckpointDir</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-checkpoint"><span class="toc-number">2.2.2.</span> <span class="toc-text">1.2.2 checkpoint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-action算子"><span class="toc-number">2.2.3.</span> <span class="toc-text">1.2.3 action算子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-doCheckpoint"><span class="toc-number">2.2.4.</span> <span class="toc-text">1.2.4 doCheckpoint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-5-writeRDDToCheckpointDirectory"><span class="toc-number">2.2.5.</span> <span class="toc-text">1.2.5 writeRDDToCheckpointDirectory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-6-rdd-markCheckpointed"><span class="toc-number">2.2.6.</span> <span class="toc-text">1.2.6 rdd.markCheckpointed()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-7-读-checkpoint"><span class="toc-number">2.3.</span> <span class="toc-text">1.2.7 读 checkpoint</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Spark-Streaming"><span class="toc-number">3.</span> <span class="toc-text">2、Spark Streaming</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -612,18 +615,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
@@ -636,11 +627,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -652,11 +647,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -668,19 +663,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hive</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Partition</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,6 +687,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -700,15 +699,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,7 +711,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -728,15 +723,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,19 +751,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,6 +787,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
@@ -800,19 +811,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">

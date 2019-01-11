@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="伦少的博客">
 <meta property="og:description" content="前言总结Spark开发中遇到的异常及解决办法，之前也写过几篇，之所以不再一个异常写一篇博客，是因为现在Spark用的比较熟悉了一些，觉得没必要把异常信息写那么详细了，所以就把异常总结在一篇博客里了，这样既能备忘也方便查找。 1、之前的几篇  spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable dri">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-01-10T01:59:20.599Z">
+<meta property="og:updated_time" content="2019-01-11T06:57:24.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 异常总结及解决办法">
 <meta name="twitter:description" content="前言总结Spark开发中遇到的异常及解决办法，之前也写过几篇，之所以不再一个异常写一篇博客，是因为现在Spark用的比较熟悉了一些，觉得没必要把异常信息写那么详细了，所以就把异常总结在一篇博客里了，这样既能备忘也方便查找。 1、之前的几篇  spark-submit报错:Exception in thread “main” java.sql.SQLException:No suitable dri">
@@ -270,6 +270,8 @@
 <h3 id="解决-3"><a href="#解决-3" class="headerlink" title="解决"></a>解决</h3><p>增大driver的内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--driver-memory 6G</span><br></pre></td></tr></table></figure></p>
 <p>具体看参考</p>
 <h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h3><p><a href="http://support.huawei.com/hedex/pages/EDOC1000104115YZF0513A/07/EDOC1000104115YZF0513A/07/resources/troubleshooting/zh-cn_topic_0023123435.html" target="_blank" rel="noopener">Driver端返回大量结果数据时出现内存不足错误</a></p>
+<h2 id="6、spark-driver-maxResultSize"><a href="#6、spark-driver-maxResultSize" class="headerlink" title="6、spark.driver.maxResultSize"></a>6、spark.driver.maxResultSize</h2><h3 id="异常-4"><a href="#异常-4" class="headerlink" title="异常"></a>异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR TaskSetManager: Total size of serialized results of <span class="number">30</span> tasks (<span class="number">1108.5</span> MB) is bigger than spark.driver.maxResultSize (<span class="number">1024.0</span> MB)</span><br></pre></td></tr></table></figure>
+<h3 id="解决-4"><a href="#解决-4" class="headerlink" title="解决"></a>解决</h3><p>增大spark.driver.maxResultSize<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--conf spark.driver.maxResultSize=2G</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -395,7 +397,7 @@
   
   
     <a href="/2019/01/07/sparkCheckPoint/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spark Checkpoint</div>
+      <div class="article-nav-title">Spark Checkpoint 使用及源码浅析</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -422,7 +424,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、之前的几篇"><span class="toc-number">2.</span> <span class="toc-text">1、之前的几篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、-spark-executor-memoryOverhead"><span class="toc-number">3.</span> <span class="toc-text">2、 spark.executor.memoryOverhead</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常"><span class="toc-number">3.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决"><span class="toc-number">3.2.</span> <span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、No-more-replicas-available-for-rdd"><span class="toc-number">4.</span> <span class="toc-text">3、No more replicas available for rdd_</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-1"><span class="toc-number">4.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-1"><span class="toc-number">4.2.</span> <span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Failed-to-allocate-a-page"><span class="toc-number">5.</span> <span class="toc-text">4、Failed to allocate a page</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-2"><span class="toc-number">5.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-2"><span class="toc-number">5.2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.3.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Uncaught-exception-in-thread-task-result-getter-3"><span class="toc-number">6.</span> <span class="toc-text">5、Uncaught exception in thread task-result-getter-3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-3"><span class="toc-number">6.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-3"><span class="toc-number">6.2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考-1"><span class="toc-number">6.3.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、之前的几篇"><span class="toc-number">2.</span> <span class="toc-text">1、之前的几篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、-spark-executor-memoryOverhead"><span class="toc-number">3.</span> <span class="toc-text">2、 spark.executor.memoryOverhead</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常"><span class="toc-number">3.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决"><span class="toc-number">3.2.</span> <span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、No-more-replicas-available-for-rdd"><span class="toc-number">4.</span> <span class="toc-text">3、No more replicas available for rdd_</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-1"><span class="toc-number">4.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-1"><span class="toc-number">4.2.</span> <span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Failed-to-allocate-a-page"><span class="toc-number">5.</span> <span class="toc-text">4、Failed to allocate a page</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-2"><span class="toc-number">5.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-2"><span class="toc-number">5.2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.3.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Uncaught-exception-in-thread-task-result-getter-3"><span class="toc-number">6.</span> <span class="toc-text">5、Uncaught exception in thread task-result-getter-3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-3"><span class="toc-number">6.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-3"><span class="toc-number">6.2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考-1"><span class="toc-number">6.3.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、spark-driver-maxResultSize"><span class="toc-number">7.</span> <span class="toc-text">6、spark.driver.maxResultSize</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常-4"><span class="toc-number">7.1.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决-4"><span class="toc-number">7.2.</span> <span class="toc-text">解决</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -579,18 +581,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
@@ -603,11 +593,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,11 +613,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,19 +629,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hive</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Partition</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,6 +653,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -667,15 +665,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,7 +677,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,15 +689,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">转载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,19 +717,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,6 +753,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
               </li>
              
@@ -767,19 +777,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yarn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
