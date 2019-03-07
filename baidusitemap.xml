@@ -925,9 +925,9 @@
          
         <tag>DataFrame</tag>
          
-        <tag>Rdd</tag>
-         
         <tag>Partition</tag>
+         
+        <tag>Rdd</tag>
          
          
            
