@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/12/07/hiveBucketTable/</loc>
+    <lastmod>2019-05-09T02:31:43.693Z</lastmod>
+    <data>
+        <display>
+        <title>Hive分桶表学习总结</title>
+        <pubTime>2018-12-06T16:00:00.000Z</pubTime>
+        
+        <tag>Hive</tag>
+         
+        <tag>bucket</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
     <lastmod>2019-05-09T02:25:45.862Z</lastmod>
     <data>
@@ -927,25 +946,6 @@
         <tag>Spark</tag>
          
         <tag>SQL</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/12/07/hiveBucketTable/</loc>
-    <lastmod>2018-12-09T04:24:43.422Z</lastmod>
-    <data>
-        <display>
-        <title>Hive分桶表学习总结</title>
-        <pubTime>2018-12-06T16:00:00.000Z</pubTime>
-        
-        <tag>Hive</tag>
-         
-        <tag>bucket</tag>
          
          
            

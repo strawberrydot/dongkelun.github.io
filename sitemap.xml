@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dongkelun.com/2018/12/07/hiveBucketTable/</loc>
+    
+    <lastmod>2019-05-09T02:31:43.693Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dongkelun.com/2018/05/23/oggOracle2Kafka/</loc>
     
     <lastmod>2019-05-09T02:25:45.862Z</lastmod>
@@ -348,13 +355,6 @@
     <loc>https://dongkelun.com/2018/12/26/sparkSqlOptimize/</loc>
     
     <lastmod>2019-01-03T09:23:06.952Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dongkelun.com/2018/12/07/hiveBucketTable/</loc>
-    
-    <lastmod>2018-12-09T04:24:43.422Z</lastmod>
     
   </url>
   
