@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <meta name="referrer" content="no-referrer" />
+  <!-- <meta name="referrer" content="no-referrer" /> -->
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://dongkelun.com">
@@ -227,7 +227,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个异常是在在ambari里启动DataNode产生的，其实这个问题很久就发现了，只是没时间去处理，所以之前把发生问题的slave1节点给移除了，现在有时间处理，就又把slave1加上了，所以就有了<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>里面的问题，这个java权限不够的问题，在添加slave1之后，并安装datanode和nodemanager之后启动服务依然报错。</p>
 <p>异常信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro:行317: /opt/jdk1.8.0_151/bin/java: 权限不够</span><br><span class="line">/usr/hdp/2.6.4.0-91//hadoop-hdfs/bin/hdfs.distro: 第 317 行:exec: /opt/jdk1.8.0_151/bin/java: 无法执行: 权限不够</span><br></pre></td></tr></table></figure></p>
 <p>这个问题在网上找也找不到对应的解决办法，所以有必要单独记录一下，没有放在<a href="https://dongkelun.com/2018/07/10/ambariExceptions/">ambari 异常总结及解决办法</a>，且我认为即使不用ambari，该问题依然可能会发生。</p>
-<h2 id="1、详细异常信息"><a href="#1、详细异常信息" class="headerlink" title="1、详细异常信息"></a>1、详细异常信息</h2><p>部分截图:<br><img src="https://wx3.sinaimg.cn/large/e44344dcly1ft4wbrmbwsj20v109o752.jpg" alt=""><br>
+<h2 id="1、详细异常信息"><a href="#1、详细异常信息" class="headerlink" title="1、详细异常信息"></a>1、详细异常信息</h2><p>部分截图:<br><img src="https://tva3.sinaimg.cn/large/e44344dcly1ft4wbrmbwsj20v109o752.jpg" alt=""><br>
         
           <a class="article-more-a" href="/2018/07/10/HadoopException/#more">more >></a>
         
@@ -920,11 +920,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+                <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
               <li class="article-tag-list-item">
