@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2019/01/09/sparkExceptions/</loc>
+    <lastmod>2019-05-22T03:53:58.569Z</lastmod>
+    <data>
+        <display>
+        <title>Spark 异常总结及解决办法</title>
+        <pubTime>2019-01-08T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/12/07/hiveBucketTable/</loc>
     <lastmod>2019-05-09T02:31:43.693Z</lastmod>
     <data>
@@ -877,23 +894,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>https://dongkelun.com/2019/01/09/sparkExceptions/</loc>
-    <lastmod>2019-01-11T06:57:24.329Z</lastmod>
-    <data>
-        <display>
-        <title>Spark 异常总结及解决办法</title>
-        <pubTime>2019-01-08T16:00:00.000Z</pubTime>
-        
-        <tag>Spark</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>https://dongkelun.com/2019/01/07/sparkCheckPoint/</loc>
