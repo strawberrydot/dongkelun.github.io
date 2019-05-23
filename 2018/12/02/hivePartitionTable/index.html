@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://tva3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg">
 <meta property="og:image" content="https://tva4.sinaimg.cn/large/e44344dcly1fxsi6f3j0wg20sy0flu0x.gif">
 <meta property="og:image" content="https://tva3.sinaimg.cn/large/e44344dcly1fxsn6bsd3hg20sy0fl7wh.gif">
-<meta property="og:updated_time" content="2019-05-09T01:46:45.359Z">
+<meta property="og:updated_time" content="2019-05-23T01:01:41.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive分区表学习总结">
 <meta name="twitter:description" content="前言用了这么久的Hive，而没有认真的学习和使用过Hive的分区，现在学习记录一下。   分区表一般在数据量比较大，且有明确的分区字段时使用，这样用分区字段作为查询条件查询效率会比较高。 Hive分区分为静态分区和动态分区   1、建表语句先用一个有分区字段的分区表进行学习，静态分区和动态分区的建表语句是一样的。1234567create table test_partition (id stri">
@@ -266,11 +266,11 @@
 <p>静态分区是在语句中指定分区字段为某个固定值，多次重复插入数据是为了看看数据如何在hdfs上存储的。</p>
 </blockquote>
 <h4 id="2-1-1-insert-into"><a href="#2-1-1-insert-into" class="headerlink" title="2.1.1 insert into"></a>2.1.1 insert into</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>) <span class="keyword">values</span> (<span class="string">'001'</span>,<span class="string">'张三'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span>(<span class="keyword">year</span>=<span class="number">2018</span>) <span class="keyword">values</span> (<span class="string">'002'</span>,<span class="string">'李四'</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="2-1-2-load-data"><a href="#2-1-2-load-data" class="headerlink" title="2.1.2 load data"></a>2.1.2 load data</h4><p>data.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四</span><br><span class="line">003,王五</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-1-2-load-data"><a href="#2-1-2-load-data" class="headerlink" title="2.1.2 load data"></a>2.1.2 load data</h4><p>data.txt<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四</span><br><span class="line">003,王五</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span> =<span class="number">2018</span>);</span><br><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span> =<span class="number">2018</span>);</span><br><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span> =<span class="number">2017</span>);</span><br></pre></td></tr></table></figure>
 <h4 id="2-1-3-查询及结果"><a href="#2-1-3-查询及结果" class="headerlink" title="2.1.3 查询及结果"></a>2.1.3 查询及结果</h4><p><img src="https://tva3.sinaimg.cn/large/e44344dcly1fxsiazp6yqj20yq07gwet.jpg" alt=""></p>
 <h4 id="2-1-4-hdfs存储形式"><a href="#2-1-4-hdfs存储形式" class="headerlink" title="2.1.4 hdfs存储形式"></a>2.1.4 hdfs存储形式</h4><p><img src="https://tva4.sinaimg.cn/large/e44344dcly1fxsi6f3j0wg20sy0flu0x.gif" alt=""></p>
-<p>分区2018的路径为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/apps/hive/warehouse/dkl.db/test_partition/year=2018</span><br></pre></td></tr></table></figure></p>
+<p>分区2018的路径为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/apps/hive/warehouse/dkl.db/test_partition/year=2018</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>/apps/hive/warehouse 为hive的仓库路径</li>
 <li>dkl.db dkl为数据库名称</li>
@@ -284,7 +284,7 @@
 <blockquote>
 <p>注：上面的命令是临时生效，退出hive重新进hive需要重新执行上面的命令，才能动态分区</p>
 </blockquote>
-<h3 id="2-2-2-load-data"><a href="#2-2-2-load-data" class="headerlink" title="2.2.2 load data"></a>2.2.2 load data</h3><p>不能使用load data进行动态分区插入<br>data.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四,2015</span><br><span class="line">003,王五,2014</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-2-load-data"><a href="#2-2-2-load-data" class="headerlink" title="2.2.2 load data"></a>2.2.2 load data</h3><p>不能使用load data进行动态分区插入<br>data.txt<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">002,李四,2015</span><br><span class="line">003,王五,2014</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span> inpath <span class="string">'/root/dkl/data/data.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> test_partition <span class="keyword">partition</span> (<span class="keyword">year</span>);</span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; load data local inpath '/root/dkl/data/data.txt' into table test_partition partition (year);</span><br><span class="line">FAILED: NullPointerException null</span><br></pre></td></tr></table></figure>
 <p>可以使用另一种方法解决</p>
@@ -646,14 +646,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -666,19 +658,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,11 +690,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,15 +698,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,6 +715,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,6 +738,18 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
@@ -746,23 +758,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -774,11 +774,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,10 +795,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">

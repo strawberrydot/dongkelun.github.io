@@ -18,7 +18,7 @@
 <meta property="og:description" content="前言最近其实一直在用Echarts写前端，之前也想过总结一下Echarts的用法，但是官网的例子已经很全了。写这篇博客是因为Echarts官网把很多地图的例子都去掉了，且不能下载地图Json的数据，而相关的博客又很少，搜到两个，但是不很符合自己的想法，所以就想自己实现总结一下最基本的地图钻取，代码上传到GitHub，这样便于后面再有相关需求的时候，直接从GitHub上下载下来，在这个基础上修改添加">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="https://tva4.sinaimg.cn/large/e44344dcly1fxmmzni353g20u40idb2b.gif">
-<meta property="og:updated_time" content="2019-05-09T01:46:06.651Z">
+<meta property="og:updated_time" content="2019-05-23T03:05:13.893Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Echarts中国地图三级钻取">
 <meta name="twitter:description" content="前言最近其实一直在用Echarts写前端，之前也想过总结一下Echarts的用法，但是官网的例子已经很全了。写这篇博客是因为Echarts官网把很多地图的例子都去掉了，且不能下载地图Json的数据，而相关的博客又很少，搜到两个，但是不很符合自己的想法，所以就想自己实现总结一下最基本的地图钻取，代码上传到GitHub，这样便于后面再有相关需求的时候，直接从GitHub上下载下来，在这个基础上修改添加">
@@ -252,7 +252,7 @@
 <h2 id="1、演示地址"><a href="#1、演示地址" class="headerlink" title="1、演示地址"></a>1、演示地址</h2><blockquote>
 <p>暂时在没有下级地图的时候会直接返回到第一级中国地图，后面可能改为：提示没有下级地图，然后增加一个回到一级地图的按钮</p>
 </blockquote>
-<p><a href="http://front-end.dongkelun.com/echarts-map" target="_blank" rel="noopener">http://front-end.dongkelun.com/echarts-map</a></p>
+<p><a href="http://gh.dongkelun.com/echarts-map" target="_blank" rel="noopener">http://gh.dongkelun.com/echarts-map</a></p>
 <h2 id="2、动图演示"><a href="#2、动图演示" class="headerlink" title="2、动图演示"></a>2、动图演示</h2><blockquote>
 <p>一张一张的截图，图片太多了，就先学了一下录制gif</p>
 </blockquote>
@@ -589,14 +589,6 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -609,19 +601,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,11 +633,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,15 +641,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -666,6 +658,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,6 +681,18 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
@@ -689,23 +701,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,11 +717,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">spark-submit</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -734,10 +738,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
