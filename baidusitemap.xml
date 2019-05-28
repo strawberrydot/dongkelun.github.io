@@ -4,6 +4,65 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2019/05/28/mysqlAndOracleSubString/</loc>
+    <lastmod>2019-05-28T08:04:47.672Z</lastmod>
+    <data>
+        <display>
+        <title>MySQL和Oracle字符串截取函数用法总结（比较）</title>
+        <pubTime>2019-05-27T16:00:00.000Z</pubTime>
+        
+        <tag>sql</tag>
+         
+        <tag>MySQL</tag>
+         
+        <tag>Oracle</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2019/05/27/LR1/</loc>
+    <lastmod>2019-05-28T02:43:07.543Z</lastmod>
+    <data>
+        <display>
+        <title>Logistic Regression 学习总结</title>
+        <pubTime>2019-05-26T16:00:00.000Z</pubTime>
+        
+        <tag>算法</tag>
+         
+        <tag>Logistic Regression</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2018/07/13/dbeaverConnectHive/</loc>
+    <lastmod>2019-05-27T01:02:27.541Z</lastmod>
+    <data>
+        <display>
+        <title>通过数据库客户端界面工具DBeaver连接Hive</title>
+        <pubTime>2018-07-12T16:00:00.000Z</pubTime>
+        
+        <tag>界面工具</tag>
+         
+        <tag>hive</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2018/11/27/echartsChinaMap/</loc>
     <lastmod>2019-05-23T03:05:13.893Z</lastmod>
     <data>
@@ -733,9 +792,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
@@ -812,25 +871,6 @@
         <tag>Scala</tag>
          
         <tag>HDFS</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/07/13/dbeaverConnectHive/</loc>
-    <lastmod>2019-05-09T01:45:55.713Z</lastmod>
-    <data>
-        <display>
-        <title>通过数据库客户端界面工具DBeaver连接Hive</title>
-        <pubTime>2018-07-12T16:00:00.000Z</pubTime>
-        
-        <tag>hive</tag>
-         
-        <tag>界面工具</tag>
          
          
            
@@ -1066,9 +1106,9 @@
         
         <tag>Spark</tag>
          
-        <tag>ml</tag>
-         
         <tag>算法</tag>
+         
+        <tag>ml</tag>
          
          
            
