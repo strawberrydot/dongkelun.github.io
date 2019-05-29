@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e44344dcly1g3iaaevhyzj20l504ujrf.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e44344dcly1g3iaaf891ij20l405974c.jpg">
 <meta property="og:image" content="https://tva3.sinaimg.cn/large/e44344dcly1g3iaafuz7jj20lb05fjrl.jpg">
-<meta property="og:updated_time" content="2019-05-29T09:05:45.651Z">
+<meta property="og:updated_time" content="2019-05-29T10:17:31.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle和MySQL如何判断是否为空或NULL">
 <meta name="twitter:description" content="前言如题，本文总结Oracle和MySQL如何判断是否为空或NULL 1、Oracle1.1 建表1234CREATE TABLE TEST_NULL (	ID VARCHAR2(100),	NAME VARCHAR2(100)) ; 1.2 INSERT123INSERT INTO TEST_NULL (ID, NAME) VALUES(&apos;001&apos;, &apos;张三&apos;);INSERT INTO TEST">
@@ -304,6 +304,9 @@
 <blockquote>
 <p>JavaScript is a prototype-based, multi-paradigm, dynamic language, supporting object-oriented, imperative, and declarative (e.g. functional programming) styles.<br>JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格</p>
 </blockquote>
+<h2 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h2><ul>
+<li><a href="https://dongkelun.com/2019/05/28/mysqlAndOracleSubString/">MySQL和Oracle字符串截取函数用法总结（比较）</a></li>
+</ul>
 
       
 
@@ -456,7 +459,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Oracle"><span class="toc-number">2.</span> <span class="toc-text">1、Oracle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-建表"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-INSERT"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 INSERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-查询"><span class="toc-number">2.3.</span> <span class="toc-text">1.3 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-所有数据"><span class="toc-number">2.3.1.</span> <span class="toc-text">1.3.1 所有数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-为空（NULL）的数据"><span class="toc-number">2.3.2.</span> <span class="toc-text">1.3.2 为空（NULL）的数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-不为空（NULL）的数据"><span class="toc-number">2.3.3.</span> <span class="toc-text">1.3.3 不为空（NULL）的数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、MySQL"><span class="toc-number">3.</span> <span class="toc-text">2、MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-建表"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-INSERT"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 INSERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-查询"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-所有数据"><span class="toc-number">3.3.1.</span> <span class="toc-text">2.3.1 所有数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-为NULL"><span class="toc-number">3.3.2.</span> <span class="toc-text">2.3.2 为NULL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-为-‘’"><span class="toc-number">3.3.3.</span> <span class="toc-text">2.3.3 为 ‘’</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-既不为空也不为NULL"><span class="toc-number">3.3.4.</span> <span class="toc-text">2.3.4 既不为空也不为NULL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-5-不为NULL"><span class="toc-number">3.3.5.</span> <span class="toc-text">2.3.5 不为NULL</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、总结"><span class="toc-number">4.</span> <span class="toc-text">3、总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#每日英语"><span class="toc-number">5.</span> <span class="toc-text">每日英语</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Oracle"><span class="toc-number">2.</span> <span class="toc-text">1、Oracle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-建表"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-INSERT"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 INSERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-查询"><span class="toc-number">2.3.</span> <span class="toc-text">1.3 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-所有数据"><span class="toc-number">2.3.1.</span> <span class="toc-text">1.3.1 所有数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-为空（NULL）的数据"><span class="toc-number">2.3.2.</span> <span class="toc-text">1.3.2 为空（NULL）的数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-不为空（NULL）的数据"><span class="toc-number">2.3.3.</span> <span class="toc-text">1.3.3 不为空（NULL）的数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、MySQL"><span class="toc-number">3.</span> <span class="toc-text">2、MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-建表"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-INSERT"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 INSERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-查询"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-所有数据"><span class="toc-number">3.3.1.</span> <span class="toc-text">2.3.1 所有数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-为NULL"><span class="toc-number">3.3.2.</span> <span class="toc-text">2.3.2 为NULL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-为-‘’"><span class="toc-number">3.3.3.</span> <span class="toc-text">2.3.3 为 ‘’</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-既不为空也不为NULL"><span class="toc-number">3.3.4.</span> <span class="toc-text">2.3.4 既不为空也不为NULL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-5-不为NULL"><span class="toc-number">3.3.5.</span> <span class="toc-text">2.3.5 不为NULL</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、总结"><span class="toc-number">4.</span> <span class="toc-text">3、总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#每日英语"><span class="toc-number">5.</span> <span class="toc-text">每日英语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关文章"><span class="toc-number">6.</span> <span class="toc-text">相关文章</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -642,6 +645,18 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
@@ -658,19 +673,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,15 +697,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Partition</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+                <a href="javascript:void(0)" class="js-tag color2">bucket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Echarts</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">front-end</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,15 +729,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,7 +741,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color5">异常解决</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,10 +757,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
@@ -762,19 +765,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark Streaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -794,7 +797,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,11 +805,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -842,15 +845,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">yarn</a>
               </li>
              
               <li class="article-tag-list-item">
