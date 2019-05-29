@@ -4,8 +4,27 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2019/05/29/oracleAndMysqlNull/</loc>
+    <lastmod>2019-05-29T09:05:45.651Z</lastmod>
+    <data>
+        <display>
+        <title>Oracle和MySQL如何判断是否为空或NULL</title>
+        <pubTime>2019-05-28T16:00:00.000Z</pubTime>
+        
+        <tag>sql</tag>
+         
+        <tag>Oracle</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2019/05/28/mysqlAndOracleSubString/</loc>
-    <lastmod>2019-05-28T08:04:47.672Z</lastmod>
+    <lastmod>2019-05-28T10:03:06.891Z</lastmod>
     <data>
         <display>
         <title>MySQL和Oracle字符串截取函数用法总结（比较）</title>
@@ -13,9 +32,9 @@
         
         <tag>sql</tag>
          
-        <tag>MySQL</tag>
-         
         <tag>Oracle</tag>
+         
+        <tag>MySQL</tag>
          
          
            
@@ -259,9 +278,9 @@
         
         <tag>Spark</tag>
          
-        <tag>SparkStreaming</tag>
-         
         <tag>Kafka</tag>
+         
+        <tag>SparkStreaming</tag>
          
          
            
@@ -499,9 +518,9 @@
         <title>Spark连接Hive（spark-shell和Eclipse两种方式）</title>
         <pubTime>2018-03-24T16:00:00.000Z</pubTime>
         
-        <tag>Spark</tag>
-         
         <tag>hive</tag>
+         
+        <tag>Spark</tag>
          
          
            
@@ -716,9 +735,9 @@
         
         <tag>Spark</tag>
          
-        <tag>SparkStreaming</tag>
-         
         <tag>Kafka</tag>
+         
+        <tag>SparkStreaming</tag>
          
          
            
@@ -735,9 +754,9 @@
         <title>Kafka安装启动入门教程</title>
         <pubTime>2018-05-20T16:00:00.000Z</pubTime>
         
-        <tag>Kafka</tag>
-         
         <tag>centos7</tag>
+         
+        <tag>Kafka</tag>
          
          
            
@@ -754,9 +773,9 @@
         <title>hive查询报错:java.io.IOException:org.apache.parquet.io.ParquetDecodingException</title>
         <pubTime>2018-05-19T16:00:00.000Z</pubTime>
         
-        <tag>Spark</tag>
-         
         <tag>hive</tag>
+         
+        <tag>Spark</tag>
          
         <tag>异常解决</tag>
          
@@ -1104,9 +1123,9 @@
         <title>spark ML算法之线性回归使用</title>
         <pubTime>2018-04-08T16:00:00.000Z</pubTime>
         
-        <tag>Spark</tag>
-         
         <tag>算法</tag>
+         
+        <tag>Spark</tag>
          
         <tag>ml</tag>
          
