@@ -4,8 +4,8 @@
 
     
   <url>
-    <loc>https://dongkelun.com/2019/05/30/2019-05-30/</loc>
-    <lastmod>2019-05-30T10:48:53.744Z</lastmod>
+    <loc>https://dongkelun.com/2019/05/30/sparkCsvException/</loc>
+    <lastmod>2019-05-30T11:05:52.597Z</lastmod>
     <data>
         <display>
         <title>Spark读取CSV异常 java.lang.ArrayIndexOutOfBoundsException:62</title>
@@ -32,9 +32,9 @@
         
         <tag>sql</tag>
          
-        <tag>Oracle</tag>
-         
         <tag>MySQL</tag>
+         
+        <tag>Oracle</tag>
          
          
            
@@ -53,9 +53,9 @@
         
         <tag>sql</tag>
          
-        <tag>Oracle</tag>
-         
         <tag>MySQL</tag>
+         
+        <tag>Oracle</tag>
          
          
            
@@ -832,9 +832,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>centos</tag>
+         
+        <tag>hive</tag>
          
          
            
