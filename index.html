@@ -226,12 +226,10 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如题，记录在Spark ML LR中如何解决数据不平衡。参考：<a href="https://stackoverflow.com/questions/33372838/dealing-with-unbalanced-datasets-in-spark-mllib" target="_blank" rel="noopener">Dealing with unbalanced datasets in Spark MLlib</a></p>
 <h2 id="1、数据不平衡"><a href="#1、数据不平衡" class="headerlink" title="1、数据不平衡"></a>1、数据不平衡</h2><p>指label == 1和label == 0 的数据比例的很多，如80%和20%，这样导致模型的结果的准确率也不平衡，不准确。</p>
-<h2 id="2、setWeightCol-主要代码"><a href="#2、setWeightCol-主要代码" class="headerlink" title="2、setWeightCol 主要代码"></a>2、setWeightCol 主要代码</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> lableCol = <span class="string">"label"</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">balanceDataset</span></span>(dataset: <span class="type">DataFrame</span>): <span class="type">DataFrame</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Re-balancing (weighting) of records to be used in the logistic loss objective function</span></span><br><span class="line">    <span class="keyword">val</span> numNegatives = dataset.filter(dataset(lableCol) === <span class="number">0</span>).count</span><br><span class="line">    <span class="keyword">val</span> datasetSize = dataset.count</span><br><span class="line">    <span class="keyword">val</span> balancingRatio = (datasetSize - numNegatives).toDouble / datasetSize</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> calculateWeights = udf &#123; d: <span class="type">Double</span> =&gt;</span><br><span class="line">      <span class="keyword">if</span> (d == <span class="number">0.0</span>) &#123;</span><br><span class="line">        <span class="number">1</span> * balancingRatio</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        (<span class="number">1</span> * (<span class="number">1.0</span> - balancingRatio))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> weightedDataset = dataset.withColumn(<span class="string">"classWeightCol"</span>, calculateWeights(dataset(lableCol)))</span><br><span class="line">    weightedDataset</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> df_weighted = balanceDataset(df)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> lr = <span class="keyword">new</span> <span class="type">LogisticRegression</span>().setLabelCol(lableCol).setWeightCol(<span class="string">"classWeightCol"</span>)</span><br></pre></td></tr></table></figure>
-<p>  这样就很方便解决了数据不平衡的问题</p>
-<h2 id="3、其他方法"><a href="#3、其他方法" class="headerlink" title="3、其他方法"></a>3、其他方法</h2><p>  最开始不知道有setWeightCol这个方法，我是按下面的方法解决的，记录一下</p>
-<p>  下面假设label=0的数据大于label=1的数据<br>  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将label = 0的随机抽样，使label=1数量和label=0的数量大致相同</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample</span></span>(df: <span class="type">DataFrame</span>): <span class="type">DataFrame</span> = &#123;</span><br><span class="line">  <span class="keyword">val</span> df0 = df.where(<span class="string">s"<span class="subst">$&#123;lableCol&#125;</span>=0"</span>)</span><br><span class="line">  <span class="keyword">val</span> df1 = df.where(<span class="string">s"<span class="subst">$&#123;lableCol&#125;</span>=1"</span>)</span><br><span class="line">  <span class="keyword">val</span> y0 = df0.count()</span><br><span class="line">  <span class="keyword">val</span> y1 = df1.count()</span><br><span class="line">  <span class="keyword">val</span> num = <span class="number">1.0</span> * y1 / y0</span><br><span class="line">  <span class="keyword">val</span> df00 = df0.sample(<span class="literal">false</span>, num) <span class="comment">//解决类别数据平衡性问题，对没有违约样本进行随机抽样</span></span><br><span class="line"></span><br><span class="line">  df00.union(df1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>  或<br>  <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 是将label=1 的复制多份，使label=1数量和label=0的数量大致相同</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">copy</span></span>(df: <span class="type">DataFrame</span>): <span class="type">DataFrame</span> = &#123;</span><br><span class="line">  <span class="keyword">var</span> df_res = df</span><br><span class="line">  <span class="keyword">val</span> df1 = df.where(<span class="string">s"<span class="subst">$&#123;lableCol&#125;</span>=1"</span>)</span><br><span class="line">  <span class="keyword">val</span> y0 = df.where(<span class="string">s"<span class="subst">$&#123;lableCol&#125;</span>=0"</span>).count()</span><br><span class="line">  <span class="keyword">val</span> y1 = df1.count()</span><br><span class="line">  <span class="keyword">val</span> num = (y0 / y1).toInt - <span class="number">1</span></span><br><span class="line">  <span class="keyword">for</span> (a &lt;- <span class="number">1</span> to num) &#123;</span><br><span class="line">    df_res = df_res.union(df1)</span><br><span class="line">  &#125;</span><br><span class="line">  df_res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+<h2 id="2、setWeightCol-主要代码"><a href="#2、setWeightCol-主要代码" class="headerlink" title="2、setWeightCol 主要代码"></a>2、setWeightCol 主要代码</h2>
+        
+          <a class="article-more-a" href="/2019/06/03/use-setWeightCol-dealing-with-unbalanced-datasets-in-spark-ml/#more">more >></a>
+        
       
 
       
@@ -246,11 +244,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -506,11 +504,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
         		</li>
       		
 		</ul>
@@ -649,11 +647,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
         		</li>
       		
 		</ul>
@@ -848,6 +846,18 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
@@ -864,31 +874,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SparkStreaming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">centos7</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -920,6 +910,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ibatis</a>
               </li>
              
@@ -932,10 +930,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Partition</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -944,15 +938,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -960,15 +946,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">界面工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1012,10 +1010,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
@@ -1025,6 +1019,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Vue CLI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1052,6 +1050,14 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Partitions</a>
               </li>
              
@@ -1065,14 +1071,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">UDF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">压缩文件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">编码问题</a>
               </li>
              
               <li class="article-tag-list-item">
