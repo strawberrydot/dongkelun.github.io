@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2019/06/03/use-setWeightCol-dealing-with-unbalanced-datasets-in-spark-ml/</loc>
+    <lastmod>2019-06-03T06:53:56.944Z</lastmod>
+    <data>
+        <display>
+        <title>Spark ML LR 用 setWeightCol 解决数据不平衡</title>
+        <pubTime>2019-06-02T16:00:00.000Z</pubTime>
+        
+        <tag>算法</tag>
+         
+        <tag>Spark</tag>
+         
+        <tag>ml</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2019/05/31/2019-05-31/</loc>
     <lastmod>2019-05-31T15:02:48.847Z</lastmod>
     <data>
@@ -66,9 +87,9 @@
         
         <tag>sql</tag>
          
-        <tag>MySQL</tag>
-         
         <tag>Oracle</tag>
+         
+        <tag>MySQL</tag>
          
          
            
@@ -87,9 +108,9 @@
         
         <tag>sql</tag>
          
-        <tag>MySQL</tag>
-         
         <tag>Oracle</tag>
+         
+        <tag>MySQL</tag>
          
          
            
@@ -866,9 +887,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>centos</tag>
+         
+        <tag>hive</tag>
          
          
            
