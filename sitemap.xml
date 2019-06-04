@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dongkelun.com/2019/06/04/vueDeployGithubPages/</loc>
+    
+    <lastmod>2019-06-04T08:27:41.462Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dongkelun.com/2019/06/03/use-setWeightCol-dealing-with-unbalanced-datasets-in-spark-ml/</loc>
     
-    <lastmod>2019-06-03T07:29:07.271Z</lastmod>
+    <lastmod>2019-06-04T06:40:55.159Z</lastmod>
     
   </url>
   
