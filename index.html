@@ -203,6 +203,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-sealedClasses" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/05/sealedClasses/">Sealed classes</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/05/sealedClasses/" class="archive-article-date">
+  	<time datetime="2019-06-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-05</time>
+</a>
+        
+      </header>
+	    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Sealed-classes"><a href="#Sealed-classes" class="headerlink" title="Sealed classes"></a>Sealed classes</h2><p>Traits and classes can be marked sealed which means all subtypes must be declared in the same file. This assures that all subtypes are known.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sealed</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Furniture</span></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Couch</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">Furniture</span></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Chair</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">Furniture</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">def</span> <span class="title">findPlaceToSit</span>(<span class="params">piece: <span class="type">Furniture</span></span>)</span>: <span class="type">String</span> = piece <span class="keyword">match</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> a: <span class="type">Couch</span> =&gt; <span class="string">"Lie on the couch"</span></span><br><span class="line">  <span class="keyword">case</span> b: <span class="type">Chair</span> =&gt; <span class="string">"Sit on the chair"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>This is useful for pattern matching because we don’t need a “catch all” case.<br>
+        
+          <a class="article-more-a" href="/2019/06/05/sealedClasses/#more">more >></a>
+        
+      
+
+      
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+	   
+		  
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+		  
+
+	  
+	 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/05/sealedClasses/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vueDeployGithubPages" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -226,24 +308,9 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue</p>
 <h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><p>1、首先在Git上建立一个项目，如<a href="https://github.com/dongkelun/vue-echarts-map" target="_blank" rel="noopener">vue-echarts-map</a></p>
-<p>2、然后将本地项目push到远程master （非必须）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"# vue-echarts-map"</span> &gt;&gt; README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m <span class="string">"first commit"</span></span><br><span class="line">git remote add origin https://github.com/dongkelun/vue-echarts-map.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
-<p>3、主要是下面这一步，将打包后的dist文件夹push到gh-pages<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br><span class="line">git checkout -b gh-pages</span><br><span class="line">git add -f dist</span><br><span class="line">git commit -m <span class="string">'first commit'</span></span><br><span class="line">git subtree push --prefix dist origin gh-pages</span><br></pre></td></tr></table></figure></p>
-<p>这样就可以直接在浏览器查看效果了<a href="http://gh.dongkelun.com/vue-echarts-map" target="_blank" rel="noopener">http://gh.dongkelun.com/vue-echarts-map</a></p>
-<blockquote>
-<p>备注：1、我这里做了域名绑定 dongkelun.github.io=&gt;gh.dongkelun.com 没有域名的直接访问<a href="http://dongkelun.github.io/vue-echarts-map" target="_blank" rel="noopener">http://dongkelun.github.io/vue-echarts-map</a><br>2、还有首先你先创建一个类似yourgithubname.github.io这样格式的GitHub仓库，然后按上面把dist文件夹（即静态文件夹）push到gh-pages分支，就会自动部署了。<br>域名绑定只需在dongkelun.github.io仓库做一次即可，即加一个CNAME，然后域名加解析，这里不做详细说明~<br>3、如果你不用gh-pages分支，或者你不想分享源代码，你可以直接将dist文件夹push到master分支，但是需要自己在Setting里设置，用哪个分支部署，默认是gh-pages分支<br>如<a href="https://github.com/dongkelun/echarts-map" target="_blank" rel="noopener">echarts-map</a></p>
-</blockquote>
-<p>参考：<a href="https://www.jianshu.com/p/cc053119f119" target="_blank" rel="noopener">如何在 GitHub Pages 上部署 vue-cli 项目</a></p>
-<h2 id="每日英语"><a href="#每日英语" class="headerlink" title="每日英语"></a>每日英语</h2><ul>
-<li>1、<a href="http://dict.youdao.com/w/binomial/#keyfrom=dict2.top" target="_blank" rel="noopener">binomial</a> adj. 二项式的；双名的，二种名称的 n. 二项式；双名词组，二种名称；成对词</li>
-<li>2、<a href="http://dict.youdao.com/w/multinomial/#keyfrom=dict2.top" target="_blank" rel="noopener">multinomial</a> adj. 多项的 n. 多项式</li>
-<li>3、<a href="http://dict.youdao.com/w/outcome/#keyfrom=dict2.top" target="_blank" rel="noopener">outcome</a> n. 结果，结局；成果</li>
-<li>4、<a href="http://dict.youdao.com/w/variant/#keyfrom=dict2.top" target="_blank" rel="noopener">variant</a> 变量（variate） n. 变体；转化 adj. 不同的；多样的</li>
-<li>5、<a href="http://dict.youdao.com/w/Elastic%20Net/#keyfrom=dict2.top" target="_blank" rel="noopener">Elastic Net</a> 弹性网络 <a href="https://blog.csdn.net/m0_37167788/article/details/78657523" target="_blank" rel="noopener">机器学习算法与Python实践(9) - 弹性网络（Elastic Net）</a> <a href="https://en.wikipedia.org/wiki/Elastic_net_regularization" target="_blank" rel="noopener">Elastic net regularization</a></li>
-</ul>
-<blockquote>
-<p>Logistic regression is a popular method to predict a categorical response. It is a special case of Generalized Linear models that predicts the probability of the outcomes. In spark.ml logistic regression can be used to predict a binary outcome by using binomial logistic regression, or it can be used to predict a multiclass outcome by using multinomial logistic regression. Use the family parameter to select between these two algorithms, or leave it unset and Spark will infer the correct variant.<br>以下为谷歌浏览器翻译：<br>逻辑回归是预测分类响应的常用方法。广义线性模型的一个特例是预测结果的概率。在spark.ml逻辑回归中，可以使用二项逻辑回归来预测二元结果，或者可以使用多项逻辑回归来预测多类结果。使用该family 参数在这两种算法之间进行选择，或者保持不设置，Spark将推断出正确的变量。</p>
-</blockquote>
-
+        
+          <a class="article-more-a" href="/2019/06/04/vueDeployGithubPages/#more">more >></a>
+        
       
 
       
@@ -349,11 +416,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -564,100 +631,9 @@
 
 
   
-    <article id="post-oracleAndMysqlNull" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/oracleAndMysqlNull/">Oracle和MySQL如何判断是否为空或NULL</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/29/oracleAndMysqlNull/" class="archive-article-date">
-  	<time datetime="2019-05-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-29</time>
-</a>
-        
-      </header>
-	    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如题，本文总结Oracle和MySQL如何判断是否为空或NULL</p>
-<h2 id="1、Oracle"><a href="#1、Oracle" class="headerlink" title="1、Oracle"></a>1、Oracle</h2><h3 id="1-1-建表"><a href="#1-1-建表" class="headerlink" title="1.1 建表"></a>1.1 建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TEST_NULL (</span><br><span class="line">	<span class="keyword">ID</span> VARCHAR2(<span class="number">100</span>),</span><br><span class="line">	<span class="keyword">NAME</span> VARCHAR2(<span class="number">100</span>)</span><br><span class="line">) ;</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-INSERT"><a href="#1-2-INSERT" class="headerlink" title="1.2 INSERT"></a>1.2 INSERT</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEST_NULL (<span class="keyword">ID</span>, <span class="keyword">NAME</span>) <span class="keyword">VALUES</span>(<span class="string">'001'</span>, <span class="string">'张三'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEST_NULL (<span class="keyword">ID</span>, <span class="keyword">NAME</span>) <span class="keyword">VALUES</span>(<span class="string">''</span>, <span class="string">''</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEST_NULL (<span class="keyword">ID</span>, <span class="keyword">NAME</span>) <span class="keyword">VALUES</span>(<span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/05/29/oracleAndMysqlNull/#more">more >></a>
-        
-      
-
-      
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-	   
-		  
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-		  
-
-	  
-	 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/29/oracleAndMysqlNull/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -808,11 +784,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Logistic Regression</a>
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -828,11 +804,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -848,19 +824,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Logistic Regression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -869,6 +837,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -896,14 +872,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">zsh</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
@@ -916,7 +884,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">zsh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -925,10 +909,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -960,27 +940,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git-page</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -996,15 +964,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git-page</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">异常</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1017,6 +989,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">persist</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">异常</a>
               </li>
              
               <li class="article-tag-list-item">

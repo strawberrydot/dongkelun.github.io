@@ -9,18 +9,18 @@
   <link rel="dns-prefetch" href="https://dongkelun.com">
   <title>将Vue项目部署到Github Page上 | 伦少的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue 操作步骤1、首先在Git上建立一个项目，如vue-echarts-map 2、然后将本地项目push到远程master （非必须）123456echo &quot;# vue-echarts-map&quot; &amp;gt;&amp;gt; README">
+  <meta name="description" content="前言本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue 操作步骤1、首先在Git上建立一个项目，如vue-echarts-map">
 <meta name="keywords" content="vue,git,git-page">
 <meta property="og:type" content="article">
 <meta property="og:title" content="将Vue项目部署到Github Page上">
 <meta property="og:url" content="https://dongkelun.com/2019/06/04/vueDeployGithubPages/index.html">
 <meta property="og:site_name" content="伦少的博客">
-<meta property="og:description" content="前言本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue 操作步骤1、首先在Git上建立一个项目，如vue-echarts-map 2、然后将本地项目push到远程master （非必须）123456echo &quot;# vue-echarts-map&quot; &amp;gt;&amp;gt; README">
+<meta property="og:description" content="前言本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue 操作步骤1、首先在Git上建立一个项目，如vue-echarts-map">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2019-06-04T08:27:41.462Z">
+<meta property="og:updated_time" content="2019-06-05T06:56:51.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="将Vue项目部署到Github Page上">
-<meta name="twitter:description" content="前言本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue 操作步骤1、首先在Git上建立一个项目，如vue-echarts-map 2、然后将本地项目push到远程master （非必须）123456echo &quot;# vue-echarts-map&quot; &amp;gt;&amp;gt; README">
+<meta name="twitter:description" content="前言本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue 操作步骤1、首先在Git上建立一个项目，如vue-echarts-map">
   
     <link rel="alternative" href="/atom.xml" title="伦少的博客" type="application/atom+xml">
   
@@ -252,6 +252,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文讲如何将Vue项目的dist文件夹部署到Github Page上，目的是可以在线访问前端效果，这样不需要自己购买服务器，当然任何静态文件夹都可以这样做，不止局限于Vue</p>
 <h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><p>1、首先在Git上建立一个项目，如<a href="https://github.com/dongkelun/vue-echarts-map" target="_blank" rel="noopener">vue-echarts-map</a></p>
+<a id="more"></a>
 <p>2、然后将本地项目push到远程master （非必须）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"# vue-echarts-map"</span> &gt;&gt; README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m <span class="string">"first commit"</span></span><br><span class="line">git remote add origin https://github.com/dongkelun/vue-echarts-map.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
 <p>3、主要是下面这一步，将打包后的dist文件夹push到gh-pages<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br><span class="line">git checkout -b gh-pages</span><br><span class="line">git add -f dist</span><br><span class="line">git commit -m <span class="string">'first commit'</span></span><br><span class="line">git subtree push --prefix dist origin gh-pages</span><br></pre></td></tr></table></figure></p>
 <p>这样就可以直接在浏览器查看效果了<a href="http://gh.dongkelun.com/vue-echarts-map" target="_blank" rel="noopener">http://gh.dongkelun.com/vue-echarts-map</a></p>
@@ -391,6 +392,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/06/05/sealedClasses/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Sealed classes
+        
+      </div>
+    </a>
   
   
     <a href="/2019/06/03/use-setWeightCol-dealing-with-unbalanced-datasets-in-spark-ml/" id="article-nav-older" class="article-nav-link-wrap">
@@ -599,11 +609,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Logistic Regression</a>
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,11 +629,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,19 +649,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DataFrame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Logistic Regression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -660,6 +662,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">front-end</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,14 +697,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">zsh</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
@@ -707,7 +709,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">zsh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,10 +734,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">日期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,27 +765,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git-page</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -787,15 +789,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git-page</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">异常</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -808,6 +814,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">persist</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">异常</a>
               </li>
              
               <li class="article-tag-list-item">

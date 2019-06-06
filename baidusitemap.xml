@@ -4,8 +4,25 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2019/06/05/sealedClasses/</loc>
+    <lastmod>2019-06-05T06:57:18.383Z</lastmod>
+    <data>
+        <display>
+        <title>Sealed classes</title>
+        <pubTime>2019-06-04T16:00:00.000Z</pubTime>
+        
+        <tag>scala</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2019/06/04/vueDeployGithubPages/</loc>
-    <lastmod>2019-06-04T08:27:41.462Z</lastmod>
+    <lastmod>2019-06-05T06:56:51.872Z</lastmod>
     <data>
         <display>
         <title>将Vue项目部署到Github Page上</title>
@@ -32,9 +49,9 @@
         <title>Spark ML LR 用 setWeightCol 解决数据不平衡</title>
         <pubTime>2019-06-02T16:00:00.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>Spark</tag>
+         
+        <tag>算法</tag>
          
         <tag>ml</tag>
          
@@ -908,9 +925,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>centos</tag>
+         
+        <tag>hive</tag>
          
          
            
@@ -1220,9 +1237,9 @@
         <title>spark ML算法之线性回归使用</title>
         <pubTime>2018-04-08T16:00:00.000Z</pubTime>
         
-        <tag>算法</tag>
-         
         <tag>Spark</tag>
+         
+        <tag>算法</tag>
          
         <tag>ml</tag>
          
