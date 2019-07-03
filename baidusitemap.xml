@@ -4,6 +4,63 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2019/07/03/elkbConf/</loc>
+    <lastmod>2019-07-03T07:33:44.640Z</lastmod>
+    <data>
+        <display>
+        <title>Centos7 ELKB 7.2.0版本单机部署</title>
+        <pubTime>2019-07-02T16:00:00.000Z</pubTime>
+        
+        <tag>centos7</tag>
+         
+        <tag>ELKB</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2019/06/06/linuxCrontab/</loc>
+    <lastmod>2019-07-03T07:31:27.677Z</lastmod>
+    <data>
+        <display>
+        <title>Linux 定时任务命令crontab学习总结</title>
+        <pubTime>2019-06-05T16:00:00.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>crontab</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2019/06/10/kafkaLearing/</loc>
+    <lastmod>2019-06-16T05:53:00.075Z</lastmod>
+    <data>
+        <display>
+        <title>Kafka学习笔记（1）</title>
+        <pubTime>2019-06-09T16:00:00.000Z</pubTime>
+        
+        <tag>Kafka</tag>
+         
+        <tag>centos7</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2019/06/05/sealedClasses/</loc>
     <lastmod>2019-06-05T06:57:18.383Z</lastmod>
     <data>
