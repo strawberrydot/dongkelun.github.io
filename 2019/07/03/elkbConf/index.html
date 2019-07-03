@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://tva4.sinaimg.cn/large/e44344dcly1g4mnp8f25wj21hc0tuacu.jpg">
 <meta property="og:image" content="https://tva3.sinaimg.cn/large/e44344dcly1g4mnp8xho4j21hc0u0tbo.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e44344dcly1g4mnp9cm7yj21hc0u0gsd.jpg">
-<meta property="og:updated_time" content="2019-07-03T07:33:44.640Z">
+<meta property="og:updated_time" content="2019-07-03T07:46:39.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7 ELKB 7.2.0版本单机部署">
 <meta name="twitter:description" content="前言本人新手，本文记录简单的ELKB单机部署，ELKB分别指elasticsearch、logstash、kibana、filebeat，用的当前官网最新版本7.2.0，日志用的Nginx产生的日志。  Nginx可以参考我这篇：Nginx 安装配置，我本次用的Nginx和这篇文章是一样的，包括前端。  1、安装包下载地址：https://www.elastic.co/cn/downloads/">
@@ -280,7 +280,7 @@
 <p>修改host，这样可以在其他机器上的浏览器，用ip+端口去访问kibana<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.host: <span class="string">"0.0.0.0"</span></span><br></pre></td></tr></table></figure></p>
 <p>启动,Kibana也不能用root用户启动</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup bin/kibana &amp;</span><br></pre></td></tr></table></figure>
-<p>在浏览器里，输入yourip::5601 访问成功即代表启动成功</p>
+<p>在浏览器里，输入yourip:5601 访问成功即代表启动成功</p>
 <h2 id="7-filebeat"><a href="#7-filebeat" class="headerlink" title="7 filebeat"></a>7 filebeat</h2><p>root下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> filebeat-7.2.0-linux-x86_64</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>下面主要是将filebeat.inputs的enabled改为true,paths改为需要采集的日志文件，这里使用的Nginx的日志，然后将output.elasticsearch注释掉，output.logstash打开，也就是用filebeat将日志采集传给logstash，然后再由logstash传给elasticsearch，而不是默认的直接传，注意：当然还有其他默认的注释的我没有贴出来</p>
@@ -623,6 +623,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
@@ -632,14 +640,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ambari</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,35 +763,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">转载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">持久化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">persist</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">异常</a>
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -819,6 +795,10 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">vmware</a>
               </li>
              
@@ -843,7 +823,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ml</a>
+                <a href="javascript:void(0)" class="js-tag color2">oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">持久化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">persist</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">异常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
