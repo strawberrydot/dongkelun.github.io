@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2019/07/29/sqlUnion/</loc>
+    <lastmod>2019-07-29T09:26:03.318Z</lastmod>
+    <data>
+        <display>
+        <title>SQL UNION 和 UNION ALL</title>
+        <pubTime>2019-07-28T16:00:00.000Z</pubTime>
+        
+        <tag>SQL</tag>
+         
+        <tag>UNION</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2019/07/16/ideaMavenScalaJava/</loc>
     <lastmod>2019-07-18T13:18:58.550Z</lastmod>
     <data>
@@ -1005,9 +1024,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>centos</tag>
-         
         <tag>hive</tag>
+         
+        <tag>centos</tag>
          
          
            
