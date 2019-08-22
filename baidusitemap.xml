@@ -4,6 +4,44 @@
 
     
   <url>
+    <loc>https://dongkelun.com/2018/12/26/sparkSqlOptimize/</loc>
+    <lastmod>2019-08-13T12:20:53.564Z</lastmod>
+    <data>
+        <display>
+        <title>Spark SQL 优化笔记</title>
+        <pubTime>2018-12-25T16:00:00.000Z</pubTime>
+        
+        <tag>Spark</tag>
+         
+        <tag>SQL</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://dongkelun.com/2019/07/31/pythonMysql/</loc>
+    <lastmod>2019-08-04T00:43:21.101Z</lastmod>
+    <data>
+        <display>
+        <title>Python 连接 MYSQL</title>
+        <pubTime>2019-07-30T16:00:00.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>MYSQL</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://dongkelun.com/2019/07/29/sqlUnion/</loc>
     <lastmod>2019-07-29T09:26:03.318Z</lastmod>
     <data>
@@ -1024,9 +1062,9 @@
         <title>centos7 hive 单机模式安装配置</title>
         <pubTime>2018-03-23T16:00:00.000Z</pubTime>
         
-        <tag>hive</tag>
-         
         <tag>centos</tag>
+         
+        <tag>hive</tag>
          
          
            
@@ -1199,25 +1237,6 @@
         <pubTime>2018-12-13T16:00:00.000Z</pubTime>
         
         <tag>Scala</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://dongkelun.com/2018/12/26/sparkSqlOptimize/</loc>
-    <lastmod>2019-01-03T09:23:06.952Z</lastmod>
-    <data>
-        <display>
-        <title>Spark SQL 优化笔记</title>
-        <pubTime>2018-12-25T16:00:00.000Z</pubTime>
-        
-        <tag>Spark</tag>
-         
-        <tag>SQL</tag>
          
          
            
